@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{6FD6298E-89C8-394D-8A78-6370DD109A05}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{1A8FA356-B823-C14B-807A-8C5DD01E29B8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Header">
+      <UniqueIdentifier>{d8e09ce9-0b9c-4efb-80bc-938461d3e264}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP">
+      <UniqueIdentifier>{634e8c76-f4b5-40e0-a850-2bc5ba296421}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\data\config\CreationTemplate.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Payload.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Payloadd.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Payloadp.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\SettingsTemplate.ini">
+      <Filter>config</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Payload.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrollMod.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="RaycastData.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="Spawner.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Payload.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrollMod.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="RaycastData.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="Spawner.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

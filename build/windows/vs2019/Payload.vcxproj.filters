@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="16.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="src">
+      <UniqueIdentifier>{9853158E-BFC3-3D44-81DE-1651909D1BDA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="config">
+      <UniqueIdentifier>{4D9C939A-9056-274C-B03B-C0264C12F5BC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\data\config\CreationTemplate.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Payload.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Payloadd.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\Payloadp.ini">
+      <Filter>config</Filter>
+    </None>
+    <None Include="..\..\..\data\config\SettingsTemplate.ini">
+      <Filter>config</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\src\Payload.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
