@@ -1,14 +1,12 @@
-﻿  Payload.cpp
-  RaycastData.cpp
-  ScrollMod.cpp
-  Spawner.cpp
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\scrollmod.cpp(23): warning C4018: '<': signed/unsigned mismatch
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\scrollmod.cpp(38): warning C4018: '<': signed/unsigned mismatch
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\scrollmod.cpp(130): warning C4172: returning address of local variable or temporary: retVal
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\scrollmod.cpp(666): warning C4700: uninitialized local variable 'result' used
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\scrollmod.cpp(695): warning C4715: 'payload::ScrollMod::GetChildByName': not all control paths return a value
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\scrollmod.cpp(681): warning C4715: 'payload::ScrollMod::GetChildByName': not all control paths return a value
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\scrollmod.cpp(715): warning C4715: 'payload::ScrollMod::GetBodyPartByName': not all control paths return a value
+﻿  TileSet.cpp
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(24): warning C4838: conversion from 'int' to 'orxFLOAT' requires a narrowing conversion
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(24): warning C4244: 'initializing': conversion from 'int' to 'orxFLOAT', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(25): warning C4838: conversion from 'int' to 'orxFLOAT' requires a narrowing conversion
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(25): warning C4244: 'initializing': conversion from 'int' to 'orxFLOAT', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(26): warning C4838: conversion from 'int' to 'orxFLOAT' requires a narrowing conversion
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(26): warning C4244: 'initializing': conversion from 'int' to 'orxFLOAT', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(27): warning C4838: conversion from 'int' to 'orxFLOAT' requires a narrowing conversion
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(27): warning C4244: 'initializing': conversion from 'int' to 'orxFLOAT', possible loss of data
   Payload.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Payload\build\windows\vs2017\..\..\..\bin\Payloadd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

@@ -382,16 +382,22 @@
     <None Include="..\..\..\data\config\SettingsTemplate.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Drawn.h" />
     <ClInclude Include="Payload.h" />
     <ClInclude Include="RaycastData.h" />
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Spawner.h" />
+    <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileSet.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Drawn.cpp" />
     <ClCompile Include="Payload.cpp" />
     <ClCompile Include="RaycastData.cpp" />
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Spawner.cpp" />
+    <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileSet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

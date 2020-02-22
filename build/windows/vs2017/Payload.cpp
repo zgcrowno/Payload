@@ -5,6 +5,8 @@
 #define __SCROLL_IMPL__
 #include "Payload.h"
 #include "ScrollMod.h"
+#include "Tile.h"
+#include "TileSet.h"
 #undef __SCROLL_IMPL__
 
 using namespace payload;
@@ -25,7 +27,9 @@ orxSTATUS Payload::Init()
     orxSTATUS result = orxSTATUS_SUCCESS;
 
     // Instantiate game objects
-    CreateObject("O-SceneMain");
+    CreateObject("O-TileSet");
+    //CreateObject("O-Tile");
+    //CreateObject("O-SceneMain");
 
     return result;
 }
@@ -33,11 +37,20 @@ orxSTATUS Payload::Init()
 void Payload::BindObjects()
 {
     ScrollBindObject<ScrollMod>("O-ScrollMod");
+    ScrollBindObject<Tile>("O-Tile");
+    ScrollBindObject<TileSet>("O-TileSet");
 }
 
 orxSTATUS Payload::Run()
 {
-    return orxSTATUS_SUCCESS;
+    orxSTATUS retVal = orxSTATUS_SUCCESS;
+
+    if (orxInput_IsActive("Quit"))
+    {
+        retVal = orxSTATUS_FAILURE;
+    }
+
+    return retVal;
 }
 
 void Payload::Exit()

@@ -23,6 +23,9 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
 
+        static const float __fastcall GetScreenWidth();
+        static const float __fastcall GetScreenHeight();
+        static const orxVECTOR __fastcall WorldToScreenSpace(orxVECTOR _worldSpaceVec);
         static const std::vector<std::string> __fastcall GetObjectSections();
         static const std::vector<std::string> __fastcall GetDescendentSections(const std::string _parentSectionName);
         static const bool __fastcall SectionUsesParentSpace(const std::string _sectionName);

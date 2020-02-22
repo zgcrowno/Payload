@@ -17,6 +17,38 @@ void ScrollMod::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
+const float __fastcall ScrollMod::GetScreenWidth()
+{
+    float screenWidth;
+    float screenHeight;
+    orxDisplay_GetScreenSize(&screenWidth, &screenHeight);
+
+    return screenWidth;
+}
+
+const float __fastcall ScrollMod::GetScreenHeight()
+{
+    float screenWidth;
+    float screenHeight;
+    orxDisplay_GetScreenSize(&screenWidth, &screenHeight);
+
+    return screenHeight;
+}
+
+//TODO: Update this such that any camera (not just MainCamera) may be used.
+const orxVECTOR __fastcall ScrollMod::WorldToScreenSpace(orxVECTOR _worldSpaceVec)
+{
+    float screenWidth;
+    float screenHeight;
+    float frustumWidth = GetFloat("FrustumWidth", "MainCamera");
+    float frustumHeight = GetFloat("FrustumHeight", "MainCamera");
+    orxDisplay_GetScreenSize(&screenWidth, &screenHeight);
+    float widthRatio = screenWidth / frustumWidth;
+    float heightRatio = screenHeight / frustumHeight;
+
+    return { (_worldSpaceVec.fX * widthRatio) + screenWidth / 2, (_worldSpaceVec.fY * heightRatio) + screenHeight / 2 };
+}
+
 const std::vector<std::string> __fastcall ScrollMod::GetObjectSections()
 {
     std::vector<std::string> retVal;
@@ -509,12 +541,14 @@ void __fastcall ScrollMod::SetParentSpacePosition(const orxVECTOR &_position)
     orxOBJECT *parentObj = orxOBJECT(parent);
     if (parentObj != nullptr)
     {
+        orxVECTOR parentPos = orxVECTOR_0;
+        orxObject_GetPosition(parentObj, &parentPos);
         orxVECTOR parentSize = orxVECTOR_0;
         orxObject_GetSize(parentObj, &parentSize);
         orxVECTOR parentScale = orxVECTOR_0;
         orxObject_GetScale(parentObj, &parentScale);
         orxVECTOR parentScaledSize = { parentSize.fX * parentScale.fX, parentSize.fY * parentScale.fY, parentSize.fZ * parentScale.fZ };
-        orxVECTOR newPos = { _position.fX * parentScaledSize.fX, _position.fY * parentScaledSize.fY, _position.fZ * parentScaledSize.fZ };
+        orxVECTOR newPos = { parentPos.fX + _position.fX * parentScaledSize.fX, parentPos.fY + _position.fY * parentScaledSize.fY, parentPos.fZ +  _position.fZ * parentScaledSize.fZ };
         SetPosition(newPos);
     }
     else
