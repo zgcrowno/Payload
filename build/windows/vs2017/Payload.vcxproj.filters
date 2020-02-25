@@ -53,6 +53,9 @@
     <ClInclude Include="TileSet.h">
       <Filter>src\Header</Filter>
     </ClInclude>
+    <ClInclude Include="TileEdge.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -74,6 +77,9 @@
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="TileSet.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="TileEdge.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
   </ItemGroup>

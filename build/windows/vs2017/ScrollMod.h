@@ -25,7 +25,11 @@ namespace payload
 
         static const float __fastcall GetScreenWidth();
         static const float __fastcall GetScreenHeight();
-        static const orxVECTOR __fastcall WorldToScreenSpace(orxVECTOR _worldSpaceVec);
+        /// <summary>Converts the world space vector, <paramref name="_worldSpaceVec"/>, into its associated screen space vector.</summary>
+        /// <param name="_worldSpaceVec">The world space vector we're converting into its associated screen space vector.</param>
+        /// <param name="_size">If true, we're converting a size vector, not a coordinate vector, and so we don't need to translate the vector at all.</param>
+        /// <returns><paramref name="_worldSpaceVec"/>'s associated screen space vector.</returns>
+        static const orxVECTOR __fastcall WorldToScreenSpace(orxVECTOR _worldSpaceVec, const bool &_size = false);
         static const std::vector<std::string> __fastcall GetObjectSections();
         static const std::vector<std::string> __fastcall GetDescendentSections(const std::string _parentSectionName);
         static const bool __fastcall SectionUsesParentSpace(const std::string _sectionName);
@@ -202,6 +206,9 @@ namespace payload
         /// <summary>Sets the ScrollMod's position in terms of parent space, such that 0.5 represents the ScrollMod's maximum bound and -0.5 represents its minimum bound.</summary>
         /// <param name="_position">The position to which we'll set the ScrollMod, in terms of parent space.</param>
         void __fastcall SetParentSpacePosition(const orxVECTOR &_position);
+        /// <summary>Sets the ScrollMod's scale in terms of parent space, such that 1 represents 100% parent scaling, etc.</summary>
+        /// <param name="_scale">The scale to which we'll set the ScrollMod, in terms of parent space.</param>
+        void __fastcall SetParentSpaceScale(const orxVECTOR &_scale);
         /// <summary>A more object-oriented version of ORX's orxObject_GetActiveTime function.</summary>
         /// <returns>The amount of time that the ScrollMod has been alive, taking into account the ScrollMod's clock multiplier and periods of pause.</returns>
         float __fastcall GetActiveTime();

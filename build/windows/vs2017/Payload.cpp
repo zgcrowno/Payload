@@ -6,6 +6,7 @@
 #include "Payload.h"
 #include "ScrollMod.h"
 #include "Tile.h"
+#include "TileEdge.h"
 #include "TileSet.h"
 #undef __SCROLL_IMPL__
 
@@ -38,6 +39,7 @@ void Payload::BindObjects()
 {
     ScrollBindObject<ScrollMod>("O-ScrollMod");
     ScrollBindObject<Tile>("O-Tile");
+    ScrollBindObject<TileEdge>("O-TileEdge");
     ScrollBindObject<TileSet>("O-TileSet");
 }
 

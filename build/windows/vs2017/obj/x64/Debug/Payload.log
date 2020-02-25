@@ -1,12 +1,4 @@
-﻿  TileSet.cpp
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(24): warning C4838: conversion from 'int' to 'orxFLOAT' requires a narrowing conversion
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(24): warning C4244: 'initializing': conversion from 'int' to 'orxFLOAT', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(25): warning C4838: conversion from 'int' to 'orxFLOAT' requires a narrowing conversion
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(25): warning C4244: 'initializing': conversion from 'int' to 'orxFLOAT', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(26): warning C4838: conversion from 'int' to 'orxFLOAT' requires a narrowing conversion
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(26): warning C4244: 'initializing': conversion from 'int' to 'orxFLOAT', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(27): warning C4838: conversion from 'int' to 'orxFLOAT' requires a narrowing conversion
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(27): warning C4244: 'initializing': conversion from 'int' to 'orxFLOAT', possible loss of data
+﻿  Tile.cpp
   Payload.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Payload\build\windows\vs2017\..\..\..\bin\Payloadd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

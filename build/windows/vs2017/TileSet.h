@@ -24,10 +24,15 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     private:
+        bool m_2D;
+        bool m_cartesian;
         int m_numRows;
         int m_numColumns;
-        float m_width;
-        float m_height;
         std::vector<std::vector<Tile*>> m_tileRows;
+
+        const bool Cartesian2D();
+        const bool Cartesian1D();
+        const bool Polar2D();
+        const bool Polar1D();
     };
 }

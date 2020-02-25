@@ -36,7 +36,7 @@ const float __fastcall ScrollMod::GetScreenHeight()
 }
 
 //TODO: Update this such that any camera (not just MainCamera) may be used.
-const orxVECTOR __fastcall ScrollMod::WorldToScreenSpace(orxVECTOR _worldSpaceVec)
+const orxVECTOR __fastcall ScrollMod::WorldToScreenSpace(orxVECTOR _worldSpaceVec, const bool &_size)
 {
     float screenWidth;
     float screenHeight;
@@ -45,8 +45,15 @@ const orxVECTOR __fastcall ScrollMod::WorldToScreenSpace(orxVECTOR _worldSpaceVe
     orxDisplay_GetScreenSize(&screenWidth, &screenHeight);
     float widthRatio = screenWidth / frustumWidth;
     float heightRatio = screenHeight / frustumHeight;
+    float x = _worldSpaceVec.fX * widthRatio;
+    float y = _worldSpaceVec.fY * heightRatio;
+    if (!_size)
+    {
+        x += screenWidth / 2;
+        y += screenHeight / 2;
+    }
 
-    return { (_worldSpaceVec.fX * widthRatio) + screenWidth / 2, (_worldSpaceVec.fY * heightRatio) + screenHeight / 2 };
+    return { x, y };
 }
 
 const std::vector<std::string> __fastcall ScrollMod::GetObjectSections()
@@ -550,6 +557,28 @@ void __fastcall ScrollMod::SetParentSpacePosition(const orxVECTOR &_position)
         orxVECTOR parentScaledSize = { parentSize.fX * parentScale.fX, parentSize.fY * parentScale.fY, parentSize.fZ * parentScale.fZ };
         orxVECTOR newPos = { parentPos.fX + _position.fX * parentScaledSize.fX, parentPos.fY + _position.fY * parentScaledSize.fY, parentPos.fZ +  _position.fZ * parentScaledSize.fZ };
         SetPosition(newPos);
+    }
+    else
+    {
+        // TODO: Account for instances in which parent isn't an orxOBJECT (for instance, maybe it's an orxCAMERA).
+    }
+}
+
+void __fastcall ScrollMod::SetParentSpaceScale(const orxVECTOR &_scale)
+{
+    orxSTRUCTURE *parent = orxObject_GetParent(GetOrxObject());
+    orxOBJECT *parentObj = orxOBJECT(parent);
+    if (parentObj != nullptr)
+    {
+        orxVECTOR size = orxVECTOR_0;
+        orxObject_GetSize(GetOrxObject(), &size);
+        orxVECTOR parentSize = orxVECTOR_0;
+        orxObject_GetSize(parentObj, &parentSize);
+        orxVECTOR parentScale = orxVECTOR_0;
+        orxObject_GetScale(parentObj, &parentScale);
+        orxVECTOR parentScaledSize = { parentSize.fX * parentScale.fX, parentSize.fY * parentScale.fY, parentSize.fZ * parentScale.fZ };
+        orxVECTOR newScale = { (_scale.fX * parentScaledSize.fX) / size.fX, (_scale.fY * parentScaledSize.fY) / size.fY, (_scale.fZ * parentScaledSize.fZ) / size.fZ };
+        SetScale(newScale);
     }
     else
     {

@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "Drawn.h"
+#include "TileEdge.h"
 #include <vector>
 
 namespace payload
@@ -24,9 +25,9 @@ namespace payload
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
         virtual void Draw();
     private:
-        float m_bezierInterval;
         orxRGBA m_fillColor;
+        orxRGBA m_borderColor;
     public:
-        std::vector<orxVECTOR> m_corners;
+        std::vector<TileEdge*> m_edges;
     };
 }

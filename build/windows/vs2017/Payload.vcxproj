@@ -388,6 +388,7 @@
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Tile.h" />
+    <ClInclude Include="TileEdge.h" />
     <ClInclude Include="TileSet.h" />
   </ItemGroup>
   <ItemGroup>
@@ -397,6 +398,7 @@
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Tile.cpp" />
+    <ClCompile Include="TileEdge.cpp" />
     <ClCompile Include="TileSet.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

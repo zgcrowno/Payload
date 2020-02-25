@@ -4,11 +4,18 @@ using namespace payload;
 
 void Tile::OnCreate()
 {
-    m_bezierInterval = GetFloat("BezierInterval", GetModelName());
     orxVECTOR rgb = GetVector("FillColor", GetModelName());
     float fillAlpha = GetFloat("FillAlpha", GetModelName());
+    float borderAlpha = GetFloat("BorderAlpha", GetModelName());
     orxCOLOR fillColor = { rgb.fR, rgb.fG, rgb.fB, fillAlpha };
+    rgb = GetVector("BorderColor", GetModelName());
+    orxCOLOR borderColor = { rgb.fR, rgb.fG, rgb.fB, borderAlpha };
     m_fillColor = orxColor_ToRGBA(&fillColor);
+    m_borderColor = orxColor_ToRGBA(&borderColor);
+    for (ScrollObject *child = GetOwnedChild(); child != nullptr; child = child->GetOwnedSibling())
+    {
+        m_edges.push_back(ScrollCast<TileEdge*>(child));
+    }
 }
 
 void Tile::OnDelete()
@@ -33,17 +40,22 @@ void Tile::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Tile::Draw()
 {
-    /*for (int i = 0; i < m_corners.size() - 1; i++)
+    // Draw tile.
+    orxOBOX tileGraphic;
+    orxVECTOR topLeft = *orxVector_Sub(&topLeft, &GetPosition(), orxVector_Divf(&topLeft, &GetScaledSize(), 2.0f));
+    orxVECTOR tilePivot = orxVECTOR_0;
+    orxOBox_2DSet(&tileGraphic, &WorldToScreenSpace(topLeft), &tilePivot, &WorldToScreenSpace(GetScaledSize(), true), 0);
+    orxDisplay_DrawOBox(&tileGraphic, m_fillColor, true);
+    // Draw border.
+    for (TileEdge *tileEdge : m_edges)
     {
-        orxVECTOR pos = GetPosition();
-        orxVECTOR endpoint = { pos.fX + 100, pos.fY };
-        orxDisplay_DrawLine(&pos, &endpoint, m_col);
-    }*/
-
-    orxVECTOR pos = WorldToScreenSpace(GetPosition());
-    orxVECTOR endpoint = { GetScreenWidth(), GetScreenHeight() };
-    orxDisplay_DrawLine(&pos, &endpoint, m_fillColor);
-
+        for (int i = 0; i < tileEdge->m_vertices.size() - 1; i++)
+        {
+            orxVECTOR startingPoint = WorldToScreenSpace(tileEdge->m_vertices.at(i)->GetPosition());
+            orxVECTOR endPoint = WorldToScreenSpace(tileEdge->m_vertices.at(i + 1)->GetPosition());
+            orxDisplay_DrawLine(&startingPoint, &endPoint, m_borderColor);
+        }
+    }
 
     /*orxVECTOR drawPoint1 = orxVECTOR_0;
     orxVECTOR drawPoint2 = orxVECTOR_0;
