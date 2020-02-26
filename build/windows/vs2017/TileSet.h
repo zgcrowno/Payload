@@ -26,8 +26,11 @@ namespace payload
     private:
         bool m_2D;
         bool m_cartesian;
-        int m_numRows;
-        int m_numColumns;
+        int m_square;
+        int m_halfSquare;
+        float m_width;
+        float m_height;
+        float m_radius;
         std::vector<std::vector<Tile*>> m_tileRows;
 
         const bool Cartesian2D();

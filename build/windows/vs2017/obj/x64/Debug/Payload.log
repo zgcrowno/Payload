@@ -1,4 +1,6 @@
-﻿  Tile.cpp
+﻿  TileSet.cpp
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(67): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(69): warning C4244: 'initializing': conversion from 'float' to 'int', possible loss of data
   Payload.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Payload\build\windows\vs2017\..\..\..\bin\Payloadd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

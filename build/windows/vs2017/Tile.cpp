@@ -40,13 +40,22 @@ void Tile::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Tile::Draw()
 {
-    // Draw tile.
-    orxOBOX tileGraphic;
-    orxVECTOR topLeft = *orxVector_Sub(&topLeft, &GetPosition(), orxVector_Divf(&topLeft, &GetScaledSize(), 2.0f));
-    orxVECTOR tilePivot = orxVECTOR_0;
-    orxOBox_2DSet(&tileGraphic, &WorldToScreenSpace(topLeft), &tilePivot, &WorldToScreenSpace(GetScaledSize(), true), 0);
-    orxDisplay_DrawOBox(&tileGraphic, m_fillColor, true);
-    // Draw border.
+    // TODO: Consolidate these so I'm not looping through all of the TileEdges twice.
+    // Draw Tile
+    std::vector<orxVECTOR> polygonVertices;
+    for (TileEdge *tileEdge : m_edges)
+    {
+        for (int i = 0; i < tileEdge->m_vertices.size() - 1; i++)
+        {
+            polygonVertices.push_back(WorldToScreenSpace(tileEdge->m_vertices.at(i)->GetPosition()));
+            if (i == tileEdge->m_vertices.size() - 2)
+            {
+                polygonVertices.push_back(WorldToScreenSpace(tileEdge->m_vertices.at(i + 1)->GetPosition()));
+            }
+        }
+    }
+    orxDisplay_DrawPolygon(polygonVertices.data(), polygonVertices.size(), m_fillColor, true);
+    // Draw Border
     for (TileEdge *tileEdge : m_edges)
     {
         for (int i = 0; i < tileEdge->m_vertices.size() - 1; i++)

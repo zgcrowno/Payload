@@ -542,6 +542,14 @@ orxSTATUS __fastcall ScrollMod::SetListString(const std::string _key, const char
     return retVal;
 }
 
+void __fastcall ScrollMod::SetPolarPosition(const orxVECTOR &_pivot, const float &_r, const float &_theta)
+{
+    float xTranslation = cosf(-_theta) * _r;
+    float yTranslation = sinf(-_theta) * _r;
+
+    SetPosition({ _pivot.fX + xTranslation, _pivot.fY + yTranslation });
+}
+
 void __fastcall ScrollMod::SetParentSpacePosition(const orxVECTOR &_position)
 {
     orxSTRUCTURE *parent = orxObject_GetParent(GetOrxObject());

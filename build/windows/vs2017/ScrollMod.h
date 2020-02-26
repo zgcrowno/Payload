@@ -203,6 +203,11 @@ namespace payload
         /// <param name="_sectionName">The section, if any, in which we wish to set <paramref name="_key"/>.</param>
         /// <returns>An orxSTATUS code.</returns>
         static orxSTATUS __fastcall SetListString(const std::string _key, const char **_list, int _numValues, const std::string _sectionName = "");
+        /// <summary>Sets the position of the ScrollMod using polar coordinates (radius and angle) as opposed to Cartesian coordinates.</summary>
+        /// <param name="_pivot">The coordinates to which the ScrollMod's placement are relative.</param>
+        /// <param name="_r">The radius of the circle onto which we're mapping the ScrollMod's position.</param>
+        /// <param name="_theta">The angle (in radians) within the circle onto which we're mapping the ScrollMod's position.</param>
+        void __fastcall SetPolarPosition(const orxVECTOR &_pivot, const float &_r, const float &_theta);
         /// <summary>Sets the ScrollMod's position in terms of parent space, such that 0.5 represents the ScrollMod's maximum bound and -0.5 represents its minimum bound.</summary>
         /// <param name="_position">The position to which we'll set the ScrollMod, in terms of parent space.</param>
         void __fastcall SetParentSpacePosition(const orxVECTOR &_position);
