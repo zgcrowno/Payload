@@ -4,18 +4,7 @@ using namespace payload;
 
 void Tile::OnCreate()
 {
-    orxVECTOR rgb = GetVector("FillColor", GetModelName());
-    float fillAlpha = GetFloat("FillAlpha", GetModelName());
-    float borderAlpha = GetFloat("BorderAlpha", GetModelName());
-    orxCOLOR fillColor = { rgb.fR, rgb.fG, rgb.fB, fillAlpha };
-    rgb = GetVector("BorderColor", GetModelName());
-    orxCOLOR borderColor = { rgb.fR, rgb.fG, rgb.fB, borderAlpha };
-    m_fillColor = orxColor_ToRGBA(&fillColor);
-    m_borderColor = orxColor_ToRGBA(&borderColor);
-    for (ScrollObject *child = GetOwnedChild(); child != nullptr; child = child->GetOwnedSibling())
-    {
-        m_edges.push_back(ScrollCast<TileEdge*>(child));
-    }
+    
 }
 
 void Tile::OnDelete()
@@ -33,6 +22,64 @@ orxBOOL Tile::OnCollide(
     return orxTRUE;
 }
 
+orxBOOL Tile::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
+{
+    if (!orxString_Compare(_rstPayload.zParamName, "UnitDistanceFromOrigin"))
+    {
+        _rstPayload.fValue = m_unitDistanceFromOrigin;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "TopCenterAngle"))
+    {
+        _rstPayload.fValue = m_topCenterAngle;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "BottomCenterAngle"))
+    {
+        _rstPayload.fValue = m_bottomCenterAngle;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeTopAngle"))
+    {
+        _rstPayload.fValue = m_leftEdgeTopAngle;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeBottomAngle"))
+    {
+        _rstPayload.fValue = m_leftEdgeBottomAngle;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeTopAngle"))
+    {
+        _rstPayload.fValue = m_rightEdgeTopAngle;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeBottomAngle"))
+    {
+        _rstPayload.fValue = m_rightEdgeBottomAngle;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "TopCenterPoint"))
+    {
+        _rstPayload.vValue = m_topCenterPoint;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "BottomCenterPoint"))
+    {
+        _rstPayload.vValue = m_bottomCenterPoint;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeTopPoint"))
+    {
+        _rstPayload.vValue = m_leftEdgeTopPoint;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeBottomPoint"))
+    {
+        _rstPayload.vValue = m_leftEdgeBottomPoint;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeTopPoint"))
+    {
+        _rstPayload.vValue = m_rightEdgeTopPoint;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeBottomPoint"))
+    {
+        _rstPayload.vValue = m_rightEdgeBottomPoint;
+    }
+
+    return orxTRUE;
+}
+
 void Tile::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Drawn::Update(_rstInfo);
@@ -42,7 +89,7 @@ void Tile::Draw()
 {
     // TODO: Consolidate these so I'm not looping through all of the TileEdges twice.
     // Draw Tile
-    std::vector<orxVECTOR> polygonVertices;
+    /*std::vector<orxVECTOR> polygonVertices;
     for (TileEdge *tileEdge : m_edges)
     {
         for (int i = 0; i < tileEdge->m_vertices.size() - 1; i++)
@@ -54,9 +101,9 @@ void Tile::Draw()
             }
         }
     }
-    orxDisplay_DrawPolygon(polygonVertices.data(), polygonVertices.size(), m_fillColor, true);
+    orxDisplay_DrawPolygon(polygonVertices.data(), polygonVertices.size(), m_fillColor, true);*/
     // Draw Border
-    for (TileEdge *tileEdge : m_edges)
+    /*for (TileEdge *tileEdge : m_edges)
     {
         for (int i = 0; i < tileEdge->m_vertices.size() - 1; i++)
         {
@@ -64,33 +111,5 @@ void Tile::Draw()
             orxVECTOR endPoint = WorldToScreenSpace(tileEdge->m_vertices.at(i + 1)->GetPosition());
             orxDisplay_DrawLine(&startingPoint, &endPoint, m_borderColor);
         }
-    }
-
-    /*orxVECTOR drawPoint1 = orxVECTOR_0;
-    orxVECTOR drawPoint2 = orxVECTOR_0;
-
-    orxVECTOR drawPoint = orxVECTOR_0;
-
-    orxVECTOR p1 = { 500, 500, 0 };
-    orxVECTOR cp1 = { 550, 200, 0 };
-    orxVECTOR cp2 = { 600, 200, 0 };
-    orxVECTOR p2 = { 650, 600, 0 };
-
-    for (float step = 0; step + m_bezierInterval <= 1; step += m_bezierInterval)
-    {
-        drawPoint1 = *orxVector_Bezier(&drawPoint,
-            &p1,
-            &cp1,
-            &cp2,
-            &p2,
-            step);
-        drawPoint2 = *orxVector_Bezier(&drawPoint,
-            &p1,
-            &cp1,
-            &cp2,
-            &p2,
-            step + m_bezierInterval);
-
-        orxDisplay_DrawLine(&drawPoint1, &drawPoint2, m_col);
     }*/
 }

@@ -21,13 +21,24 @@ namespace payload
             const orxSTRING _zColliderPartName,
             const orxVECTOR &_rvPosition,
             const orxVECTOR &_rvNormal);
+        //! Called on shader event
+        virtual orxBOOL OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
         virtual void Draw();
-    private:
-        orxRGBA m_fillColor;
-        orxRGBA m_borderColor;
     public:
-        std::vector<TileEdge*> m_edges;
+        int m_unitDistanceFromOrigin;
+        float m_topCenterAngle;
+        float m_bottomCenterAngle;
+        float m_leftEdgeTopAngle;
+        float m_leftEdgeBottomAngle;
+        float m_rightEdgeTopAngle;
+        float m_rightEdgeBottomAngle;
+        orxVECTOR m_topCenterPoint;
+        orxVECTOR m_bottomCenterPoint;
+        orxVECTOR m_leftEdgeTopPoint;
+        orxVECTOR m_leftEdgeBottomPoint;
+        orxVECTOR m_rightEdgeTopPoint;
+        orxVECTOR m_rightEdgeBottomPoint;
     };
 }

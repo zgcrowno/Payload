@@ -22,5 +22,7 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
         virtual void Draw() = 0;
+    public:
+        //static orxSTATUS orxFASTCALL ExecuteDraw(void *_context);
     };
 }

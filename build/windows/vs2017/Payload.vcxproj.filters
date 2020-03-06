@@ -56,6 +56,12 @@
     <ClInclude Include="TileEdge.h">
       <Filter>src\Header</Filter>
     </ClInclude>
+    <ClInclude Include="TileInhabitant.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerPayload.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -80,6 +86,12 @@
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="TileEdge.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="TileInhabitant.cpp">
+      <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPayload.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
   </ItemGroup>

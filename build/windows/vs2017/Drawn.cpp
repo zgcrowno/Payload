@@ -24,6 +24,7 @@ orxBOOL Drawn::OnCollide(
 
 void Drawn::Update(const orxCLOCK_INFO &_rstInfo)
 {
+    //orxThread_RunTask(&ExecuteDraw, nullptr, nullptr, this);
     Draw();
 }
 
@@ -31,3 +32,11 @@ void Drawn::Draw()
 {
     
 }
+
+//orxSTATUS orxFASTCALL Drawn::ExecuteDraw(void *_context)
+//{
+//    Drawn *drawn = static_cast<Drawn*>(_context);
+//    drawn->Draw();
+//
+//    return orxSTATUS_SUCCESS;
+//}

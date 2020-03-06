@@ -4,6 +4,7 @@
 // Scroll (as follows).
 #define __SCROLL_IMPL__
 #include "Payload.h"
+#include "PlayerPayload.h"
 #include "ScrollMod.h"
 #include "Tile.h"
 #include "TileEdge.h"
@@ -29,6 +30,7 @@ orxSTATUS Payload::Init()
 
     // Instantiate game objects
     CreateObject("O-TileSet");
+    CreateObject("O-PlayerPayload");
     //CreateObject("O-Tile");
     //CreateObject("O-SceneMain");
 
@@ -37,6 +39,7 @@ orxSTATUS Payload::Init()
 
 void Payload::BindObjects()
 {
+    ScrollBindObject<PlayerPayload>("O-PlayerPayload");
     ScrollBindObject<ScrollMod>("O-ScrollMod");
     ScrollBindObject<Tile>("O-Tile");
     ScrollBindObject<TileEdge>("O-TileEdge");
