@@ -23,5 +23,6 @@ namespace payload
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     private:
         int m_precedence;
+        orxVECTOR m_target;
     };
 }

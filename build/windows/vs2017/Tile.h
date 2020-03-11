@@ -1,13 +1,12 @@
 #pragma once
 
 #include "Payload.h"
-#include "Drawn.h"
-#include "TileEdge.h"
+#include "TileInhabitant.h"
 #include <vector>
 
 namespace payload
 {
-    class Tile : public Drawn
+    class Tile : public ScrollMod
     {
     protected:
         //! Called on object creation
@@ -25,20 +24,15 @@ namespace payload
         virtual orxBOOL OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
-        virtual void Draw();
     public:
-        int m_unitDistanceFromOrigin;
-        float m_topCenterAngle;
-        float m_bottomCenterAngle;
-        float m_leftEdgeTopAngle;
-        float m_leftEdgeBottomAngle;
-        float m_rightEdgeTopAngle;
-        float m_rightEdgeBottomAngle;
-        orxVECTOR m_topCenterPoint;
-        orxVECTOR m_bottomCenterPoint;
+        bool m_bCartesian;
+        float m_topRadius;
+        float m_bottomRadius;
         orxVECTOR m_leftEdgeTopPoint;
         orxVECTOR m_leftEdgeBottomPoint;
         orxVECTOR m_rightEdgeTopPoint;
         orxVECTOR m_rightEdgeBottomPoint;
+        orxVECTOR m_visualCenter;
+        std::vector<TileInhabitant*> m_inhabitants;
     };
 }

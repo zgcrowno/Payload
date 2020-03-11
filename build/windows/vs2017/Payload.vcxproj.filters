@@ -47,13 +47,7 @@
     <ClInclude Include="Tile.h">
       <Filter>src\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Drawn.h">
-      <Filter>src\Header</Filter>
-    </ClInclude>
     <ClInclude Include="TileSet.h">
-      <Filter>src\Header</Filter>
-    </ClInclude>
-    <ClInclude Include="TileEdge.h">
       <Filter>src\Header</Filter>
     </ClInclude>
     <ClInclude Include="TileInhabitant.h">
@@ -79,13 +73,7 @@
     <ClCompile Include="Tile.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
-    <ClCompile Include="Drawn.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
     <ClCompile Include="TileSet.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="TileEdge.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="TileInhabitant.cpp">

@@ -12,8 +12,12 @@ void TileSet::OnCreate()
     m_width = GetScaledSize().fX;
     m_height = GetScaledSize().fY;
     m_radius = m_width / 2.0f;
+    m_payloadOrigin = GetVector("PayloadOrigin", GetModelName());
+    m_payload = static_cast<PlayerPayload*>(CreateObject("O-PlayerPayload"));
+    m_payload->SetOwner(this);
 
     orxVECTOR pos = GetPosition();
+    orxVECTOR scale = GetScale();
     for (int i = 0; i < m_square; i++)
     {
         m_tileRows.push_back({});
@@ -23,37 +27,26 @@ void TileSet::OnCreate()
             tile->SetOwner(this);
             if (Cartesian2D())
             {
-                tile->SetPosition({
-                    pos.fX - m_radius + (m_radius / (float)m_square) + ((float)j * (m_radius / (float)m_halfSquare)),
-                    pos.fY - m_radius + (m_radius / (float)m_square) + ((float)i * (m_radius / (float)m_halfSquare)) });
-                float tileWidth = m_radius / (float)m_halfSquare;
-                tile->SetScale({ tileWidth, tileWidth });
-                float tileHalfWidth = tileWidth / 2.0f;
-                orxVECTOR tilePos = tile->GetPosition();
-                /*for (int k = 0; k < tileEdge1->m_vertices.size(); k++)
-                {
-                    tileEdge1->m_vertices.at(k)->SetPosition({
-                        tilePos.fX - tileHalfWidth + (k * (tileWidth / (tileEdge1->m_vertices.size() - 1))),
-                        tilePos.fY - tileHalfWidth });
-                }
-                for (int k = 0; k < tileEdge2->m_vertices.size(); k++)
-                {
-                    tileEdge2->m_vertices.at(k)->SetPosition({
-                        tilePos.fX + tileHalfWidth,
-                        tilePos.fY - tileHalfWidth + (k * (tileWidth / (tileEdge2->m_vertices.size() - 1))) });
-                }
-                for (int k = 0; k < tileEdge3->m_vertices.size(); k++)
-                {
-                    tileEdge3->m_vertices.at(k)->SetPosition({
-                        tilePos.fX + tileHalfWidth - (k * (tileWidth / (tileEdge3->m_vertices.size() - 1))),
-                        tilePos.fY + tileHalfWidth });
-                }
-                for (int k = 0; k < tileEdge4->m_vertices.size(); k++)
-                {
-                    tileEdge4->m_vertices.at(k)->SetPosition({
-                        tilePos.fX - tileHalfWidth,
-                        tilePos.fY + tileHalfWidth - (k * (tileWidth / (tileEdge4->m_vertices.size() - 1))) });
-                }*/
+                tile->SetRotation(0);
+                orxVECTOR tileSize = tile->GetSize();
+                tile->SetPolarPosition(pos, 0, 0);
+                tile->SetScale({ scale.fX / tileSize.fX, scale.fY / tileSize.fY });
+                tile->m_bCartesian = m_cartesian;
+                tile->m_leftEdgeTopPoint = {
+                    (float)j / (float)m_square,
+                    (float)i / (float)m_square };
+                tile->m_leftEdgeBottomPoint = {
+                    (float)j / (float)m_square,
+                    ((float)i + 1.0f) / (float)m_square };
+                tile->m_rightEdgeTopPoint = {
+                    ((float)j + 1.0f) / (float)m_square,
+                    (float)i / (float)m_square };
+                tile->m_rightEdgeBottomPoint = {
+                    ((float)j + 1.0f) / (float)m_square,
+                    ((float)i + 1.0f) / (float)m_square };
+                tile->m_visualCenter = {
+                    pos.fX - m_radius + (m_radius / (float)m_square) + (j * (m_radius / (float)m_halfSquare)),
+                    pos.fY - m_radius + (m_radius / (float)m_square) + (i * (m_radius / (float)m_halfSquare)) };
             }
             else if (Cartesian1D())
             {
@@ -68,69 +61,72 @@ void TileSet::OnCreate()
                 // How many tiles away from the TileSet's pivot (on the Y-axis) is this Tile?
                 int unitDistanceFromPivotY = abs(imaginaryPivotValue - (i + 1)) + 1;
                 // How many tiles away from the TileSet's pivot is this Tile?
-                tile->m_unitDistanceFromOrigin = orxMAX(unitDistanceFromPivotX, unitDistanceFromPivotY);
-                // How far away from the TileSet's pivot is this Tile?
-                float radialDistance = ((1.0f / m_square) * m_radius) + ((tile->m_unitDistanceFromOrigin - 1) * ((1.0f / m_halfSquare) * m_radius));
+                int unitDistanceFromOrigin = orxMAX(unitDistanceFromPivotX, unitDistanceFromPivotY);
+                // How far away from the TileSet's pivot is this Tile's visual center?
+                float radialDistance = ((1.0f / m_square) * m_radius) + ((unitDistanceFromOrigin - 1) * ((1.0f / m_halfSquare) * m_radius));
                 // In what Cartesian quadrant is this Tile?
                 const int quadrant = j >= m_halfSquare && i < m_halfSquare ? 1 :
                     j < m_halfSquare && i < m_halfSquare ? 2 :
                     j < m_halfSquare && i >= m_halfSquare ? 3 :
                     4;
                 // How many tiles are in this Tile's circular, polar-2D row?
-                int tilesInPolarRow = (tile->m_unitDistanceFromOrigin * 4) + ((tile->m_unitDistanceFromOrigin - 1) * 4);
+                int tilesInPolarRow = (unitDistanceFromOrigin * 4) + ((unitDistanceFromOrigin - 1) * 4);
                 // How many tiles away from the polar axis is this Tile?
-                int unitDistanceFromPolarAxis = ((quadrant - 1) * (2 * tile->m_unitDistanceFromOrigin - 1));
+                int unitDistanceFromPolarAxis = ((quadrant - 1) * (2 * unitDistanceFromOrigin - 1));
                 switch (quadrant)
                 {
                 case 1:
-                    unitDistanceFromPolarAxis += (m_halfSquare - i) + (m_halfSquare + tile->m_unitDistanceFromOrigin - j) - 1;
+                    unitDistanceFromPolarAxis += (m_halfSquare - i) + (m_halfSquare + unitDistanceFromOrigin - j) - 1;
                     break;
                 case 2:
-                    unitDistanceFromPolarAxis += (m_halfSquare - j) + ((i + 1) - (m_halfSquare - tile->m_unitDistanceFromOrigin)) - 1;
+                    unitDistanceFromPolarAxis += (m_halfSquare - j) + ((i + 1) - (m_halfSquare - unitDistanceFromOrigin)) - 1;
                     break;
                 case 3:
-                    unitDistanceFromPolarAxis += ((i + 1) - m_halfSquare) + ((j + 1) - (m_halfSquare - tile->m_unitDistanceFromOrigin)) - 1;
+                    unitDistanceFromPolarAxis += ((i + 1) - m_halfSquare) + ((j + 1) - (m_halfSquare - unitDistanceFromOrigin)) - 1;
                     break;
                 case 4:
-                    unitDistanceFromPolarAxis += ((j + 1) - m_halfSquare) + (m_halfSquare + tile->m_unitDistanceFromOrigin - i) - 1;
+                    unitDistanceFromPolarAxis += ((j + 1) - m_halfSquare) + (m_halfSquare + unitDistanceFromOrigin - i) - 1;
                     break;
                 }
                 // At what angle is this Tile, in reference to the TileSet's pivot?
                 float theta = orxMATH_KF_2_PI * ((1.0f / (tilesInPolarRow * 2.0f)) + ((unitDistanceFromPolarAxis - 1) * (1.0f / tilesInPolarRow)));
 
-                float currentRadius = m_radius * ((float)tile->m_unitDistanceFromOrigin / (float)m_halfSquare);
-                float previousRadius = m_radius * (((float)tile->m_unitDistanceFromOrigin - 1) / (float)m_halfSquare);
+                tile->SetRotation(-(theta - orxMATH_KF_PI_BY_2));
+                orxVECTOR tileSize = tile->GetSize();
+                tile->SetPolarPosition(pos, 0, theta);
+                tile->SetScale({ scale.fX / tileSize.fX, scale.fY / tileSize.fY });
+                float currentRadius = m_radius * ((float)unitDistanceFromOrigin / (float)m_halfSquare);
+                float previousRadius = m_radius * (((float)unitDistanceFromOrigin - 1) / (float)m_halfSquare);
                 float circularSegmentAngle = (orxMATH_KF_2_PI / (float)tilesInPolarRow);
                 float topChordLength = 2.0f * currentRadius * sinf(circularSegmentAngle / 2.0f);
                 float bottomChordLength = 2.0f * previousRadius * sinf(circularSegmentAngle / 2.0f);
                 float segmentHeight = currentRadius * (1.0f - cosf(circularSegmentAngle / 2.0f));
                 float previousSegmentHeight = previousRadius * (1.0f - cosf(circularSegmentAngle / 2.0f));
-                orxVECTOR tileSize = tile->GetSize();
-                tile->SetPolarPosition(pos, radialDistance, theta);
-                tile->SetRotation(-(theta - orxMATH_KF_PI_BY_2));
-                tile->SetScale({ topChordLength / tileSize.fX, ((m_radius / m_halfSquare) + previousSegmentHeight) / tileSize.fY });
                 float normalizedSegmentHeight = segmentHeight / tile->GetScaledSize().fY;
                 float normalizedPreviousSegmentHeight = previousSegmentHeight / tile->GetScaledSize().fY;
+                float normalizedTopChordLength = topChordLength / tile->GetScaledSize().fX;
                 float normalizedBottomChordLength = bottomChordLength / tile->GetScaledSize().fX;
-                tile->m_topCenterAngle = atan2f(0.5f, normalizedSegmentHeight) * 2.0f;
-                tile->m_leftEdgeTopAngle = (orxMATH_KF_PI - tile->m_topCenterAngle) / 2.0f;
-                tile->m_rightEdgeTopAngle = tile->m_leftEdgeTopAngle;
-                tile->m_bottomCenterAngle = atan2f(normalizedBottomChordLength / 2.0f, normalizedPreviousSegmentHeight) * 2.0f;
-                tile->m_leftEdgeBottomAngle = (orxMATH_KF_PI - tile->m_bottomCenterAngle) / 2.0f;
-                tile->m_rightEdgeBottomAngle = tile->m_leftEdgeBottomAngle;
-                tile->m_topCenterPoint = { 0.5f, 0.0f };
-                tile->m_bottomCenterPoint = { 0.5f, 1.0f - normalizedPreviousSegmentHeight };
-                tile->m_leftEdgeTopPoint = { 0.0f, normalizedSegmentHeight };
-                tile->m_leftEdgeBottomPoint = { 0.5f - ((bottomChordLength / topChordLength) / 2.0f), 1.0f };
-                tile->m_rightEdgeTopPoint = { 1.0f, normalizedSegmentHeight };
-                tile->m_rightEdgeBottomPoint = { 0.5f + ((bottomChordLength / topChordLength) / 2.0f), 1.0f };
+                tile->m_bCartesian = m_cartesian;
+                tile->m_leftEdgeTopPoint = {
+                    0.5f - (normalizedTopChordLength / 2.0f),
+                    (m_halfSquare - unitDistanceFromOrigin) * (1.0f / (float)m_square) + normalizedSegmentHeight };
+                tile->m_leftEdgeBottomPoint = {
+                    0.5f - (normalizedBottomChordLength / 2.0f),
+                    (m_halfSquare + 1 - unitDistanceFromOrigin) * (1.0f / (float)m_square) + normalizedPreviousSegmentHeight };
+                tile->m_rightEdgeTopPoint = {
+                    0.5f + (normalizedTopChordLength / 2.0f),
+                    (m_halfSquare - unitDistanceFromOrigin) * (1.0f / (float)m_square) + normalizedSegmentHeight };
+                tile->m_rightEdgeBottomPoint = {
+                    0.5f + (normalizedBottomChordLength / 2.0f),
+                    (m_halfSquare + 1 - unitDistanceFromOrigin) * (1.0f / (float)m_square) + normalizedPreviousSegmentHeight };
+                tile->m_topRadius = ((float)unitDistanceFromOrigin / m_halfSquare) * 0.5f;
+                tile->m_bottomRadius = ((unitDistanceFromOrigin - 1.0f) / m_halfSquare) * 0.5f;
+                SetPolarPosition(tile->m_visualCenter, pos, radialDistance, theta);
             }
             else // Polar1D()
             {
                 // How many tiles away from the TileSet's pivot is this Tile?
-                int unitDistanceFromPivot = m_square - i;
-                // How far away from the TileSet's pivot is this Tile?
-                float radialDistance = ((1.0f / (m_square * 2.0f)) * m_radius) + ((unitDistanceFromPivot - 1) * ((1.0f / m_square) * m_radius));
+                int unitDistanceFromOrigin = m_square - i;
                 // How many tiles are in this Tile's circular, polar-2D row?
                 int tilesInPolarRow = m_square;
                 // How many tiles away from the polar axis is this Tile?
@@ -143,6 +139,8 @@ void TileSet::OnCreate()
                 {
                     unitDistanceFromPolarAxis = 0;
                 }
+                // How far away from the TileSet's pivot is this Tile's visual center?
+                float radialDistance = ((1.0f / (m_square * 2.0f)) * m_radius) + ((unitDistanceFromOrigin - 1) * ((1.0f / m_square) * m_radius));
                 // At what angle is this Tile, in reference to the TileSet's pivot?
                 float theta = orxMATH_KF_2_PI;
                 if (unitDistanceFromPolarAxis == 0)
@@ -161,45 +159,42 @@ void TileSet::OnCreate()
                     }
                 }
 
-                tile->SetPolarPosition(pos, radialDistance, theta);
-
-                /*tileEdge1->SetPolarPosition(pos, radialDistance + (m_radius / (m_square * 2.0f)), theta);
-                tileEdge2->SetPolarPosition(pos, radialDistance, theta - (orxMATH_KF_2_PI / (tilesInPolarRow * 2.0f)));
-                tileEdge3->SetPolarPosition(pos, radialDistance - (m_radius / (m_square * 2.0f)), theta);
-                tileEdge4->SetPolarPosition(pos, radialDistance, theta + (orxMATH_KF_2_PI / (tilesInPolarRow * 2.0f)));
-
-                for (int k = 0; k < tileEdge1->m_vertices.size(); k++)
-                {
-                    tileEdge1->m_vertices.at(k)->SetPolarPosition(
-                        pos,
-                        radialDistance + (m_radius / (m_square * 2.0f)),
-                        theta + (orxMATH_KF_2_PI / (tilesInPolarRow * 2.0f)) - ((k / (tileEdge1->m_vertices.size() - 1.0f)) * (orxMATH_KF_2_PI / (float)tilesInPolarRow)));
-                }
-                for (int k = 0; k < tileEdge2->m_vertices.size(); k++)
-                {
-                    tileEdge2->m_vertices.at(k)->SetPolarPosition(
-                        pos,
-                        radialDistance + (m_radius / (m_square * 2.0f)) - ((k / (tileEdge2->m_vertices.size() - 1.0f)) * (m_radius / m_square)),
-                        theta - (orxMATH_KF_2_PI / (tilesInPolarRow * 2.0f)));
-                }
-                for (int k = 0; k < tileEdge3->m_vertices.size(); k++)
-                {
-                    tileEdge3->m_vertices.at(k)->SetPolarPosition(
-                        pos,
-                        radialDistance - (m_radius / (m_square * 2.0f)),
-                        theta - (orxMATH_KF_2_PI / (tilesInPolarRow * 2.0f)) + ((k / (tileEdge3->m_vertices.size() - 1.0f)) * (orxMATH_KF_2_PI / (float)tilesInPolarRow)));
-                }
-                for (int k = 0; k < tileEdge4->m_vertices.size(); k++)
-                {
-                    tileEdge4->m_vertices.at(k)->SetPolarPosition(
-                        pos,
-                        radialDistance - (m_radius / (m_square * 2.0f)) + ((k / (tileEdge4->m_vertices.size() - 1.0f)) * (m_radius / m_square)),
-                        theta + (orxMATH_KF_2_PI / (tilesInPolarRow * 2.0f)));
-                }*/
+                tile->SetRotation(-(theta - orxMATH_KF_PI_BY_2));
+                orxVECTOR tileSize = tile->GetSize();
+                tile->SetPolarPosition(pos, 0, theta);
+                tile->SetScale({ scale.fX / tileSize.fX, scale.fY / tileSize.fY });
+                float currentRadius = m_radius * ((float)unitDistanceFromOrigin / (float)m_square);
+                float previousRadius = m_radius * (((float)unitDistanceFromOrigin - 1) / (float)m_square);
+                float circularSegmentAngle = (orxMATH_KF_2_PI / (float)tilesInPolarRow);
+                float topChordLength = 2.0f * currentRadius * sinf(circularSegmentAngle / 2.0f);
+                float bottomChordLength = 2.0f * previousRadius * sinf(circularSegmentAngle / 2.0f);
+                float segmentHeight = currentRadius * (1.0f - cosf(circularSegmentAngle / 2.0f));
+                float previousSegmentHeight = previousRadius * (1.0f - cosf(circularSegmentAngle / 2.0f));
+                float normalizedSegmentHeight = segmentHeight / tile->GetScaledSize().fY;
+                float normalizedPreviousSegmentHeight = previousSegmentHeight / tile->GetScaledSize().fY;
+                float normalizedTopChordLength = topChordLength / tile->GetScaledSize().fX;
+                float normalizedBottomChordLength = bottomChordLength / tile->GetScaledSize().fX;
+                tile->m_bCartesian = m_cartesian;
+                tile->m_leftEdgeTopPoint = {
+                    0.5f - (normalizedTopChordLength / 2.0f),
+                    (m_square - unitDistanceFromOrigin) * (1.0f / ((float)m_square * 2.0f)) + normalizedSegmentHeight };
+                tile->m_leftEdgeBottomPoint = {
+                    0.5f - (normalizedBottomChordLength / 2.0f),
+                    (m_square + 1 - unitDistanceFromOrigin) * (1.0f / ((float)m_square * 2.0f)) + normalizedPreviousSegmentHeight };
+                tile->m_rightEdgeTopPoint = {
+                    0.5f + (normalizedTopChordLength / 2.0f),
+                    (m_square - unitDistanceFromOrigin) * (1.0f / ((float)m_square * 2.0f)) + normalizedSegmentHeight };
+                tile->m_rightEdgeBottomPoint = {
+                    0.5f + (normalizedBottomChordLength / 2.0f),
+                    (m_square + 1 - unitDistanceFromOrigin) * (1.0f / ((float)m_square * 2.0f)) + normalizedPreviousSegmentHeight };
+                tile->m_topRadius = ((float)unitDistanceFromOrigin / m_square) * 0.5f;
+                tile->m_bottomRadius = ((unitDistanceFromOrigin - 1.0f) / m_square) * 0.5f;
+                SetPolarPosition(tile->m_visualCenter, pos, radialDistance, theta);
             }
             m_tileRows.at(i).push_back(tile);
         }
     }
+    m_payload->SetPosition(m_tileRows.at(m_payloadOrigin.fX).at(m_payloadOrigin.fY)->m_visualCenter);
 }
 
 void TileSet::OnDelete()

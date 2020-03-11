@@ -24,41 +24,17 @@ orxBOOL Tile::OnCollide(
 
 orxBOOL Tile::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
 {
-    if (!orxString_Compare(_rstPayload.zParamName, "UnitDistanceFromOrigin"))
+    if (!orxString_Compare(_rstPayload.zParamName, "Cartesian"))
     {
-        _rstPayload.fValue = m_unitDistanceFromOrigin;
+        _rstPayload.fValue = m_bCartesian;
     }
-    else if (!orxString_Compare(_rstPayload.zParamName, "TopCenterAngle"))
+    else if (!orxString_Compare(_rstPayload.zParamName, "TopRadius"))
     {
-        _rstPayload.fValue = m_topCenterAngle;
+        _rstPayload.fValue = m_topRadius;
     }
-    else if (!orxString_Compare(_rstPayload.zParamName, "BottomCenterAngle"))
+    else if (!orxString_Compare(_rstPayload.zParamName, "BottomRadius"))
     {
-        _rstPayload.fValue = m_bottomCenterAngle;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeTopAngle"))
-    {
-        _rstPayload.fValue = m_leftEdgeTopAngle;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeBottomAngle"))
-    {
-        _rstPayload.fValue = m_leftEdgeBottomAngle;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeTopAngle"))
-    {
-        _rstPayload.fValue = m_rightEdgeTopAngle;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeBottomAngle"))
-    {
-        _rstPayload.fValue = m_rightEdgeBottomAngle;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "TopCenterPoint"))
-    {
-        _rstPayload.vValue = m_topCenterPoint;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "BottomCenterPoint"))
-    {
-        _rstPayload.vValue = m_bottomCenterPoint;
+        _rstPayload.fValue = m_bottomRadius;
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeTopPoint"))
     {
@@ -82,34 +58,5 @@ orxBOOL Tile::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
 
 void Tile::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    Drawn::Update(_rstInfo);
-}
-
-void Tile::Draw()
-{
-    // TODO: Consolidate these so I'm not looping through all of the TileEdges twice.
-    // Draw Tile
-    /*std::vector<orxVECTOR> polygonVertices;
-    for (TileEdge *tileEdge : m_edges)
-    {
-        for (int i = 0; i < tileEdge->m_vertices.size() - 1; i++)
-        {
-            polygonVertices.push_back(WorldToScreenSpace(tileEdge->m_vertices.at(i)->GetPosition()));
-            if (i == tileEdge->m_vertices.size() - 2)
-            {
-                polygonVertices.push_back(WorldToScreenSpace(tileEdge->m_vertices.at(i + 1)->GetPosition()));
-            }
-        }
-    }
-    orxDisplay_DrawPolygon(polygonVertices.data(), polygonVertices.size(), m_fillColor, true);*/
-    // Draw Border
-    /*for (TileEdge *tileEdge : m_edges)
-    {
-        for (int i = 0; i < tileEdge->m_vertices.size() - 1; i++)
-        {
-            orxVECTOR startingPoint = WorldToScreenSpace(tileEdge->m_vertices.at(i)->GetPosition());
-            orxVECTOR endPoint = WorldToScreenSpace(tileEdge->m_vertices.at(i + 1)->GetPosition());
-            orxDisplay_DrawLine(&startingPoint, &endPoint, m_borderColor);
-        }
-    }*/
+    
 }
