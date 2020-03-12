@@ -382,24 +382,40 @@
     <None Include="..\..\..\data\config\SettingsTemplate.ini" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bypass.h" />
+    <ClInclude Include="Firewall.h" />
+    <ClInclude Include="Goal.h" />
     <ClInclude Include="Payload.h" />
     <ClInclude Include="PlayerPayload.h" />
+    <ClInclude Include="Protocol.h" />
+    <ClInclude Include="Proxy.h" />
     <ClInclude Include="RaycastData.h" />
+    <ClInclude Include="Recursive.h" />
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileInhabitant.h" />
     <ClInclude Include="TileSet.h" />
+    <ClInclude Include="Unreachable.h" />
+    <ClInclude Include="Virus.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bypass.cpp" />
+    <ClCompile Include="Firewall.cpp" />
+    <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Payload.cpp" />
     <ClCompile Include="PlayerPayload.cpp" />
+    <ClCompile Include="Protocol.cpp" />
+    <ClCompile Include="Proxy.cpp" />
     <ClCompile Include="RaycastData.cpp" />
+    <ClCompile Include="Recursive.cpp" />
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Tile.cpp" />
     <ClCompile Include="TileInhabitant.cpp" />
     <ClCompile Include="TileSet.cpp" />
+    <ClCompile Include="Unreachable.cpp" />
+    <ClCompile Include="Virus.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

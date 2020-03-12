@@ -21,8 +21,11 @@ namespace payload
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
-    private:
+        //! Called whenever the TileInhabitant interacts with another TileInhabitant on its Tile.
+        virtual void Cohabitate(TileInhabitant *_cohabitant) = 0;
+    public:
         int m_precedence;
-        orxVECTOR m_target;
+        float m_tileRatio;
+        orxVECTOR *m_target;
     };
 }

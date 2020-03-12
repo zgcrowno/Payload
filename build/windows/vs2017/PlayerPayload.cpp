@@ -4,12 +4,12 @@ using namespace payload;
 
 void PlayerPayload::OnCreate()
 {
-
+    TileInhabitant::OnCreate();
 }
 
 void PlayerPayload::OnDelete()
 {
-
+    TileInhabitant::OnDelete();
 }
 
 orxBOOL PlayerPayload::OnCollide(
@@ -23,6 +23,11 @@ orxBOOL PlayerPayload::OnCollide(
 }
 
 void PlayerPayload::Update(const orxCLOCK_INFO &_rstInfo)
+{
+    TileInhabitant::Update(_rstInfo);
+}
+
+void PlayerPayload::Cohabitate(TileInhabitant *_cohabitant)
 {
 
 }

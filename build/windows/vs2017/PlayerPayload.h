@@ -21,5 +21,7 @@ namespace payload
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+        //! Called whenever the PlayerPayload interacts with another TileInhabitant on its Tile.
+        virtual void Cohabitate(TileInhabitant *_cohabitant);
     };
 }

@@ -13,8 +13,7 @@ void TileSet::OnCreate()
     m_height = GetScaledSize().fY;
     m_radius = m_width / 2.0f;
     m_payloadOrigin = GetVector("PayloadOrigin", GetModelName());
-    m_payload = static_cast<PlayerPayload*>(CreateObject("O-PlayerPayload"));
-    m_payload->SetOwner(this);
+    m_payload = static_cast<PlayerPayload*>(GetChildByName("O-PlayerPayload"));
 
     orxVECTOR pos = GetPosition();
     orxVECTOR scale = GetScale();

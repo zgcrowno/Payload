@@ -13,6 +13,12 @@
     <Filter Include="src\CPP">
       <UniqueIdentifier>{634e8c76-f4b5-40e0-a850-2bc5ba296421}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CPP\TileInhabitant">
+      <UniqueIdentifier>{bd8195b8-4a06-48dd-8e1e-4aa037e4d14b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Header\TileInhabitant">
+      <UniqueIdentifier>{c79256ca-590d-4be1-bb2c-7f8395f90d90}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -50,11 +56,35 @@
     <ClInclude Include="TileSet.h">
       <Filter>src\Header</Filter>
     </ClInclude>
-    <ClInclude Include="TileInhabitant.h">
-      <Filter>src\Header</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerPayload.h">
       <Filter>src\Header</Filter>
+    </ClInclude>
+    <ClInclude Include="TileInhabitant.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
+    <ClInclude Include="Bypass.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
+    <ClInclude Include="Firewall.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
+    <ClInclude Include="Goal.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
+    <ClInclude Include="Protocol.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
+    <ClInclude Include="Proxy.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
+    <ClInclude Include="Recursive.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
+    <ClInclude Include="Unreachable.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
+    <ClInclude Include="Virus.h">
+      <Filter>src\Header\TileInhabitant</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -76,11 +106,35 @@
     <ClCompile Include="TileSet.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
-    <ClCompile Include="TileInhabitant.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerPayload.cpp">
       <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="TileInhabitant.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Bypass.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Firewall.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Goal.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Protocol.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Proxy.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Recursive.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Unreachable.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Virus.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

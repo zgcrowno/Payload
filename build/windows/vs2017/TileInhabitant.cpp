@@ -4,7 +4,8 @@ using namespace payload;
 
 void TileInhabitant::OnCreate()
 {
-    
+    m_precedence = GetU32("Precedence", GetModelName());
+    m_tileRatio = GetU32("TileRatio", GetModelName());
 }
 
 void TileInhabitant::OnDelete()
@@ -25,4 +26,9 @@ orxBOOL TileInhabitant::OnCollide(
 void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
 {
     
+}
+
+void TileInhabitant::Cohabitate(TileInhabitant *_cohabitant)
+{
+
 }
