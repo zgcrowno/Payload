@@ -4,10 +4,18 @@
 // Scroll (as follows).
 #define __SCROLL_IMPL__
 #include "Payload.h"
+#include "Bypass.h"
+#include "Firewall.h"
+#include "Goal.h"
 #include "PlayerPayload.h"
+#include "Protocol.h"
+#include "Proxy.h"
+#include "Recursive.h"
 #include "ScrollMod.h"
 #include "Tile.h"
 #include "TileSet.h"
+#include "Unreachable.h"
+#include "Virus.h"
 #undef __SCROLL_IMPL__
 
 using namespace payload;
@@ -38,10 +46,18 @@ orxSTATUS Payload::Init()
 
 void Payload::BindObjects()
 {
+    ScrollBindObject<Bypass>("O-Bypass");
+    ScrollBindObject<Firewall>("O-Firewall");
+    ScrollBindObject<Goal>("O-Goal");
     ScrollBindObject<PlayerPayload>("O-PlayerPayload");
+    ScrollBindObject<Protocol>("O-Protocol");
+    ScrollBindObject<Proxy>("O-Proxy");
+    ScrollBindObject<Recursive>("O-Recursive");
     ScrollBindObject<ScrollMod>("O-ScrollMod");
     ScrollBindObject<Tile>("O-Tile");
     ScrollBindObject<TileSet>("O-TileSet");
+    ScrollBindObject<Unreachable>("O-Unreachable");
+    ScrollBindObject<Virus>("O-Virus");
 }
 
 orxSTATUS Payload::Run()

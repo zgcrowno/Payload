@@ -1,11 +1,4 @@
-﻿  Bypass.cpp
-  Firewall.cpp
-  Goal.cpp
-  Protocol.cpp
-  Proxy.cpp
-  Recursive.cpp
-  Unreachable.cpp
-  Virus.cpp
+﻿  TileInhabitant.cpp
   Payload.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Payload\build\windows\vs2017\..\..\..\bin\Payloadd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

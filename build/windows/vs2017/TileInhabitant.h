@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "ScrollMod.h"
+#include "Tile.h"
 
 namespace payload
 {
@@ -26,6 +27,6 @@ namespace payload
     public:
         int m_precedence;
         float m_tileRatio;
-        orxVECTOR *m_target;
+        Tile *m_target;
     };
 }

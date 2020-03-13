@@ -1,8 +1,7 @@
 #pragma once
 
 #include "Payload.h"
-#include "TileInhabitant.h"
-#include <vector>
+#include "ScrollMod.h"
 
 namespace payload
 {
@@ -33,6 +32,6 @@ namespace payload
         orxVECTOR m_rightEdgeTopPoint;
         orxVECTOR m_rightEdgeBottomPoint;
         orxVECTOR m_visualCenter;
-        std::vector<TileInhabitant*> m_inhabitants;
+        orxVECTOR m_visualScale;
     };
 }

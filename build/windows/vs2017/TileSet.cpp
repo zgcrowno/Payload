@@ -13,7 +13,9 @@ void TileSet::OnCreate()
     m_height = GetScaledSize().fY;
     m_radius = m_width / 2.0f;
     m_payloadOrigin = GetVector("PayloadOrigin", GetModelName());
+    m_goalOrigin = GetVector("GoalOrigin", GetModelName());
     m_payload = static_cast<PlayerPayload*>(GetChildByName("O-PlayerPayload"));
+    m_goal = static_cast<Goal*>(GetChildByName("O-Goal"));
 
     orxVECTOR pos = GetPosition();
     orxVECTOR scale = GetScale();
@@ -46,6 +48,9 @@ void TileSet::OnCreate()
                 tile->m_visualCenter = {
                     pos.fX - m_radius + (m_radius / (float)m_square) + (j * (m_radius / (float)m_halfSquare)),
                     pos.fY - m_radius + (m_radius / (float)m_square) + (i * (m_radius / (float)m_halfSquare)) };
+                tile->m_visualScale = {
+                    1.0f / m_square,
+                    1.0f / m_square };
             }
             else if (Cartesian1D())
             {
@@ -121,6 +126,15 @@ void TileSet::OnCreate()
                 tile->m_topRadius = ((float)unitDistanceFromOrigin / m_halfSquare) * 0.5f;
                 tile->m_bottomRadius = ((unitDistanceFromOrigin - 1.0f) / m_halfSquare) * 0.5f;
                 SetPolarPosition(tile->m_visualCenter, pos, radialDistance, theta);
+                orxVECTOR leftEdgeMidpoint = {
+                    (tile->m_leftEdgeTopPoint.fX + tile->m_leftEdgeBottomPoint.fX) / 2.0f,
+                    (tile->m_leftEdgeTopPoint.fY + tile->m_leftEdgeBottomPoint.fY) / 2.0f };
+                orxVECTOR rightEdgeMidpoint = {
+                    (tile->m_rightEdgeTopPoint.fX + tile->m_rightEdgeBottomPoint.fX) / 2.0f,
+                    (tile->m_rightEdgeTopPoint.fY + tile->m_rightEdgeBottomPoint.fY) / 2.0f };
+                tile->m_visualScale = {
+                    rightEdgeMidpoint.fX - leftEdgeMidpoint.fX,
+                    tile->m_rightEdgeBottomPoint.fY - tile->m_rightEdgeTopPoint.fY };
             }
             else // Polar1D()
             {
@@ -189,11 +203,23 @@ void TileSet::OnCreate()
                 tile->m_topRadius = ((float)unitDistanceFromOrigin / m_square) * 0.5f;
                 tile->m_bottomRadius = ((unitDistanceFromOrigin - 1.0f) / m_square) * 0.5f;
                 SetPolarPosition(tile->m_visualCenter, pos, radialDistance, theta);
+                orxVECTOR leftEdgeMidpoint = {
+                    (tile->m_leftEdgeTopPoint.fX + tile->m_leftEdgeBottomPoint.fX) / 2.0f,
+                    (tile->m_leftEdgeTopPoint.fY + tile->m_leftEdgeBottomPoint.fY) / 2.0f };
+                orxVECTOR rightEdgeMidpoint = {
+                    (tile->m_rightEdgeTopPoint.fX + tile->m_rightEdgeBottomPoint.fX) / 2.0f,
+                    (tile->m_rightEdgeTopPoint.fY + tile->m_rightEdgeBottomPoint.fY) / 2.0f };
+                tile->m_visualScale = {
+                    rightEdgeMidpoint.fX - leftEdgeMidpoint.fX,
+                    tile->m_rightEdgeBottomPoint.fY - tile->m_rightEdgeTopPoint.fY };
             }
             m_tileRows.at(i).push_back(tile);
         }
     }
-    m_payload->SetPosition(m_tileRows.at(m_payloadOrigin.fX).at(m_payloadOrigin.fY)->m_visualCenter);
+    m_payload->m_target = m_tileRows.at(m_payloadOrigin.fX).at(m_payloadOrigin.fY);
+    m_payload->SetPosition(m_payload->m_target->m_visualCenter);
+    m_goal->m_target = m_tileRows.at(m_goalOrigin.fX).at(m_goalOrigin.fY);
+    m_goal->SetPosition(m_goal->m_target->m_visualCenter);
 }
 
 void TileSet::OnDelete()

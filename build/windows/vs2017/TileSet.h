@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Payload.h"
+#include "Goal.h"
 #include "PlayerPayload.h"
 #include "ScrollMod.h"
 #include "Tile.h"
@@ -33,7 +34,9 @@ namespace payload
         float m_height;
         float m_radius;
         orxVECTOR m_payloadOrigin;
+        orxVECTOR m_goalOrigin;
         PlayerPayload *m_payload;
+        Goal *m_goal;
         std::vector<std::vector<Tile*>> m_tileRows;
 
         const bool Cartesian2D();
