@@ -125,6 +125,26 @@ const float ScrollMod::AngleBetweenPoints(orxVECTOR _from, orxVECTOR _to)
     return atan2f(_to.fY - _from.fY, _to.fX - _from.fX);
 }
 
+const orxVECTOR ScrollMod::CartesianToPolar(orxVECTOR _point, orxVECTOR _origin)
+{
+    float xDiff = _point.fX - _origin.fX;
+    float yDiff = _point.fY - _origin.fY;
+    float r = sqrtf(powf(xDiff, 2.0f) + powf(yDiff, 2.0f));
+    float theta = -atan2f(yDiff, xDiff);
+    return { r, theta };
+}
+
+const float ScrollMod::LerpAngle(const float &_from, const float &_to, const float &_t)
+{
+    return _from + ShortAngleDist(_from, _to) * _t;
+}
+
+const float ScrollMod::ShortAngleDist(const float &_from, const float &_to)
+{
+    float difference = fmodf(_to - _from, orxMATH_KF_2_PI);
+    return fmodf(2.0f * difference, orxMATH_KF_2_PI) - difference;
+}
+
 const orxVECTOR ScrollMod::NormalizeVector(const orxVECTOR &_vec)
 {
     orxVECTOR normalizedVector = orxVECTOR_0;

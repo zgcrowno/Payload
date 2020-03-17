@@ -60,3 +60,16 @@ void Tile::Update(const orxCLOCK_INFO &_rstInfo)
 {
     
 }
+
+void Tile::SetVisualScale()
+{
+    orxVECTOR leftEdgeMidpoint = {
+        (m_leftEdgeTopPoint.fX + m_leftEdgeBottomPoint.fX) / 2.0f,
+        (m_leftEdgeTopPoint.fY + m_leftEdgeBottomPoint.fY) / 2.0f };
+    orxVECTOR rightEdgeMidpoint = {
+        (m_rightEdgeTopPoint.fX + m_rightEdgeBottomPoint.fX) / 2.0f,
+        (m_rightEdgeTopPoint.fY + m_rightEdgeBottomPoint.fY) / 2.0f };
+    m_visualScale = {
+        fabs(rightEdgeMidpoint.fX - leftEdgeMidpoint.fX),
+        fabs(m_rightEdgeBottomPoint.fY - m_rightEdgeTopPoint.fY) };
+}

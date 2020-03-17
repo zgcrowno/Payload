@@ -33,5 +33,7 @@ namespace payload
         orxVECTOR m_rightEdgeBottomPoint;
         orxVECTOR m_visualCenter;
         orxVECTOR m_visualScale;
+
+        void SetVisualScale();
     };
 }

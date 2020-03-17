@@ -5,6 +5,8 @@ using namespace payload;
 void TileInhabitant::OnCreate()
 {
     m_precedence = GetU32("Precedence", GetModelName());
+    m_movementSpeed = GetFloat("MovementSpeed", GetModelName());
+    m_decelerationDistance = GetFloat("DecelerationDistance", GetModelName());
     m_tileRatio = GetFloat("TileRatio", GetModelName());
 }
 
@@ -25,13 +27,15 @@ orxBOOL TileInhabitant::OnCollide(
 
 void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    // TARGET SCALING
     if (m_target != nullptr)
     {
+        // TARGET SCALING
         float minAxis = orxMIN(m_target->m_visualScale.fX, m_target->m_visualScale.fY);
         float scaleRatio = minAxis * m_tileRatio;
         orxVECTOR targetScale = m_target->GetScale();
         SetScale({ targetScale.fX * scaleRatio, targetScale.fY * scaleRatio });
+        // TARGET FOLLOWING
+        MoveTo(m_target->m_visualCenter, m_movementSpeed, m_decelerationDistance);
     }
 }
 

@@ -26,6 +26,8 @@ namespace payload
         virtual void Cohabitate(TileInhabitant *_cohabitant) = 0;
     public:
         int m_precedence;
+        float m_movementSpeed;
+        float m_decelerationDistance;
         float m_tileRatio;
         Tile *m_target;
     };

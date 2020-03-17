@@ -42,13 +42,31 @@ namespace payload
         /// <summary>Returns a radian representation of the angle between vectors <paramref name="_from"/> and <paramref name="_to"/>.</summary>
         /// <param name="_from">The vector at which we're starting the angle calculation.</param>
         /// <param name="_to">The vector at which we're finishing the angle calculation.</param>
+        /// <param name="_polar">Whether or not we're retrieving the angle between <paramref name="_from"/> and <paramref name="_to"/> in terms of polar coordinates.</param>
         /// <returns>A radian representation of the angle between <paramref name="_from"/> and <paramref name="_to"/>.</returns>
         static const float AngleBetweenVectors(orxVECTOR _from, orxVECTOR _to);
         /// <summary>Returns a radian representation of the angle between points <paramref name="_from"/> and <paramref name="_to"/>.</summary>
         /// <param name="_from">The point at which we're starting the angle calculation.</param>
         /// <param name="_to">The point at which we're finishing the angle calculation.</param>
+        /// <param name="_polar">Whether or not we're retrieving the angle between <paramref name="_from"/> and <paramref name="_to"/> in terms of polar coordinates.</param>
         /// <returns>A radian representation of the angle between points <paramref name="_from"/> and <paramref name="_to"/>.</returns>
         static const float AngleBetweenPoints(orxVECTOR _from, orxVECTOR _to);
+        /// <summary>Returns a vector containing <paramref name="_point"/>'s r and theta values in polar coordinates.</summary>
+        /// <param name="_point">The Cartesian point whose polar analogue we want.</param>
+        /// <param name="_origin">The point we wish to use as the center of the polar coordinate space.</param>
+        /// <returns>A vector containing <paramref name="_point"/>'s r and theta values in polar coordinates.</returns>
+        static const orxVECTOR CartesianToPolar(orxVECTOR _point, orxVECTOR _origin = { 0.0f, 0.0f });
+        /// <summary>Interpolates between two angles, given the passed weight.</summary>
+        /// <param name="_from">The angle from which we're interpolating.</param>
+        /// <param name="_to">The angle to which we're interpolating.</param>
+        /// <param name="_t">The weight by which we're interpolating.</param>
+        /// <returns>The interpolated value.</returns>
+        static const float LerpAngle(const float &_from, const float &_to, const float &_t);
+        /// <summary>A helper method which allows LerpAngle to work even with excessively small angles.</summary>
+        /// <param name="_from">The angle from which we're interpolating.</param>
+        /// <param name="_to">The angle to which we're interpolating.</param>
+        /// <returns>A float usable by LerpAngle.</returns>
+        static const float ShortAngleDist(const float &_from, const float &_to);
         /// <summary>Returns the normalized form of <paramref name="_vec"/>.</summary>
         /// <param name="_vec">The vector to normalize.</param>
         /// <returns>The normalized form of <paramref name="_vec"/>.</returns>
