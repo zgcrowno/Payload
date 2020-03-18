@@ -28,6 +28,7 @@ orxBOOL Tile::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
     {
         _rstPayload.fValue = m_bCartesian;
     }
+    // FOREGROUND DATA
     else if (!orxString_Compare(_rstPayload.zParamName, "TopRadius"))
     {
         _rstPayload.fValue = m_topRadius;
@@ -51,6 +52,31 @@ orxBOOL Tile::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
     else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeBottomPoint"))
     {
         _rstPayload.vValue = m_rightEdgeBottomPoint;
+    }
+    // BACKGROUND DATA
+    else if (!orxString_Compare(_rstPayload.zParamName, "TopRadiusBG"))
+    {
+        _rstPayload.fValue = m_topRadiusBG;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "BottomRadiusBG"))
+    {
+        _rstPayload.fValue = m_bottomRadiusBG;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeTopPointBG"))
+    {
+        _rstPayload.vValue = m_leftEdgeTopPointBG;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeBottomPointBG"))
+    {
+        _rstPayload.vValue = m_leftEdgeBottomPointBG;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeTopPointBG"))
+    {
+        _rstPayload.vValue = m_rightEdgeTopPointBG;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeBottomPointBG"))
+    {
+        _rstPayload.vValue = m_rightEdgeBottomPointBG;
     }
 
     return orxTRUE;

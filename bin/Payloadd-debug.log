@@ -29501,3 +29501,1624 @@ ERROR: 0:63: '' : boolean expression expected
 [15:56:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
 [15:56:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
 [15:56:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[10:32:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[10:56:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[11:00:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[11:00:38] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[11:00:38] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[11:00:38] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[11:00:38] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[11:14:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[11:14:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[11:14:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[11:14:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[11:14:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[11:14:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[11:14:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[11:14:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[11:14:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[11:30:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[11:30:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[11:30:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[11:30:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[11:30:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[11:30:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[11:30:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[11:30:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[11:34:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:03] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:04] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileForeground.
+[11:34:05] [OBJECT] [orxobject.c:orxObject_CreateFromConfig(5076)] Failed to find config section named O-TileGround.
+[11:34:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[11:34:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[12:11:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[12:11:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[12:11:56] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[12:11:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[12:11:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[12:11:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[12:11:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[12:11:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[12:11:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[12:11:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[12:11:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[12:11:58] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[12:11:59] [DISPLAY] [orxdisplay.c:orxDisplay_GLFW_CompileShader(1909)] Couldn't compile fragment shader:
+ERROR: 0:159: 'centerDistanceBG' : undeclared identifier 
+
+
+
+[12:14:02] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[12:14:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[13:57:05] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[13:57:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[13:57:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[13:57:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[13:57:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[13:57:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[13:57:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[13:57:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[13:57:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[13:57:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:06:17] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:06:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:06:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:07:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:07:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:07:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:07:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:07:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:07:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:09:34] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:10:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:10:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:11:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:13:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:13:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:13:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:13:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:13:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:13:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:13:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:13:25] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:13:26] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:16:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:16:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:22:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:22:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:22:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:22:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:22:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:25:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:25:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:25:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:25:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:25:42] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:27:17] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:27:17] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:27:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:28:45] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:28:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:28:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:28:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:31:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:31:18] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:31:19] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:35:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:36:14] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:36:15] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:36:15] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:36:15] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:39:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:39:09] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:39:10] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:40:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:40:52] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:42:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:42:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:42:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:42:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:42:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:42:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:42:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:42:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:42:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:43:49] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:46:57] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:47:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:47:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:47:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:47:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:47:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:47:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:47:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:47:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:47:28] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:48:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:48:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:54:29] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:54:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:54:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:54:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:54:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:54:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:54:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:54:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:54:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:54:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[14:56:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:01:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:01:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:01:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:01:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:04:51] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:07:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:08:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:08:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:08:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:08:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:08:00] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:08:01] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:08:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:08:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:09:02] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:09:03] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:17:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:17:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:17:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:17:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:17:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:17:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:17:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:17:08] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:19:46] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:19:47] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:19:47] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:19:47] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:19:47] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:19:47] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:19:47] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:23:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:23:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:23:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:23:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:23:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:23:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:23:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:23:24] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:26:33] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:28:04] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:28:50] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:29:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:41:30] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:41:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:41:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:41:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:41:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:41:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:41:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:41:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:41:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[15:45:22] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[15:45:23] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:03:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:03:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:03:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:03:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:03:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:03:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:04:39] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:04:40] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:08:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:08:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:08:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:08:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:08:55] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:10:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:10:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:10:06] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:10:07] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:19:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:19:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:19:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:19:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:19:11] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:19:12] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:22:20] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:22:21] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:27:41] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:28:35] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:28:35] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:28:35] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:28:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:31:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:58:27] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[16:58:54] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[17:03:31] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[17:03:32] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @FX.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @FX.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Scene.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Scene.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @ScrollMod.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @ScrollMod.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Shader.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Shader.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Sound.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Sound.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Spawner.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Spawner.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @Tile.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @Tile.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileInhabitant.ini@
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartTime> = 0 -> 0.0
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndTime> = 2 -> 3.0
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.StartValue> = 0 -> 0.0
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2676)] [TileInhabitant.ini]: <FXS-GoalRotate.EndValue> = 359 -> 359.0
+[17:18:36] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileInhabitant.ini@
+[17:18:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TileSet.ini@
+[17:18:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TileSet.ini@
+[17:18:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2781)] [Payload.ini]: Begin include @TimelineTrack.ini@
+[17:18:37] [CONFIG] [orxconfig.c:orxConfig_ProcessBuffer(2787)] [Payload.ini]: End include @TimelineTrack.ini@

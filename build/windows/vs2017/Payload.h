@@ -7,6 +7,7 @@
 // The following define skips compilation of ScrollEd (map editor) for now
 #define __NO_SCROLLED__
 #include "Scroll.h"
+#include <vector>
 
 namespace payload
 {
@@ -24,6 +25,8 @@ namespace payload
         virtual orxSTATUS Run();
         //! Exit the program
         virtual void Exit();
+    public:
+        std::vector<ScrollObject*> GetTileInhabitants();
     };
 }
 

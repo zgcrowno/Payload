@@ -50,9 +50,6 @@
     <ClInclude Include="Spawner.h">
       <Filter>src\Header</Filter>
     </ClInclude>
-    <ClInclude Include="Tile.h">
-      <Filter>src\Header</Filter>
-    </ClInclude>
     <ClInclude Include="TileSet.h">
       <Filter>src\Header</Filter>
     </ClInclude>
@@ -86,6 +83,9 @@
     <ClInclude Include="Virus.h">
       <Filter>src\Header\TileInhabitant</Filter>
     </ClInclude>
+    <ClInclude Include="Tile.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -98,9 +98,6 @@
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="Spawner.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="Tile.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="TileSet.cpp">
@@ -135,6 +132,9 @@
     </ClCompile>
     <ClCompile Include="Virus.cpp">
       <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="Tile.cpp">
+      <Filter>src\CPP</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

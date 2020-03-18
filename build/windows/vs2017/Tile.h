@@ -25,6 +25,7 @@ namespace payload
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         bool m_bCartesian;
+        // FOREGROUND DATA
         float m_topRadius;
         float m_bottomRadius;
         orxVECTOR m_leftEdgeTopPoint;
@@ -33,6 +34,13 @@ namespace payload
         orxVECTOR m_rightEdgeBottomPoint;
         orxVECTOR m_visualCenter;
         orxVECTOR m_visualScale;
+        // BACKGROUND DATA
+        float m_topRadiusBG;
+        float m_bottomRadiusBG;
+        orxVECTOR m_leftEdgeTopPointBG;
+        orxVECTOR m_leftEdgeBottomPointBG;
+        orxVECTOR m_rightEdgeTopPointBG;
+        orxVECTOR m_rightEdgeBottomPointBG;
 
         void SetVisualScale();
     };

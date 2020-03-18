@@ -56,11 +56,11 @@ namespace payload
         const bool Cartesian1D();
         const bool Polar2D();
         const bool Polar1D();
-        const int GetQuadrant(const int &_row, const int &_col);
-        const int GetUnitDistanceFromOrigin(const int &_row, const int &_col);
-        const int GetUnitDistanceFromPolarAxis(const int &_row, const int &_col, const int &_unitDistanceFromOrigin);
+        const int GetQuadrant(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
+        const int GetUnitDistanceFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
+        const int GetUnitDistanceFromPolarAxis(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const int &_unitDistanceFromOrigin);
         const int GetNumTilesInPolarRow(const int &_unitDistanceFromOrigin);
-        const float GetRadialDistance(const int &_unitDistanceFromOrigin);
+        const float GetRadialDistance(const int &_unitDistanceFromOrigin, const orxVECTOR &_payloadRowAndCol, const bool _background);
         const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow);
         const orxVECTOR GetPayloadRowAndColumn();
     };

@@ -76,6 +76,86 @@ void Payload::Exit()
 {
 }
 
+std::vector<ScrollObject*> Payload::GetTileInhabitants()
+{
+    std::vector<ScrollObject*> retVal;
+
+    // Bypass
+    for (Bypass *bypass = GetNextObject<Bypass>(); bypass != nullptr; bypass = GetNextObject<Bypass>(bypass))
+    {
+        if (!orxString_Compare(bypass->GetModelName().c_str(), "O-Bypass"))
+        {
+            retVal.push_back(bypass);
+        }
+    }
+    // Firewall
+    for (Firewall *firewall = GetNextObject<Firewall>(); firewall != nullptr; firewall = GetNextObject<Firewall>(firewall))
+    {
+        if (!orxString_Compare(firewall->GetModelName().c_str(), "O-Firewall"))
+        {
+            retVal.push_back(firewall);
+        }
+    }
+    // Goal
+    for (Goal *goal = GetNextObject<Goal>(); goal != nullptr; goal = GetNextObject<Goal>(goal))
+    {
+        if (!orxString_Compare(goal->GetModelName().c_str(), "O-Goal"))
+        {
+            retVal.push_back(goal);
+        }
+    }
+    // PlayerPayload
+    for (PlayerPayload *payload = GetNextObject<PlayerPayload>(); payload != nullptr; payload = GetNextObject<PlayerPayload>(payload))
+    {
+        if (!orxString_Compare(payload->GetModelName().c_str(), "O-PlayerPayload"))
+        {
+            retVal.push_back(payload);
+        }
+    }
+    // Protocol
+    for (Protocol *protocol = GetNextObject<Protocol>(); protocol != nullptr; protocol = GetNextObject<Protocol>(protocol))
+    {
+        if (!orxString_Compare(protocol->GetModelName().c_str(), "O-Protocol"))
+        {
+            retVal.push_back(protocol);
+        }
+    }
+    // Proxy
+    for (Proxy *proxy = GetNextObject<Proxy>(); proxy != nullptr; proxy = GetNextObject<Proxy>(proxy))
+    {
+        if (!orxString_Compare(proxy->GetModelName().c_str(), "O-Proxy"))
+        {
+            retVal.push_back(proxy);
+        }
+    }
+    // Recursive
+    for (Recursive *recursive = GetNextObject<Recursive>(); recursive != nullptr; recursive = GetNextObject<Recursive>(recursive))
+    {
+        if (!orxString_Compare(recursive->GetModelName().c_str(), "O-Recursive"))
+        {
+            retVal.push_back(recursive);
+        }
+    }
+    // Unreachable
+    for (Unreachable *unreachable = GetNextObject<Unreachable>(); unreachable != nullptr; unreachable = GetNextObject<Unreachable>(unreachable))
+    {
+        if (!orxString_Compare(unreachable->GetModelName().c_str(), "O-Unreachable"))
+        {
+            retVal.push_back(unreachable);
+        }
+    }
+    // Virus
+    for (Virus *virus = GetNextObject<Virus>(); virus != nullptr; virus = GetNextObject<Virus>(virus))
+    {
+        if (!orxString_Compare(virus->GetModelName().c_str(), "O-Virus"))
+        {
+            retVal.push_back(virus);
+        }
+    }
+
+    return retVal;
+}
+
 int main(int argc, char **argv)
 {
     // Executes game
