@@ -5,6 +5,7 @@
 #include "PlayerPayload.h"
 #include "ScrollMod.h"
 #include "Tile.h"
+#include "TileSetState.h"
 #include <vector>
 
 namespace payload
@@ -35,14 +36,14 @@ namespace payload
             Polar
         };
 
-        bool m_2D;
-        bool m_cartesian;
         int m_square;
         int m_halfSquare;
-        float m_shiftLerpT;
         float m_width;
         float m_height;
         float m_radius;
+        float m_timeToShift;
+        float m_timeSpentShifting;
+        TileSetState m_state;
         ShiftStatus m_shiftStatus;
         // TODO: Probably don't need m_payloadOrigin and m_goalOrigin instance data since they'll likely only be referenced in OnCreate().
         orxVECTOR m_payloadOrigin;
@@ -52,10 +53,8 @@ namespace payload
         std::vector<std::vector<Tile*>> m_tileRows;
 
         void Shift(ShiftStatus _shiftStatus);
-        const bool Cartesian2D();
-        const bool Cartesian1D();
-        const bool Polar2D();
-        const bool Polar1D();
+        const bool Is2D();
+        const bool IsCartesian();
         const int GetQuadrant(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
         const int GetUnitDistanceFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
         const int GetUnitDistanceFromPolarAxis(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const int &_unitDistanceFromOrigin);

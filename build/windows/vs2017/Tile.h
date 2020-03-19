@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "ScrollMod.h"
+#include "TileSetState.h"
 
 namespace payload
 {
@@ -42,6 +43,60 @@ namespace payload
         orxVECTOR m_rightEdgeTopPointBG;
         orxVECTOR m_rightEdgeBottomPointBG;
 
+        const int GetQuadrant(
+            const int &_row,
+            const int &_col,
+            const int &_square,
+            const orxVECTOR &_payloadRowAndCol,
+            const bool _background);
+        const int GetUnitDistanceFromTileSetCenter(
+            const int &_row,
+            const int &_col,
+            const int &_square,
+            const orxVECTOR &_payloadRowAndCol,
+            const bool _background,
+            const TileSetState &_tileSetState);
+        const int GetUnitDistanceFromTileSetPolarAxis(
+            const int &_row,
+            const int &_col,
+            const int &_square,
+            const int &_unitDistanceFromOrigin,
+            const orxVECTOR &_payloadRowAndCol,
+            const bool &_tileSetIs2D);
+        const int GetNumTilesInPolarRow(
+            const int &_square,
+            const int &_unitDistanceFromOrigin,
+            const bool &_tileSetIs2D);
+        const float GetDistanceFromTileSetCenter(
+            const int &_square,
+            const int &_unitDistanceFromOrigin,
+            const float &_tileSetRadius,
+            const orxVECTOR &_payloadRowAndCol,
+            const bool &_tileSetIs2D,
+            const bool &_background,
+            const TileSetState &_tileSetState);
+        const float GetPolarTheta(
+            const int &_square,
+            const int &_unitDistanceFromPolarAxis,
+            const int &_tilesInPolarRow,
+            const bool &_tileSetIs2D);
+        void SetUp(
+            const int &_row,
+            const int &_col,
+            const int &_square,
+            const float &_tileSetRadius,
+            const orxVECTOR &_payloadRowAndCol,
+            const orxVECTOR &_tileSetPos,
+            const TileSetState &_tileSetState);
+        void Shift(
+            const int &_row,
+            const int &_col,
+            const int &_square,
+            const float &_tileSetRadius,
+            const float &_lerpWeight,
+            const orxVECTOR &_payloadRowAndCol,
+            const orxVECTOR &_tileSetPos,
+            const TileSetState &_tileSetState);
         void SetVisualScale();
     };
 }

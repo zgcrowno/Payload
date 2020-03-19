@@ -396,6 +396,7 @@
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileInhabitant.h" />
     <ClInclude Include="TileSet.h" />
+    <ClInclude Include="TileSetState.h" />
     <ClInclude Include="Unreachable.h" />
     <ClInclude Include="Virus.h" />
   </ItemGroup>
