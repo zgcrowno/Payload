@@ -56,9 +56,6 @@
     <ClInclude Include="TileSet.h">
       <Filter>src\Header</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerPayload.h">
-      <Filter>src\Header</Filter>
-    </ClInclude>
     <ClInclude Include="TileInhabitant.h">
       <Filter>src\Header\TileInhabitant</Filter>
     </ClInclude>
@@ -92,6 +89,9 @@
     <ClInclude Include="TileSetState.h">
       <Filter>src\Header\EnumClass</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerPayload.h">
+      <Filter>src\Header\TileInhabitant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -107,9 +107,6 @@
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="TileSet.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerPayload.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="TileInhabitant.cpp">
@@ -141,6 +138,9 @@
     </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>src\CPP</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerPayload.cpp">
+      <Filter>src\CPP\TileInhabitant</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

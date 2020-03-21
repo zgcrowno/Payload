@@ -1,5 +1,4 @@
 #include "TileSet.h"
-#include <iostream>
 
 using namespace payload;
 
@@ -84,55 +83,106 @@ orxBOOL TileSet::OnCollide(
 void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // HANDLE INPUTS
-    if (orxInput_HasBeenActivated("DimShift"))
+    if (!m_payload->m_bIsMoving && m_shiftStatus == None)
     {
-        m_timeSpentShifting = 0.0f;
-
-        if (Is2D())
+        if (orxInput_HasBeenActivated("DimShift"))
         {
-            Shift(D1);
+            m_timeSpentShifting = 0.0f;
+
+            if (Is2D())
+            {
+                Shift(D1);
+            }
+            else // One-dimensional.
+            {
+                Shift(D2);
+            }
         }
-        else // One-dimensional.
+        else if (orxInput_HasBeenActivated("CoShift"))
         {
-            Shift(D2);
-        }
-    }
-    else if (orxInput_HasBeenActivated("CoShift"))
-    {
-        m_timeSpentShifting = 0.0f;
+            m_timeSpentShifting = 0.0f;
 
-        if (IsCartesian())
+            if (IsCartesian())
+            {
+                Shift(Polar);
+            }
+            else // Polar.
+            {
+                Shift(Cartesian);
+            }
+        }
+        else if (orxInput_HasBeenActivated("MoveRight"))
         {
-            Shift(Polar);
+            // The payload's row and column.
+            orxVECTOR payloadRowAndCol = GetPayloadRowAndColumn();
+            int payloadRow = payloadRowAndCol.fX;
+            int payloadCol = payloadRowAndCol.fY;
+            Tile *tileToRight = GetTileToRight(payloadRow, payloadCol, payloadRowAndCol);
+            if (tileToRight != nullptr)
+            {
+                m_payload->SetTarget(tileToRight);
+            }
         }
-        else // Polar.
+        else if (orxInput_HasBeenActivated("MoveUp"))
         {
-            Shift(Cartesian);
+            // The payload's row and column.
+            orxVECTOR payloadRowAndCol = GetPayloadRowAndColumn();
+            int payloadRow = payloadRowAndCol.fX;
+            int payloadCol = payloadRowAndCol.fY;
+            Tile *tileAbove = GetTileAbove(payloadRow, payloadCol, payloadRowAndCol);
+            if (tileAbove != nullptr)
+            {
+                m_payload->SetTarget(tileAbove);
+            }
         }
-    }
-    else if (orxInput_HasBeenActivated("MemRight"))
-    {
+        else if (orxInput_HasBeenActivated("MoveDown"))
+        {
+            // The payload's row and column.
+            orxVECTOR payloadRowAndCol = GetPayloadRowAndColumn();
+            int payloadRow = payloadRowAndCol.fX;
+            int payloadCol = payloadRowAndCol.fY;
+            Tile *tileBelow = GetTileBelow(payloadRow, payloadCol, payloadRowAndCol);
+            if (tileBelow != nullptr)
+            {
+                m_payload->SetTarget(tileBelow);
+            }
+        }
+        else if (orxInput_HasBeenActivated("MoveLeft"))
+        {
+            // The payload's row and column.
+            orxVECTOR payloadRowAndCol = GetPayloadRowAndColumn();
+            int payloadRow = payloadRowAndCol.fX;
+            int payloadCol = payloadRowAndCol.fY;
+            Tile *tileToLeft = GetTileToLeft(payloadRow, payloadCol, payloadRowAndCol);
+            if (tileToLeft != nullptr)
+            {
+                m_payload->SetTarget(tileToLeft);
+            }
+        }
+        else if (orxInput_HasBeenActivated("MemRight"))
+        {
 
-    }
-    else if (orxInput_HasBeenActivated("MemUp"))
-    {
+        }
+        else if (orxInput_HasBeenActivated("MemUp"))
+        {
 
-    }
-    else if (orxInput_HasBeenActivated("MemDown"))
-    {
+        }
+        else if (orxInput_HasBeenActivated("MemDown"))
+        {
 
-    }
-    else if (orxInput_HasBeenActivated("MemLeft"))
-    {
+        }
+        else if (orxInput_HasBeenActivated("MemLeft"))
+        {
 
-    }
-    else if (orxInput_HasBeenActivated("Recon"))
-    {
+        }
+        else if (orxInput_HasBeenActivated("Recon"))
+        {
 
-    }
-    else if (orxInput_HasBeenActivated("Undo"))
-    {
+        }
+        else if (orxInput_HasBeenActivated("Undo"))
+        {
 
+        }
     }
     // HANDLE SHIFTING
     if (m_shiftStatus != None)
@@ -250,12 +300,10 @@ const int TileSet::GetUnitDistanceFromOrigin(const int &_row, const int &_col, c
         }
         break;
     default:
-        // The imaginary value of an x or y point between halfNumColumns and halfNumColumns + 1 (used for determining unit distance from center of TileSet).
-        float imaginaryPivotValue = m_halfSquare + 0.5f;
         // How many tiles away from the TileSet's pivot (on the X-axis) is this Tile?
-        int unitDistanceFromPivotX = abs(imaginaryPivotValue - (_col + 1)) + 1;
+        int unitDistanceFromPivotX = _col < m_halfSquare ? m_halfSquare - _col : (_col + 1) - m_halfSquare;
         // How many tiles away from the TileSet's pivot (on the Y-axis) is this Tile?
-        int unitDistanceFromPivotY = abs(imaginaryPivotValue - (_row + 1)) + 1;
+        int unitDistanceFromPivotY = _row < m_halfSquare ? m_halfSquare - _row : (_row + 1) - m_halfSquare;
         unitDistanceFromOrigin = orxMAX(unitDistanceFromPivotX, unitDistanceFromPivotY);
         break;
     }
@@ -381,6 +429,30 @@ const float TileSet::GetPolarTheta(const int &_unitDistanceFromPolarAxis, const 
     return theta;
 }
 
+const orxVECTOR TileSet::GetCartesianUnitDistancesFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background)
+{
+    // How many tiles away from the TileSet's pivot (along both the X and Y-axes) is this Tile?
+    orxVECTOR unitDistancesFromOrigin;
+    // How many tiles away from the TileSet's pivot is this Tile along the X-axis.
+    int unitDistanceFromOriginX = _col < m_halfSquare ? m_halfSquare - _col : (_col + 1) - m_halfSquare;
+
+    if (_background)
+    {
+        unitDistancesFromOrigin = {
+            (float)unitDistanceFromOriginX,
+            (float)(_row < m_halfSquare ? m_halfSquare - _row : (_row + 1) - m_halfSquare) };
+    }
+    else
+    {
+        int payloadRow = _payloadRowAndCol.fX;
+        unitDistancesFromOrigin = {
+            (float)unitDistanceFromOriginX,
+            (float)(payloadRow < m_halfSquare ? m_halfSquare - payloadRow : (payloadRow + 1) - m_halfSquare) };
+    }
+
+    return unitDistancesFromOrigin;
+}
+
 const orxVECTOR TileSet::GetPayloadRowAndColumn()
 {
     for (int i = 0; i < m_square; i++)
@@ -394,4 +466,282 @@ const orxVECTOR TileSet::GetPayloadRowAndColumn()
             }
         }
     }
+}
+
+Tile *TileSet::GetTileToRight(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol)
+{
+    switch (m_state)
+    {
+    case TileSetState::Cartesian1D:
+    case TileSetState::Cartesian2D:
+        if (_col < m_square - 1)
+        {
+            return m_tileRows.at(_row).at(_col + 1);
+        }
+        break;
+    case TileSetState::Polar1D:
+        if (_col < m_square - 1)
+        {
+            return m_tileRows.at(_row).at(_col + 1);
+        }
+        else
+        {
+            return m_tileRows.at(_row).at(0);
+        }
+        break;
+    case TileSetState::Polar2D:
+        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol, false);
+        if (_col >= m_halfSquare)
+        {
+            if (_col - unitDistanceFromOrigin == m_halfSquare - 1)
+            {
+                if (_row >= m_halfSquare)
+                {
+                    if (_row - unitDistanceFromOrigin == m_halfSquare - 1)
+                    {
+                        return m_tileRows.at(_row).at(_col - 1);
+                    }
+                    else
+                    {
+                        return m_tileRows.at(_row + 1).at(_col);
+                    }
+                }
+                else
+                {
+                    return m_tileRows.at(_row + 1).at(_col);
+                }
+            }
+            else
+            {
+                if (_row >= m_halfSquare)
+                {
+                    return m_tileRows.at(_row).at(_col - 1);
+                }
+                else
+                {
+                    return m_tileRows.at(_row).at(_col + 1);
+                }
+            }
+        }
+        else
+        {
+            if (_col + unitDistanceFromOrigin == m_halfSquare)
+            {
+                if (_row < m_halfSquare)
+                {
+                    if (_row + unitDistanceFromOrigin == m_halfSquare)
+                    {
+                        return m_tileRows.at(_row).at(_col + 1);
+                    }
+                    else
+                    {
+                        return m_tileRows.at(_row - 1).at(_col);
+                    }
+                }
+                else
+                {
+                    return m_tileRows.at(_row - 1).at(_col);
+                }
+            }
+            else
+            {
+                if (_row < m_halfSquare)
+                {
+                    return m_tileRows.at(_row).at(_col + 1);
+                }
+                else
+                {
+                    return m_tileRows.at(_row).at(_col - 1);
+                }
+            }
+        }
+        break;
+    }
+
+    return nullptr;
+}
+
+Tile *TileSet::GetTileToLeft(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol)
+{
+    switch (m_state)
+    {
+    case TileSetState::Cartesian1D:
+    case TileSetState::Cartesian2D:
+        if (_col > 0)
+        {
+            return m_tileRows.at(_row).at(_col - 1);
+        }
+        break;
+    case TileSetState::Polar1D:
+        if (_col > 0)
+        {
+            return m_tileRows.at(_row).at(_col - 1);
+        }
+        else
+        {
+            return m_tileRows.at(_row).at(m_square - 1);
+        }
+        break;
+    case TileSetState::Polar2D:
+        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol, false);
+        if (_col >= m_halfSquare)
+        {
+            if (_col - unitDistanceFromOrigin == m_halfSquare - 1)
+            {
+                if (_row >= m_halfSquare)
+                {
+                    return m_tileRows.at(_row - 1).at(_col);
+                }
+                else
+                {
+                    if (_row + unitDistanceFromOrigin == m_halfSquare)
+                    {
+                        return m_tileRows.at(_row).at(_col - 1);
+                    }
+                    else
+                    {
+                        return m_tileRows.at(_row - 1).at(_col);
+                    }
+                }
+            }
+            else
+            {
+                if (_row >= m_halfSquare)
+                {
+                    return m_tileRows.at(_row).at(_col + 1);
+                }
+                else
+                {
+                    return m_tileRows.at(_row).at(_col - 1);
+                }
+            }
+        }
+        else
+        {
+            if (_col + unitDistanceFromOrigin == m_halfSquare)
+            {
+                if (_row < m_halfSquare)
+                {
+                    return m_tileRows.at(_row + 1).at(_col);
+                }
+                else
+                {
+                    if (_row - unitDistanceFromOrigin == m_halfSquare - 1)
+                    {
+                        return m_tileRows.at(_row).at(_col + 1);
+                    }
+                    else
+                    {
+                        return m_tileRows.at(_row + 1).at(_col);
+                    }
+                }
+            }
+            else
+            {
+                if (_row < m_halfSquare)
+                {
+                    return m_tileRows.at(_row).at(_col - 1);
+                }
+                else
+                {
+                    return m_tileRows.at(_row).at(_col + 1);
+                }
+            }
+        }
+        break;
+    }
+
+    return nullptr;
+}
+
+Tile *TileSet::GetTileAbove(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol)
+{
+    switch (m_state)
+    {
+    case TileSetState::Cartesian2D:
+        if (_row > 0)
+        {
+            return m_tileRows.at(_row - 1).at(_col);
+        }
+        break;
+    case TileSetState::Polar2D:
+        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol, false);
+        if (_col >= m_halfSquare)
+        {
+            if (_row >= m_halfSquare)
+            {
+                return m_tileRows.at(_row - 1).at(_col - 1);
+            }
+            else
+            {
+                return m_tileRows.at(_row + 1).at(_col - 1);
+            }
+        }
+        else
+        {
+            if (_row >= m_halfSquare)
+            {
+                return m_tileRows.at(_row - 1).at(_col + 1);
+            }
+            else
+            {
+                return m_tileRows.at(_row + 1).at(_col + 1);
+            }
+        }
+        break;
+    }
+
+    return nullptr;
+}
+
+Tile *TileSet::GetTileBelow(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol)
+{
+    switch (m_state)
+    {
+    case TileSetState::Cartesian2D:
+        if (_row < m_square - 1)
+        {
+            return m_tileRows.at(_row + 1).at(_col);
+        }
+        break;
+    case TileSetState::Polar2D:
+        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol, false);
+        if (_col >= m_halfSquare)
+        {
+            if (_row >= m_halfSquare)
+            {
+                if (_row < m_square - 1 && _col < m_square - 1)
+                {
+                    return m_tileRows.at(_row + 1).at(_col + 1);
+                }
+            }
+            else
+            {
+                if (_row > 0 && _col < m_square - 1)
+                {
+                    return m_tileRows.at(_row - 1).at(_col + 1);
+                }
+            }
+        }
+        else
+        {
+            if (_row >= m_halfSquare)
+            {
+                if (_row < m_square - 1 && _col > 0)
+                {
+                    return m_tileRows.at(_row + 1).at(_col - 1);
+                }
+            }
+            else
+            {
+                if (_row > 0 && _col > 0)
+                {
+                    return m_tileRows.at(_row - 1).at(_col - 1);
+                }
+            }
+        }
+        break;
+    }
+
+    return nullptr;
 }

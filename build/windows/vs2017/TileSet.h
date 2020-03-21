@@ -55,12 +55,19 @@ namespace payload
         void Shift(ShiftStatus _shiftStatus);
         const bool Is2D();
         const bool IsCartesian();
+        // BEGIN TODO: Get rid of these methods if I never use them.
         const int GetQuadrant(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
         const int GetUnitDistanceFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
         const int GetUnitDistanceFromPolarAxis(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const int &_unitDistanceFromOrigin);
         const int GetNumTilesInPolarRow(const int &_unitDistanceFromOrigin);
         const float GetRadialDistance(const int &_unitDistanceFromOrigin, const orxVECTOR &_payloadRowAndCol, const bool _background);
         const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow);
+        const orxVECTOR GetCartesianUnitDistancesFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
+        // END TODO.
         const orxVECTOR GetPayloadRowAndColumn();
+        Tile *GetTileToRight(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
+        Tile *GetTileToLeft(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
+        Tile *GetTileAbove(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
+        Tile *GetTileBelow(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
     };
 }

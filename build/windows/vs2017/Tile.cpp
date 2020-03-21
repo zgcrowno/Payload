@@ -148,12 +148,10 @@ const int Tile::GetUnitDistanceFromTileSetCenter(
         }
         break;
     default:
-        // The imaginary value of an x or y point between halfNumColumns and halfNumColumns + 1 (used for determining unit distance from center of TileSet).
-        float imaginaryPivotValue = halfSquare + 0.5f;
         // How many tiles away from the TileSet's pivot (on the X-axis) is this Tile?
-        int unitDistanceFromPivotX = abs(imaginaryPivotValue - (_col + 1)) + 1;
+        int unitDistanceFromPivotX = _col < halfSquare ? halfSquare - _col : (_col + 1) - halfSquare;
         // How many tiles away from the TileSet's pivot (on the Y-axis) is this Tile?
-        int unitDistanceFromPivotY = abs(imaginaryPivotValue - (_row + 1)) + 1;
+        int unitDistanceFromPivotY = _row < halfSquare ? halfSquare - _row : (_row + 1) - halfSquare;
         unitDistanceFromOrigin = orxMAX(unitDistanceFromPivotX, unitDistanceFromPivotY);
         break;
     }
@@ -879,6 +877,6 @@ void Tile::SetVisualScale()
         (m_rightEdgeTopPoint.fX + m_rightEdgeBottomPoint.fX) / 2.0f,
         (m_rightEdgeTopPoint.fY + m_rightEdgeBottomPoint.fY) / 2.0f };
     m_visualScale = {
-        fabs(rightEdgeMidpoint.fX - leftEdgeMidpoint.fX),
-        fabs(m_rightEdgeBottomPoint.fY - m_rightEdgeTopPoint.fY) };
+        orxVector_GetDistance(&leftEdgeMidpoint, &rightEdgeMidpoint),
+        orxVector_GetDistance(&m_leftEdgeBottomPoint, &m_leftEdgeTopPoint) };
 }
