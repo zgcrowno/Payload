@@ -1,38 +1,25 @@
-﻿  Bypass.cpp
-  Firewall.cpp
-  Goal.cpp
-  Payload.cpp
-  PlayerPayload.cpp
-  Protocol.cpp
-  Proxy.cpp
-  Recursive.cpp
-  Tile.cpp
-  TileInhabitant.cpp
-  TileSet.cpp
-  Unreachable.cpp
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tile.cpp(111): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tile.cpp(146): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tile.cpp(260): warning C4244: 'argument': conversion from 'const orxFLOAT' to 'const int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tile.cpp(322): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tile.cpp(520): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(44): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(45): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(48): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(49): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(118): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(119): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(130): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(131): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(142): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(143): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(154): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(155): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(271): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(298): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(392): warning C4244: 'argument': conversion from 'const orxFLOAT' to 'const int', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(447): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
-  Virus.cpp
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(469): warning C4715: 'payload::TileSet::GetPayloadRowAndColumn': not all control paths return a value
+﻿  TileSet.cpp
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(47): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(48): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(51): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(52): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(92): warning C4244: '=': conversion from 'int' to 'orxFLOAT', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(100): warning C4244: '=': conversion from 'payload::TileSet::TileSetShiftStatus' to 'orxFLOAT', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(112): warning C4244: '=': conversion from 'int' to 'orxFLOAT', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(161): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(162): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(173): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(174): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(185): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(186): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(197): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(198): warning C4244: 'initializing': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(315): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(342): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(436): warning C4244: 'argument': conversion from 'const orxFLOAT' to 'const int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(491): warning C4244: 'initializing': conversion from 'const orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(513): warning C4715: 'payload::TileSet::GetPayloadRowAndColumn': not all control paths return a value
+     Creating library ..\..\..\bin\Payloadd.lib and object ..\..\..\bin\Payloadd.exp
   Payload.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Payload\build\windows\vs2017\..\..\..\bin\Payloadd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxp.dll

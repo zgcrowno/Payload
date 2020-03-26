@@ -1,4 +1,5 @@
 #include "TileSet.h"
+#include <iostream>
 
 using namespace payload;
 
@@ -8,6 +9,7 @@ void TileSet::OnCreate()
     m_square = GetU32("Square", GetModelName());
     m_halfSquare = m_square / 2;
     m_timeToShift = GetFloat("TimeToShift", GetModelName());
+    m_timeSpentShifting = m_timeToShift;
     orxVECTOR parentCameraScale = GetVector("Scale", GetModelName());
     m_width = GetScaledSize().fX;
     m_height = GetScaledSize().fY;
@@ -23,6 +25,7 @@ void TileSet::OnCreate()
     //Create Tile rows.
     for (int i = 0; i < m_square; i++)
     {
+        // Set up the row.
         m_tileRows.push_back({});
         for (int j = 0; j < m_square; j++)
         {
@@ -63,6 +66,8 @@ void TileSet::OnCreate()
     // Set m_payload's and m_goal's default positions.
     m_payload->SetPosition(m_payload->m_target->m_visualCenter);
     m_goal->SetPosition(m_goal->m_target->m_visualCenter);
+    /*m_payload->Enable(false);
+    m_goal->Enable(false);*/
 }
 
 void TileSet::OnDelete()
@@ -77,6 +82,44 @@ orxBOOL TileSet::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
+    return orxTRUE;
+}
+
+orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
+{
+    if (!orxString_Compare(_rstPayload.zParamName, "Square"))
+    {
+        _rstPayload.fValue = m_square;
+    }
+    if (!orxString_Compare(_rstPayload.zParamName, "PriorState"))
+    {
+        _rstPayload.fValue = static_cast<float>(m_priorState);
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "ShiftStatus"))
+    {
+        _rstPayload.fValue = m_shiftStatus;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "D2"))
+    {
+        _rstPayload.fValue = Is2D();
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "Cartesian"))
+    {
+        _rstPayload.fValue = IsCartesian();
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "Square"))
+    {
+        _rstPayload.fValue = m_square;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "TimeSpentShifting"))
+    {
+        _rstPayload.fValue = m_timeSpentShifting;
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "PayloadPosition"))
+    {
+        _rstPayload.vValue = GetPayloadNormalizedPosition();
+    }
+
     return orxTRUE;
 }
 
@@ -223,8 +266,9 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
     }
 }
 
-void TileSet::Shift(ShiftStatus _shiftStatus)
+void TileSet::Shift(TileSetShiftStatus _shiftStatus)
 {
+    m_priorState = m_state;
     m_shiftStatus = _shiftStatus;
 
     switch (_shiftStatus)
@@ -466,6 +510,16 @@ const orxVECTOR TileSet::GetPayloadRowAndColumn()
             }
         }
     }
+}
+
+const orxVECTOR TileSet::GetPayloadNormalizedPosition()
+{
+    orxVECTOR pos = GetPosition();
+    orxVECTOR scaledSize = GetScaledSize();
+    orxVECTOR upperLeftCorner = { pos.fX - (scaledSize.fX / 2.0f), pos.fY - (scaledSize.fY / 2.0f) };
+    orxVECTOR payloadPos = m_payload->GetPosition();
+    std::cout << "{ " << ((payloadPos.fX - upperLeftCorner.fX) / scaledSize.fX) << ", " << ((payloadPos.fY - upperLeftCorner.fY) / scaledSize.fY) << " }" << std::endl;
+    return { (payloadPos.fX - upperLeftCorner.fX) / scaledSize.fX, (payloadPos.fY - upperLeftCorner.fY) / scaledSize.fY };
 }
 
 Tile *TileSet::GetTileToRight(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol)

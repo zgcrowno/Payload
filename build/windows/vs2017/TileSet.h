@@ -24,10 +24,12 @@ namespace payload
             const orxSTRING _zColliderPartName,
             const orxVECTOR &_rvPosition,
             const orxVECTOR &_rvNormal);
+        //! Called on shader event
+        virtual orxBOOL OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     private:
-        enum ShiftStatus
+        enum TileSetShiftStatus
         {
             None,
             D1,
@@ -44,15 +46,17 @@ namespace payload
         float m_timeToShift;
         float m_timeSpentShifting;
         TileSetState m_state;
-        ShiftStatus m_shiftStatus;
-        // TODO: Probably don't need m_payloadOrigin and m_goalOrigin instance data since they'll likely only be referenced in OnCreate().
+        TileSetState m_priorState;
+        TileSetShiftStatus m_shiftStatus;
+        // BEGIN TODO: Probably don't need m_payloadOrigin and m_goalOrigin instance data since they'll likely only be referenced in OnCreate().
         orxVECTOR m_payloadOrigin;
         orxVECTOR m_goalOrigin;
+        // END TODO
         PlayerPayload *m_payload;
         Goal *m_goal;
         std::vector<std::vector<Tile*>> m_tileRows;
 
-        void Shift(ShiftStatus _shiftStatus);
+        void Shift(TileSetShiftStatus _shiftStatus);
         const bool Is2D();
         const bool IsCartesian();
         // BEGIN TODO: Get rid of these methods if I never use them.
@@ -65,6 +69,7 @@ namespace payload
         const orxVECTOR GetCartesianUnitDistancesFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
         // END TODO.
         const orxVECTOR GetPayloadRowAndColumn();
+        const orxVECTOR GetPayloadNormalizedPosition();
         Tile *GetTileToRight(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
         Tile *GetTileToLeft(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
         Tile *GetTileAbove(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);

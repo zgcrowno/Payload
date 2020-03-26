@@ -18,6 +18,17 @@
 #include "Virus.h"
 #undef __SCROLL_IMPL__
 
+// Use non-dedicated graphics card, if appropriate.
+#ifdef __orxWINDOWS__
+#include <windows.h>
+
+extern "C"
+{
+    _declspec(dllexport) DWORD NvOptimusEnablement = 1;
+    _declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
+}
+#endif // __orxWINDOWS__
+
 using namespace payload;
 
 orxSTATUS Payload::Bootstrap() const
