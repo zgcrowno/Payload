@@ -1,4 +1,6 @@
 #include "ScrollMod.h"
+#include <iostream>
+#include <iomanip>
 
 using namespace payload;
 
@@ -15,6 +17,11 @@ void ScrollMod::OnDelete()
 void ScrollMod::Update(const orxCLOCK_INFO &_rstInfo)
 {
 
+}
+
+const int __fastcall ScrollMod::Signum(const float &_val)
+{
+    return _val < 0 ? -1 : _val > 0 ? 1 : 0;
 }
 
 const float __fastcall ScrollMod::GetScreenWidth()
@@ -132,6 +139,50 @@ const orxVECTOR ScrollMod::CartesianToPolar(orxVECTOR _point, orxVECTOR _origin)
     float r = sqrtf(powf(xDiff, 2.0f) + powf(yDiff, 2.0f));
     float theta = -atan2f(yDiff, xDiff);
     return { r, theta };
+}
+
+const orxVECTOR ScrollMod::SquareToCircle(orxVECTOR _normalizedVec)
+{
+    // Multiplying components by 2 since normalized ORX space ranges from [-0.5, 0.5], and we need a space of [-1, 1]
+    _normalizedVec = { _normalizedVec.fX * 2.0f, _normalizedVec.fY * 2.0f };
+    float u;
+    float v;
+    float x2 = _normalizedVec.fX * _normalizedVec.fX;
+    float y2 = _normalizedVec.fY * _normalizedVec.fY;
+    if (x2 >= y2)
+    {
+        u = Signum(_normalizedVec.fX) * (x2 / sqrt(x2 + y2));
+        v = Signum(_normalizedVec.fX) * ((_normalizedVec.fX * _normalizedVec.fY) / sqrt(x2 + y2));
+    }
+    else
+    {
+        u = Signum(_normalizedVec.fY) * ((_normalizedVec.fX * _normalizedVec.fY) / sqrt(x2 + y2));
+        v = Signum(_normalizedVec.fY) * (y2 / sqrt(x2 + y2));
+    }
+    // Undoing our initial multiplication by 2.
+    return { (u * 0.5f), (v * 0.5f) };
+}
+
+const orxVECTOR ScrollMod::CircleToSquare(orxVECTOR _normalizedVec)
+{
+    // Multiplying components by 2 since normalized ORX space ranges from [-0.5, 0.5], and we need a space of [-1, 1]
+    _normalizedVec = { _normalizedVec.fX * 2.0f, _normalizedVec.fY * 2.0f };
+    float u;
+    float v;
+    float x2 = _normalizedVec.fX * _normalizedVec.fX;
+    float y2 = _normalizedVec.fY * _normalizedVec.fY;
+    if (x2 >= y2)
+    {
+        u = Signum(_normalizedVec.fX) * sqrtf(x2 + y2);
+        v = Signum(_normalizedVec.fX) * (_normalizedVec.fY / _normalizedVec.fX) * sqrtf(x2 + y2);
+    }
+    else
+    {
+        u = Signum(_normalizedVec.fY) * (_normalizedVec.fX / _normalizedVec.fY) * sqrtf(x2 + y2);
+        v = Signum(_normalizedVec.fY) * sqrtf(x2 + y2);
+    }
+    // Undoing our initial multiplication by 2.
+    return { u * 0.5f, v * 0.5f };
 }
 
 const float ScrollMod::LerpAngle(const float &_from, const float &_to, const float &_t)
@@ -576,6 +627,37 @@ void __fastcall ScrollMod::SetPolarPosition(const orxVECTOR &_pivot, const float
     float yTranslation = sinf(-_theta) * _r;
 
     SetPosition({ _pivot.fX + xTranslation, _pivot.fY + yTranslation });
+}
+
+void __fastcall ScrollMod::SetPolarPosition2(const orxVECTOR &_pivot, const orxVECTOR &_areaSize)
+{
+    // BEGIN ALERT: This commented section is doing exactly what the shader is, currently, but we need to "reverse" it. This returns the Cartesian coordinates of a polar-transformed object,
+    // and we need the polar-transformed coordinates of a Cartesian object. Ensure that if any changes are made to the shader's behavior, that they're reflected here and in the code below.
+    /*orxVECTOR pos = GetPosition();
+    orxVECTOR relativePos = { (pos.fX - _pivot.fX) / _areaSize.fX + 0.5f, (pos.fY - _pivot.fY) / _areaSize.fY + 0.5f };
+    orxVECTOR uv = { 1.0f - relativePos.fX, 1.0f - relativePos.fY };
+    uv = { uv.fY, uv.fX };
+    orxVECTOR delta = { uv.fX * 2.0f - 1.0f, uv.fY * 2.0f - 1.0f };
+    float radius = -(sqrtf(powf(delta.fX, 2.0f) + powf(delta.fY, 2.0f)) - 0.5f);
+    float angle = -(((atan2f(delta.fY, delta.fX) + orxMATH_KF_PI) / orxMATH_KF_2_PI) - 0.5f);
+    SetParentSpacePosition({ angle, radius });*/
+    // END ALERT
+
+    // Attempt at "reversal".
+    orxVECTOR pos = GetPosition();
+    orxVECTOR relativePos = { (pos.fX - _pivot.fX) / _areaSize.fX, (pos.fY - _pivot.fY) / _areaSize.fY };
+    float angle = relativePos.fX;
+    float radius = relativePos.fY;
+    float inverseAtan = tanf(orxMATH_KF_2_PI * (-angle + 0.5f) - orxMATH_KF_PI);
+    float inverseAtanSquared = powf(inverseAtan, 2.0f);
+    float deltaY = sqrtf(((inverseAtanSquared * powf(radius, 2.0f)) - (inverseAtanSquared * radius) + (inverseAtanSquared * 0.25f)) / (1.0f + inverseAtanSquared));
+    if (relativePos.fX > 0)
+    {
+        deltaY *= -1.0f;
+    }
+    float deltaX = deltaY / inverseAtan;
+    orxVECTOR uv = { (1.0f - (deltaY * 0.5f + 0.5f)) - 0.5f, (1.0f - (deltaX * 0.5f + 0.5f)) - 0.5f };
+    SetParentSpacePosition({ uv.fX, uv.fY });
 }
 
 void __fastcall ScrollMod::SetParentSpacePosition(const orxVECTOR &_position)

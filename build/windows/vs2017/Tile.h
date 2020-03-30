@@ -20,8 +20,6 @@ namespace payload
             const orxSTRING _zColliderPartName,
             const orxVECTOR &_rvPosition,
             const orxVECTOR &_rvNormal);
-        //! Called on shader event
-        virtual orxBOOL OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
@@ -85,8 +83,11 @@ namespace payload
             const int &_col,
             const int &_square,
             const float &_tileSetRadius,
+            const float &_normalizedTileSize,
+            const float &_normalizedBorderSize,
             const orxVECTOR &_payloadRowAndCol,
             const orxVECTOR &_tileSetPos,
+            const orxVECTOR &_tileSetSize,
             const TileSetState &_tileSetState);
         void Shift(
             const int &_row,

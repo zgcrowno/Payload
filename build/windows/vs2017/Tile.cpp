@@ -22,66 +22,6 @@ orxBOOL Tile::OnCollide(
     return orxTRUE;
 }
 
-orxBOOL Tile::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
-{
-    if (!orxString_Compare(_rstPayload.zParamName, "Cartesian"))
-    {
-        _rstPayload.fValue = m_bCartesian;
-    }
-    // FOREGROUND DATA
-    else if (!orxString_Compare(_rstPayload.zParamName, "TopRadius"))
-    {
-        _rstPayload.fValue = m_topRadius;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "BottomRadius"))
-    {
-        _rstPayload.fValue = m_bottomRadius;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeTopPoint"))
-    {
-        _rstPayload.vValue = m_leftEdgeTopPoint;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeBottomPoint"))
-    {
-        _rstPayload.vValue = m_leftEdgeBottomPoint;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeTopPoint"))
-    {
-        _rstPayload.vValue = m_rightEdgeTopPoint;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeBottomPoint"))
-    {
-        _rstPayload.vValue = m_rightEdgeBottomPoint;
-    }
-    // BACKGROUND DATA
-    else if (!orxString_Compare(_rstPayload.zParamName, "TopRadiusBG"))
-    {
-        _rstPayload.fValue = m_topRadiusBG;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "BottomRadiusBG"))
-    {
-        _rstPayload.fValue = m_bottomRadiusBG;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeTopPointBG"))
-    {
-        _rstPayload.vValue = m_leftEdgeTopPointBG;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "LeftEdgeBottomPointBG"))
-    {
-        _rstPayload.vValue = m_leftEdgeBottomPointBG;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeTopPointBG"))
-    {
-        _rstPayload.vValue = m_rightEdgeTopPointBG;
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "RightEdgeBottomPointBG"))
-    {
-        _rstPayload.vValue = m_rightEdgeBottomPointBG;
-    }
-
-    return orxTRUE;
-}
-
 void Tile::Update(const orxCLOCK_INFO &_rstInfo)
 {
     
@@ -308,8 +248,11 @@ void Tile::SetUp(
     const int &_col,
     const int &_square,
     const float &_tileSetRadius,
+    const float &_normalizedTileSize,
+    const float &_normalizedBorderSize,
     const orxVECTOR &_payloadRowAndCol,
     const orxVECTOR &_tileSetPos,
+    const orxVECTOR &_tileSetSize,
     const TileSetState &_tileSetState)
 {
     // Is the TileSet 2D?
@@ -338,6 +281,9 @@ void Tile::SetUp(
     switch (_tileSetState)
     {
     case TileSetState::Cartesian1D:
+        SetParentSpacePosition({
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) });
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         m_leftEdgeTopPoint = {
@@ -375,6 +321,9 @@ void Tile::SetUp(
         m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f;
         break;
     case TileSetState::Cartesian2D:
+        SetParentSpacePosition({
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) });
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         m_leftEdgeTopPoint = {
@@ -412,6 +361,12 @@ void Tile::SetUp(
         m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f;
         break;
     case TileSetState::Polar1D:
+        SetParentSpacePosition({
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) });
+        SetPolarPosition2(
+            _tileSetPos,
+            _tileSetSize);
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         SetPolarPosition(m_leftEdgeTopPoint,
@@ -455,6 +410,9 @@ void Tile::SetUp(
         m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / _square) * 0.5f;
         break;
     case TileSetState::Polar2D:
+        SetParentSpacePosition(SquareToCircle({
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) }));
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         SetPolarPosition(m_leftEdgeTopPoint,

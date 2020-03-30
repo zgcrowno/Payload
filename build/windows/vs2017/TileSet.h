@@ -8,6 +8,10 @@
 #include "TileSetState.h"
 #include <vector>
 
+#define NATIVE_TEXTURE_SIZE 1024.0f
+#define NATIVE_BORDER_SIZE 5.0f
+#define NORMALIZED_BORDER_SIZE (NATIVE_BORDER_SIZE / NATIVE_TEXTURE_SIZE)
+
 namespace payload
 {
     class TileSet : public ScrollMod
@@ -40,6 +44,7 @@ namespace payload
 
         int m_square;
         int m_halfSquare;
+        float m_normalizedTileSize;
         float m_width;
         float m_height;
         float m_radius;

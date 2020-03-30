@@ -23,6 +23,10 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
 
+        /// <summary>Standard signum function.</summary>
+        /// <param name="_val">The value whose sign we're checking.</param>
+        /// <returns>Returns -1 if <paramref name="_val"/> < 0, 0 if <paramref name="_val"/> == 0, and 1 if <paramref name="_val"/> > 0.</returns>
+        static const int __fastcall Signum(const float &_val);
         static const float __fastcall GetScreenWidth();
         static const float __fastcall GetScreenHeight();
         /// <summary>Converts the world space vector, <paramref name="_worldSpaceVec"/>, into its associated screen space vector.</summary>
@@ -56,6 +60,14 @@ namespace payload
         /// <param name="_origin">The point we wish to use as the center of the polar coordinate space.</param>
         /// <returns>A vector containing <paramref name="_point"/>'s r and theta values in polar coordinates.</returns>
         static const orxVECTOR CartesianToPolar(orxVECTOR _point, orxVECTOR _origin = { 0.0f, 0.0f });
+        /// <summary>Given a vector normalized in ORX parent space ([-0.5, 0.5]), this function returns that vector's circle-mapped counterpart.</summary>
+        /// <param name="_normalizedVec">A vector normalized in ORX parent space ([-0.5, 0.5]).</param>
+        /// <returns><paramref name="_normalizedVec"/>'s circle-mapped counterpart.</returns>
+        static const orxVECTOR SquareToCircle(orxVECTOR _normalizedVec);
+        /// <summary>Given a vector normalized in ORX parent space ([-0.5, 0.5]), this function returns that vector's square-mapped counterpart.</summary>
+        /// <param name="_normalizedVec">A vector normalized in ORX parent space ([-0.5, 0.5]).</param>
+        /// <returns><paramref name="_normalizedVec"/>'s square-mapped counterpart.</returns>
+        static const orxVECTOR CircleToSquare(orxVECTOR _normalizedVec);
         /// <summary>Interpolates between two angles, given the passed weight.</summary>
         /// <param name="_from">The angle from which we're interpolating.</param>
         /// <param name="_to">The angle to which we're interpolating.</param>
@@ -232,6 +244,10 @@ namespace payload
         /// <param name="_r">The radius of the circle onto which we're mapping the ScrollMod's position.</param>
         /// <param name="_theta">The angle (in radians) within the circle onto which we're mapping the ScrollMod's position.</param>
         void __fastcall SetPolarPosition(const orxVECTOR &_pivot, const float &_r, const float &_theta);
+        /// <summary>Performs a polar transformation on the position of the calling ScrollMod, given the passed pivot and size.</summary>
+        /// <param name="_pivot">The point around which the polar transformation is taking place.</param>
+        /// <param name="_areaSize">The size (width and height) of the area undergoing polar transformation.</param>
+        void __fastcall SetPolarPosition2(const orxVECTOR &_pivot, const orxVECTOR &_areaSize);
         /// <summary>Sets the ScrollMod's position in terms of parent space, such that 0.5 represents the ScrollMod's maximum bound and -0.5 represents its minimum bound.</summary>
         /// <param name="_position">The position to which we'll set the ScrollMod, in terms of parent space.</param>
         void __fastcall SetParentSpacePosition(const orxVECTOR &_position);

@@ -1,5 +1,4 @@
 #include "TileSet.h"
-#include <iostream>
 
 using namespace payload;
 
@@ -11,6 +10,9 @@ void TileSet::OnCreate()
     m_timeToShift = GetFloat("TimeToShift", GetModelName());
     m_timeSpentShifting = m_timeToShift;
     orxVECTOR parentCameraScale = GetVector("Scale", GetModelName());
+    int numBorders = m_square + 1;
+    float textureThickness = GetSize().fX;
+    m_normalizedTileSize = ((NATIVE_TEXTURE_SIZE - (numBorders * NATIVE_BORDER_SIZE)) / m_square) / NATIVE_TEXTURE_SIZE;
     m_width = GetScaledSize().fX;
     m_height = GetScaledSize().fY;
     m_radius = m_width / 2.0f;
@@ -34,7 +36,7 @@ void TileSet::OnCreate()
             // Get the config size of the Tile (in pixels).
             orxVECTOR tileSize = tile->GetSize();
             // Ensure that the Tile is owned by the TileSet.
-            tile->SetOwner(this);
+            tile->SetParent(this);
             // Ensure that the Tile has the same world position as the TileSet.
             tile->SetPolarPosition(pos, 0, 0);
             // Ensure that the Tile's scale results in it taking up the exact same screen space as the TileSet.
@@ -58,14 +60,18 @@ void TileSet::OnCreate()
             // The Tile at this row/column pair.
             Tile *tile = m_tileRows.at(i).at(j);
             // Perform initial setup of Tile.
-            tile->SetUp(i, j, m_square, m_radius, payloadRowAndCol, pos, m_state);
+            tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, payloadRowAndCol, pos, GetScaledSize(), m_state);
             // Add the tile to m_tileRows.
             m_tileRows.at(i).push_back(tile);
         }
     }
-    // Set m_payload's and m_goal's default positions.
+    // Set m_payload's and m_goal's default positions and tileSetCenters.
     m_payload->SetPosition(m_payload->m_target->m_visualCenter);
     m_goal->SetPosition(m_goal->m_target->m_visualCenter);
+    m_payload->SetPosition(m_payload->m_target->GetPosition());
+    m_payload->m_tileSetPos = GetPosition();
+    m_goal->SetPosition(m_goal->m_target->GetPosition());
+    m_goal->m_tileSetPos = GetPosition();
     /*m_payload->Enable(false);
     m_goal->Enable(false);*/
 }
@@ -518,7 +524,6 @@ const orxVECTOR TileSet::GetPayloadNormalizedPosition()
     orxVECTOR scaledSize = GetScaledSize();
     orxVECTOR upperLeftCorner = { pos.fX - (scaledSize.fX / 2.0f), pos.fY - (scaledSize.fY / 2.0f) };
     orxVECTOR payloadPos = m_payload->GetPosition();
-    std::cout << "{ " << ((payloadPos.fX - upperLeftCorner.fX) / scaledSize.fX) << ", " << ((payloadPos.fY - upperLeftCorner.fY) / scaledSize.fY) << " }" << std::endl;
     return { (payloadPos.fX - upperLeftCorner.fX) / scaledSize.fX, (payloadPos.fY - upperLeftCorner.fY) / scaledSize.fY };
 }
 

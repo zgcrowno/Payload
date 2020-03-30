@@ -46,7 +46,7 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
 
                 if (m_target->m_bCartesian)
                 {
-                    orxVector_Lerp(&pos, &pos, &m_target->m_visualCenter, lerpWeight);
+                    orxVector_Lerp(&pos, &pos, &m_target->GetPosition(), lerpWeight);
                     SetPosition(pos);
                 }
                 else
