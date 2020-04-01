@@ -92,6 +92,9 @@
     <ClInclude Include="PlayerPayload.h">
       <Filter>src\Header\TileInhabitant</Filter>
     </ClInclude>
+    <ClInclude Include="TileSetShiftStatus.h">
+      <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">

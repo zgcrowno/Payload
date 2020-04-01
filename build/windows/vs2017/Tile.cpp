@@ -287,176 +287,41 @@ void Tile::SetUp(
     // At what angle is this Tile, in reference to the TileSet's pivot?
     float theta = GetPolarTheta(_square, unitDistanceFromPolarAxis, tilesInPolarRow, tileSetIs2D);
 
+    m_bCartesian = tileSetIsCartesian;
+
     switch (_tileSetState)
     {
     case TileSetState::Cartesian1D:
+        // Position.
         m_priorTileSetState = TileSetState::Cartesian1D;
         SetParentSpacePosition(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
-        // Foreground.
-        m_bCartesian = tileSetIsCartesian;
-        m_leftEdgeTopPoint = {
-            (float)_col / _square,
-            (float)payloadRow / _square };
-        m_leftEdgeBottomPoint = {
-            (float)_col / _square,
-            (payloadRow + 1.0f) / _square };
-        m_rightEdgeTopPoint = {
-            (_col + 1.0f) / _square,
-            (float)payloadRow / _square };
-        m_rightEdgeBottomPoint = {
-            (_col + 1.0f) / _square,
-            (payloadRow + 1.0f) / _square };
-        m_topRadius = ((float)unitDistanceFromOrigin / halfSquare) * 0.5f;
-        m_bottomRadius = ((unitDistanceFromOrigin - 1.0f) / halfSquare) * 0.5f;
-        m_visualCenter = {
-            _tileSetPos.fX - _tileSetRadius + (_tileSetRadius / _square) + (_col * (_tileSetRadius / halfSquare)),
-            _tileSetPos.fY - _tileSetRadius + (_tileSetRadius / _square) + (payloadRow * (_tileSetRadius / halfSquare)) };
-        SetVisualScale();
-        // Background.
-        m_leftEdgeTopPointBG = {
-            (float)_col / _square,
-            (float)_row / _square };
-        m_leftEdgeBottomPointBG = {
-            (float)_col / _square,
-            (_row + 1.0f) / _square };
-        m_rightEdgeTopPointBG = {
-            (_col + 1.0f) / _square,
-            (float)_row / _square };
-        m_rightEdgeBottomPointBG = {
-            (_col + 1.0f) / _square,
-            (_row + 1.0f) / _square };
-        m_topRadiusBG = ((float)unitDistanceFromOriginBG / halfSquare) * 0.5f;
-        m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f;
+        // Visual scale.
+        m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_priorVisualScale = m_visualScale;
         break;
     case TileSetState::Cartesian2D:
+        // Position.
         m_priorTileSetState = TileSetState::Cartesian2D;
         SetParentSpacePosition(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
-        // Foreground.
-        m_bCartesian = tileSetIsCartesian;
-        m_leftEdgeTopPoint = {
-            (float)_col / _square,
-            (float)_row / _square };
-        m_leftEdgeBottomPoint = {
-            (float)_col / _square,
-            (_row + 1.0f) / _square };
-        m_rightEdgeTopPoint = {
-            (_col + 1.0f) / _square,
-            (float)_row / _square };
-        m_rightEdgeBottomPoint = {
-            (_col + 1.0f) / _square,
-            (_row + 1.0f) / _square };
-        m_topRadius = ((float)unitDistanceFromOrigin / halfSquare) * 0.5f;
-        m_bottomRadius = ((unitDistanceFromOrigin - 1.0f) / halfSquare) * 0.5f;
-        m_visualCenter = {
-            _tileSetPos.fX - _tileSetRadius + (_tileSetRadius / _square) + (_col * (_tileSetRadius / halfSquare)),
-            _tileSetPos.fY - _tileSetRadius + (_tileSetRadius / _square) + (_row * (_tileSetRadius / halfSquare)) };
-        SetVisualScale();
-        // Background.
-        m_leftEdgeTopPointBG = {
-            (float)_col / _square,
-            (float)_row / _square };
-        m_leftEdgeBottomPointBG = {
-            (float)_col / _square,
-            (_row + 1.0f) / _square };
-        m_rightEdgeTopPointBG = {
-            (_col + 1.0f) / _square,
-            (float)_row / _square };
-        m_rightEdgeBottomPointBG = {
-            (_col + 1.0f) / _square,
-            (_row + 1.0f) / _square };
-        m_topRadiusBG = ((float)unitDistanceFromOriginBG / halfSquare) * 0.5f;
-        m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f;
+        // Visual scale.
+        m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_priorVisualScale = m_visualScale;
         break;
     case TileSetState::Polar1D:
+        // Position.
         m_priorTileSetState = TileSetState::Polar1D;
-        //SetParentSpacePosition(CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize), orxMATH_KF_PI));
         SetParentSpacePosition(CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize)));
-        // Foreground.
-        m_bCartesian = tileSetIsCartesian;
-        SetPolarPosition(m_leftEdgeTopPoint,
-            { 0.5f, 0.5f },
-            ((radialDistance / _tileSetRadius) + ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_leftEdgeBottomPoint,
-            { 0.5f, 0.5f },
-            ((radialDistance / _tileSetRadius) - ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_rightEdgeTopPoint,
-            { 0.5f, 0.5f },
-            ((radialDistance / _tileSetRadius) + ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_rightEdgeBottomPoint,
-            { 0.5f, 0.5f },
-            ((radialDistance / _tileSetRadius) - ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        m_topRadius = ((float)unitDistanceFromOrigin / _square) * 0.5f;
-        m_bottomRadius = ((unitDistanceFromOrigin - 1.0f) / _square) * 0.5f;
-        SetPolarPosition(m_visualCenter, _tileSetPos, radialDistance, theta);
-        SetVisualScale();
-        // Background.
-        SetPolarPosition(m_leftEdgeTopPointBG,
-            { 0.5f, 0.5f },
-            ((radialDistanceBG / _tileSetRadius) + ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_leftEdgeBottomPointBG,
-            { 0.5f, 0.5f },
-            ((radialDistanceBG / _tileSetRadius) - ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_rightEdgeTopPointBG,
-            { 0.5f, 0.5f },
-            ((radialDistanceBG / _tileSetRadius) + ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_rightEdgeBottomPointBG,
-            { 0.5f, 0.5f },
-            ((radialDistanceBG / _tileSetRadius) - ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        m_topRadiusBG = ((float)unitDistanceFromOriginBG / _square) * 0.5f;
-        m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / _square) * 0.5f;
+        // Visual scale.
+        m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_priorVisualScale = m_visualScale;
         break;
     case TileSetState::Polar2D:
+        // Position.
         m_priorTileSetState = TileSetState::Polar2D;
         SetParentSpacePosition(SquareToCircle(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize)));
-        // Foreground.
-        m_bCartesian = tileSetIsCartesian;
-        SetPolarPosition(m_leftEdgeTopPoint,
-            { 0.5f, 0.5f },
-            ((radialDistance / _tileSetRadius) + ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_leftEdgeBottomPoint,
-            { 0.5f, 0.5f },
-            ((radialDistance / _tileSetRadius) - ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_rightEdgeTopPoint,
-            { 0.5f, 0.5f },
-            ((radialDistance / _tileSetRadius) + ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_rightEdgeBottomPoint,
-            { 0.5f, 0.5f },
-            ((radialDistance / _tileSetRadius) - ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        m_topRadius = ((float)unitDistanceFromOrigin / halfSquare) * 0.5f;
-        m_bottomRadius = ((unitDistanceFromOrigin - 1.0f) / halfSquare) * 0.5f;
-        SetPolarPosition(m_visualCenter, _tileSetPos, radialDistance, theta);
-        SetVisualScale();
-        // Background.
-        SetPolarPosition(m_leftEdgeTopPointBG,
-            { 0.5f, 0.5f },
-            ((radialDistanceBG / _tileSetRadius) + ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_leftEdgeBottomPointBG,
-            { 0.5f, 0.5f },
-            ((radialDistanceBG / _tileSetRadius) - ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_rightEdgeTopPointBG,
-            { 0.5f, 0.5f },
-            ((radialDistanceBG / _tileSetRadius) + ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        SetPolarPosition(m_rightEdgeBottomPointBG,
-            { 0.5f, 0.5f },
-            ((radialDistanceBG / _tileSetRadius) - ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)));
-        m_topRadiusBG = ((float)unitDistanceFromOriginBG / halfSquare) * 0.5f;
-        m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f;
+        // Visual scale.
+        m_visualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_priorVisualScale = m_visualScale;
         break;
     }
     m_priorParentSpacePos = GetParentSpacePosition();
@@ -472,7 +337,8 @@ void Tile::Shift(
     const float &_lerpWeight,
     const orxVECTOR &_payloadRowAndCol,
     const orxVECTOR &_tileSetPos,
-    const TileSetState &_tileSetState)
+    const TileSetState &_tileSetState,
+    const TileSetShiftStatus &_tileSetShiftStatus)
 {
     // Is the TileSet 2D?
     bool tileSetIs2D = _tileSetState == TileSetState::Cartesian2D || _tileSetState == TileSetState::Polar2D;
@@ -499,364 +365,167 @@ void Tile::Shift(
     // The center, in normalized parent space, of the Tile.
     orxVECTOR tileCenter = { 0.5f, 0.5f };
 
-    switch (_tileSetState)
+    m_bCartesian = tileSetIsCartesian;
+
+    if (_tileSetShiftStatus == TileSetShiftStatus::D1Tiles || ((m_priorTileSetState == TileSetState::Cartesian1D || m_priorTileSetState == TileSetState::Polar1D) && !tileSetIs2D))
     {
-    case TileSetState::Cartesian1D:
-    {
-        orxVECTOR parentSpacePos;
-        m_targetParentSpacePos = GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize);
-        orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
-        SetParentSpacePosition(parentSpacePos);
-        // Foreground.
-        m_bCartesian = tileSetIsCartesian;
-        orxVECTOR leftEdgeTopPointDest = { (float)_col / _square, (float)payloadRow / _square };
-        orxVector_Lerp(&m_leftEdgeTopPoint, &m_leftEdgeTopPoint, &leftEdgeTopPointDest, _lerpWeight);
-        orxVECTOR leftEdgeBottomPointDest = { (float)_col / _square, (payloadRow + 1.0f) / _square };
-        orxVector_Lerp(&m_leftEdgeBottomPoint, &m_leftEdgeBottomPoint, &leftEdgeBottomPointDest, _lerpWeight);
-        orxVECTOR rightEdgeTopPointDest = { (_col + 1.0f) / _square, (float)payloadRow / _square };
-        orxVector_Lerp(&m_rightEdgeTopPoint, &m_rightEdgeTopPoint, &rightEdgeTopPointDest, _lerpWeight);
-        orxVECTOR rightEdgeBottomPointDest = { (_col + 1.0f) / _square, (payloadRow + 1.0f) / _square };
-        orxVector_Lerp(&m_rightEdgeBottomPoint, &m_rightEdgeBottomPoint, &rightEdgeBottomPointDest, _lerpWeight);
-        m_topRadius = orxLERP(m_topRadius, ((float)unitDistanceFromOrigin / halfSquare) * 0.5f, _lerpWeight);
-        m_bottomRadius = orxLERP(m_bottomRadius, ((unitDistanceFromOrigin - 1.0f) / halfSquare) * 0.5f, _lerpWeight);
-        orxVECTOR visualCenterDest = {
-            _tileSetPos.fX - _tileSetRadius + (_tileSetRadius / _square) + (_col * (_tileSetRadius / halfSquare)),
-            _tileSetPos.fY - _tileSetRadius + (_tileSetRadius / _square) + (payloadRow * (_tileSetRadius / halfSquare)) };
-        orxVector_Lerp(&m_visualCenter, &m_visualCenter, &visualCenterDest, _lerpWeight);
-        SetVisualScale();
-        // Background.
-        orxVECTOR leftEdgeTopPointBGDest = { (float)_col / _square, (float)_row / _square };
-        orxVector_Lerp(&m_leftEdgeTopPointBG, &m_leftEdgeTopPointBG, &leftEdgeTopPointBGDest, _lerpWeight);
-        orxVECTOR leftEdgeBottomPointBGDest = { (float)_col / _square, (_row + 1.0f) / _square };
-        orxVector_Lerp(&m_leftEdgeBottomPointBG, &m_leftEdgeBottomPointBG, &leftEdgeBottomPointBGDest, _lerpWeight);
-        orxVECTOR rightEdgeTopPointBGDest = { (_col + 1.0f) / _square, (float)_row / _square };
-        orxVector_Lerp(&m_rightEdgeTopPointBG, &m_rightEdgeTopPointBG, &rightEdgeTopPointBGDest, _lerpWeight);
-        orxVECTOR rightEdgeBottomPointBGDest = { (_col + 1.0f) / _square, (_row + 1.0f) / _square };
-        orxVector_Lerp(&m_rightEdgeBottomPointBG, &m_rightEdgeBottomPointBG, &rightEdgeBottomPointBGDest, _lerpWeight);
-        m_topRadiusBG = orxLERP(m_topRadiusBG, ((float)unitDistanceFromOriginBG / halfSquare) * 0.5f, _lerpWeight);
-        m_bottomRadiusBG = orxLERP(m_bottomRadiusBG, ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f, _lerpWeight);
-        break;
+        switch (_tileSetState)
+        {
+        case TileSetState::Cartesian1D:
+        {
+            // Position.
+            orxVECTOR parentSpacePos;
+            m_targetParentSpacePos = GetGridRelativeCartesianPosition(payloadRow, _col, _normalizedBorderSize, _normalizedTileSize);
+            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+            SetParentSpacePosition(parentSpacePos);
+            // Visual scale.
+            orxVECTOR visualScale;
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
+            m_visualScale = visualScale;
+            break;
+        }
+        case TileSetState::Cartesian2D:
+        {
+            // Position.
+            orxVECTOR parentSpacePos;
+            m_targetParentSpacePos = GetGridRelativeCartesianPosition(payloadRow, _col, _normalizedBorderSize, _normalizedTileSize);
+            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+            SetParentSpacePosition(parentSpacePos);
+            // Visual scale.
+            orxVECTOR visualScale;
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
+            m_visualScale = visualScale;
+            break;
+        }
+        case TileSetState::Polar1D:
+        {
+            // Position.
+            orxVECTOR parentSpacePos;
+            m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(payloadRow, _col, _normalizedBorderSize, _normalizedTileSize));
+            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+            SetParentSpacePosition(parentSpacePos);
+            // Visual scale.
+            orxVECTOR visualScale;
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
+            m_visualScale = visualScale;
+            break;
+        }
+        case TileSetState::Polar2D:
+        {
+            unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(payloadRow, _col, _square, _payloadRowAndCol, false, _tileSetState);
+            tilesInPolarRow = GetNumTilesInPolarRow(_square, unitDistanceFromOrigin, tileSetIs2D);
+
+            // Position.
+            orxVECTOR parentSpacePos;
+            m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(payloadRow, _col, _normalizedBorderSize, _normalizedTileSize));
+            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+            SetParentSpacePosition(parentSpacePos);
+            // Visual scale.
+            orxVECTOR visualScale;
+            m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
+            m_visualScale = visualScale;
+        }
+        }
     }
-    case TileSetState::Cartesian2D:
+    else
     {
-        orxVECTOR parentSpacePos;
-        m_targetParentSpacePos = GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize);
-        orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
-        SetParentSpacePosition(parentSpacePos);
-        // Foreground.
-        m_bCartesian = tileSetIsCartesian;
-        orxVECTOR leftEdgeTopPointDest = { (float)_col / _square, (float)_row / _square };
-        orxVector_Lerp(&m_leftEdgeTopPoint, &m_leftEdgeTopPoint, &leftEdgeTopPointDest, _lerpWeight);
-        orxVECTOR leftEdgeBottomPointDest = { (float)_col / _square, (_row + 1.0f) / _square };
-        orxVector_Lerp(&m_leftEdgeBottomPoint, &m_leftEdgeBottomPoint, &leftEdgeBottomPointDest, _lerpWeight);
-        orxVECTOR rightEdgeTopPointDest = { (_col + 1.0f) / _square, (float)_row / _square };
-        orxVector_Lerp(&m_rightEdgeTopPoint, &m_rightEdgeTopPoint, &rightEdgeTopPointDest, _lerpWeight);
-        orxVECTOR rightEdgeBottomPointDest = { (_col + 1.0f) / _square, (_row + 1.0f) / _square };
-        orxVector_Lerp(&m_rightEdgeBottomPoint, &m_rightEdgeBottomPoint, &rightEdgeBottomPointDest, _lerpWeight);
-        m_topRadius = orxLERP(m_topRadius, ((float)unitDistanceFromOrigin / halfSquare) * 0.5f, _lerpWeight);
-        m_bottomRadius = orxLERP(m_bottomRadius, ((unitDistanceFromOrigin - 1.0f) / halfSquare) * 0.5f, _lerpWeight);
-        orxVECTOR visualCenterDest = {
-            _tileSetPos.fX - _tileSetRadius + (_tileSetRadius / _square) + (_col * (_tileSetRadius / halfSquare)),
-            _tileSetPos.fY - _tileSetRadius + (_tileSetRadius / _square) + (_row * (_tileSetRadius / halfSquare)) };
-        orxVector_Lerp(&m_visualCenter, &m_visualCenter, &visualCenterDest, _lerpWeight);
-        SetVisualScale();
-        // Background.
-        orxVECTOR leftEdgeTopPointBGDest = { (float)_col / _square, (float)_row / _square };
-        orxVector_Lerp(&m_leftEdgeTopPointBG, &m_leftEdgeTopPointBG, &leftEdgeTopPointBGDest, _lerpWeight);
-        orxVECTOR leftEdgeBottomPointBGDest = { (float)_col / _square, (_row + 1.0f) / _square };
-        orxVector_Lerp(&m_leftEdgeBottomPointBG, &m_leftEdgeBottomPointBG, &leftEdgeBottomPointBGDest, _lerpWeight);
-        orxVECTOR rightEdgeTopPointBGDest = { (_col + 1.0f) / _square, (float)_row / _square };
-        orxVector_Lerp(&m_rightEdgeTopPointBG, &m_rightEdgeTopPointBG, &rightEdgeTopPointBGDest, _lerpWeight);
-        orxVECTOR rightEdgeBottomPointBGDest = { (_col + 1.0f) / _square, (_row + 1.0f) / _square };
-        orxVector_Lerp(&m_rightEdgeBottomPointBG, &m_rightEdgeBottomPointBG, &rightEdgeBottomPointBGDest, _lerpWeight);
-        m_topRadiusBG = orxLERP(m_topRadiusBG, ((float)unitDistanceFromOriginBG / halfSquare) * 0.5f, _lerpWeight);
-        m_bottomRadiusBG = orxLERP(m_bottomRadiusBG, ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f, _lerpWeight);
-        break;
-    }
-    case TileSetState::Polar1D:
-    {
-        orxVECTOR parentSpacePos;
-        m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
-        orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
-        SetParentSpacePosition(parentSpacePos);
-        // Foreground.
-        m_bCartesian = tileSetIsCartesian;
-        float leftEdgeTopPointRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_leftEdgeTopPoint, &tileCenter),
-            ((radialDistance / _tileSetRadius) + ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float leftEdgeTopPointTheta = LerpAngle(
-            CartesianToPolar(m_leftEdgeTopPoint, tileCenter).fY,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_leftEdgeTopPoint,
-            tileCenter,
-            leftEdgeTopPointRadialDistance,
-            leftEdgeTopPointTheta);
-        float leftEdgeBottomPointRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_leftEdgeBottomPoint, &tileCenter),
-            ((radialDistance / _tileSetRadius) - ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float leftEdgeBottomPointTheta = LerpAngle(
-            CartesianToPolar(m_leftEdgeBottomPoint, tileCenter).fY,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_leftEdgeBottomPoint,
-            tileCenter,
-            leftEdgeBottomPointRadialDistance,
-            leftEdgeBottomPointTheta);
-        float rightEdgeTopPointRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_rightEdgeTopPoint, &tileCenter),
-            ((radialDistance / _tileSetRadius) + ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float rightEdgeTopPointTheta = LerpAngle(
-            CartesianToPolar(m_rightEdgeTopPoint, tileCenter).fY,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_rightEdgeTopPoint,
-            tileCenter,
-            rightEdgeTopPointRadialDistance,
-            rightEdgeTopPointTheta);
-        float rightEdgeBottomPointRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_rightEdgeBottomPoint, &tileCenter),
-            ((radialDistance / _tileSetRadius) - ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float rightEdgeBottomPointTheta = LerpAngle(
-            CartesianToPolar(m_rightEdgeBottomPoint, tileCenter).fY,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_rightEdgeBottomPoint,
-            tileCenter,
-            rightEdgeBottomPointRadialDistance,
-            rightEdgeBottomPointTheta);
-        m_topRadius = orxLERP(
-            m_topRadius,
-            ((float)unitDistanceFromOrigin / _square) * 0.5f,
-            _lerpWeight);
-        m_bottomRadius = orxLERP(
-            m_bottomRadius,
-            ((unitDistanceFromOrigin - 1.0f) / _square) * 0.5f,
-            _lerpWeight);
-        float visualCenterRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_visualCenter, &_tileSetPos),
-            radialDistance,
-            _lerpWeight);
-        float visualCenterTheta = LerpAngle(
-            CartesianToPolar(m_visualCenter, _tileSetPos).fY,
-            theta,
-            _lerpWeight);
-        SetPolarPosition(m_visualCenter,
-            _tileSetPos,
-            visualCenterRadialDistance,
-            visualCenterTheta);
-        SetVisualScale();
-        // Background.
-        float leftEdgeTopPointBGRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_leftEdgeTopPointBG, &tileCenter),
-            ((radialDistanceBG / _tileSetRadius) + ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float leftEdgeTopPointBGTheta = LerpAngle(
-            CartesianToPolar(m_leftEdgeTopPointBG, tileCenter).fY,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_leftEdgeTopPointBG,
-            tileCenter,
-            leftEdgeTopPointBGRadialDistance,
-            leftEdgeTopPointBGTheta);
-        float leftEdgeBottomPointBGRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_leftEdgeBottomPointBG, &tileCenter),
-            ((radialDistanceBG / _tileSetRadius) - ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float leftEdgeBottomPointBGTheta = LerpAngle(
-            CartesianToPolar(m_leftEdgeBottomPointBG, tileCenter).fY,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_leftEdgeBottomPointBG,
-            tileCenter,
-            leftEdgeBottomPointBGRadialDistance,
-            leftEdgeBottomPointBGTheta);
-        float rightEdgeTopPointBGRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_rightEdgeTopPointBG, &tileCenter),
-            ((radialDistanceBG / _tileSetRadius) + ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float rightEdgeTopPointBGTheta = LerpAngle(
-            CartesianToPolar(m_rightEdgeTopPointBG, tileCenter).fY,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_rightEdgeTopPointBG,
-            tileCenter,
-            rightEdgeTopPointBGRadialDistance,
-            rightEdgeTopPointBGTheta);
-        float rightEdgeBottomPointBGRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_rightEdgeBottomPointBG, &tileCenter),
-            ((radialDistanceBG / _tileSetRadius) - ((_tileSetRadius / (_square * 2.0f)) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float rightEdgeBottomPointBGTheta = LerpAngle(
-            CartesianToPolar(m_rightEdgeBottomPointBG, tileCenter).fY,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_rightEdgeBottomPointBG,
-            tileCenter,
-            rightEdgeBottomPointBGRadialDistance,
-            rightEdgeBottomPointBGTheta);
-        m_topRadiusBG = orxLERP(
-            m_topRadiusBG,
-            ((float)unitDistanceFromOriginBG / _square) * 0.5f,
-            _lerpWeight);
-        m_bottomRadiusBG = orxLERP(
-            m_bottomRadiusBG,
-            ((unitDistanceFromOriginBG - 1.0f) / _square) * 0.5f,
-            _lerpWeight);
-        break;
-    }
-    case TileSetState::Polar2D:
-    {
-        orxVECTOR parentSpacePos;
-        m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
-        orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
-        SetParentSpacePosition(parentSpacePos);
-        // Foreground.
-        m_bCartesian = tileSetIsCartesian;
-        float leftEdgeTopPointRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_leftEdgeTopPoint, &tileCenter),
-            ((radialDistance / _tileSetRadius) + ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float leftEdgeTopPointTheta = LerpAngle(
-            CartesianToPolar(m_leftEdgeTopPoint, tileCenter).fY,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_leftEdgeTopPoint,
-            tileCenter,
-            leftEdgeTopPointRadialDistance,
-            leftEdgeTopPointTheta);
-        float leftEdgeBottomPointRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_leftEdgeBottomPoint, &tileCenter),
-            ((radialDistance / _tileSetRadius) - ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float leftEdgeBottomPointTheta = LerpAngle(
-            CartesianToPolar(m_leftEdgeBottomPoint, tileCenter).fY,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_leftEdgeBottomPoint,
-            tileCenter,
-            leftEdgeBottomPointRadialDistance,
-            leftEdgeBottomPointTheta);
-        float rightEdgeTopPointRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_rightEdgeTopPoint, &tileCenter),
-            ((radialDistance / _tileSetRadius) + ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float rightEdgeTopPointTheta = LerpAngle(
-            CartesianToPolar(m_rightEdgeTopPoint, tileCenter).fY,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_rightEdgeTopPoint,
-            tileCenter,
-            rightEdgeTopPointRadialDistance,
-            rightEdgeTopPointTheta);
-        float rightEdgeBottomPointRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_rightEdgeBottomPoint, &tileCenter),
-            ((radialDistance / _tileSetRadius) - ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float rightEdgeBottomPointTheta = LerpAngle(
-            CartesianToPolar(m_rightEdgeBottomPoint, tileCenter).fY,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_rightEdgeBottomPoint,
-            tileCenter,
-            rightEdgeBottomPointRadialDistance,
-            rightEdgeBottomPointTheta);
-        m_topRadius = orxLERP(
-            m_topRadius,
-            ((float)unitDistanceFromOrigin / halfSquare) * 0.5f,
-            _lerpWeight);
-        m_bottomRadius = orxLERP(
-            m_bottomRadius,
-            ((unitDistanceFromOrigin - 1.0f) / halfSquare) * 0.5f,
-            _lerpWeight);
-        float visualCenterRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_visualCenter, &_tileSetPos),
-            radialDistance,
-            _lerpWeight);
-        float visualCenterTheta = LerpAngle(
-            CartesianToPolar(m_visualCenter, _tileSetPos).fY,
-            theta,
-            _lerpWeight);
-        SetPolarPosition(m_visualCenter,
-            _tileSetPos,
-            visualCenterRadialDistance,
-            visualCenterTheta);
-        SetVisualScale();
-        // Background.
-        float leftEdgeTopPointBGRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_leftEdgeTopPointBG, &tileCenter),
-            ((radialDistanceBG / _tileSetRadius) + ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float leftEdgeTopPointBGTheta = LerpAngle(
-            CartesianToPolar(m_leftEdgeTopPointBG, tileCenter).fY,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_leftEdgeTopPointBG,
-            tileCenter,
-            leftEdgeTopPointBGRadialDistance,
-            leftEdgeTopPointBGTheta);
-        float leftEdgeBottomPointBGRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_leftEdgeBottomPointBG, &tileCenter),
-            ((radialDistanceBG / _tileSetRadius) - ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float leftEdgeBottomPointBGTheta = LerpAngle(
-            CartesianToPolar(m_leftEdgeBottomPointBG, tileCenter).fY,
-            theta + (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_leftEdgeBottomPointBG,
-            tileCenter,
-            leftEdgeBottomPointBGRadialDistance,
-            leftEdgeBottomPointBGTheta);
-        float rightEdgeTopPointBGRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_rightEdgeTopPointBG, &tileCenter),
-            ((radialDistanceBG / _tileSetRadius) + ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float rightEdgeTopPointBGTheta = LerpAngle(
-            CartesianToPolar(m_rightEdgeTopPointBG, tileCenter).fY,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_rightEdgeTopPointBG,
-            tileCenter,
-            rightEdgeTopPointBGRadialDistance,
-            rightEdgeTopPointBGTheta);
-        float rightEdgeBottomPointBGRadialDistance = orxLERP(
-            orxVector_GetDistance(&m_rightEdgeBottomPointBG, &tileCenter),
-            ((radialDistanceBG / _tileSetRadius) - ((_tileSetRadius / _square) / _tileSetRadius)) / 2.0f,
-            _lerpWeight);
-        float rightEdgeBottomPointBGTheta = LerpAngle(
-            CartesianToPolar(m_rightEdgeBottomPointBG, tileCenter).fY,
-            theta - (orxMATH_KF_2_PI / (2 * tilesInPolarRow)),
-            _lerpWeight);
-        SetPolarPosition(m_rightEdgeBottomPointBG,
-            tileCenter,
-            rightEdgeBottomPointBGRadialDistance,
-            rightEdgeBottomPointBGTheta);
-        m_topRadiusBG = orxLERP(
-            m_topRadiusBG,
-            ((float)unitDistanceFromOriginBG / halfSquare) * 0.5f,
-            _lerpWeight);
-        m_bottomRadiusBG = orxLERP(
-            m_bottomRadiusBG,
-            ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f,
-            _lerpWeight);
-        break;
-    }
+        switch (_tileSetState)
+        {
+        case TileSetState::Cartesian1D:
+        {
+            // Position.
+            orxVECTOR parentSpacePos;
+            m_targetParentSpacePos = GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize);
+            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+            SetParentSpacePosition(parentSpacePos);
+            // Visual scale.
+            orxVECTOR visualScale;
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
+            m_visualScale = visualScale;
+            break;
+        }
+        case TileSetState::Cartesian2D:
+        {
+            // Position.
+            orxVECTOR parentSpacePos;
+            m_targetParentSpacePos = GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize);
+            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+            SetParentSpacePosition(parentSpacePos);
+            // Visual scale.
+            orxVECTOR visualScale;
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
+            m_visualScale = visualScale;
+            break;
+        }
+        case TileSetState::Polar1D:
+        {
+            // Position.
+            orxVECTOR parentSpacePos;
+            m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
+            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+            SetParentSpacePosition(parentSpacePos);
+            // Visual scale.
+            orxVECTOR visualScale;
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
+            m_visualScale = visualScale;
+            break;
+        }
+        case TileSetState::Polar2D:
+        {
+            // Position.
+            orxVECTOR parentSpacePos;
+            m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
+            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+            SetParentSpacePosition(parentSpacePos);
+            // Visual scale.
+            orxVECTOR visualScale;
+            m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
+            m_visualScale = visualScale;
+        }
+        }
     }
 }
 
-void Tile::SetVisualScale()
+const orxVECTOR Tile::CalculateVisualScale(
+    const int &_square,
+    const int &_tilesInRow,
+    const float &_tileSetRadius,
+    const float &_normalizedTileSize,
+    const orxVECTOR &_tileSetPos,
+    const TileSetState &_tileSetState)
 {
-    orxVECTOR leftEdgeMidpoint = {
-        (m_leftEdgeTopPoint.fX + m_leftEdgeBottomPoint.fX) / 2.0f,
-        (m_leftEdgeTopPoint.fY + m_leftEdgeBottomPoint.fY) / 2.0f };
-    orxVECTOR rightEdgeMidpoint = {
-        (m_rightEdgeTopPoint.fX + m_rightEdgeBottomPoint.fX) / 2.0f,
-        (m_rightEdgeTopPoint.fY + m_rightEdgeBottomPoint.fY) / 2.0f };
-    m_visualScale = {
-        orxVector_GetDistance(&leftEdgeMidpoint, &rightEdgeMidpoint),
-        orxVector_GetDistance(&m_leftEdgeBottomPoint, &m_leftEdgeTopPoint) };
+    float normalizedRadialDistance;
+    float normalizedCircumference;
+    float normalizedWidth;
+    float normalizedHeight;
+
+    switch (_tileSetState)
+    {
+    case TileSetState::Polar1D:
+        normalizedRadialDistance = orxVector_GetDistance(&GetPosition(), &_tileSetPos) / _tileSetRadius;
+        normalizedCircumference = 2.0f * orxMATH_KF_PI * normalizedRadialDistance;
+        normalizedWidth = normalizedCircumference / _tilesInRow;
+        normalizedHeight = (_tileSetRadius / _tilesInRow) / _tileSetRadius;
+        break;
+    case TileSetState::Polar2D:
+        normalizedRadialDistance = orxVector_GetDistance(&GetPosition(), &_tileSetPos) / _tileSetRadius;
+        normalizedCircumference = 2.0f * orxMATH_KF_PI * normalizedRadialDistance;
+        normalizedWidth = normalizedCircumference / _tilesInRow;
+        normalizedHeight = _tileSetRadius / (_square / 2.0f) / _tileSetRadius;
+        break;
+    default:
+        normalizedWidth = _normalizedTileSize * 2.0f;
+        normalizedHeight = _normalizedTileSize * 2.0f;
+        break;
+    }
+
+    return { normalizedWidth, normalizedHeight };
 }

@@ -1,5 +1,4 @@
 #include "TileInhabitant.h"
-#include <iostream>
 
 using namespace payload;
 
@@ -43,11 +42,11 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
 
             if (m_timeSpentMoving < m_timeToMove)
             {
-                orxVECTOR pos = GetPosition();
+                orxVECTOR pos;
 
                 if (m_target->m_bCartesian)
                 {
-                    orxVector_Lerp(&pos, &pos, &m_target->GetPosition(), lerpWeight);
+                    orxVector_Lerp(&pos, &m_priorPos, &m_target->GetPosition(), lerpWeight);
                     SetPosition(pos);
                 }
                 else
@@ -57,7 +56,6 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                         orxVector_GetDistance(&m_priorPos, &m_tileSetPos),
                         orxVector_GetDistance(&m_tileSetPos, &targetPos),
                         lerpWeight);
-                    std::cout << radialDistance << std::endl;
                     float theta = LerpAngle(
                         CartesianToPolar(m_priorPos, m_tileSetPos).fY,
                         CartesianToPolar(targetPos, m_tileSetPos).fY,

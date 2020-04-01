@@ -1,4 +1,5 @@
 #include "TileSet.h"
+#include <iostream>
 
 using namespace payload;
 
@@ -103,7 +104,7 @@ orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "ShiftStatus"))
     {
-        _rstPayload.fValue = m_shiftStatus;
+        _rstPayload.fValue = static_cast<float>(m_shiftStatus);
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "D2"))
     {
@@ -119,7 +120,14 @@ orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "TimeSpentShifting"))
     {
-        _rstPayload.fValue = m_timeSpentShifting;
+        if (m_shiftStatus != TileSetShiftStatus::D1Tiles)
+        {
+            _rstPayload.fValue = m_timeSpentShifting;
+        }
+        else
+        {
+            _rstPayload.fValue = 1.0f;
+        }
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "PayloadPosition"))
     {
@@ -132,32 +140,28 @@ orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
 void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // HANDLE INPUTS
-    if (!m_payload->m_bIsMoving && m_shiftStatus == None)
+    if (!m_payload->m_bIsMoving && m_shiftStatus == TileSetShiftStatus::None)
     {
         if (orxInput_HasBeenActivated("DimShift"))
         {
-            m_timeSpentShifting = 0.0f;
-
             if (Is2D())
             {
-                Shift(D1);
+                Shift(TileSetShiftStatus::D1);
             }
             else // One-dimensional.
             {
-                Shift(D2);
+                Shift(TileSetShiftStatus::D2);
             }
         }
         else if (orxInput_HasBeenActivated("CoShift"))
         {
-            m_timeSpentShifting = 0.0f;
-
             if (IsCartesian())
             {
-                Shift(Polar);
+                Shift(TileSetShiftStatus::Polar);
             }
             else // Polar.
             {
-                Shift(Cartesian);
+                Shift(TileSetShiftStatus::Cartesian);
             }
         }
         else if (orxInput_HasBeenActivated("MoveRight"))
@@ -234,7 +238,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
     }
     // HANDLE SHIFTING
-    if (m_shiftStatus != None)
+    if (m_shiftStatus != TileSetShiftStatus::None)
     {
         // The payload's row and column.
         orxVECTOR payloadRowAndCol = GetPayloadRowAndColumn();
@@ -255,7 +259,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
                     // Grab the Tile at this row/column pair.
                     Tile *tile = m_tileRows.at(i).at(j);
                     // Shift the Tile.
-                    tile->Shift(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, payloadRowAndCol, pos, m_state);
+                    tile->Shift(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, payloadRowAndCol, pos, m_state, m_shiftStatus);
                 }
             }
             // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
@@ -265,33 +269,17 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
                 ti->SetPosition(ti->m_target->GetPosition());
             }
         }
+        else if (!Is2D() && (m_priorState != TileSetState::Cartesian1D && m_priorState != TileSetState::Polar1D) && m_shiftStatus != TileSetShiftStatus::D1Tiles)
+        {
+            FinalizeTileAndInhabitantLerps();
+
+            Shift(TileSetShiftStatus::D1Tiles);
+        }
         else
         {
-            for (int i = 0; i < m_square; i++)
-            {
-                for (int j = 0; j < m_square; j++)
-                {
-                    // Grab the Tile at this row/column pair.
-                    Tile *tile = m_tileRows.at(i).at(j);
-                    // Ensure Tile completes its lerp such that its position is exactly the same as its target's.
-                    tile->SetParentSpacePosition(tile->m_targetParentSpacePos);
-                    // Set the Tile's m_priorParentSpacePos for future lerping Tile-side.
-                    tile->m_priorParentSpacePos = tile->GetParentSpacePosition();
-                    // Set the Tile's m_priorTileSetState for future lerping Tile-side.
-                    tile->m_priorTileSetState = m_state;
-                }
-            }
+            FinalizeTileAndInhabitantLerps();
 
-            for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
-            {
-                TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-                // Ensure TI completes its lerp such that its position is exactly the same as its target's.
-                ti->SetPosition(ti->m_target->GetPosition());
-                // Set the TileInhabitant's m_priorPos for future lerping TI-side.
-                ti->m_priorPos = ti->GetPosition();
-            }
-
-            m_shiftStatus = None;
+            Shift(TileSetShiftStatus::None);
         }
     }
 }
@@ -303,18 +291,56 @@ void TileSet::Shift(TileSetShiftStatus _shiftStatus)
 
     switch (_shiftStatus)
     {
-    case D1:
+    case TileSetShiftStatus::D1:
+        m_timeSpentShifting = 0.0f;
         m_state = IsCartesian() ? TileSetState::Cartesian1D : TileSetState::Polar1D;
         break;
-    case D2:
+    case TileSetShiftStatus::D2:
+        m_timeSpentShifting = 0.0f;
         m_state = IsCartesian() ? TileSetState::Cartesian2D : TileSetState::Polar2D;
         break;
-    case Cartesian:
+    case TileSetShiftStatus::Cartesian:
+        m_timeSpentShifting = 0.0f;
         m_state = Is2D() ? TileSetState::Cartesian2D : TileSetState::Cartesian1D;
         break;
-    case Polar:
+    case TileSetShiftStatus::Polar:
+        m_timeSpentShifting = 0.0f;
         m_state = Is2D() ? TileSetState::Polar2D : TileSetState::Polar1D;
         break;
+    case TileSetShiftStatus::D1Tiles:
+        m_timeSpentShifting = 0.0f;
+        break;
+    }
+}
+
+void TileSet::FinalizeTileAndInhabitantLerps()
+{
+    for (int i = 0; i < m_square; i++)
+    {
+        for (int j = 0; j < m_square; j++)
+        {
+            // Grab the Tile at this row/column pair.
+            Tile *tile = m_tileRows.at(i).at(j);
+            // Ensure Tile completes its lerp such that its position is exactly the same as its target's.
+            tile->SetParentSpacePosition(tile->m_targetParentSpacePos);
+            // Set the Tile's m_priorParentSpacePos for future lerping Tile-side.
+            tile->m_priorParentSpacePos = tile->GetParentSpacePosition();
+            // Set the Tile's m_priorTileSetState for future lerping Tile-side.
+            tile->m_priorTileSetState = m_state;
+            // Ensure Tile completes its lerp such that its visual scale is exactly the same as its target's.
+            tile->m_visualScale = tile->m_targetVisualScale;
+            // Set The Tile's m_priorVisualScale for future lerping Tile-side.
+            tile->m_priorVisualScale = tile->m_visualScale;
+        }
+    }
+
+    for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+    {
+        TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        // Ensure TI completes its lerp such that its position is exactly the same as its target's.
+        ti->SetPosition(ti->m_target->GetPosition());
+        // Set the TileInhabitant's m_priorPos for future lerping TI-side.
+        ti->m_priorPos = ti->GetPosition();
     }
 }
 

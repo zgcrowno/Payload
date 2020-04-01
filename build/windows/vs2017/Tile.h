@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "ScrollMod.h"
+#include "TileSetShiftStatus.h"
 #include "TileSetState.h"
 
 namespace payload
@@ -26,6 +27,9 @@ namespace payload
         TileSetState m_priorTileSetState;
         orxVECTOR m_priorParentSpacePos;
         orxVECTOR m_targetParentSpacePos;
+        orxVECTOR m_priorVisualScale;
+        orxVECTOR m_targetVisualScale;
+        bool m_shifting;
         bool m_bCartesian;
         // FOREGROUND DATA
         float m_topRadius;
@@ -103,7 +107,14 @@ namespace payload
             const float &_lerpWeight,
             const orxVECTOR &_payloadRowAndCol,
             const orxVECTOR &_tileSetPos,
+            const TileSetState &_tileSetState,
+            const TileSetShiftStatus &_tileSetShiftStatus);
+        const orxVECTOR CalculateVisualScale(
+            const int &_square,
+            const int &_tilesInRow,
+            const float &_tileSetRadius,
+            const float &_normalizedTileSize,
+            const orxVECTOR &_tileSetPos,
             const TileSetState &_tileSetState);
-        void SetVisualScale();
     };
 }

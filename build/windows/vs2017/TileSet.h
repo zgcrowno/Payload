@@ -5,6 +5,7 @@
 #include "PlayerPayload.h"
 #include "ScrollMod.h"
 #include "Tile.h"
+#include "TileSetShiftStatus.h"
 #include "TileSetState.h"
 #include <vector>
 
@@ -33,15 +34,6 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     private:
-        enum TileSetShiftStatus
-        {
-            None,
-            D1,
-            D2,
-            Cartesian,
-            Polar
-        };
-
         int m_square;
         int m_halfSquare;
         float m_normalizedTileSize;
@@ -62,6 +54,7 @@ namespace payload
         std::vector<std::vector<Tile*>> m_tileRows;
 
         void Shift(TileSetShiftStatus _shiftStatus);
+        void FinalizeTileAndInhabitantLerps();
         const bool Is2D();
         const bool IsCartesian();
         // BEGIN TODO: Get rid of these methods if I never use them.
