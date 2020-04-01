@@ -65,12 +65,12 @@ void TileSet::OnCreate()
             m_tileRows.at(i).push_back(tile);
         }
     }
-    // Set m_payload's and m_goal's default positions and tileSetCenters.
-    m_payload->SetPosition(m_payload->m_target->m_visualCenter);
-    m_goal->SetPosition(m_goal->m_target->m_visualCenter);
+    // Set m_payload's and m_goal's default positions, tileSetCenters and priorPositions.
     m_payload->SetPosition(m_payload->m_target->GetPosition());
+    m_payload->m_priorPos = m_payload->GetPosition();
     m_payload->m_tileSetPos = GetPosition();
     m_goal->SetPosition(m_goal->m_target->GetPosition());
+    m_goal->m_priorPos = m_goal->GetPosition();
     m_goal->m_tileSetPos = GetPosition();
     /*m_payload->Enable(false);
     m_goal->Enable(false);*/
@@ -245,7 +245,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         float lerpWeight = m_timeSpentShifting / m_timeToShift;
 
         // Only shift if lerp hasn't already finished.
-        if (m_timeSpentShifting < m_timeToShift)
+        if (m_timeSpentShifting <= m_timeToShift)
         {
             // Shift each tile individually.
             for (int i = 0; i < m_square; i++)
@@ -255,18 +255,42 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
                     // Grab the Tile at this row/column pair.
                     Tile *tile = m_tileRows.at(i).at(j);
                     // Shift the Tile.
-                    tile->Shift(i, j, m_square, m_radius, lerpWeight, payloadRowAndCol, pos, m_state);
+                    tile->Shift(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, payloadRowAndCol, pos, m_state);
                 }
             }
             // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
             for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
             {
                 TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-                ti->SetPosition(ti->m_target->m_visualCenter);
+                ti->SetPosition(ti->m_target->GetPosition());
             }
         }
         else
         {
+            for (int i = 0; i < m_square; i++)
+            {
+                for (int j = 0; j < m_square; j++)
+                {
+                    // Grab the Tile at this row/column pair.
+                    Tile *tile = m_tileRows.at(i).at(j);
+                    // Ensure Tile completes its lerp such that its position is exactly the same as its target's.
+                    tile->SetParentSpacePosition(tile->m_targetParentSpacePos);
+                    // Set the Tile's m_priorParentSpacePos for future lerping Tile-side.
+                    tile->m_priorParentSpacePos = tile->GetParentSpacePosition();
+                    // Set the Tile's m_priorTileSetState for future lerping Tile-side.
+                    tile->m_priorTileSetState = m_state;
+                }
+            }
+
+            for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+            {
+                TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+                // Ensure TI completes its lerp such that its position is exactly the same as its target's.
+                ti->SetPosition(ti->m_target->GetPosition());
+                // Set the TileInhabitant's m_priorPos for future lerping TI-side.
+                ti->m_priorPos = ti->GetPosition();
+            }
+
             m_shiftStatus = None;
         }
     }

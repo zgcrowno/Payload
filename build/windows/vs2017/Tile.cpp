@@ -1,4 +1,6 @@
 #include "Tile.h"
+#include <iostream>
+#include <iomanip>
 
 using namespace payload;
 
@@ -25,6 +27,13 @@ orxBOOL Tile::OnCollide(
 void Tile::Update(const orxCLOCK_INFO &_rstInfo)
 {
     
+}
+
+const orxVECTOR Tile::GetGridRelativeCartesianPosition(const int &_row, const int &_col, const float &_normalizedBorderSize, const float &_normalizedTileSize)
+{
+    return {
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
+            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) };
 }
 
 const int Tile::GetQuadrant(
@@ -281,9 +290,8 @@ void Tile::SetUp(
     switch (_tileSetState)
     {
     case TileSetState::Cartesian1D:
-        SetParentSpacePosition({
-            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
-            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) });
+        m_priorTileSetState = TileSetState::Cartesian1D;
+        SetParentSpacePosition(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         m_leftEdgeTopPoint = {
@@ -321,9 +329,8 @@ void Tile::SetUp(
         m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f;
         break;
     case TileSetState::Cartesian2D:
-        SetParentSpacePosition({
-            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
-            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) });
+        m_priorTileSetState = TileSetState::Cartesian2D;
+        SetParentSpacePosition(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         m_leftEdgeTopPoint = {
@@ -361,12 +368,9 @@ void Tile::SetUp(
         m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f;
         break;
     case TileSetState::Polar1D:
-        SetParentSpacePosition({
-            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
-            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) });
-        SetPolarPosition2(
-            _tileSetPos,
-            _tileSetSize);
+        m_priorTileSetState = TileSetState::Polar1D;
+        //SetParentSpacePosition(CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize), orxMATH_KF_PI));
+        SetParentSpacePosition(CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize)));
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         SetPolarPosition(m_leftEdgeTopPoint,
@@ -410,9 +414,8 @@ void Tile::SetUp(
         m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / _square) * 0.5f;
         break;
     case TileSetState::Polar2D:
-        SetParentSpacePosition(SquareToCircle({
-            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_col * (_normalizedBorderSize + _normalizedTileSize)),
-            -0.5f + (_normalizedBorderSize + (_normalizedTileSize / 2.0f)) + (_row * (_normalizedBorderSize + _normalizedTileSize)) }));
+        m_priorTileSetState = TileSetState::Polar2D;
+        SetParentSpacePosition(SquareToCircle(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize)));
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         SetPolarPosition(m_leftEdgeTopPoint,
@@ -456,6 +459,7 @@ void Tile::SetUp(
         m_bottomRadiusBG = ((unitDistanceFromOriginBG - 1.0f) / halfSquare) * 0.5f;
         break;
     }
+    m_priorParentSpacePos = GetParentSpacePosition();
 }
 
 void Tile::Shift(
@@ -463,6 +467,8 @@ void Tile::Shift(
     const int &_col,
     const int &_square,
     const float &_tileSetRadius,
+    const float &_normalizedTileSize,
+    const float &_normalizedBorderSize,
     const float &_lerpWeight,
     const orxVECTOR &_payloadRowAndCol,
     const orxVECTOR &_tileSetPos,
@@ -497,6 +503,10 @@ void Tile::Shift(
     {
     case TileSetState::Cartesian1D:
     {
+        orxVECTOR parentSpacePos;
+        m_targetParentSpacePos = GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize);
+        orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+        SetParentSpacePosition(parentSpacePos);
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         orxVECTOR leftEdgeTopPointDest = { (float)_col / _square, (float)payloadRow / _square };
@@ -529,6 +539,10 @@ void Tile::Shift(
     }
     case TileSetState::Cartesian2D:
     {
+        orxVECTOR parentSpacePos;
+        m_targetParentSpacePos = GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize);
+        orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+        SetParentSpacePosition(parentSpacePos);
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         orxVECTOR leftEdgeTopPointDest = { (float)_col / _square, (float)_row / _square };
@@ -561,6 +575,10 @@ void Tile::Shift(
     }
     case TileSetState::Polar1D:
     {
+        orxVECTOR parentSpacePos;
+        m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
+        orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+        SetParentSpacePosition(parentSpacePos);
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         float leftEdgeTopPointRadialDistance = orxLERP(
@@ -693,6 +711,10 @@ void Tile::Shift(
     }
     case TileSetState::Polar2D:
     {
+        orxVECTOR parentSpacePos;
+        m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
+        orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
+        SetParentSpacePosition(parentSpacePos);
         // Foreground.
         m_bCartesian = tileSetIsCartesian;
         float leftEdgeTopPointRadialDistance = orxLERP(

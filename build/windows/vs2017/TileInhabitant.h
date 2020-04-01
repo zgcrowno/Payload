@@ -30,6 +30,7 @@ namespace payload
         float m_timeToMove;
         float m_timeSpentMoving;
         float m_tileRatio;
+        orxVECTOR m_priorPos;
         orxVECTOR m_tileSetPos;
         Tile *m_target;
 

@@ -23,6 +23,9 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        TileSetState m_priorTileSetState;
+        orxVECTOR m_priorParentSpacePos;
+        orxVECTOR m_targetParentSpacePos;
         bool m_bCartesian;
         // FOREGROUND DATA
         float m_topRadius;
@@ -41,6 +44,7 @@ namespace payload
         orxVECTOR m_rightEdgeTopPointBG;
         orxVECTOR m_rightEdgeBottomPointBG;
 
+        const orxVECTOR GetGridRelativeCartesianPosition(const int &_row, const int &_col, const float &_normalizedBorderSize, const float &_normalizedTileSize);
         const int GetQuadrant(
             const int &_row,
             const int &_col,
@@ -94,6 +98,8 @@ namespace payload
             const int &_col,
             const int &_square,
             const float &_tileSetRadius,
+            const float &_normalizedTileSize,
+            const float &_normalizedBorderSize,
             const float &_lerpWeight,
             const orxVECTOR &_payloadRowAndCol,
             const orxVECTOR &_tileSetPos,

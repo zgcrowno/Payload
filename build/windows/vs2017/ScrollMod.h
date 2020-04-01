@@ -60,6 +60,19 @@ namespace payload
         /// <param name="_origin">The point we wish to use as the center of the polar coordinate space.</param>
         /// <returns>A vector containing <paramref name="_point"/>'s r and theta values in polar coordinates.</returns>
         static const orxVECTOR CartesianToPolar(orxVECTOR _point, orxVECTOR _origin = { 0.0f, 0.0f });
+        /// <summary>Returns a normalized vector which represents <paramref name="_normalizedPos"/> after polarization (with the polar axis aiming downward).</summary>
+        /// <param name="_normalizedPos">The normalized [-0.5, 0.5] vector whose polarized form we want.</param>
+        /// <returns>A normalized vector which represents <paramref name="_normalizedPos"/> after polarization (with the polar axis aiming downward).</returns>
+        static const orxVECTOR CartesianToPolar2(const orxVECTOR &_normalizedPos);
+        /// <summary>Returns a Cartesian vector representing a polar coordinate comprised of <paramref name="_r"/> and <paramref name="_theta"/>.</summary>
+        /// <param name="_r">The radius of the polar coordinate.</param>
+        /// <param name="_theta">The angle of the polar coordinate (in radians).</param>
+        /// <returns>A Cartesian vector representing a polar coordinate comprised of <paramref name="_r"/> and <paramref name="_theta"/>.</returns>
+        static const orxVECTOR PolarToCartesian(const float &_r, const float &_theta);
+        /// <summary>Returns a normalized vector which represents <paramref name="_normalizedPos"/> after de-polarization (with the polar axis aiming downward).</summary>
+        /// <param name="_normalizedPos">The normalized [-0.5, 0.5] vector whose de-polarized form we want.</param>
+        /// <returns>A normalized vector which represents <paramref name="_normalizedPos"/> after de-polarization (with the polar axis aiming downward).</returns>
+        static const orxVECTOR PolarToCartesian2(const orxVECTOR &_normalizedPos);
         /// <summary>Given a vector normalized in ORX parent space ([-0.5, 0.5]), this function returns that vector's circle-mapped counterpart.</summary>
         /// <param name="_normalizedVec">A vector normalized in ORX parent space ([-0.5, 0.5]).</param>
         /// <returns><paramref name="_normalizedVec"/>'s circle-mapped counterpart.</returns>
@@ -131,6 +144,9 @@ namespace payload
         /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
         /// <returns>The ScrollMod's position.</returns>
         const orxVECTOR __fastcall GetPosition(const bool &_bWorld = false) const;
+        /// <summary>Returns the ScrollMod's position in normalized parent space.</summary>
+        /// <returns>The ScrollMod's position in normalized parent space.</returns>
+        const orxVECTOR __fastcall GetParentSpacePosition() const;
         /// <summary>Gets the predicted position of the ScrollMod one frame from when the function is called.</summary>
         /// <param name="_fDT">The delta time.</param>
         /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
@@ -244,10 +260,6 @@ namespace payload
         /// <param name="_r">The radius of the circle onto which we're mapping the ScrollMod's position.</param>
         /// <param name="_theta">The angle (in radians) within the circle onto which we're mapping the ScrollMod's position.</param>
         void __fastcall SetPolarPosition(const orxVECTOR &_pivot, const float &_r, const float &_theta);
-        /// <summary>Performs a polar transformation on the position of the calling ScrollMod, given the passed pivot and size.</summary>
-        /// <param name="_pivot">The point around which the polar transformation is taking place.</param>
-        /// <param name="_areaSize">The size (width and height) of the area undergoing polar transformation.</param>
-        void __fastcall SetPolarPosition2(const orxVECTOR &_pivot, const orxVECTOR &_areaSize);
         /// <summary>Sets the ScrollMod's position in terms of parent space, such that 0.5 represents the ScrollMod's maximum bound and -0.5 represents its minimum bound.</summary>
         /// <param name="_position">The position to which we'll set the ScrollMod, in terms of parent space.</param>
         void __fastcall SetParentSpacePosition(const orxVECTOR &_position);

@@ -141,6 +141,47 @@ const orxVECTOR ScrollMod::CartesianToPolar(orxVECTOR _point, orxVECTOR _origin)
     return { r, theta };
 }
 
+// BEGIN ALERT:
+// This function has an inverse counterpart in config. Ensure that any changes I make here are reflected shader-side.
+// END ALERT:
+const orxVECTOR ScrollMod::CartesianToPolar2(const orxVECTOR &_normalizedPos)
+{
+    // Attempt at "reversal".
+    float angle = _normalizedPos.fX;
+    float radius = _normalizedPos.fY;
+    float inverseAtan = tanf(orxMATH_KF_2_PI * (-angle + 0.5f) - orxMATH_KF_PI);
+    float inverseAtanSquared = powf(inverseAtan, 2.0f);
+    float deltaY = sqrtf(((inverseAtanSquared * powf(radius, 2.0f)) - (inverseAtanSquared * radius) + (inverseAtanSquared * 0.25f)) / (1.0f + inverseAtanSquared));
+    if (_normalizedPos.fX > 0)
+    {
+        deltaY *= -1.0f;
+    }
+    float deltaX = deltaY / inverseAtan;
+    orxVECTOR uv = { (1.0f - (deltaY * 0.5f + 0.5f)) - 0.5f, (1.0f - (deltaX * 0.5f + 0.5f)) - 0.5f };
+    return uv;
+}
+
+const orxVECTOR ScrollMod::PolarToCartesian(const float &_r, const float &_theta)
+{
+    float x = _r * cosf(-_theta);
+    float y = _r * sinf(-_theta);
+    return { x, y };
+}
+
+// BEGIN ALERT:
+// This function has a self-same counterpart in config. Ensure that any changes I make here are reflected shader-side.
+// END ALERT:
+const orxVECTOR ScrollMod::PolarToCartesian2(const orxVECTOR &_normalizedPos)
+{
+    orxVECTOR uv = { _normalizedPos.fX + 0.5f, _normalizedPos.fY + 0.5f };
+    uv = { 1.0f - uv.fX, 1.0f - uv.fY };
+    uv = { uv.fY, uv.fX };
+    orxVECTOR delta = { uv.fX * 2.0f - 1.0f, uv.fY * 2.0f - 1.0f };
+    float radius = -(sqrtf(powf(delta.fX, 2.0f) + powf(delta.fY, 2.0f)) - 0.5f);
+    float angle = -(((atan2f(delta.fY, delta.fX) + orxMATH_KF_PI) / orxMATH_KF_2_PI) - 0.5f);
+    return { angle, radius };
+}
+
 const orxVECTOR ScrollMod::SquareToCircle(orxVECTOR _normalizedVec)
 {
     // Multiplying components by 2 since normalized ORX space ranges from [-0.5, 0.5], and we need a space of [-1, 1]
@@ -312,6 +353,29 @@ const orxVECTOR __fastcall ScrollMod::GetPosition(const bool &_bWorld) const
     ScrollObject::GetPosition(vecRef, _bWorld);
 
     return vecRef;
+}
+
+const orxVECTOR __fastcall ScrollMod::GetParentSpacePosition() const
+{
+    orxVECTOR pos = GetPosition();
+    orxSTRUCTURE *parent = orxObject_GetParent(GetOrxObject());
+    orxOBJECT *parentObj = orxOBJECT(parent);
+    if (parentObj != nullptr)
+    {
+        orxVECTOR parentPos = orxVECTOR_0;
+        orxObject_GetPosition(parentObj, &parentPos);
+        orxVECTOR parentSize = orxVECTOR_0;
+        orxObject_GetSize(parentObj, &parentSize);
+        orxVECTOR parentScale = orxVECTOR_0;
+        orxObject_GetScale(parentObj, &parentScale);
+        orxVECTOR parentScaledSize = { parentSize.fX * parentScale.fX, parentSize.fY * parentScale.fY, parentSize.fZ * parentScale.fZ };
+        orxVECTOR relativePos = { (pos.fX - parentPos.fX) / parentScaledSize.fX, (pos.fY - parentPos.fY) / parentScaledSize.fY, (pos.fZ - parentPos.fZ) / parentScaledSize.fZ };
+        return relativePos;
+    }
+    else
+    {
+        // TODO: Account for instances in which parent isn't an orxOBJECT (for instance, maybe it's an orxCAMERA).
+    }
 }
 
 const orxVECTOR __fastcall ScrollMod::GetPositionNextFrame(const float &_fDT, const bool &_bWorld) const
@@ -627,37 +691,6 @@ void __fastcall ScrollMod::SetPolarPosition(const orxVECTOR &_pivot, const float
     float yTranslation = sinf(-_theta) * _r;
 
     SetPosition({ _pivot.fX + xTranslation, _pivot.fY + yTranslation });
-}
-
-void __fastcall ScrollMod::SetPolarPosition2(const orxVECTOR &_pivot, const orxVECTOR &_areaSize)
-{
-    // BEGIN ALERT: This commented section is doing exactly what the shader is, currently, but we need to "reverse" it. This returns the Cartesian coordinates of a polar-transformed object,
-    // and we need the polar-transformed coordinates of a Cartesian object. Ensure that if any changes are made to the shader's behavior, that they're reflected here and in the code below.
-    /*orxVECTOR pos = GetPosition();
-    orxVECTOR relativePos = { (pos.fX - _pivot.fX) / _areaSize.fX + 0.5f, (pos.fY - _pivot.fY) / _areaSize.fY + 0.5f };
-    orxVECTOR uv = { 1.0f - relativePos.fX, 1.0f - relativePos.fY };
-    uv = { uv.fY, uv.fX };
-    orxVECTOR delta = { uv.fX * 2.0f - 1.0f, uv.fY * 2.0f - 1.0f };
-    float radius = -(sqrtf(powf(delta.fX, 2.0f) + powf(delta.fY, 2.0f)) - 0.5f);
-    float angle = -(((atan2f(delta.fY, delta.fX) + orxMATH_KF_PI) / orxMATH_KF_2_PI) - 0.5f);
-    SetParentSpacePosition({ angle, radius });*/
-    // END ALERT
-
-    // Attempt at "reversal".
-    orxVECTOR pos = GetPosition();
-    orxVECTOR relativePos = { (pos.fX - _pivot.fX) / _areaSize.fX, (pos.fY - _pivot.fY) / _areaSize.fY };
-    float angle = relativePos.fX;
-    float radius = relativePos.fY;
-    float inverseAtan = tanf(orxMATH_KF_2_PI * (-angle + 0.5f) - orxMATH_KF_PI);
-    float inverseAtanSquared = powf(inverseAtan, 2.0f);
-    float deltaY = sqrtf(((inverseAtanSquared * powf(radius, 2.0f)) - (inverseAtanSquared * radius) + (inverseAtanSquared * 0.25f)) / (1.0f + inverseAtanSquared));
-    if (relativePos.fX > 0)
-    {
-        deltaY *= -1.0f;
-    }
-    float deltaX = deltaY / inverseAtan;
-    orxVECTOR uv = { (1.0f - (deltaY * 0.5f + 0.5f)) - 0.5f, (1.0f - (deltaX * 0.5f + 0.5f)) - 0.5f };
-    SetParentSpacePosition({ uv.fX, uv.fY });
 }
 
 void __fastcall ScrollMod::SetParentSpacePosition(const orxVECTOR &_position)
