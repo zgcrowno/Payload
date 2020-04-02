@@ -67,7 +67,7 @@ namespace payload
         const orxVECTOR GetCartesianUnitDistancesFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
         // END TODO.
         const orxVECTOR GetPayloadRowAndColumn();
-        const orxVECTOR GetPayloadNormalizedPosition();
+        const orxVECTOR GetNormalizedPosition(const orxVECTOR &_vec);
         Tile *GetTileToRight(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
         Tile *GetTileToLeft(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
         Tile *GetTileAbove(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);

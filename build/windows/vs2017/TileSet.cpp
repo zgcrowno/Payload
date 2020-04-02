@@ -120,18 +120,15 @@ orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "TimeSpentShifting"))
     {
-        if (m_shiftStatus != TileSetShiftStatus::D1Tiles)
-        {
-            _rstPayload.fValue = m_timeSpentShifting;
-        }
-        else
-        {
-            _rstPayload.fValue = 1.0f;
-        }
+        _rstPayload.fValue = m_timeSpentShifting;
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "PayloadPosition"))
     {
-        _rstPayload.vValue = GetPayloadNormalizedPosition();
+        _rstPayload.vValue = GetNormalizedPosition(m_payload->GetPosition());
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "PriorPayloadPosition"))
+    {
+        _rstPayload.vValue = GetNormalizedPosition(m_payload->m_priorPos);
     }
 
     return orxTRUE;
@@ -568,13 +565,12 @@ const orxVECTOR TileSet::GetPayloadRowAndColumn()
     }
 }
 
-const orxVECTOR TileSet::GetPayloadNormalizedPosition()
+const orxVECTOR TileSet::GetNormalizedPosition(const orxVECTOR &_vec)
 {
     orxVECTOR pos = GetPosition();
     orxVECTOR scaledSize = GetScaledSize();
     orxVECTOR upperLeftCorner = { pos.fX - (scaledSize.fX / 2.0f), pos.fY - (scaledSize.fY / 2.0f) };
-    orxVECTOR payloadPos = m_payload->GetPosition();
-    return { (payloadPos.fX - upperLeftCorner.fX) / scaledSize.fX, (payloadPos.fY - upperLeftCorner.fY) / scaledSize.fY };
+    return { (_vec.fX - upperLeftCorner.fX) / scaledSize.fX, (_vec.fY - upperLeftCorner.fY) / scaledSize.fY };
 }
 
 Tile *TileSet::GetTileToRight(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol)
