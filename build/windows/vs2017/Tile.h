@@ -101,6 +101,7 @@ namespace payload
             const int &_row,
             const int &_col,
             const int &_square,
+            const int &_greatest1DUnitDistanceOfPayloadRowFromThreshold,
             const float &_tileSetRadius,
             const float &_normalizedTileSize,
             const float &_normalizedBorderSize,

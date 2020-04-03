@@ -1,5 +1,4 @@
 #include "TileSet.h"
-#include <iostream>
 
 using namespace payload;
 
@@ -143,7 +142,14 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         {
             if (Is2D())
             {
-                Shift(TileSetShiftStatus::D1);
+                if (IsCartesian())
+                {
+                    Shift(TileSetShiftStatus::D1Tiles);
+                }
+                else
+                {
+                    Shift(TileSetShiftStatus::D1);
+                }
             }
             else // One-dimensional.
             {
@@ -239,6 +245,8 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
     {
         // The payload's row and column.
         orxVECTOR payloadRowAndCol = GetPayloadRowAndColumn();
+        // The payload's row's greatest 1D unit distance from threshold.
+        int greatest1DUnitDistanceOfPayloadRowFromThreshold = GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
         // The TileSet's position.
         orxVECTOR pos = GetPosition();
         // Increment the time spent shifting.
@@ -256,7 +264,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
                     // Grab the Tile at this row/column pair.
                     Tile *tile = m_tileRows.at(i).at(j);
                     // Shift the Tile.
-                    tile->Shift(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, payloadRowAndCol, pos, m_state, m_shiftStatus);
+                    tile->Shift(i, j, m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, payloadRowAndCol, pos, m_state, m_shiftStatus);
                 }
             }
             // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
@@ -306,6 +314,7 @@ void TileSet::Shift(TileSetShiftStatus _shiftStatus)
         break;
     case TileSetShiftStatus::D1Tiles:
         m_timeSpentShifting = 0.0f;
+        m_state = Is2D() && IsCartesian() ? TileSetState::Cartesian1D : m_state;
         break;
     }
 }
@@ -548,6 +557,13 @@ const orxVECTOR TileSet::GetCartesianUnitDistancesFromOrigin(const int &_row, co
     }
 
     return unitDistancesFromOrigin;
+}
+
+const int TileSet::GetGreatest1DUnitDistanceOfPayloadRowFromThreshold()
+{
+    int payloadRow = GetPayloadRowAndColumn().fX;
+
+    return orxMAX(payloadRow, (m_square - 1) - payloadRow);
 }
 
 const orxVECTOR TileSet::GetPayloadRowAndColumn()

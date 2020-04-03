@@ -66,6 +66,7 @@ namespace payload
         const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow);
         const orxVECTOR GetCartesianUnitDistancesFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
         // END TODO.
+        const int GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
         const orxVECTOR GetPayloadRowAndColumn();
         const orxVECTOR GetNormalizedPosition(const orxVECTOR &_vec);
         Tile *GetTileToRight(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
