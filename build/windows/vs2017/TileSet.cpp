@@ -9,7 +9,6 @@ void TileSet::OnCreate()
     m_halfSquare = m_square / 2;
     m_timeToShift = GetFloat("TimeToShift", GetModelName());
     m_timeSpentShifting = m_timeToShift;
-    orxVECTOR parentCameraScale = GetVector("Scale", GetModelName());
     int numBorders = m_square + 1;
     float textureThickness = GetSize().fX;
     m_normalizedTileSize = ((NATIVE_TEXTURE_SIZE - (numBorders * NATIVE_BORDER_SIZE)) / m_square) / NATIVE_TEXTURE_SIZE;
@@ -60,7 +59,7 @@ void TileSet::OnCreate()
             // The Tile at this row/column pair.
             Tile *tile = m_tileRows.at(i).at(j);
             // Perform initial setup of Tile.
-            tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, payloadRowAndCol, pos, GetScaledSize(), m_state);
+            tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, payloadRowAndCol, pos, m_state);
             // Add the tile to m_tileRows.
             m_tileRows.at(i).push_back(tile);
         }
@@ -72,8 +71,6 @@ void TileSet::OnCreate()
     m_goal->SetPosition(m_goal->m_target->GetPosition());
     m_goal->m_priorPos = m_goal->GetPosition();
     m_goal->m_tileSetPos = GetPosition();
-    /*m_payload->Enable(false);
-    m_goal->Enable(false);*/
 }
 
 void TileSet::OnDelete()
@@ -136,7 +133,7 @@ orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
 void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // HANDLE INPUTS
-    if (!m_payload->m_bIsMoving && m_shiftStatus == TileSetShiftStatus::None)
+    if (InputAllowed())
     {
         if (orxInput_HasBeenActivated("DimShift"))
         {
@@ -243,48 +240,29 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
     // HANDLE SHIFTING
     if (m_shiftStatus != TileSetShiftStatus::None)
     {
-        // The payload's row and column.
-        orxVECTOR payloadRowAndCol = GetPayloadRowAndColumn();
-        // The payload's row's greatest 1D unit distance from threshold.
-        int greatest1DUnitDistanceOfPayloadRowFromThreshold = GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
-        // The TileSet's position.
-        orxVECTOR pos = GetPosition();
         // Increment the time spent shifting.
         m_timeSpentShifting += _rstInfo.fDT;
-        float lerpWeight = m_timeSpentShifting / m_timeToShift;
 
-        // Only shift if lerp hasn't already finished.
+        // Has the lerp finished?
         if (m_timeSpentShifting <= m_timeToShift)
         {
-            // Shift each tile individually.
-            for (int i = 0; i < m_square; i++)
-            {
-                for (int j = 0; j < m_square; j++)
-                {
-                    // Grab the Tile at this row/column pair.
-                    Tile *tile = m_tileRows.at(i).at(j);
-                    // Shift the Tile.
-                    tile->Shift(i, j, m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, payloadRowAndCol, pos, m_state, m_shiftStatus);
-                }
-            }
-            // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
-            for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
-            {
-                TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-                ti->SetPosition(ti->m_target->GetPosition());
-            }
-        }
-        else if (!Is2D() && (m_priorState != TileSetState::Cartesian1D && m_priorState != TileSetState::Polar1D) && m_shiftStatus != TileSetShiftStatus::D1Tiles)
-        {
-            FinalizeTileAndInhabitantLerps();
-
-            Shift(TileSetShiftStatus::D1Tiles);
+            ShiftTiles();
         }
         else
         {
-            FinalizeTileAndInhabitantLerps();
+            TileSetShiftStatus nextShiftStatus;
 
-            Shift(TileSetShiftStatus::None);
+            if (NeedToShiftD1Tiles())
+            {
+                nextShiftStatus = TileSetShiftStatus::D1Tiles;
+            }
+            else
+            {
+                nextShiftStatus = TileSetShiftStatus::None;
+            }
+
+            FinalizeTileAndInhabitantLerps();
+            Shift(nextShiftStatus);
         }
     }
 }
@@ -316,6 +294,36 @@ void TileSet::Shift(TileSetShiftStatus _shiftStatus)
         m_timeSpentShifting = 0.0f;
         m_state = Is2D() && IsCartesian() ? TileSetState::Cartesian1D : m_state;
         break;
+    }
+}
+
+void TileSet::ShiftTiles()
+{
+    // The payload's row and column.
+    orxVECTOR payloadRowAndCol = GetPayloadRowAndColumn();
+    // The payload's row's greatest 1D unit distance from threshold.
+    int greatest1DUnitDistanceOfPayloadRowFromThreshold = GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
+    // The TileSet's position.
+    orxVECTOR pos = GetPosition();
+    // The amount by which we're shifting the tiles.
+    float lerpWeight = m_timeSpentShifting / m_timeToShift;
+
+    // Shift each tile individually.
+    for (int i = 0; i < m_square; i++)
+    {
+        for (int j = 0; j < m_square; j++)
+        {
+            // Grab the Tile at this row/column pair.
+            Tile *tile = m_tileRows.at(i).at(j);
+            // Shift the Tile.
+            tile->Shift(i, j, m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, payloadRowAndCol, pos, m_state, m_shiftStatus);
+        }
+    }
+    // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
+    for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+    {
+        TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        ti->SetPosition(ti->m_target->GetPosition());
     }
 }
 
@@ -355,39 +363,36 @@ const bool TileSet::Is2D()
     return m_state == TileSetState::Cartesian2D || m_state == TileSetState::Polar2D;
 }
 
+const bool TileSet::PriorStateIs2D()
+{
+    return m_priorState == TileSetState::Cartesian2D || m_priorState == TileSetState::Polar2D;
+}
+
 const bool TileSet::IsCartesian()
 {
     return m_state == TileSetState::Cartesian1D || m_state == TileSetState::Cartesian2D;
 }
 
-const int TileSet::GetQuadrant(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background)
+const bool TileSet::InputAllowed()
 {
-    // In what Cartesian quadrant is this Tile?
-    int quadrant;
-
-    if (_background)
-    {
-        quadrant = _col >= m_halfSquare && _row < m_halfSquare ? 1 :
-            _col < m_halfSquare && _row < m_halfSquare ? 2 :
-            _col < m_halfSquare && _row >= m_halfSquare ? 3 :
-            4;
-    }
-    else
-    {
-        int row = _payloadRowAndCol.fX;
-        quadrant = _col >= m_halfSquare && row < m_halfSquare ? 1 :
-            _col < m_halfSquare && row < m_halfSquare ? 2 :
-            _col < m_halfSquare && row >= m_halfSquare ? 3 :
-            4;
-    }
-
-    return quadrant;
+    // Only allow inputs if the player isn't moving and the TileSet isn't shifting.
+    return !m_payload->m_bIsMoving && m_shiftStatus == TileSetShiftStatus::None;
 }
 
-const int TileSet::GetUnitDistanceFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background)
+const bool TileSet::NeedToShiftD1Tiles()
+{
+    // We only need to D1-shift Tiles if a lerp has finished (m_timeSpentShifting > m_timeToShift),
+    // the TileSet is 1D (!Is2D()), the TileSet was previously 2D (PriorStateIs2D()), and the TileSet
+    // isn't currently D2-shifting Tiles (m_shiftStatus != TileSetShiftStatus::D1Tiles).
+    return m_timeSpentShifting > m_timeToShift && !Is2D() && PriorStateIs2D() && m_shiftStatus != TileSetShiftStatus::D1Tiles;
+}
+
+const int TileSet::GetUnitDistanceFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol)
 {
     // How many tiles away from the TileSet's pivot is this Tile?
     int unitDistanceFromOrigin;
+    // The payload's row.
+    int payloadRow = _payloadRowAndCol.fX;
 
     switch (m_state)
     {
@@ -395,15 +400,7 @@ const int TileSet::GetUnitDistanceFromOrigin(const int &_row, const int &_col, c
         unitDistanceFromOrigin = _col < m_halfSquare ? m_halfSquare - _col : (_col + 1) - m_halfSquare;
         break;
     case TileSetState::Polar1D:
-        if (_background)
-        {
-            unitDistanceFromOrigin = m_square - _row;
-        }
-        else
-        {
-            int row = _payloadRowAndCol.fX;
-            unitDistanceFromOrigin = m_square - row;
-        }
+        unitDistanceFromOrigin = m_square - payloadRow;
         break;
     default:
         // How many tiles away from the TileSet's pivot (on the X-axis) is this Tile?
@@ -415,148 +412,6 @@ const int TileSet::GetUnitDistanceFromOrigin(const int &_row, const int &_col, c
     }
 
     return unitDistanceFromOrigin;
-}
-
-const int TileSet::GetUnitDistanceFromPolarAxis(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const int &_unitDistanceFromOrigin)
-{
-    // How many tiles away from the polar axis is this Tile?
-    int unitDistanceFromPolarAxis;
-
-    if (Is2D())
-    {
-        // In what Cartesian quadrant is this Tile?
-        const int quadrant = GetQuadrant(_row, _col, _payloadRowAndCol, true);
-
-        unitDistanceFromPolarAxis = ((quadrant - 1) * (2 * _unitDistanceFromOrigin - 1));
-
-        switch (quadrant)
-        {
-        case 1:
-            unitDistanceFromPolarAxis += (m_halfSquare - _row) + (m_halfSquare + _unitDistanceFromOrigin - _col) - 1;
-            break;
-        case 2:
-            unitDistanceFromPolarAxis += (m_halfSquare - _col) + ((_row + 1) - (m_halfSquare - _unitDistanceFromOrigin)) - 1;
-            break;
-        case 3:
-            unitDistanceFromPolarAxis += ((_row + 1) - m_halfSquare) + ((_col + 1) - (m_halfSquare - _unitDistanceFromOrigin)) - 1;
-            break;
-        case 4:
-            unitDistanceFromPolarAxis += ((_col + 1) - m_halfSquare) + (m_halfSquare + _unitDistanceFromOrigin - _row) - 1;
-            break;
-        }
-    }
-    else
-    {
-        unitDistanceFromPolarAxis = ((3 * m_square) / 4) - _col;
-        if (unitDistanceFromPolarAxis <= 0)
-        {
-            unitDistanceFromPolarAxis += m_square;
-        }
-        if (unitDistanceFromPolarAxis == m_square && m_halfSquare % 2 != 0)
-        {
-            unitDistanceFromPolarAxis = 0;
-        }
-    }
-
-    return unitDistanceFromPolarAxis;
-}
-
-const int TileSet::GetNumTilesInPolarRow(const int &_unitDistanceFromOrigin)
-{
-    // How many tiles are in this Tile's circular, polar-2D row?
-    int numTilesInPolarRow;
-
-    if (Is2D())
-    {
-        numTilesInPolarRow = (_unitDistanceFromOrigin * 4) + ((_unitDistanceFromOrigin - 1) * 4);
-    }
-    else
-    {
-        numTilesInPolarRow = m_square;
-    }
-
-    return numTilesInPolarRow;
-}
-
-const float TileSet::GetRadialDistance(const int &_unitDistanceFromOrigin, const orxVECTOR &_payloadRowAndCol, const bool _background)
-{
-    // How far away from the TileSet's pivot is this Tile's visual center?
-    float radialDistance;
-
-    if (Is2D())
-    {
-        radialDistance = ((1.0f / m_square) * m_radius) + ((_unitDistanceFromOrigin - 1) * ((1.0f / m_halfSquare) * m_radius));
-    }
-    else
-    {
-        if (_background)
-        {
-            radialDistance = ((1.0f / (m_square * 2.0f)) * m_radius) + ((_unitDistanceFromOrigin - 1) * ((1.0f / m_square) * m_radius));
-        }
-        else
-        {
-            int payloadUnitDistanceFromOrigin = GetUnitDistanceFromOrigin(_payloadRowAndCol.fX, _payloadRowAndCol.fY, _payloadRowAndCol, _background);
-            radialDistance = ((1.0f / (m_square * 2.0f)) * m_radius) + ((payloadUnitDistanceFromOrigin - 1) * ((1.0f / m_square) * m_radius));
-        }
-    }
-
-    return radialDistance;
-}
-
-const float TileSet::GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow)
-{
-    // At what angle is this Tile, in reference to the TileSet's pivot?
-    float theta;
-
-    if (Is2D())
-    {
-        theta = orxMATH_KF_2_PI * ((1.0f / (_tilesInPolarRow * 2.0f)) + ((_unitDistanceFromPolarAxis - 1) * (1.0f / _tilesInPolarRow)));
-    }
-    else
-    {
-        theta = orxMATH_KF_2_PI;
-        if (_unitDistanceFromPolarAxis == 0)
-        {
-            theta = 0;
-        }
-        else
-        {
-            if (m_halfSquare % 2 != 0)
-            {
-                theta *= (_unitDistanceFromPolarAxis * (1.0f / _tilesInPolarRow));
-            }
-            else
-            {
-                theta *= ((1.0f / (_tilesInPolarRow * 2.0f)) + ((_unitDistanceFromPolarAxis - 1) * (1.0f / _tilesInPolarRow)));
-            }
-        }
-    }
-
-    return theta;
-}
-
-const orxVECTOR TileSet::GetCartesianUnitDistancesFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background)
-{
-    // How many tiles away from the TileSet's pivot (along both the X and Y-axes) is this Tile?
-    orxVECTOR unitDistancesFromOrigin;
-    // How many tiles away from the TileSet's pivot is this Tile along the X-axis.
-    int unitDistanceFromOriginX = _col < m_halfSquare ? m_halfSquare - _col : (_col + 1) - m_halfSquare;
-
-    if (_background)
-    {
-        unitDistancesFromOrigin = {
-            (float)unitDistanceFromOriginX,
-            (float)(_row < m_halfSquare ? m_halfSquare - _row : (_row + 1) - m_halfSquare) };
-    }
-    else
-    {
-        int payloadRow = _payloadRowAndCol.fX;
-        unitDistancesFromOrigin = {
-            (float)unitDistanceFromOriginX,
-            (float)(payloadRow < m_halfSquare ? m_halfSquare - payloadRow : (payloadRow + 1) - m_halfSquare) };
-    }
-
-    return unitDistancesFromOrigin;
 }
 
 const int TileSet::GetGreatest1DUnitDistanceOfPayloadRowFromThreshold()
@@ -611,7 +466,7 @@ Tile *TileSet::GetTileToRight(const int &_row, const int &_col, const orxVECTOR 
         }
         break;
     case TileSetState::Polar2D:
-        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol, false);
+        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol);
         if (_col >= m_halfSquare)
         {
             if (_col - unitDistanceFromOrigin == m_halfSquare - 1)
@@ -704,7 +559,7 @@ Tile *TileSet::GetTileToLeft(const int &_row, const int &_col, const orxVECTOR &
         }
         break;
     case TileSetState::Polar2D:
-        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol, false);
+        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol);
         if (_col >= m_halfSquare)
         {
             if (_col - unitDistanceFromOrigin == m_halfSquare - 1)
@@ -786,7 +641,7 @@ Tile *TileSet::GetTileAbove(const int &_row, const int &_col, const orxVECTOR &_
         }
         break;
     case TileSetState::Polar2D:
-        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol, false);
+        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol);
         if (_col >= m_halfSquare)
         {
             if (_row >= m_halfSquare)
@@ -826,7 +681,7 @@ Tile *TileSet::GetTileBelow(const int &_row, const int &_col, const orxVECTOR &_
         }
         break;
     case TileSetState::Polar2D:
-        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol, false);
+        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(_row, _col, _payloadRowAndCol);
         if (_col >= m_halfSquare)
         {
             if (_row >= m_halfSquare)

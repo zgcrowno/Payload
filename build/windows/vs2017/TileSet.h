@@ -54,18 +54,17 @@ namespace payload
         std::vector<std::vector<Tile*>> m_tileRows;
 
         void Shift(TileSetShiftStatus _shiftStatus);
+        void ShiftTiles();
         void FinalizeTileAndInhabitantLerps();
         const bool Is2D();
+        const bool PriorStateIs2D();
         const bool IsCartesian();
-        // BEGIN TODO: Get rid of these methods if I never use them.
-        const int GetQuadrant(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
-        const int GetUnitDistanceFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
-        const int GetUnitDistanceFromPolarAxis(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const int &_unitDistanceFromOrigin);
-        const int GetNumTilesInPolarRow(const int &_unitDistanceFromOrigin);
-        const float GetRadialDistance(const int &_unitDistanceFromOrigin, const orxVECTOR &_payloadRowAndCol, const bool _background);
-        const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow);
-        const orxVECTOR GetCartesianUnitDistancesFromOrigin(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol, const bool _background);
-        // END TODO.
+        const bool InputAllowed();
+        const bool NeedToShiftD1Tiles();
+        const int GetUnitDistanceFromOrigin(
+            const int &_row,
+            const int &_col,
+            const orxVECTOR &_payloadRowAndCol);
         const int GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
         const orxVECTOR GetPayloadRowAndColumn();
         const orxVECTOR GetNormalizedPosition(const orxVECTOR &_vec);
