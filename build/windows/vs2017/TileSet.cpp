@@ -94,25 +94,17 @@ orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
     {
         _rstPayload.fValue = m_square;
     }
-    if (!orxString_Compare(_rstPayload.zParamName, "PriorState"))
+    else if (!orxString_Compare(_rstPayload.zParamName, "State"))
+    {
+        _rstPayload.fValue = static_cast<float>(m_state);
+    }
+    else if (!orxString_Compare(_rstPayload.zParamName, "PriorState"))
     {
         _rstPayload.fValue = static_cast<float>(m_priorState);
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "ShiftStatus"))
     {
         _rstPayload.fValue = static_cast<float>(m_shiftStatus);
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "D2"))
-    {
-        _rstPayload.fValue = Is2D();
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "Cartesian"))
-    {
-        _rstPayload.fValue = IsCartesian();
-    }
-    else if (!orxString_Compare(_rstPayload.zParamName, "Square"))
-    {
-        _rstPayload.fValue = m_square;
     }
     else if (!orxString_Compare(_rstPayload.zParamName, "TimeSpentShifting"))
     {
