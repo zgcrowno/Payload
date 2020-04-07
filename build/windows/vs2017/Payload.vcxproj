@@ -385,6 +385,11 @@
     <ClInclude Include="Bypass.h" />
     <ClInclude Include="Firewall.h" />
     <ClInclude Include="Goal.h" />
+    <ClInclude Include="MemorySet.h" />
+    <ClInclude Include="MemorySetCartesian1D.h" />
+    <ClInclude Include="MemorySetCartesian2D.h" />
+    <ClInclude Include="MemorySetPolar1D.h" />
+    <ClInclude Include="MemorySetPolar2D.h" />
     <ClInclude Include="Payload.h" />
     <ClInclude Include="PlayerPayload.h" />
     <ClInclude Include="Protocol.h" />
@@ -405,6 +410,11 @@
     <ClCompile Include="Bypass.cpp" />
     <ClCompile Include="Firewall.cpp" />
     <ClCompile Include="Goal.cpp" />
+    <ClCompile Include="MemorySet.cpp" />
+    <ClCompile Include="MemorySetCartesian1D.cpp" />
+    <ClCompile Include="MemorySetCartesian2D.cpp" />
+    <ClCompile Include="MemorySetPolar1D.cpp" />
+    <ClCompile Include="MemorySetPolar2D.cpp" />
     <ClCompile Include="Payload.cpp" />
     <ClCompile Include="PlayerPayload.cpp" />
     <ClCompile Include="Protocol.cpp" />

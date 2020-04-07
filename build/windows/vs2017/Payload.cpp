@@ -7,6 +7,10 @@
 #include "Bypass.h"
 #include "Firewall.h"
 #include "Goal.h"
+#include "MemorySetCartesian1D.h"
+#include "MemorySetCartesian2D.h"
+#include "MemorySetPolar1D.h"
+#include "MemorySetPolar2D.h"
 #include "PlayerPayload.h"
 #include "Protocol.h"
 #include "Proxy.h"
@@ -60,6 +64,10 @@ void Payload::BindObjects()
     ScrollBindObject<Bypass>("O-Bypass");
     ScrollBindObject<Firewall>("O-Firewall");
     ScrollBindObject<Goal>("O-Goal");
+    ScrollBindObject<MemorySetCartesian1D>("O-MemorySetCartesian1D");
+    ScrollBindObject<MemorySetCartesian2D>("O-MemorySetCartesian2D");
+    ScrollBindObject<MemorySetPolar1D>("O-MemorySetPolar1D");
+    ScrollBindObject<MemorySetPolar2D>("O-MemorySetPolar2D");
     ScrollBindObject<PlayerPayload>("O-PlayerPayload");
     ScrollBindObject<Protocol>("O-Protocol");
     ScrollBindObject<Proxy>("O-Proxy");

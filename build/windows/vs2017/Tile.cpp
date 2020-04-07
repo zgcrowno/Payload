@@ -38,15 +38,13 @@ const int Tile::GetUnitDistanceFromTileSetCenter(
     const int &_row,
     const int &_col,
     const int &_square,
-    const orxVECTOR &_payloadRowAndCol,
+    const int &_payloadRow,
     const TileSetState &_tileSetState)
 {
     // How many tiles away from the TileSet's pivot is this Tile?
     int unitDistanceFromOrigin;
     // Half of the TileSet's width/height.
     int halfSquare = _square / 2;
-    // The payload's row.
-    int payloadRow = _payloadRowAndCol.fX;
 
     switch (_tileSetState)
     {
@@ -54,7 +52,7 @@ const int Tile::GetUnitDistanceFromTileSetCenter(
         unitDistanceFromOrigin = _col < halfSquare ? halfSquare - _col : (_col + 1) - halfSquare;
         break;
     case TileSetState::Polar1D:
-        unitDistanceFromOrigin = _square - payloadRow;
+        unitDistanceFromOrigin = _square - _payloadRow;
         break;
     default:
         // How many tiles away from the TileSet's pivot (on the X-axis) is this Tile?
@@ -95,25 +93,27 @@ void Tile::SetUp(
     const float &_tileSetRadius,
     const float &_normalizedTileSize,
     const float &_normalizedBorderSize,
-    const orxVECTOR &_payloadRowAndCol,
+    const int &_payloadRow,
     const orxVECTOR &_tileSetPos,
     const TileSetState &_tileSetState)
 {
+    m_bCartesian = _tileSetState == TileSetState::Cartesian1D || _tileSetState == TileSetState::Cartesian2D;
+    m_row = _row;
+    m_col = _col;
+
     // Is the TileSet 2D?
     bool tileSetIs2D = _tileSetState == TileSetState::Cartesian2D || _tileSetState == TileSetState::Polar2D;
     // How many tiles away from the TileSet's pivot is this Tile's foreground?
-    int unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(_row, _col, _square, _payloadRowAndCol, _tileSetState);
+    int unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(m_row, m_col, _square, _payloadRow, _tileSetState);
     // How many tiles are in this Tile's circular, polar-2D row?
     int tilesInPolarRow = GetNumTilesInPolarRow(_square, unitDistanceFromOrigin, tileSetIs2D);
-
-    m_bCartesian = _tileSetState == TileSetState::Cartesian1D || _tileSetState == TileSetState::Cartesian2D;
 
     switch (_tileSetState)
     {
     case TileSetState::Cartesian1D:
         // Position.
         m_priorTileSetState = TileSetState::Cartesian1D;
-        SetParentSpacePosition(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
+        SetParentSpacePosition(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
         // Visual scale.
         m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
         m_priorVisualScale = m_visualScale;
@@ -121,7 +121,7 @@ void Tile::SetUp(
     case TileSetState::Cartesian2D:
         // Position.
         m_priorTileSetState = TileSetState::Cartesian2D;
-        SetParentSpacePosition(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
+        SetParentSpacePosition(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
         // Visual scale.
         m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
         m_priorVisualScale = m_visualScale;
@@ -129,7 +129,7 @@ void Tile::SetUp(
     case TileSetState::Polar1D:
         // Position.
         m_priorTileSetState = TileSetState::Polar1D;
-        SetParentSpacePosition(CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize)));
+        SetParentSpacePosition(CartesianToPolar2(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize)));
         // Visual scale.
         m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
         m_priorVisualScale = m_visualScale;
@@ -137,7 +137,7 @@ void Tile::SetUp(
     case TileSetState::Polar2D:
         // Position.
         m_priorTileSetState = TileSetState::Polar2D;
-        SetParentSpacePosition(SquareToCircle(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize)));
+        SetParentSpacePosition(SquareToCircle(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize)));
         // Visual scale.
         m_visualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
         m_priorVisualScale = m_visualScale;
@@ -147,33 +147,29 @@ void Tile::SetUp(
 }
 
 void Tile::Shift(
-    const int &_row,
-    const int &_col,
     const int &_square,
     const int &_greatest1DUnitDistanceOfPayloadRowFromThreshold,
     const float &_tileSetRadius,
     const float &_normalizedTileSize,
     const float &_normalizedBorderSize,
     const float &_lerpWeight,
-    const orxVECTOR &_payloadRowAndCol,
+    const int &_payloadRow,
     const orxVECTOR &_tileSetPos,
     const TileSetState &_tileSetState,
     const TileSetShiftStatus &_tileSetShiftStatus)
 {
+    m_bCartesian = _tileSetState == TileSetState::Cartesian1D || _tileSetState == TileSetState::Cartesian2D;
+
     // Is the TileSet 2D?
     bool tileSetIs2D = _tileSetState == TileSetState::Cartesian2D || _tileSetState == TileSetState::Polar2D;
-    // The payload's row within the TileSet.
-    int payloadRow = _payloadRowAndCol.fX;
     // How many tiles away from the TileSet's pivot is this Tile's foreground?
-    int unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(_row, _col, _square, _payloadRowAndCol, _tileSetState);
+    int unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(m_row, m_col, _square, _payloadRow, _tileSetState);
     // How many tiles are in this Tile's circular, polar-2D row?
     int tilesInPolarRow = GetNumTilesInPolarRow(_square, unitDistanceFromOrigin, tileSetIs2D);
 
-    m_bCartesian = _tileSetState == TileSetState::Cartesian1D || _tileSetState == TileSetState::Cartesian2D;
-
     if (_tileSetShiftStatus == TileSetShiftStatus::D1Tiles || ((m_priorTileSetState == TileSetState::Cartesian1D || m_priorTileSetState == TileSetState::Polar1D) && !tileSetIs2D))
     {
-        int unitDistanceFromPayloadRow = fabsf(_row - payloadRow);
+        int unitDistanceFromPayloadRow = fabsf(m_row - _payloadRow);
         // Set this so as to prevent division by 0.
         float d1TilesLerpWeight =
             unitDistanceFromPayloadRow == 0 ?
@@ -186,7 +182,7 @@ void Tile::Shift(
         {
             // Position.
             orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = GetGridRelativeCartesianPosition(payloadRow, _col, _normalizedBorderSize, _normalizedTileSize);
+            m_targetParentSpacePos = GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize);
             orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, d1TilesLerpWeight);
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
@@ -200,7 +196,7 @@ void Tile::Shift(
         {
             // Position.
             orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = GetGridRelativeCartesianPosition(payloadRow, _col, _normalizedBorderSize, _normalizedTileSize);
+            m_targetParentSpacePos = GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize);
             orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, d1TilesLerpWeight);
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
@@ -214,7 +210,7 @@ void Tile::Shift(
         {
             // Position.
             orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(payloadRow, _col, _normalizedBorderSize, _normalizedTileSize));
+            m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
             orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, d1TilesLerpWeight);
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
@@ -226,12 +222,12 @@ void Tile::Shift(
         }
         case TileSetState::Polar2D:
         {
-            unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(payloadRow, _col, _square, _payloadRowAndCol, _tileSetState);
+            unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(_payloadRow, m_col, _square, _payloadRow, _tileSetState);
             tilesInPolarRow = GetNumTilesInPolarRow(_square, unitDistanceFromOrigin, tileSetIs2D);
 
             // Position.
             orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(payloadRow, _col, _normalizedBorderSize, _normalizedTileSize));
+            m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
             orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, d1TilesLerpWeight);
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
@@ -250,7 +246,7 @@ void Tile::Shift(
         {
             // Position.
             orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize);
+            m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
             orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
@@ -264,7 +260,7 @@ void Tile::Shift(
         {
             // Position.
             orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize);
+            m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
             orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
@@ -278,7 +274,7 @@ void Tile::Shift(
         {
             // Position.
             orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
+            m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
             orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
@@ -292,7 +288,7 @@ void Tile::Shift(
         {
             // Position.
             orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(_row, _col, _normalizedBorderSize, _normalizedTileSize));
+            m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
             orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, _lerpWeight);
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.

@@ -22,6 +22,12 @@
     <Filter Include="src\Header\EnumClass">
       <UniqueIdentifier>{d9a1afbf-7e0b-40c5-ba33-be24ee5c008b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CPP\MemorySet">
+      <UniqueIdentifier>{fe0459a4-4424-481c-8786-2e25ee95084a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Header\MemorySet">
+      <UniqueIdentifier>{beba1838-d841-4a4d-9a26-6f47c0cfb4c6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -95,6 +101,21 @@
     <ClInclude Include="TileSetShiftStatus.h">
       <Filter>src\Header\EnumClass</Filter>
     </ClInclude>
+    <ClInclude Include="MemorySet.h">
+      <Filter>src\Header\MemorySet</Filter>
+    </ClInclude>
+    <ClInclude Include="MemorySetCartesian1D.h">
+      <Filter>src\Header\MemorySet</Filter>
+    </ClInclude>
+    <ClInclude Include="MemorySetCartesian2D.h">
+      <Filter>src\Header\MemorySet</Filter>
+    </ClInclude>
+    <ClInclude Include="MemorySetPolar1D.h">
+      <Filter>src\Header\MemorySet</Filter>
+    </ClInclude>
+    <ClInclude Include="MemorySetPolar2D.h">
+      <Filter>src\Header\MemorySet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -144,6 +165,21 @@
     </ClCompile>
     <ClCompile Include="PlayerPayload.cpp">
       <Filter>src\CPP\TileInhabitant</Filter>
+    </ClCompile>
+    <ClCompile Include="MemorySet.cpp">
+      <Filter>src\CPP\MemorySet</Filter>
+    </ClCompile>
+    <ClCompile Include="MemorySetCartesian1D.cpp">
+      <Filter>src\CPP\MemorySet</Filter>
+    </ClCompile>
+    <ClCompile Include="MemorySetCartesian2D.cpp">
+      <Filter>src\CPP\MemorySet</Filter>
+    </ClCompile>
+    <ClCompile Include="MemorySetPolar1D.cpp">
+      <Filter>src\CPP\MemorySet</Filter>
+    </ClCompile>
+    <ClCompile Include="MemorySetPolar2D.cpp">
+      <Filter>src\CPP\MemorySet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

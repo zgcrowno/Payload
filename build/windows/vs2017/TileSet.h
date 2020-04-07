@@ -2,6 +2,10 @@
 
 #include "Payload.h"
 #include "Goal.h"
+#include "MemorySetCartesian1D.h"
+#include "MemorySetCartesian2D.h"
+#include "MemorySetPolar1D.h"
+#include "MemorySetPolar2D.h"
 #include "PlayerPayload.h"
 #include "ScrollMod.h"
 #include "Tile.h"
@@ -45,13 +49,13 @@ namespace payload
         TileSetState m_state;
         TileSetState m_priorState;
         TileSetShiftStatus m_shiftStatus;
-        // BEGIN TODO: Probably don't need m_payloadOrigin and m_goalOrigin instance data since they'll likely only be referenced in OnCreate().
-        orxVECTOR m_payloadOrigin;
-        orxVECTOR m_goalOrigin;
-        // END TODO
         PlayerPayload *m_payload;
         Goal *m_goal;
         std::vector<std::vector<Tile*>> m_tileRows;
+        std::vector<MemorySetCartesian1D> m_memorySetsCartesian1D;
+        std::vector<MemorySetCartesian2D> m_memorySetsCartesian2D;
+        std::vector<MemorySetPolar1D> m_memorySetsPolar1D;
+        std::vector<MemorySetPolar2D> m_memorySetsPolar2D;
 
         void Shift(TileSetShiftStatus _shiftStatus);
         void ShiftTiles();
@@ -64,13 +68,12 @@ namespace payload
         const int GetUnitDistanceFromOrigin(
             const int &_row,
             const int &_col,
-            const orxVECTOR &_payloadRowAndCol);
+            const int &_payloadRow);
         const int GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
-        const orxVECTOR GetPayloadRowAndColumn();
         const orxVECTOR GetNormalizedPosition(const orxVECTOR &_vec);
-        Tile *GetTileToRight(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
-        Tile *GetTileToLeft(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
-        Tile *GetTileAbove(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
-        Tile *GetTileBelow(const int &_row, const int &_col, const orxVECTOR &_payloadRowAndCol);
+        Tile *GetTileToRight(const Tile *_tile, const int &_payloadRow);
+        Tile *GetTileToLeft(const Tile *_tile, const int &_payloadRow);
+        Tile *GetTileAbove(const Tile *_tile, const int &_payloadRow);
+        Tile *GetTileBelow(const Tile *_tile, const int &_payloadRow);
     };
 }

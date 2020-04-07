@@ -25,6 +25,8 @@ namespace payload
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         bool m_bCartesian;
+        int m_row;
+        int m_col;
         TileSetState m_priorTileSetState;
         orxVECTOR m_priorParentSpacePos;
         orxVECTOR m_targetParentSpacePos;
@@ -32,17 +34,18 @@ namespace payload
         orxVECTOR m_targetVisualScale;
         orxVECTOR m_visualScale;
 
-        const orxVECTOR GetGridRelativeCartesianPosition(
+        static const orxVECTOR GetGridRelativeCartesianPosition(
             const int &_row,
             const int &_col,
             const float &_normalizedBorderSize,
             const float &_normalizedTileSize);
-        const int GetUnitDistanceFromTileSetCenter(
+        static const int GetUnitDistanceFromTileSetCenter(
             const int &_row,
             const int &_col,
             const int &_square,
-            const orxVECTOR &_payloadRowAndCol,
+            const int &_payloadRow,
             const TileSetState &_tileSetState);
+
         const int GetNumTilesInPolarRow(
             const int &_square,
             const int &_unitDistanceFromOrigin,
@@ -54,19 +57,17 @@ namespace payload
             const float &_tileSetRadius,
             const float &_normalizedTileSize,
             const float &_normalizedBorderSize,
-            const orxVECTOR &_payloadRowAndCol,
+            const int &_payloadRow,
             const orxVECTOR &_tileSetPos,
             const TileSetState &_tileSetState);
         void Shift(
-            const int &_row,
-            const int &_col,
             const int &_square,
             const int &_greatest1DUnitDistanceOfPayloadRowFromThreshold,
             const float &_tileSetRadius,
             const float &_normalizedTileSize,
             const float &_normalizedBorderSize,
             const float &_lerpWeight,
-            const orxVECTOR &_payloadRowAndCol,
+            const int &_payloadRow,
             const orxVECTOR &_tileSetPos,
             const TileSetState &_tileSetState,
             const TileSetShiftStatus &_tileSetShiftStatus);
