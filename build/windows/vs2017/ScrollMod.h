@@ -34,6 +34,11 @@ namespace payload
         /// <param name="_size">If true, we're converting a size vector, not a coordinate vector, and so we don't need to translate the vector at all.</param>
         /// <returns><paramref name="_worldSpaceVec"/>'s associated screen space vector.</returns>
         static const orxVECTOR __fastcall WorldToScreenSpace(orxVECTOR _worldSpaceVec, const bool &_size = false);
+        /// <summary>Converts the screen space vector, <paramref name="_screenSpaceVec"/>, into its associated world space vector.</summary>
+        /// <param name="_screenSpaceVec">The screen space vector we're converting into its associated world space vector.</param>
+        /// <param name="_size">If true, we're converting a size vector, not a coordinate vector, and so we don't need to translate the vector at all.</param>
+        /// <returns><paramref name="_screenSpaceVec"/>'s associated world space vector.</returns>
+        static const orxVECTOR __fastcall ScreenToWorldSpace(orxVECTOR _screenSpaceVec, const bool &_size = false);
         static const std::vector<std::string> __fastcall GetObjectSections();
         static const std::vector<std::string> __fastcall GetDescendentSections(const std::string _parentSectionName);
         static const bool __fastcall SectionUsesParentSpace(const std::string _sectionName);

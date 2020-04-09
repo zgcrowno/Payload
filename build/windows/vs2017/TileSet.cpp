@@ -1,4 +1,5 @@
 #include "TileSet.h"
+#include <algorithm>
 
 using namespace payload;
 
@@ -9,18 +10,22 @@ void TileSet::OnCreate()
     m_halfSquare = m_square / 2;
     m_timeToShift = GetFloat("TimeToShift", GetModelName());
     m_timeSpentShifting = m_timeToShift;
+    m_timeToReconfigure = GetFloat("TimeToReconfigure", GetModelName());
+    m_timeSpentReconfiguring = m_timeToReconfigure;
     int numBorders = m_square + 1;
     float textureThickness = GetSize().fX;
     m_normalizedTileSize = ((NATIVE_TEXTURE_SIZE - (numBorders * NATIVE_BORDER_SIZE)) / m_square) / NATIVE_TEXTURE_SIZE;
     m_width = GetScaledSize().fX;
     m_height = GetScaledSize().fY;
+    // TODO: Since width and height are slightly different, I may want to use a different value for m_radius.
     m_radius = m_width / 2.0f;
     m_payload = static_cast<PlayerPayload*>(GetChildByName("O-PlayerPayload"));
     m_goal = static_cast<Goal*>(GetChildByName("O-Goal"));
 
-    // TileSet position and scale;
+    // TileSet position, scale and scaledSize;
     orxVECTOR pos = GetPosition();
     orxVECTOR scale = GetScale();
+    orxVECTOR scaledSize = GetScaledSize();
     //Create Tile rows.
     for (int i = 0; i < m_square; i++)
     {
@@ -58,6 +63,37 @@ void TileSet::OnCreate()
             tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, m_payload->m_target->m_row, pos, m_state);
             // Add the tile to m_tileRows.
             m_tileRows.at(i).push_back(tile);
+        }
+    }
+    // Create MemorySets
+    for (int i = 0; i < m_square; i++)
+    {
+        for (int j = 0; j < m_square - 1; j++)
+        {
+            // Create the MemorySetCartesian1D at this row/column pair.
+            MemorySetCartesian1D *msc1d = ScrollCast<MemorySetCartesian1D*>(CreateObject("O-MemorySetCartesian1D"));
+            // Ensure that the MemorySetCartesian1D is owned by the TileSet.
+            msc1d->SetParent(this);
+            // Determine the world size of border and tile.
+            float borderWidth = m_width * NORMALIZED_BORDER_SIZE;
+            float borderHeight = m_height * NORMALIZED_BORDER_SIZE;
+            float tileWidth = m_width * m_normalizedTileSize;
+            float tileHeight = m_height * m_normalizedTileSize;
+            // Set scale relative to TileSet.
+            float memSetScaleX = borderWidth + tileWidth;
+            float memSetScaleY = borderHeight + tileHeight;
+            msc1d->SetScale({ memSetScaleX, memSetScaleY });
+            // Set position relative to TileSet.
+            float memSetPosX = pos.fX - (m_width / 2.0f) + (1.5f * borderWidth + tileWidth) + j * (borderWidth + tileWidth);
+            float memSetPosY = pos.fY - (m_height / 2.0f) + (borderHeight + 0.5f * tileHeight) + i * (borderHeight + tileHeight);
+            msc1d->SetPosition({ memSetPosX, memSetPosY });
+            // Set MemorySet's bounds.
+            msc1d->m_leftBound = j;
+            msc1d->m_rightBound = j + 1;
+            msc1d->m_lowerBound = i;
+            msc1d->m_upperBound = i;
+            // Add it to the member vector.
+            m_memorySetsCartesian1D.push_back(msc1d);
         }
     }
     // Set m_payload's and m_goal's default positions, tileSetCenters and priorPositions.
@@ -202,7 +238,21 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("Recon"))
         {
-
+            MemorySet *memSet = nullptr;
+            orxVECTOR mousePos = orxVECTOR_0;
+            // Get MemorySet, if any, at mouse's position.
+            ScrollObject *obj = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySet"));
+            if (obj != nullptr)
+            {
+                memSet = ScrollCast<MemorySet*>(obj);
+                m_timeSpentReconfiguring = 0.0f;
+                Tile *tile1 = m_tileRows.at(memSet->m_lowerBound).at(memSet->m_leftBound);
+                Tile *tile2 = m_tileRows.at(memSet->m_lowerBound).at(memSet->m_rightBound);
+                SwapTiles(tile1->m_row, tile1->m_col, tile2->m_row, tile2->m_col, memSet->GetPosition());
+                m_memorySetToReconfigure = memSet;
+                m_tilesToReconfigure.push_back(tile1);
+                m_tilesToReconfigure.push_back(tile2);
+            }
         }
         else if (orxInput_HasBeenActivated("Undo"))
         {
@@ -235,6 +285,24 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
 
             FinalizeTileAndInhabitantLerps();
             Shift(nextShiftStatus);
+        }
+    }
+    // HANDLE RECONFIGURATION
+    else if (!m_tilesToReconfigure.empty())
+    {
+        // Increment the time spent shifting.
+        m_timeSpentReconfiguring += _rstInfo.fDT;
+
+        // Has the lerp finished?
+        if (m_timeSpentReconfiguring <= m_timeToReconfigure)
+        {
+            ReconfigureTiles();
+        }
+        else
+        {
+            FinalizeTileAndInhabitantLerps();
+            m_tilesToReconfigure.clear();
+            m_memorySetToReconfigure = nullptr;
         }
     }
 }
@@ -295,6 +363,40 @@ void TileSet::ShiftTiles()
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
         ti->SetPosition(ti->m_target->GetPosition());
     }
+}
+
+void TileSet::ReconfigureTiles()
+{
+    // The amount by which we're reconfiguring the tiles.
+    float lerpWeight = m_timeSpentReconfiguring / m_timeToReconfigure;
+    // Reconfigure each tile individually.
+    for (Tile *tile : m_tilesToReconfigure)
+    {
+        tile->Reconfigure(lerpWeight, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, m_memorySetToReconfigure->GetPosition());
+    }
+    // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
+    for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+    {
+        TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        ti->SetPosition(ti->m_target->GetPosition());
+    }
+}
+
+void TileSet::SwapTiles(const int _tile1Row, const int _tile1Col, const int _tile2Row, const int _tile2Col, const orxVECTOR &_pivot)
+{
+    // Fetch the tiles at the appropriate indeces.
+    Tile *tile1 = m_tileRows.at(_tile1Row).at(_tile1Col);
+    Tile *tile2 = m_tileRows.at(_tile2Row).at(_tile2Col);
+    // Set the Tiles' m_priorMemSetTheta value.
+    tile1->m_priorMemSetTheta = CartesianToPolar(tile1->GetPosition(), _pivot).fY;
+    tile2->m_priorMemSetTheta = CartesianToPolar(tile2->GetPosition(), _pivot).fY;
+    // Swap the Tiles.
+    tile1->m_row = _tile2Row;
+    tile1->m_col = _tile2Col;
+    tile2->m_row = _tile1Row;
+    tile2->m_col = _tile1Col;
+    m_tileRows.at(_tile1Row).at(_tile1Col) = tile2;
+    m_tileRows.at(_tile2Row).at(_tile2Col) = tile1;
 }
 
 void TileSet::FinalizeTileAndInhabitantLerps()

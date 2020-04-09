@@ -27,6 +27,7 @@ namespace payload
         bool m_bCartesian;
         int m_row;
         int m_col;
+        float m_priorMemSetTheta;
         TileSetState m_priorTileSetState;
         orxVECTOR m_priorParentSpacePos;
         orxVECTOR m_targetParentSpacePos;
@@ -71,6 +72,7 @@ namespace payload
             const orxVECTOR &_tileSetPos,
             const TileSetState &_tileSetState,
             const TileSetShiftStatus &_tileSetShiftStatus);
+        void Reconfigure(const float &_lerpWeight, const float &_normalizedBorderSize, const float &_normalizedTileSize, const orxVECTOR &_memorySetPos);
         const orxVECTOR CalculateVisualScale(
             const int &_square,
             const int &_tilesInRow,

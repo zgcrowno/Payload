@@ -1,6 +1,4 @@
 #include "ScrollMod.h"
-#include <iostream>
-#include <iomanip>
 
 using namespace payload;
 
@@ -45,10 +43,10 @@ const float __fastcall ScrollMod::GetScreenHeight()
 //TODO: Update this such that any camera (not just MainCamera) may be used.
 const orxVECTOR __fastcall ScrollMod::WorldToScreenSpace(orxVECTOR _worldSpaceVec, const bool &_size)
 {
-    float screenWidth;
-    float screenHeight;
     float frustumWidth = GetFloat("FrustumWidth", "MainCamera");
     float frustumHeight = GetFloat("FrustumHeight", "MainCamera");
+    /*float screenWidth;
+    float screenHeight;
     orxDisplay_GetScreenSize(&screenWidth, &screenHeight);
     float widthRatio = screenWidth / frustumWidth;
     float heightRatio = screenHeight / frustumHeight;
@@ -56,11 +54,34 @@ const orxVECTOR __fastcall ScrollMod::WorldToScreenSpace(orxVECTOR _worldSpaceVe
     float y = _worldSpaceVec.fY * heightRatio;
     if (!_size)
     {
-        x += screenWidth / 2;
-        y += screenHeight / 2;
+        x += screenWidth / 2.0f;
+        y += screenHeight / 2.0f;
     }
+    return { x, y };*/
+    return { _worldSpaceVec.fX + (frustumWidth / 2.0f), _worldSpaceVec.fY + (frustumHeight / 2.0f) };
+}
 
-    return { x, y };
+//TODO: Update this such that any camera (not just MainCamera) may be used.
+const orxVECTOR __fastcall ScrollMod::ScreenToWorldSpace(orxVECTOR _screenSpaceVec, const bool &_size)
+{
+    float frustumWidth = GetFloat("FrustumWidth", "MainCamera");
+    float frustumHeight = GetFloat("FrustumHeight", "MainCamera");
+    /*float screenWidth;
+    float screenHeight;
+    orxDisplay_GetScreenSize(&screenWidth, &screenHeight);
+    float widthRatio = screenWidth / frustumWidth;
+    float heightRatio = screenHeight / frustumHeight;
+    float x = _screenSpaceVec.fX;
+    float y = _screenSpaceVec.fY;
+    if (!_size)
+    {
+        x -= screenWidth / 2.0f;
+        y -= screenHeight / 2.0f;
+    }
+    x /= widthRatio;
+    y /= heightRatio;
+    return { x, y };*/
+    return { _screenSpaceVec.fX - (frustumWidth / 2.0f), _screenSpaceVec.fY - (frustumHeight / 2.0f) };
 }
 
 const std::vector<std::string> __fastcall ScrollMod::GetObjectSections()

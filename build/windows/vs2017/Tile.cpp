@@ -113,33 +113,41 @@ void Tile::SetUp(
     case TileSetState::Cartesian1D:
         // Position.
         m_priorTileSetState = TileSetState::Cartesian1D;
-        SetParentSpacePosition(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
+        m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
+        SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
     case TileSetState::Cartesian2D:
         // Position.
         m_priorTileSetState = TileSetState::Cartesian2D;
-        SetParentSpacePosition(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
+        m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
+        SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
     case TileSetState::Polar1D:
         // Position.
         m_priorTileSetState = TileSetState::Polar1D;
-        SetParentSpacePosition(CartesianToPolar2(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize)));
+        m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
+        SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_visualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
     case TileSetState::Polar2D:
         // Position.
         m_priorTileSetState = TileSetState::Polar2D;
-        SetParentSpacePosition(SquareToCircle(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize)));
+        m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
+        SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_visualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
     }
@@ -299,6 +307,15 @@ void Tile::Shift(
         }
         }
     }
+}
+
+void Tile::Reconfigure(const float &_lerpWeight, const float &_normalizedBorderSize, const float &_normalizedTileSize, const orxVECTOR &_memorySetPos)
+{
+    orxVECTOR polarPos = CartesianToPolar(GetPosition(), _memorySetPos);
+    float thetaDest = m_priorMemSetTheta - orxMATH_KF_PI;
+    float theta = orxLERP(m_priorMemSetTheta, thetaDest, _lerpWeight);
+    SetPolarPosition(_memorySetPos, polarPos.fX, theta);
+    m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
 }
 
 const orxVECTOR Tile::CalculateVisualScale(

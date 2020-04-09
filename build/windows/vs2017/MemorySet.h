@@ -22,6 +22,11 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        int m_leftBound;
+        int m_rightBound;
+        int m_lowerBound;
+        int m_upperBound;
+
         virtual void Reconfigure() = 0;
     };
 }
