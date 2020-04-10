@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "ScrollMod.h"
+#include "Tile.h"
 
 namespace payload
 {
@@ -26,7 +27,8 @@ namespace payload
         int m_rightBound;
         int m_lowerBound;
         int m_upperBound;
+        std::vector<Tile*> m_tiles;
 
-        virtual void Reconfigure() = 0;
+        virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows) = 0;
     };
 }

@@ -58,9 +58,9 @@ namespace payload
         std::vector<MemorySetCartesian2D*> m_memorySetsCartesian2D;
         std::vector<MemorySetPolar1D*> m_memorySetsPolar1D;
         std::vector<MemorySetPolar2D*> m_memorySetsPolar2D;
-        std::vector<Tile*> m_tilesToReconfigure;
         std::vector<std::vector<Tile*>> m_tileRows;
 
+        void SetMemorySetToReconfigure(MemorySet *_memSet);
         void Shift(TileSetShiftStatus _shiftStatus);
         void ShiftTiles();
         void ReconfigureTiles();

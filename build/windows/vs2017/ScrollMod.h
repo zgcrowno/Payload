@@ -69,11 +69,12 @@ namespace payload
         /// <param name="_normalizedPos">The normalized [-0.5, 0.5] vector whose polarized form we want.</param>
         /// <returns>A normalized vector which represents <paramref name="_normalizedPos"/> after polarization (with the polar axis aiming downward).</returns>
         static const orxVECTOR CartesianToPolar2(const orxVECTOR &_normalizedPos);
-        /// <summary>Returns a Cartesian vector representing a polar coordinate comprised of <paramref name="_r"/> and <paramref name="_theta"/>.</summary>
+        /// <summary>Returns a Cartesian vector representing a polar coordinate comprised of <paramref name="_r"/> and <paramref name="_theta"/>, and relative to <paramref name="_origin"/>.</summary>
         /// <param name="_r">The radius of the polar coordinate.</param>
         /// <param name="_theta">The angle of the polar coordinate (in radians).</param>
-        /// <returns>A Cartesian vector representing a polar coordinate comprised of <paramref name="_r"/> and <paramref name="_theta"/>.</returns>
-        static const orxVECTOR PolarToCartesian(const float &_r, const float &_theta);
+        /// <param name="_origin">The point we wish to use as the center of the Cartesian coordinate space.</param>
+        /// <returns>A Cartesian vector representing a polar coordinate comprised of <paramref name="_r"/> and <paramref name="_theta"/>, and relative to <paramref name="_origin"/>.</returns>
+        static const orxVECTOR PolarToCartesian(const float &_r, const float &_theta, orxVECTOR _origin = { 0.0f, 0.0f });
         /// <summary>Returns a normalized vector which represents <paramref name="_normalizedPos"/> after de-polarization (with the polar axis aiming downward).</summary>
         /// <param name="_normalizedPos">The normalized [-0.5, 0.5] vector whose de-polarized form we want.</param>
         /// <returns>A normalized vector which represents <paramref name="_normalizedPos"/> after de-polarization (with the polar axis aiming downward).</returns>

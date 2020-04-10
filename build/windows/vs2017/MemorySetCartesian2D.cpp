@@ -27,7 +27,7 @@ void MemorySetCartesian2D::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-void MemorySetCartesian2D::Reconfigure()
+void MemorySetCartesian2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
 {
 
 }

@@ -65,7 +65,7 @@ void TileSet::OnCreate()
             m_tileRows.at(i).push_back(tile);
         }
     }
-    // Create MemorySets
+    // Create MemorySets (Cartesian1D)
     for (int i = 0; i < m_square; i++)
     {
         for (int j = 0; j < m_square - 1; j++)
@@ -90,8 +90,8 @@ void TileSet::OnCreate()
             // Set MemorySet's bounds.
             msc1d->m_leftBound = j;
             msc1d->m_rightBound = j + 1;
-            msc1d->m_lowerBound = i;
-            msc1d->m_upperBound = i;
+            msc1d->m_lowerBound = 0;
+            msc1d->m_upperBound = m_square - 1;
             // Add it to the member vector.
             m_memorySetsCartesian1D.push_back(msc1d);
         }
@@ -238,20 +238,50 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("Recon"))
         {
-            MemorySet *memSet = nullptr;
             orxVECTOR mousePos = orxVECTOR_0;
             // Get MemorySet, if any, at mouse's position.
-            ScrollObject *obj = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySet"));
-            if (obj != nullptr)
+            ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySet"));
+            if (memSet != nullptr)
             {
-                memSet = ScrollCast<MemorySet*>(obj);
-                m_timeSpentReconfiguring = 0.0f;
-                Tile *tile1 = m_tileRows.at(memSet->m_lowerBound).at(memSet->m_leftBound);
-                Tile *tile2 = m_tileRows.at(memSet->m_lowerBound).at(memSet->m_rightBound);
-                SwapTiles(tile1->m_row, tile1->m_col, tile2->m_row, tile2->m_col, memSet->GetPosition());
-                m_memorySetToReconfigure = memSet;
-                m_tilesToReconfigure.push_back(tile1);
-                m_tilesToReconfigure.push_back(tile2);
+                switch (m_state)
+                {
+                case TileSetState::Cartesian1D:
+                {
+                    MemorySetCartesian1D *msc1d = dynamic_cast<MemorySetCartesian1D*>(memSet);
+                    if (msc1d != nullptr)
+                    {
+                        SetMemorySetToReconfigure(msc1d);
+                    }
+                    break;
+                }
+                case TileSetState::Cartesian2D:
+                {
+                    MemorySetCartesian2D *msc2d = dynamic_cast<MemorySetCartesian2D*>(memSet);
+                    if (msc2d != nullptr)
+                    {
+                        SetMemorySetToReconfigure(msc2d);
+                    }
+                    break;
+                }
+                case TileSetState::Polar1D:
+                {
+                    MemorySetPolar1D *msp1d = dynamic_cast<MemorySetPolar1D*>(memSet);
+                    if (msp1d != nullptr)
+                    {
+                        SetMemorySetToReconfigure(msp1d);
+                    }
+                    break;
+                }
+                case TileSetState::Polar2D:
+                {
+                    MemorySetPolar2D *msp2d = dynamic_cast<MemorySetPolar2D*>(memSet);
+                    if (msp2d != nullptr)
+                    {
+                        SetMemorySetToReconfigure(msp2d);
+                    }
+                    break;
+                }
+                }
             }
         }
         else if (orxInput_HasBeenActivated("Undo"))
@@ -288,7 +318,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
     }
     // HANDLE RECONFIGURATION
-    else if (!m_tilesToReconfigure.empty())
+    else if (m_memorySetToReconfigure != nullptr)
     {
         // Increment the time spent shifting.
         m_timeSpentReconfiguring += _rstInfo.fDT;
@@ -300,11 +330,35 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else
         {
-            FinalizeTileAndInhabitantLerps();
-            m_tilesToReconfigure.clear();
-            m_memorySetToReconfigure = nullptr;
+            SetMemorySetToReconfigure(nullptr);
         }
     }
+}
+
+void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
+{
+    if (_memSet == nullptr)
+    {
+        FinalizeTileAndInhabitantLerps();
+        m_memorySetToReconfigure->m_tiles.clear();
+    }
+    else
+    {
+        // Reset m_timeSpentReconfiguring.
+        m_timeSpentReconfiguring = 0.0f;
+        // Fill out the MemorySet's m_tiles.
+        for (int i = _memSet->m_lowerBound; i <= _memSet->m_upperBound; i++)
+        {
+            for (int j = _memSet->m_leftBound; j <= _memSet->m_rightBound; j++)
+            {
+                _memSet->m_tiles.push_back(m_tileRows.at(i).at(j));
+            }
+        }
+        // Swap the MemorySet's Tiles as appropriate.
+        _memSet->Reconfigure(m_tileRows);
+    }
+
+    m_memorySetToReconfigure = _memSet;
 }
 
 void TileSet::Shift(TileSetShiftStatus _shiftStatus)
@@ -370,9 +424,9 @@ void TileSet::ReconfigureTiles()
     // The amount by which we're reconfiguring the tiles.
     float lerpWeight = m_timeSpentReconfiguring / m_timeToReconfigure;
     // Reconfigure each tile individually.
-    for (Tile *tile : m_tilesToReconfigure)
+    for (Tile *tile : m_memorySetToReconfigure->m_tiles)
     {
-        tile->Reconfigure(lerpWeight, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, m_memorySetToReconfigure->GetPosition());
+        tile->Reconfigure(m_payload->m_target->m_row, lerpWeight, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, m_memorySetToReconfigure->GetPosition(), m_state);
     }
     // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
     for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
@@ -447,8 +501,8 @@ const bool TileSet::IsCartesian()
 
 const bool TileSet::InputAllowed()
 {
-    // Only allow inputs if the player isn't moving and the TileSet isn't shifting.
-    return !m_payload->m_bIsMoving && m_shiftStatus == TileSetShiftStatus::None;
+    // Only allow inputs if the player isn't moving, the TileSet isn't shifting, and m_memorySetToReconfigure is null.
+    return !m_payload->m_bIsMoving && m_shiftStatus == TileSetShiftStatus::None && m_memorySetToReconfigure == nullptr;
 }
 
 const bool TileSet::NeedToShiftD1Tiles()

@@ -182,11 +182,11 @@ const orxVECTOR ScrollMod::CartesianToPolar2(const orxVECTOR &_normalizedPos)
     return uv;
 }
 
-const orxVECTOR ScrollMod::PolarToCartesian(const float &_r, const float &_theta)
+const orxVECTOR ScrollMod::PolarToCartesian(const float &_r, const float &_theta, orxVECTOR _origin)
 {
     float x = _r * cosf(-_theta);
     float y = _r * sinf(-_theta);
-    return { x, y };
+    return { x + _origin.fX, y + _origin.fY };
 }
 
 // BEGIN ALERT:

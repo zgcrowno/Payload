@@ -309,13 +309,31 @@ void Tile::Shift(
     }
 }
 
-void Tile::Reconfigure(const float &_lerpWeight, const float &_normalizedBorderSize, const float &_normalizedTileSize, const orxVECTOR &_memorySetPos)
+void Tile::Reconfigure(
+    const int &_payloadRow,
+    const float &_lerpWeight,
+    const float &_normalizedBorderSize,
+    const float &_normalizedTileSize,
+    const orxVECTOR &_memorySetPos,
+    const TileSetState &_tileSetState)
 {
     orxVECTOR polarPos = CartesianToPolar(GetPosition(), _memorySetPos);
     float thetaDest = m_priorMemSetTheta - orxMATH_KF_PI;
     float theta = orxLERP(m_priorMemSetTheta, thetaDest, _lerpWeight);
     SetPolarPosition(_memorySetPos, polarPos.fX, theta);
-    m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
+    switch (_tileSetState)
+    {
+    case TileSetState::Cartesian1D:
+    case TileSetState::Cartesian2D:
+        m_targetParentSpacePos = GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize);
+        break;
+    case TileSetState::Polar1D:
+        m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
+        break;
+    case TileSetState::Polar2D:
+        m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
+        break;
+    }
 }
 
 const orxVECTOR Tile::CalculateVisualScale(

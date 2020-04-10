@@ -24,8 +24,6 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
-        std::vector<Tile*> m_tilePolarRow;
-
-        virtual void Reconfigure();
+        virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
     };
 }

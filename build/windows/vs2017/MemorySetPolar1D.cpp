@@ -27,7 +27,7 @@ void MemorySetPolar1D::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-void MemorySetPolar1D::Reconfigure()
+void MemorySetPolar1D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
 {
 
 }

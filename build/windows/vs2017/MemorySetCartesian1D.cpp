@@ -27,20 +27,23 @@ void MemorySetCartesian1D::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-void MemorySetCartesian1D::Reconfigure()
+void MemorySetCartesian1D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
 {
-    // Set the Tiles' m_priorMemSetTheta value.
+    // The MemorySet's position.
     orxVECTOR pos = GetPosition();
-    m_leftTile->m_priorMemSetTheta = CartesianToPolar(m_leftTile->GetPosition(), pos).fY;
-    m_rightTile->m_priorMemSetTheta = CartesianToPolar(m_rightTile->GetPosition(), pos).fY;
-    // Swap the Tiles, as appropriate.
-    int leftTileRow = m_leftTile->m_row;
-    int leftTileCol = m_leftTile->m_col;
-    Tile *leftTile = m_leftTile;
-    m_leftTile->m_row = m_rightTile->m_row;
-    m_leftTile->m_col = m_rightTile->m_col;
-    m_rightTile->m_row = leftTileRow;
-    m_rightTile->m_col = leftTileCol;
-    m_leftTile = m_rightTile;
-    m_rightTile = leftTile;
+    // Swap the MemorySet's Tiles, as appropriate.
+    for (int i = m_lowerBound; i <= m_upperBound; i++)
+    {
+        // Fetch the tiles at the appropriate indeces.
+        Tile *tile1 = _tileRows.at(i).at(m_leftBound);
+        Tile *tile2 = _tileRows.at(i).at(m_rightBound);
+        // Set the Tiles' m_priorMemSetTheta value.
+        tile1->m_priorMemSetTheta = CartesianToPolar(tile1->GetPosition(), pos).fY;
+        tile2->m_priorMemSetTheta = CartesianToPolar(tile2->GetPosition(), pos).fY;
+        // Swap the Tiles.
+        tile1->m_col = m_rightBound;
+        tile2->m_col = m_leftBound;
+        _tileRows.at(i).at(m_leftBound) = tile2;
+        _tileRows.at(i).at(m_rightBound) = tile1;
+    }
 }

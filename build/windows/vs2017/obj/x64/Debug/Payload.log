@@ -1,4 +1,5 @@
-﻿  TileSet.cpp
+﻿  MemorySetCartesian1D.cpp
+  TileSet.cpp
 c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(53): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(54): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(127): warning C4244: '=': conversion from 'int' to 'orxFLOAT', possible loss of data

@@ -72,7 +72,13 @@ namespace payload
             const orxVECTOR &_tileSetPos,
             const TileSetState &_tileSetState,
             const TileSetShiftStatus &_tileSetShiftStatus);
-        void Reconfigure(const float &_lerpWeight, const float &_normalizedBorderSize, const float &_normalizedTileSize, const orxVECTOR &_memorySetPos);
+        void Reconfigure(
+            const int &_payloadRow,
+            const float &_lerpWeight,
+            const float &_normalizedBorderSize,
+            const float &_normalizedTileSize,
+            const orxVECTOR &_memorySetPos,
+            const TileSetState &_tileSetState);
         const orxVECTOR CalculateVisualScale(
             const int &_square,
             const int &_tilesInRow,
