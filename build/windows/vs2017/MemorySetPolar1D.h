@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Payload.h"
-#include "MemorySet.h"
+#include "MemorySetPolar2D.h"
 #include "Tile.h"
 
 namespace payload
 {
-    class MemorySetPolar1D : public MemorySet
+    class MemorySetPolar1D : public MemorySetPolar2D
     {
     protected:
         //! Called on object creation
@@ -23,6 +23,9 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        float m_minTheta;
+        float m_maxTheta;
+
         virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
     };
 }
