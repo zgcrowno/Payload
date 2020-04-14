@@ -63,8 +63,8 @@ namespace payload
         void SetMemorySetToReconfigure(MemorySet *_memSet);
         void Shift(TileSetShiftStatus _shiftStatus);
         void ShiftTiles();
+        void Reconfigure();
         void ReconfigureTiles();
-        void SwapTiles(const int _tile1Row, const int _tile1Col, const int _tile2Row, const int _tile2Col, const orxVECTOR &_pivot);
         void FinalizeTileAndInhabitantLerps();
         const bool Is2D();
         const bool PriorStateIs2D();
@@ -75,7 +75,9 @@ namespace payload
             const int &_row,
             const int &_col,
             const int &_payloadRow);
+        const int GetUnitDistanceFromPolarAxis(const int &_col);
         const int GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
+        const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow, const bool _d2);
         const orxVECTOR GetNormalizedPosition(const orxVECTOR &_vec);
         Tile *GetTileToRight(const Tile *_tile, const int &_payloadRow);
         Tile *GetTileToLeft(const Tile *_tile, const int &_payloadRow);

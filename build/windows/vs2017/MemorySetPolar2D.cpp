@@ -70,3 +70,20 @@ void MemorySetPolar2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
         }
     }
 }
+
+void MemorySetPolar2D::SetUp(
+    const int &_row,
+    const int &_tileSetHalfSquare,
+    const float &_tileSetRadius)
+{
+    // Set position relative to TileSet.
+    SetParentSpacePosition({ 0.0f, 0.0f });
+    // Set inner and outer radii.
+    m_innerRadius = _tileSetRadius * ((float)_row / _tileSetHalfSquare);
+    m_outerRadius = _tileSetRadius * ((float)(_row + 1) / _tileSetHalfSquare);
+    // Set MemorySet's bounds.
+    m_leftBound = (_tileSetHalfSquare - 1) - _row;
+    m_rightBound = _tileSetHalfSquare + _row;
+    m_lowerBound = (_tileSetHalfSquare - 1) - _row;
+    m_upperBound = _tileSetHalfSquare + _row;
+}

@@ -27,5 +27,12 @@ namespace payload
         float m_maxTheta;
 
         virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
+
+        void SetUp(
+            const int &_row,
+            const int &_col,
+            const int &_tileSetSquare,
+            const float &_tileSetRadius,
+            const float &_polarTheta);
     };
 }

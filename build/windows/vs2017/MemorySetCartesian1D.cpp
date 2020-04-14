@@ -47,3 +47,35 @@ void MemorySetCartesian1D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRow
         _tileRows.at(i).at(m_rightBound) = tile1;
     }
 }
+
+void MemorySetCartesian1D::SetUp(
+    const int &_row,
+    const int &_col,
+    const int &_tileSetSquare,
+    const float &_tileSetWidth,
+    const float &_tileSetHeight,
+    const float &_normalizedBorderSize,
+    const float &_normalizedTileSize,
+    const orxVECTOR &_tileSetPos)
+{
+    // Determine the world size of border and tile.
+    float borderWidth = _tileSetWidth * _normalizedBorderSize;
+    float borderHeight = _tileSetHeight * _normalizedBorderSize;
+    float tileWidth = _tileSetWidth * _normalizedTileSize;
+    float tileHeight = _tileSetHeight * _normalizedTileSize;
+    // Set scale relative to TileSet.
+    float scaleX = borderWidth + tileWidth;
+    float scaleY = borderHeight + tileHeight;
+    SetScale({ scaleX, scaleY });
+    // Set position relative to TileSet.
+    float posX = _tileSetPos.fX - (_tileSetWidth / 2.0f) + (1.5f * borderWidth + tileWidth) + _col * (borderWidth + tileWidth);
+    float posY = _tileSetPos.fY - (_tileSetHeight / 2.0f) + (borderHeight + 0.5f * tileHeight) + _row * (borderHeight + tileHeight);
+    SetPosition({ posX, posY });
+    // Set MemorySet's bounds.
+    m_leftBound = _col;
+    m_rightBound = _col + 1;
+    m_lowerBound = 0;
+    m_upperBound = _tileSetSquare - 1;
+    // Set MemorySet's row.
+    m_row = _row;
+}

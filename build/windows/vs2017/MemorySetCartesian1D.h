@@ -23,6 +23,18 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        int m_row;
+
         virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
+
+        void SetUp(
+            const int &_row,
+            const int &_col,
+            const int &_tileSetSquare,
+            const float &_tileSetWidth,
+            const float &_tileSetHeight,
+            const float &_normalizedBorderSize,
+            const float &_normalizedTileSize,
+            const orxVECTOR &_tileSetPos);
     };
 }

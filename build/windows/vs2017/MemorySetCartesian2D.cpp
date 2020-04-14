@@ -1,5 +1,4 @@
 #include "MemorySetCartesian2D.h"
-#include <iostream>
 
 using namespace payload;
 
@@ -62,4 +61,29 @@ void MemorySetCartesian2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRow
             _tileRows.at(tile->m_row).at(tile->m_col) = tile;
         }
     }
+}
+
+void MemorySetCartesian2D::SetUp(
+    const int &_row,
+    const int &_col,
+    const int &_tileSetHalfSquare,
+    const float &_tileSetWidth,
+    const float &_tileSetHeight,
+    const orxVECTOR &_tileSetPos)
+{
+    // Set scale relative to TileSet.
+    float scaleX = _tileSetWidth / 2.0f;
+    float scaleY = _tileSetHeight / 2.0f;
+    SetScale({ scaleX, scaleY });
+    // Set position relative to TileSet.
+    float tileSetQuarterWidth = _tileSetWidth / 4.0f;
+    float tileSetQuarterHeight = _tileSetHeight / 4.0f;
+    float posX = _tileSetPos.fX - (_tileSetWidth / 2.0f) + tileSetQuarterWidth + _col * (_tileSetWidth / 2.0f);
+    float posY = _tileSetPos.fY - (_tileSetHeight / 2.0f) + tileSetQuarterHeight + _row * (_tileSetHeight / 2.0f);
+    SetPosition({ posX, posY });
+    // Set MemorySet's bounds.
+    m_leftBound = _col * _tileSetHalfSquare;
+    m_rightBound = (_tileSetHalfSquare - 1) + _col * _tileSetHalfSquare;
+    m_lowerBound = _row * _tileSetHalfSquare;
+    m_upperBound = (_tileSetHalfSquare - 1) + _row * _tileSetHalfSquare;
 }

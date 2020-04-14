@@ -28,5 +28,10 @@ namespace payload
         float m_outerRadius;
 
         virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
+
+        void SetUp(
+            const int &_row,
+            const int &_tileSetHalfSquare,
+            const float &_tileSetRadius);
     };
 }

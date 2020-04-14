@@ -26,7 +26,7 @@ void TileSet::OnCreate()
     orxVECTOR pos = GetPosition();
     orxVECTOR scale = GetScale();
     orxVECTOR scaledSize = GetScaledSize();
-    //Create Tile rows.
+    // CREATE TILE ROWS.
     for (int i = 0; i < m_square; i++)
     {
         // Set up the row.
@@ -52,7 +52,7 @@ void TileSet::OnCreate()
     orxVECTOR goalOrigin = GetVector("GoalOrigin", GetModelName());
     m_payload->m_target = m_tileRows.at(payloadOrigin.fX).at(payloadOrigin.fY);
     m_goal->m_target = m_tileRows.at(goalOrigin.fX).at(goalOrigin.fY);
-    // Perform initial setup of Tiles.
+    // PERFORM INITIAL SETUP OF TILES.
     for (int i = 0; i < m_square; i++)
     {
         for (int j = 0; j < m_square; j++)
@@ -61,11 +61,9 @@ void TileSet::OnCreate()
             Tile *tile = m_tileRows.at(i).at(j);
             // Perform initial setup of Tile.
             tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, m_payload->m_target->m_row, pos, m_state);
-            // Add the tile to m_tileRows.
-            m_tileRows.at(i).push_back(tile);
         }
     }
-    // Create MemorySets
+    // CREATE MEMORYSETS.
     // Cartesian1D
     for (int i = 0; i < m_square; i++)
     {
@@ -75,24 +73,8 @@ void TileSet::OnCreate()
             MemorySetCartesian1D *msc1d = ScrollCast<MemorySetCartesian1D*>(CreateObject("O-MemorySetCartesian1D"));
             // Ensure that the MemorySetCartesian1D is owned by the TileSet.
             msc1d->SetParent(this);
-            // Determine the world size of border and tile.
-            float borderWidth = m_width * NORMALIZED_BORDER_SIZE;
-            float borderHeight = m_height * NORMALIZED_BORDER_SIZE;
-            float tileWidth = m_width * m_normalizedTileSize;
-            float tileHeight = m_height * m_normalizedTileSize;
-            // Set scale relative to TileSet.
-            float memSetScaleX = borderWidth + tileWidth;
-            float memSetScaleY = borderHeight + tileHeight;
-            msc1d->SetScale({ memSetScaleX, memSetScaleY });
-            // Set position relative to TileSet.
-            float memSetPosX = pos.fX - (m_width / 2.0f) + (1.5f * borderWidth + tileWidth) + j * (borderWidth + tileWidth);
-            float memSetPosY = pos.fY - (m_height / 2.0f) + (borderHeight + 0.5f * tileHeight) + i * (borderHeight + tileHeight);
-            msc1d->SetPosition({ memSetPosX, memSetPosY });
-            // Set MemorySet's bounds.
-            msc1d->m_leftBound = j;
-            msc1d->m_rightBound = j + 1;
-            msc1d->m_lowerBound = 0;
-            msc1d->m_upperBound = m_square - 1;
+            // Set it up.
+            msc1d->SetUp(i, j, m_square, m_width, m_height, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, pos);
             // Add it to the member vector.
             m_memorySetsCartesian1D.push_back(msc1d);
         }
@@ -106,26 +88,27 @@ void TileSet::OnCreate()
             MemorySetCartesian2D *msc2d = ScrollCast<MemorySetCartesian2D*>(CreateObject("O-MemorySetCartesian2D"));
             // Ensure that the MemorySetCartesian2D is owned by the TileSet.
             msc2d->SetParent(this);
-            // Set scale relative to TileSet.
-            float memSetScaleX = m_width / 2.0f;
-            float memSetScaleY = m_height / 2.0f;
-            msc2d->SetScale({ memSetScaleX, memSetScaleY });
-            // Set position relative to TileSet.
-            float quarterWidth = m_width / 4.0f;
-            float quarterHeight = m_height / 4.0f;
-            float memSetPosX = pos.fX - (m_width / 2.0f) + quarterWidth + j * (m_width / 2.0f);
-            float memSetPosY = pos.fY - (m_height / 2.0f) + quarterHeight + i * (m_height / 2.0f);
-            msc2d->SetPosition({ memSetPosX, memSetPosY });
-            // Set MemorySet's bounds.
-            msc2d->m_leftBound = j * m_halfSquare;
-            msc2d->m_rightBound = (m_halfSquare - 1) + j * m_halfSquare;
-            msc2d->m_lowerBound = i * m_halfSquare;
-            msc2d->m_upperBound = (m_halfSquare - 1) + i * m_halfSquare;
+            // Set it up.
+            msc2d->SetUp(i, j, m_halfSquare, m_width, m_height, pos);
             // Add it to the member vector.
             m_memorySetsCartesian2D.push_back(msc2d);
         }
     }
     // Polar1D
+    for (int i = 0; i < m_square; i++)
+    {
+        for (int j = 0; j < m_square; j++)
+        {
+            // Create the MemorySetPolar1D.
+            MemorySetPolar1D *msp1d = ScrollCast<MemorySetPolar1D*>(CreateObject("O-MemorySetPolar1D"));
+            // Ensure that the MemorySetPolar1D is owned by the TileSet.
+            msp1d->SetParent(this);
+            // Set it up.
+            msp1d->SetUp(i, j, m_square, m_radius, GetPolarTheta(GetUnitDistanceFromPolarAxis(j), m_square, false));
+            // Add it to the member vector.
+            m_memorySetsPolar1D.push_back(msp1d);
+        }
+    }
     // Polar2D
     for (int i = 0; i < m_halfSquare; i++)
     {
@@ -133,16 +116,8 @@ void TileSet::OnCreate()
         MemorySetPolar2D *msp2d = ScrollCast<MemorySetPolar2D*>(CreateObject("O-MemorySetPolar2D"));
         // Ensure that the MemorySetPolar2D is owned by the TileSet.
         msp2d->SetParent(this);
-        // Set inner and outer radii.
-        msp2d->m_innerRadius = m_radius * ((float)i / m_halfSquare);
-        msp2d->m_outerRadius = m_radius * ((float)(i + 1) / m_halfSquare);
-        // Set position relative to TileSet.
-        msp2d->SetParentSpacePosition({ 0.0f, 0.0f });
-        // Set MemorySet's bounds.
-        msp2d->m_leftBound = (m_halfSquare - 1) - i;
-        msp2d->m_rightBound = m_halfSquare + i;
-        msp2d->m_lowerBound = (m_halfSquare - 1) - i;
-        msp2d->m_upperBound = m_halfSquare + i;
+        // Set it up.
+        msp2d->SetUp(i, m_halfSquare, m_radius);
         // Add it to the member vector.
         m_memorySetsPolar2D.push_back(msp2d);
     }
@@ -288,52 +263,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("Recon"))
         {
-            orxVECTOR mousePos = orxVECTOR_0;
-            switch (m_state)
-            {
-            case TileSetState::Cartesian1D:
-            {
-                ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySetCartesian1D"));
-                MemorySetCartesian1D *msc1d = dynamic_cast<MemorySetCartesian1D*>(memSet);
-                if (msc1d != nullptr)
-                {
-                    SetMemorySetToReconfigure(msc1d);
-                }
-            }
-            break;
-            case TileSetState::Cartesian2D:
-            {
-                ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySetCartesian2D"));
-                MemorySetCartesian2D *msc2d = dynamic_cast<MemorySetCartesian2D*>(memSet);
-                if (msc2d != nullptr)
-                {
-                    SetMemorySetToReconfigure(msc2d);
-                }
-            }
-            break;
-            case TileSetState::Polar1D:
-            {
-                ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySetPolar1D"));
-                MemorySetPolar1D *msp1d = dynamic_cast<MemorySetPolar1D*>(memSet);
-                if (msp1d != nullptr)
-                {
-                    SetMemorySetToReconfigure(msp1d);
-                }
-            }
-            break;
-            case TileSetState::Polar2D:
-            {
-                orxVECTOR polarMousePos = CartesianToPolar(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), GetPosition());
-                for (MemorySetPolar2D *msp2d : m_memorySetsPolar2D)
-                {
-                    if (polarMousePos.fX >= msp2d->m_innerRadius && polarMousePos.fX < msp2d->m_outerRadius)
-                    {
-                        SetMemorySetToReconfigure(msp2d);
-                    }
-                }
-            }
-            break;
-            }
+            Reconfigure();
         }
         else if (orxInput_HasBeenActivated("Undo"))
         {
@@ -398,7 +328,15 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
         // Reset m_timeSpentReconfiguring.
         m_timeSpentReconfiguring = 0.0f;
         // Fill out the MemorySet's m_tiles.
-        if (dynamic_cast<MemorySetPolar2D*>(_memSet) != nullptr)
+        if (dynamic_cast<MemorySetPolar1D*>(_memSet) != nullptr)
+        {
+            for (int i = _memSet->m_lowerBound; i <= _memSet->m_upperBound; i++)
+            {
+                _memSet->m_tiles.push_back(m_tileRows.at(i).at(_memSet->m_leftBound));
+                _memSet->m_tiles.push_back(m_tileRows.at(i).at(_memSet->m_rightBound));
+            }
+        }
+        else if (dynamic_cast<MemorySetPolar2D*>(_memSet) != nullptr)
         {
             for (int i = _memSet->m_lowerBound; i <= _memSet->m_upperBound; i++)
             {
@@ -411,9 +349,21 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
                 }
             }
         }
-        else if (dynamic_cast<MemorySetPolar1D*>(_memSet) != nullptr)
+        else if (dynamic_cast<MemorySetCartesian2D*>(_memSet) != nullptr && m_halfSquare % 2 != 0)
         {
-
+            for (int i = _memSet->m_lowerBound; i <= _memSet->m_upperBound; i++)
+            {
+                for (int j = _memSet->m_leftBound; j <= _memSet->m_rightBound; j++)
+                {
+                    // Only push the tile if it's not in the center of an oddly tiled quadrant.
+                    if (m_halfSquare % 2 != 0 &&
+                        !(i - _memSet->m_lowerBound == ((_memSet->m_upperBound - _memSet->m_lowerBound) / 2) &&
+                          j - _memSet->m_leftBound == ((_memSet->m_rightBound - _memSet->m_leftBound) / 2)))
+                    {
+                        _memSet->m_tiles.push_back(m_tileRows.at(i).at(j));
+                    }
+                }
+            }
         }
         else
         {
@@ -490,6 +440,61 @@ void TileSet::ShiftTiles()
     }
 }
 
+void TileSet::Reconfigure()
+{
+    orxVECTOR mousePos = orxVECTOR_0;
+    switch (m_state)
+    {
+    case TileSetState::Cartesian1D:
+    {
+        ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySetCartesian1D"));
+        MemorySetCartesian1D *msc1d = dynamic_cast<MemorySetCartesian1D*>(memSet);
+        if (msc1d != nullptr && msc1d->m_row == m_payload->m_target->m_row)
+        {
+            SetMemorySetToReconfigure(msc1d);
+        }
+    }
+    break;
+    case TileSetState::Cartesian2D:
+    {
+        ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySetCartesian2D"));
+        MemorySetCartesian2D *msc2d = dynamic_cast<MemorySetCartesian2D*>(memSet);
+        if (msc2d != nullptr)
+        {
+            SetMemorySetToReconfigure(msc2d);
+        }
+    }
+    break;
+    case TileSetState::Polar1D:
+    {
+        orxVECTOR polarMousePos = CartesianToPolar(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), GetPosition());
+        float positivePolarMouseTheta = polarMousePos.fY < 0 ? orxMATH_KF_PI + (orxMATH_KF_PI - fabsf(polarMousePos.fY)) : polarMousePos.fY;
+        for (MemorySetPolar1D *msp1d : m_memorySetsPolar1D)
+        {
+            bool inRadius = polarMousePos.fX >= msp1d->m_innerRadius && polarMousePos.fX < msp1d->m_outerRadius;
+            bool inTheta = positivePolarMouseTheta >= msp1d->m_minTheta && positivePolarMouseTheta < msp1d->m_maxTheta;
+            if (inRadius && inTheta)
+            {
+                SetMemorySetToReconfigure(msp1d);
+            }
+        }
+    }
+    break;
+    case TileSetState::Polar2D:
+    {
+        orxVECTOR polarMousePos = CartesianToPolar(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), GetPosition());
+        for (MemorySetPolar2D *msp2d : m_memorySetsPolar2D)
+        {
+            if (polarMousePos.fX >= msp2d->m_innerRadius && polarMousePos.fX < msp2d->m_outerRadius)
+            {
+                SetMemorySetToReconfigure(msp2d);
+            }
+        }
+    }
+    break;
+    }
+}
+
 void TileSet::ReconfigureTiles()
 {
     // The amount by which we're reconfiguring the tiles.
@@ -505,23 +510,6 @@ void TileSet::ReconfigureTiles()
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
         ti->SetPosition(ti->m_target->GetPosition());
     }
-}
-
-void TileSet::SwapTiles(const int _tile1Row, const int _tile1Col, const int _tile2Row, const int _tile2Col, const orxVECTOR &_pivot)
-{
-    // Fetch the tiles at the appropriate indeces.
-    Tile *tile1 = m_tileRows.at(_tile1Row).at(_tile1Col);
-    Tile *tile2 = m_tileRows.at(_tile2Row).at(_tile2Col);
-    // Set the Tiles' m_priorMemSetTheta value.
-    tile1->m_priorMemSetTheta = CartesianToPolar(tile1->GetPosition(), _pivot).fY;
-    tile2->m_priorMemSetTheta = CartesianToPolar(tile2->GetPosition(), _pivot).fY;
-    // Swap the Tiles.
-    tile1->m_row = _tile2Row;
-    tile1->m_col = _tile2Col;
-    tile2->m_row = _tile1Row;
-    tile2->m_col = _tile1Col;
-    m_tileRows.at(_tile1Row).at(_tile1Col) = tile2;
-    m_tileRows.at(_tile2Row).at(_tile2Col) = tile1;
 }
 
 void TileSet::FinalizeTileAndInhabitantLerps()
@@ -607,6 +595,53 @@ const int TileSet::GetUnitDistanceFromOrigin(const int &_row, const int &_col, c
     }
 
     return unitDistanceFromOrigin;
+}
+
+const int TileSet::GetUnitDistanceFromPolarAxis(const int &_col)
+{
+    int unitDistanceFromPolarAxis = ((3 * m_square) / 4) - _col;
+    if (unitDistanceFromPolarAxis <= 0)
+    {
+        unitDistanceFromPolarAxis += m_square;
+    }
+    if (unitDistanceFromPolarAxis == m_square && m_halfSquare % 2 != 0)
+    {
+        unitDistanceFromPolarAxis = 0;
+    }
+
+    return unitDistanceFromPolarAxis;
+}
+
+const float TileSet::GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow, const bool _d2)
+{
+    // At what angle is the Tile, in reference to the TileSet's pivot?
+    float theta;
+
+    if (_d2)
+    {
+        theta = orxMATH_KF_2_PI * ((1.0f / (_tilesInPolarRow * 2.0f)) + ((_unitDistanceFromPolarAxis - 1) * (1.0f / _tilesInPolarRow)));
+    }
+    else
+    {
+        theta = orxMATH_KF_2_PI;
+        if (_unitDistanceFromPolarAxis == 0)
+        {
+            theta = 0;
+        }
+        else
+        {
+            if (m_halfSquare % 2 != 0)
+            {
+                theta *= (_unitDistanceFromPolarAxis * (1.0f / _tilesInPolarRow));
+            }
+            else
+            {
+                theta *= ((1.0f / (_tilesInPolarRow * 2.0f)) + ((_unitDistanceFromPolarAxis - 1) * (1.0f / _tilesInPolarRow)));
+            }
+        }
+    }
+
+    return theta;
 }
 
 const int TileSet::GetGreatest1DUnitDistanceOfPayloadRowFromThreshold()
