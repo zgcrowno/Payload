@@ -69,18 +69,40 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                 m_timeSpentMoving = 0.0f;
                 SetPosition(m_target->GetPosition());
                 m_priorPos = GetPosition();
+                for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+                {
+                    TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+                    ti->Cohabitate(ti->m_target->m_b2D, false);
+                }
             }
         }
     }
 }
 
-void TileInhabitant::Cohabitate(TileInhabitant *_cohabitant)
+void TileInhabitant::Undo()
+{
+    // Only execute Undo if there are things to be undone.
+    if (!m_priorTargetStack.empty())
+    {
+        m_target = m_priorTargetStack.top();
+        m_priorTargetStack.pop();
+        m_bIsMoving = true;
+    }
+}
+
+void TileInhabitant::Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting)
 {
 
 }
 
 void TileInhabitant::SetTarget(Tile *_target)
 {
+    m_priorTargetStack.push(m_target);
     m_target = _target;
     m_bIsMoving = true;
+}
+
+const bool TileInhabitant::IsCohabitable()
+{
+    return m_bIsMoving == false && m_target->m_bIsMoving == false;
 }

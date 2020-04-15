@@ -98,6 +98,7 @@ void Tile::SetUp(
     const TileSetState &_tileSetState)
 {
     m_bCartesian = _tileSetState == TileSetState::Cartesian1D || _tileSetState == TileSetState::Cartesian2D;
+    m_b2D = _tileSetState == TileSetState::Cartesian2D || _tileSetState == TileSetState::Polar2D;
     m_row = _row;
     m_col = _col;
 
@@ -167,6 +168,7 @@ void Tile::Shift(
     const TileSetShiftStatus &_tileSetShiftStatus)
 {
     m_bCartesian = _tileSetState == TileSetState::Cartesian1D || _tileSetState == TileSetState::Cartesian2D;
+    m_b2D = _tileSetState == TileSetState::Cartesian2D || _tileSetState == TileSetState::Polar2D;
 
     // Is the TileSet 2D?
     bool tileSetIs2D = _tileSetState == TileSetState::Cartesian2D || _tileSetState == TileSetState::Polar2D;
@@ -183,6 +185,15 @@ void Tile::Shift(
             _tileSetShiftStatus != TileSetShiftStatus::D1Tiles || unitDistanceFromPayloadRow == 0 ?
             _lerpWeight :
             orxCLAMP(_lerpWeight * ((float)_greatest1DUnitDistanceOfPayloadRowFromThreshold / unitDistanceFromPayloadRow), 0.0f, 1.0f);
+        // The Tile is only moving if it hasn't reached the end of its lerp.
+        if (lerpWeight < 1)
+        {
+            m_bIsMoving = true;
+        }
+        else
+        {
+            m_bIsMoving = false;
+        }
 
         switch (_tileSetState)
         {
@@ -248,6 +259,16 @@ void Tile::Shift(
     }
     else
     {
+        // The Tile is only moving if it hasn't reached the end of its lerp.
+        if (_lerpWeight < 1)
+        {
+            m_bIsMoving = true;
+        }
+        else
+        {
+            m_bIsMoving = false;
+        }
+
         switch (_tileSetState)
         {
         case TileSetState::Cartesian1D:
@@ -336,6 +357,14 @@ void Tile::Reconfigure(
         break;
     }
     float theta = orxLERP(m_priorMemSetTheta, thetaDest, _lerpWeight);
+    if (_lerpWeight < 1)
+    {
+        m_bIsMoving = true;
+    }
+    else
+    {
+        m_bIsMoving = false;
+    }
     SetPolarPosition(_memorySetPos, polarPos.fX, theta);
 }
 

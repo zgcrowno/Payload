@@ -27,6 +27,11 @@ void MemorySetPolar1D::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
+void MemorySetPolar1D::Undo()
+{
+
+}
+
 void MemorySetPolar1D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
 {
     // The MemorySet's position.

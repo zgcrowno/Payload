@@ -26,6 +26,7 @@ namespace payload
         float m_minTheta;
         float m_maxTheta;
 
+        virtual void Undo();
         virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
 
         void SetUp(

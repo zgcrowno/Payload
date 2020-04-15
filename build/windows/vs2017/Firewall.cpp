@@ -27,7 +27,7 @@ void Firewall::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Firewall::Cohabitate(TileInhabitant *_cohabitant)
+void Firewall::Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting)
 {
 
 }

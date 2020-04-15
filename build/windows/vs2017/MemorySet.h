@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Payload.h"
-#include "ScrollMod.h"
+#include "Doer.h"
 #include "Tile.h"
 
 namespace payload
 {
-    class MemorySet : public ScrollMod
+    class MemorySet : public Doer
     {
     protected:
         //! Called on object creation
@@ -29,6 +29,7 @@ namespace payload
         int m_upperBound;
         std::vector<Tile*> m_tiles;
 
+        virtual void Undo() = 0;
         virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows) = 0;
     };
 }

@@ -21,7 +21,8 @@ namespace payload
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+    public:
         //! Called whenever the PlayerPayload interacts with another Bypass on its Tile.
-        virtual void Cohabitate(TileInhabitant *_cohabitant);
+        virtual void Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting);
     };
 }

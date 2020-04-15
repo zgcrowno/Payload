@@ -27,7 +27,7 @@ void Protocol::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Protocol::Cohabitate(TileInhabitant *_cohabitant)
+void Protocol::Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting)
 {
 
 }

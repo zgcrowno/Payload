@@ -27,6 +27,11 @@ void MemorySetCartesian1D::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
+void MemorySetCartesian1D::Undo()
+{
+
+}
+
 void MemorySetCartesian1D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
 {
     // The MemorySet's position.

@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Payload.h"
+#include "Doer.h"
 #include "Goal.h"
 #include "MemorySetCartesian1D.h"
 #include "MemorySetCartesian2D.h"
 #include "MemorySetPolar1D.h"
 #include "MemorySetPolar2D.h"
 #include "PlayerPayload.h"
-#include "ScrollMod.h"
 #include "Tile.h"
 #include "TileSetShiftStatus.h"
 #include "TileSetState.h"
@@ -19,7 +19,7 @@
 
 namespace payload
 {
-    class TileSet : public ScrollMod
+    class TileSet : public Doer
     {
     protected:
         //! Called on object creation
@@ -54,11 +54,15 @@ namespace payload
         MemorySet *m_memorySetToReconfigure;
         PlayerPayload *m_payload;
         Goal *m_goal;
+        std::stack<TileSetState> m_priorStates;
+        std::stack<Doer*> m_priorDoers;
         std::vector<MemorySetCartesian1D*> m_memorySetsCartesian1D;
         std::vector<MemorySetCartesian2D*> m_memorySetsCartesian2D;
         std::vector<MemorySetPolar1D*> m_memorySetsPolar1D;
         std::vector<MemorySetPolar2D*> m_memorySetsPolar2D;
         std::vector<std::vector<Tile*>> m_tileRows;
+
+        virtual void Undo();
 
         void SetMemorySetToReconfigure(MemorySet *_memSet);
         void Shift(TileSetShiftStatus _shiftStatus);

@@ -24,7 +24,9 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        bool m_bIsMoving;
         bool m_bCartesian;
+        bool m_b2D;
         int m_row;
         int m_col;
         float m_priorMemSetTheta;

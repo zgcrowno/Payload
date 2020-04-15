@@ -1,4 +1,5 @@
 #include "TileSet.h"
+#include "Unreachable.h"
 #include <algorithm>
 
 using namespace payload;
@@ -128,6 +129,18 @@ void TileSet::OnCreate()
     m_goal->SetPosition(m_goal->m_target->GetPosition());
     m_goal->m_priorPos = m_goal->GetPosition();
     m_goal->m_tileSetPos = GetPosition();
+    // CREATE OBSTACLE TILEINHABITANTS.
+    // Unreachable.
+    for (int i = 0; i < GetListCount("UnreachableOrigins", GetModelName()); i++)
+    {
+        orxVECTOR unreachableOrigin = GetListVector("UnreachableOrigins", i, GetModelName());
+        Unreachable *unreachable = ScrollCast<Unreachable*>(CreateObject("O-Unreachable"));
+        unreachable->SetParent(this);
+        unreachable->m_target = m_tileRows.at(unreachableOrigin.fX).at(unreachableOrigin.fY);
+        unreachable->SetPosition(unreachable->m_target->GetPosition());
+        unreachable->m_priorPos = unreachable->GetPosition();
+        unreachable->m_tileSetPos = GetPosition();
+    }
 }
 
 void TileSet::OnDelete()
@@ -186,6 +199,9 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
     {
         if (orxInput_HasBeenActivated("DimShift"))
         {
+            m_priorDoers.push(this);
+            m_priorStates.push(m_state);
+
             if (Is2D())
             {
                 if (IsCartesian())
@@ -204,6 +220,9 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("CoShift"))
         {
+            m_priorDoers.push(this);
+            m_priorStates.push(m_state);
+
             if (IsCartesian())
             {
                 Shift(TileSetShiftStatus::Polar);
@@ -219,6 +238,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             if (tileToRight != nullptr)
             {
                 m_payload->SetTarget(tileToRight);
+                m_priorDoers.push(m_payload);
             }
         }
         else if (orxInput_HasBeenActivated("MoveUp"))
@@ -227,6 +247,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             if (tileAbove != nullptr)
             {
                 m_payload->SetTarget(tileAbove);
+                m_priorDoers.push(m_payload);
             }
         }
         else if (orxInput_HasBeenActivated("MoveDown"))
@@ -235,6 +256,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             if (tileBelow != nullptr)
             {
                 m_payload->SetTarget(tileBelow);
+                m_priorDoers.push(m_payload);
             }
         }
         else if (orxInput_HasBeenActivated("MoveLeft"))
@@ -243,6 +265,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             if (tileToLeft != nullptr)
             {
                 m_payload->SetTarget(tileToLeft);
+                m_priorDoers.push(m_payload);
             }
         }
         else if (orxInput_HasBeenActivated("MemRight"))
@@ -267,7 +290,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("Undo"))
         {
-
+            Undo();
         }
     }
     // HANDLE SHIFTING
@@ -316,6 +339,70 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
     }
 }
 
+void TileSet::Undo()
+{
+    if (!m_priorDoers.empty())
+    {
+        if (m_priorDoers.top() == this)
+        {
+            if (!m_priorStates.empty())
+            {
+                TileSetState priorState = m_priorStates.top();
+                switch (priorState)
+                {
+                case TileSetState::Cartesian1D:
+                    if (Is2D())
+                    {
+                        Shift(TileSetShiftStatus::D1);
+                    }
+                    else
+                    {
+                        Shift(TileSetShiftStatus::Cartesian);
+                    }
+                    break;
+                case TileSetState::Cartesian2D:
+                    if (Is2D())
+                    {
+                        Shift(TileSetShiftStatus::Cartesian);
+                    }
+                    else
+                    {
+                        Shift(TileSetShiftStatus::D2);
+                    }
+                    break;
+                case TileSetState::Polar1D:
+                    if (Is2D())
+                    {
+                        Shift(TileSetShiftStatus::D1);
+                    }
+                    else
+                    {
+                        Shift(TileSetShiftStatus::Polar);
+                    }
+                    break;
+                case TileSetState::Polar2D:
+                    if (Is2D())
+                    {
+                        Shift(TileSetShiftStatus::Polar);
+                    }
+                    else
+                    {
+                        Shift(TileSetShiftStatus::D2);
+                    }
+                    break;
+                }
+                m_priorStates.pop();
+            }
+        }
+        else
+        {
+            m_priorDoers.top()->Undo();
+        }
+
+        m_priorDoers.pop();
+    }
+}
+
 void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
 {
     if (_memSet == nullptr)
@@ -325,6 +412,7 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
     }
     else
     {
+        m_priorDoers.push(_memSet);
         // Reset m_timeSpentReconfiguring.
         m_timeSpentReconfiguring = 0.0f;
         // Fill out the MemorySet's m_tiles.
@@ -432,11 +520,23 @@ void TileSet::ShiftTiles()
             tile->Shift(m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, m_payload->m_target->m_row, pos, m_state, m_shiftStatus);
         }
     }
-    // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
-    for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+    // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets (if their respective targets are moving).
+    std::vector<ScrollObject*> tileInhabitants = Payload::GetInstance().GetTileInhabitants();
+    for (ScrollObject *tileInhabitant : tileInhabitants)
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-        ti->SetPosition(ti->m_target->GetPosition());
+        if (!ti->IsCohabitable() || Is2D())
+        {
+            ti->SetPosition(ti->m_target->GetPosition());
+        }
+        else
+        {
+            if (!orxVector_AreEqual(&ti->GetPosition(), &ti->m_target->GetPosition()))
+            {
+                ti->SetPosition(ti->m_target->GetPosition());
+            }
+            ti->Cohabitate(Is2D(), true);
+        }
     }
 }
 
@@ -528,8 +628,10 @@ void TileSet::FinalizeTileAndInhabitantLerps()
             tile->m_priorTileSetState = m_state;
             // Ensure Tile completes its lerp such that its visual scale is exactly the same as its target's.
             tile->m_visualScale = tile->m_targetVisualScale;
-            // Set The Tile's m_priorVisualScale for future lerping Tile-side.
+            // Set the Tile's m_priorVisualScale for future lerping Tile-side.
             tile->m_priorVisualScale = tile->m_visualScale;
+            // Set the Tile's m_bIsMoving to false, since the lerp has obviously been completed.
+            tile->m_bIsMoving = false;
         }
     }
 

@@ -13,19 +13,25 @@
     <Filter Include="src\CPP">
       <UniqueIdentifier>{634e8c76-f4b5-40e0-a850-2bc5ba296421}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\CPP\TileInhabitant">
-      <UniqueIdentifier>{bd8195b8-4a06-48dd-8e1e-4aa037e4d14b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="src\Header\TileInhabitant">
-      <UniqueIdentifier>{c79256ca-590d-4be1-bb2c-7f8395f90d90}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Header\EnumClass">
       <UniqueIdentifier>{d9a1afbf-7e0b-40c5-ba33-be24ee5c008b}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\CPP\MemorySet">
+    <Filter Include="src\CPP\Doer">
+      <UniqueIdentifier>{ab70264f-4123-4a99-b61d-c59e4e7547f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Header\Doer">
+      <UniqueIdentifier>{71e40307-509c-453d-9389-db7a57f20768}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\Doer\TileInhabitant">
+      <UniqueIdentifier>{bd8195b8-4a06-48dd-8e1e-4aa037e4d14b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Header\Doer\TileInhabitant">
+      <UniqueIdentifier>{c79256ca-590d-4be1-bb2c-7f8395f90d90}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\Doer\MemorySet">
       <UniqueIdentifier>{fe0459a4-4424-481c-8786-2e25ee95084a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Header\MemorySet">
+    <Filter Include="src\Header\Doer\MemorySet">
       <UniqueIdentifier>{beba1838-d841-4a4d-9a26-6f47c0cfb4c6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -59,35 +65,32 @@
     <ClInclude Include="Spawner.h">
       <Filter>src\Header</Filter>
     </ClInclude>
-    <ClInclude Include="TileSet.h">
-      <Filter>src\Header</Filter>
-    </ClInclude>
     <ClInclude Include="TileInhabitant.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Bypass.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Firewall.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Goal.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Protocol.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Proxy.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Recursive.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Unreachable.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Virus.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="Tile.h">
       <Filter>src\Header</Filter>
@@ -96,25 +99,31 @@
       <Filter>src\Header\EnumClass</Filter>
     </ClInclude>
     <ClInclude Include="PlayerPayload.h">
-      <Filter>src\Header\TileInhabitant</Filter>
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
     <ClInclude Include="TileSetShiftStatus.h">
       <Filter>src\Header\EnumClass</Filter>
     </ClInclude>
     <ClInclude Include="MemorySet.h">
-      <Filter>src\Header\MemorySet</Filter>
+      <Filter>src\Header\Doer\MemorySet</Filter>
     </ClInclude>
     <ClInclude Include="MemorySetCartesian1D.h">
-      <Filter>src\Header\MemorySet</Filter>
+      <Filter>src\Header\Doer\MemorySet</Filter>
     </ClInclude>
     <ClInclude Include="MemorySetCartesian2D.h">
-      <Filter>src\Header\MemorySet</Filter>
+      <Filter>src\Header\Doer\MemorySet</Filter>
     </ClInclude>
     <ClInclude Include="MemorySetPolar1D.h">
-      <Filter>src\Header\MemorySet</Filter>
+      <Filter>src\Header\Doer\MemorySet</Filter>
     </ClInclude>
     <ClInclude Include="MemorySetPolar2D.h">
-      <Filter>src\Header\MemorySet</Filter>
+      <Filter>src\Header\Doer\MemorySet</Filter>
+    </ClInclude>
+    <ClInclude Include="Doer.h">
+      <Filter>src\Header\Doer</Filter>
+    </ClInclude>
+    <ClInclude Include="TileSet.h">
+      <Filter>src\Header\Doer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -130,56 +139,59 @@
     <ClCompile Include="Spawner.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
-    <ClCompile Include="TileSet.cpp">
-      <Filter>src\CPP</Filter>
-    </ClCompile>
     <ClCompile Include="TileInhabitant.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Bypass.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Firewall.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Goal.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Protocol.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Proxy.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Recursive.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Unreachable.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Virus.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="Tile.cpp">
       <Filter>src\CPP</Filter>
     </ClCompile>
     <ClCompile Include="PlayerPayload.cpp">
-      <Filter>src\CPP\TileInhabitant</Filter>
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
     <ClCompile Include="MemorySet.cpp">
-      <Filter>src\CPP\MemorySet</Filter>
+      <Filter>src\CPP\Doer\MemorySet</Filter>
     </ClCompile>
     <ClCompile Include="MemorySetCartesian1D.cpp">
-      <Filter>src\CPP\MemorySet</Filter>
+      <Filter>src\CPP\Doer\MemorySet</Filter>
     </ClCompile>
     <ClCompile Include="MemorySetCartesian2D.cpp">
-      <Filter>src\CPP\MemorySet</Filter>
+      <Filter>src\CPP\Doer\MemorySet</Filter>
     </ClCompile>
     <ClCompile Include="MemorySetPolar1D.cpp">
-      <Filter>src\CPP\MemorySet</Filter>
+      <Filter>src\CPP\Doer\MemorySet</Filter>
     </ClCompile>
     <ClCompile Include="MemorySetPolar2D.cpp">
-      <Filter>src\CPP\MemorySet</Filter>
+      <Filter>src\CPP\Doer\MemorySet</Filter>
+    </ClCompile>
+    <ClCompile Include="Doer.cpp">
+      <Filter>src\CPP\Doer</Filter>
+    </ClCompile>
+    <ClCompile Include="TileSet.cpp">
+      <Filter>src\CPP\Doer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

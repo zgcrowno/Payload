@@ -1,12 +1,14 @@
 #pragma once
 
 #include "Payload.h"
-#include "ScrollMod.h"
+#include "Doer.h"
 #include "Tile.h"
+#include <functional>
+#include <stack>
 
 namespace payload
 {
-    class TileInhabitant : public ScrollMod
+    class TileInhabitant : public Doer
     {
     protected:
         //! Called on object creation
@@ -22,8 +24,6 @@ namespace payload
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
-        //! Called whenever the TileInhabitant interacts with another TileInhabitant on its Tile.
-        virtual void Cohabitate(TileInhabitant *_cohabitant) = 0;
     public:
         int m_precedence;
         bool m_bIsMoving;
@@ -33,7 +33,13 @@ namespace payload
         orxVECTOR m_priorPos;
         orxVECTOR m_tileSetPos;
         Tile *m_target;
+        std::stack<Tile*> m_priorTargetStack;
+
+        virtual void Undo();
+        //! Called whenever the TileInhabitant interacts with another TileInhabitant on its Tile.
+        virtual void Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting) = 0;
 
         void SetTarget(Tile *_target);
+        const bool IsCohabitable();
     };
 }

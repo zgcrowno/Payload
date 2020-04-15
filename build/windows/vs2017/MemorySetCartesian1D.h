@@ -25,6 +25,7 @@ namespace payload
     public:
         int m_row;
 
+        virtual void Undo();
         virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
 
         void SetUp(

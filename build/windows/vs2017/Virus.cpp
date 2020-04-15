@@ -27,7 +27,7 @@ void Virus::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Virus::Cohabitate(TileInhabitant *_cohabitant)
+void Virus::Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting)
 {
 
 }

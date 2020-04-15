@@ -383,6 +383,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bypass.h" />
+    <ClInclude Include="Doer.h" />
     <ClInclude Include="Firewall.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="MemorySet.h" />
@@ -408,6 +409,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bypass.cpp" />
+    <ClCompile Include="Doer.cpp" />
     <ClCompile Include="Firewall.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="MemorySet.cpp" />
