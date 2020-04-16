@@ -61,7 +61,7 @@ void TileSet::OnCreate()
             // The Tile at this row/column pair.
             Tile *tile = m_tileRows.at(i).at(j);
             // Perform initial setup of Tile.
-            tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, m_payload->m_target->m_row, pos, m_state);
+            tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, m_payload->m_target->m_row, pos, m_state, m_tileRows);
         }
     }
     // CREATE MEMORYSETS.
@@ -75,7 +75,7 @@ void TileSet::OnCreate()
             // Ensure that the MemorySetCartesian1D is owned by the TileSet.
             msc1d->SetParent(this);
             // Set it up.
-            msc1d->SetUp(i, j, m_square, m_width, m_height, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, pos);
+            msc1d->SetUp(i, j, m_square, m_width, m_height, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, pos, m_tileRows);
             // Add it to the member vector.
             m_memorySetsCartesian1D.push_back(msc1d);
         }
@@ -90,7 +90,7 @@ void TileSet::OnCreate()
             // Ensure that the MemorySetCartesian2D is owned by the TileSet.
             msc2d->SetParent(this);
             // Set it up.
-            msc2d->SetUp(i, j, m_halfSquare, m_width, m_height, pos);
+            msc2d->SetUp(i, j, m_halfSquare, m_width, m_height, pos, m_tileRows);
             // Add it to the member vector.
             m_memorySetsCartesian2D.push_back(msc2d);
         }
@@ -105,7 +105,7 @@ void TileSet::OnCreate()
             // Ensure that the MemorySetPolar1D is owned by the TileSet.
             msp1d->SetParent(this);
             // Set it up.
-            msp1d->SetUp(i, j, m_square, m_radius, GetPolarTheta(GetUnitDistanceFromPolarAxis(j), m_square, false));
+            msp1d->SetUp(i, j, m_square, m_radius, GetPolarTheta(GetUnitDistanceFromPolarAxis(j), m_square, false), m_tileRows);
             // Add it to the member vector.
             m_memorySetsPolar1D.push_back(msp1d);
         }
@@ -118,11 +118,11 @@ void TileSet::OnCreate()
         // Ensure that the MemorySetPolar2D is owned by the TileSet.
         msp2d->SetParent(this);
         // Set it up.
-        msp2d->SetUp(i, m_halfSquare, m_radius);
+        msp2d->SetUp(i, m_halfSquare, m_radius, m_tileRows);
         // Add it to the member vector.
         m_memorySetsPolar2D.push_back(msp2d);
     }
-    // Set m_payload's and m_goal's default positions, tileSetCenters and priorPositions.
+    // Set m_payload's and m_goal's default positions, tileSetCenters, and priorPositions.
     m_payload->SetPosition(m_payload->m_target->GetPosition());
     m_payload->m_priorPos = m_payload->GetPosition();
     m_payload->m_tileSetPos = GetPosition();
@@ -234,7 +234,8 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("MoveRight"))
         {
-            Tile *tileToRight = GetTileToRight(m_payload->m_target, m_payload->m_target->m_row);
+            //Tile *tileToRight = GetTileToRight(m_payload->m_target, m_payload->m_target->m_row);
+            Tile *tileToRight = m_payload->m_target->GetTileInDirection(1, Direction::Right);
             if (tileToRight != nullptr)
             {
                 m_payload->SetTarget(tileToRight);
@@ -243,7 +244,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("MoveUp"))
         {
-            Tile *tileAbove = GetTileAbove(m_payload->m_target, m_payload->m_target->m_row);
+            Tile *tileAbove = m_payload->m_target->GetTileInDirection(1, Direction::Up);
             if (tileAbove != nullptr)
             {
                 m_payload->SetTarget(tileAbove);
@@ -252,7 +253,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("MoveDown"))
         {
-            Tile *tileBelow = GetTileBelow(m_payload->m_target, m_payload->m_target->m_row);
+            Tile *tileBelow = m_payload->m_target->GetTileInDirection(1, Direction::Down);
             if (tileBelow != nullptr)
             {
                 m_payload->SetTarget(tileBelow);
@@ -261,7 +262,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("MoveLeft"))
         {
-            Tile *tileToLeft = GetTileToLeft(m_payload->m_target, m_payload->m_target->m_row);
+            Tile *tileToLeft = m_payload->m_target->GetTileInDirection(1, Direction::Left);
             if (tileToLeft != nullptr)
             {
                 m_payload->SetTarget(tileToLeft);
@@ -286,6 +287,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("Recon"))
         {
+            m_bInvertReconfigure = false;
             Reconfigure();
         }
         else if (orxInput_HasBeenActivated("Undo"))
@@ -396,6 +398,12 @@ void TileSet::Undo()
         }
         else
         {
+            MemorySet *memSet = dynamic_cast<MemorySet*>(m_priorDoers.top());
+            if (memSet != nullptr)
+            {
+                m_bInvertReconfigure = true;
+                SetMemorySetToReconfigure(memSet);
+            }
             m_priorDoers.top()->Undo();
         }
 
@@ -412,59 +420,14 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
     }
     else
     {
-        m_priorDoers.push(_memSet);
         // Reset m_timeSpentReconfiguring.
         m_timeSpentReconfiguring = 0.0f;
-        // Fill out the MemorySet's m_tiles.
-        if (dynamic_cast<MemorySetPolar1D*>(_memSet) != nullptr)
+        // Push it on the stack and call its Reconfigure method only if we're not undoing a reconfiguration.
+        if (!m_bInvertReconfigure)
         {
-            for (int i = _memSet->m_lowerBound; i <= _memSet->m_upperBound; i++)
-            {
-                _memSet->m_tiles.push_back(m_tileRows.at(i).at(_memSet->m_leftBound));
-                _memSet->m_tiles.push_back(m_tileRows.at(i).at(_memSet->m_rightBound));
-            }
+            m_priorDoers.push(_memSet);
+            _memSet->Reconfigure();
         }
-        else if (dynamic_cast<MemorySetPolar2D*>(_memSet) != nullptr)
-        {
-            for (int i = _memSet->m_lowerBound; i <= _memSet->m_upperBound; i++)
-            {
-                for (int j = _memSet->m_leftBound; j <= _memSet->m_rightBound; j++)
-                {
-                    if (i == _memSet->m_lowerBound || i == _memSet->m_upperBound || j == _memSet->m_leftBound || j == _memSet->m_rightBound)
-                    {
-                        _memSet->m_tiles.push_back(m_tileRows.at(i).at(j));
-                    }
-                }
-            }
-        }
-        else if (dynamic_cast<MemorySetCartesian2D*>(_memSet) != nullptr && m_halfSquare % 2 != 0)
-        {
-            for (int i = _memSet->m_lowerBound; i <= _memSet->m_upperBound; i++)
-            {
-                for (int j = _memSet->m_leftBound; j <= _memSet->m_rightBound; j++)
-                {
-                    // Only push the tile if it's not in the center of an oddly tiled quadrant.
-                    if (m_halfSquare % 2 != 0 &&
-                        !(i - _memSet->m_lowerBound == ((_memSet->m_upperBound - _memSet->m_lowerBound) / 2) &&
-                          j - _memSet->m_leftBound == ((_memSet->m_rightBound - _memSet->m_leftBound) / 2)))
-                    {
-                        _memSet->m_tiles.push_back(m_tileRows.at(i).at(j));
-                    }
-                }
-            }
-        }
-        else
-        {
-            for (int i = _memSet->m_lowerBound; i <= _memSet->m_upperBound; i++)
-            {
-                for (int j = _memSet->m_leftBound; j <= _memSet->m_rightBound; j++)
-                {
-                    _memSet->m_tiles.push_back(m_tileRows.at(i).at(j));
-                }
-            }
-        }
-        // Reconfigure the MemorySet.
-        _memSet->Reconfigure(m_tileRows);
     }
 
     m_memorySetToReconfigure = _memSet;
@@ -517,7 +480,7 @@ void TileSet::ShiftTiles()
             // Grab the Tile at this row/column pair.
             Tile *tile = m_tileRows.at(i).at(j);
             // Shift the Tile.
-            tile->Shift(m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, m_payload->m_target->m_row, pos, m_state, m_shiftStatus);
+            tile->Shift(m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, m_payload->m_target->m_row, pos, m_shiftStatus);
         }
     }
     // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets (if their respective targets are moving).
@@ -535,7 +498,7 @@ void TileSet::ShiftTiles()
             {
                 ti->SetPosition(ti->m_target->GetPosition());
             }
-            ti->Cohabitate(Is2D(), true);
+            ti->Cohabitate(true);
         }
     }
 }
@@ -602,7 +565,7 @@ void TileSet::ReconfigureTiles()
     // Reconfigure each tile individually.
     for (Tile *tile : m_memorySetToReconfigure->m_tiles)
     {
-        tile->Reconfigure(m_payload->m_target->m_row, lerpWeight, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, m_memorySetToReconfigure->GetPosition(), m_state);
+        tile->Reconfigure(m_payload->m_target->m_row, lerpWeight, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, m_memorySetToReconfigure->GetPosition(), m_bInvertReconfigure);
     }
     // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
     for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
@@ -674,31 +637,6 @@ const bool TileSet::NeedToShiftD1Tiles()
     return m_timeSpentShifting > m_timeToShift && !Is2D() && PriorStateIs2D() && m_shiftStatus != TileSetShiftStatus::D1Tiles;
 }
 
-const int TileSet::GetUnitDistanceFromOrigin(const int &_row, const int &_col, const int &_payloadRow)
-{
-    // How many tiles away from the TileSet's pivot is this Tile?
-    int unitDistanceFromOrigin;
-
-    switch (m_state)
-    {
-    case TileSetState::Cartesian1D:
-        unitDistanceFromOrigin = _col < m_halfSquare ? m_halfSquare - _col : (_col + 1) - m_halfSquare;
-        break;
-    case TileSetState::Polar1D:
-        unitDistanceFromOrigin = m_square - _payloadRow;
-        break;
-    default:
-        // How many tiles away from the TileSet's pivot (on the X-axis) is this Tile?
-        int unitDistanceFromPivotX = _col < m_halfSquare ? m_halfSquare - _col : (_col + 1) - m_halfSquare;
-        // How many tiles away from the TileSet's pivot (on the Y-axis) is this Tile?
-        int unitDistanceFromPivotY = _row < m_halfSquare ? m_halfSquare - _row : (_row + 1) - m_halfSquare;
-        unitDistanceFromOrigin = orxMAX(unitDistanceFromPivotX, unitDistanceFromPivotY);
-        break;
-    }
-
-    return unitDistanceFromOrigin;
-}
-
 const int TileSet::GetUnitDistanceFromPolarAxis(const int &_col)
 {
     int unitDistanceFromPolarAxis = ((3 * m_square) / 4) - _col;
@@ -759,294 +697,4 @@ const orxVECTOR TileSet::GetNormalizedPosition(const orxVECTOR &_vec)
     orxVECTOR scaledSize = GetScaledSize();
     orxVECTOR upperLeftCorner = { pos.fX - (scaledSize.fX / 2.0f), pos.fY - (scaledSize.fY / 2.0f) };
     return { (_vec.fX - upperLeftCorner.fX) / scaledSize.fX, (_vec.fY - upperLeftCorner.fY) / scaledSize.fY };
-}
-
-Tile *TileSet::GetTileToRight(const Tile *_tile, const int &_payloadRow)
-{
-    int row = _tile->m_row;
-    int col = _tile->m_col;
-
-    switch (m_state)
-    {
-    case TileSetState::Cartesian1D:
-    case TileSetState::Cartesian2D:
-        if (col < m_square - 1)
-        {
-            return m_tileRows.at(row).at(col + 1);
-        }
-        break;
-    case TileSetState::Polar1D:
-        if (col < m_square - 1)
-        {
-            return m_tileRows.at(row).at(col + 1);
-        }
-        else
-        {
-            return m_tileRows.at(row).at(0);
-        }
-        break;
-    case TileSetState::Polar2D:
-        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(row, col, _payloadRow);
-        if (col >= m_halfSquare)
-        {
-            if (col - unitDistanceFromOrigin == m_halfSquare - 1)
-            {
-                if (row >= m_halfSquare)
-                {
-                    if (row - unitDistanceFromOrigin == m_halfSquare - 1)
-                    {
-                        return m_tileRows.at(row).at(col - 1);
-                    }
-                    else
-                    {
-                        return m_tileRows.at(row + 1).at(col);
-                    }
-                }
-                else
-                {
-                    return m_tileRows.at(row + 1).at(col);
-                }
-            }
-            else
-            {
-                if (row >= m_halfSquare)
-                {
-                    return m_tileRows.at(row).at(col - 1);
-                }
-                else
-                {
-                    return m_tileRows.at(row).at(col + 1);
-                }
-            }
-        }
-        else
-        {
-            if (col + unitDistanceFromOrigin == m_halfSquare)
-            {
-                if (row < m_halfSquare)
-                {
-                    if (row + unitDistanceFromOrigin == m_halfSquare)
-                    {
-                        return m_tileRows.at(row).at(col + 1);
-                    }
-                    else
-                    {
-                        return m_tileRows.at(row - 1).at(col);
-                    }
-                }
-                else
-                {
-                    return m_tileRows.at(row - 1).at(col);
-                }
-            }
-            else
-            {
-                if (row < m_halfSquare)
-                {
-                    return m_tileRows.at(row).at(col + 1);
-                }
-                else
-                {
-                    return m_tileRows.at(row).at(col - 1);
-                }
-            }
-        }
-        break;
-    }
-
-    return nullptr;
-}
-
-Tile *TileSet::GetTileToLeft(const Tile *_tile, const int &_payloadRow)
-{
-    int row = _tile->m_row;
-    int col = _tile->m_col;
-
-    switch (m_state)
-    {
-    case TileSetState::Cartesian1D:
-    case TileSetState::Cartesian2D:
-        if (col > 0)
-        {
-            return m_tileRows.at(row).at(col - 1);
-        }
-        break;
-    case TileSetState::Polar1D:
-        if (col > 0)
-        {
-            return m_tileRows.at(row).at(col - 1);
-        }
-        else
-        {
-            return m_tileRows.at(row).at(m_square - 1);
-        }
-        break;
-    case TileSetState::Polar2D:
-        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(row, col, _payloadRow);
-        if (col >= m_halfSquare)
-        {
-            if (col - unitDistanceFromOrigin == m_halfSquare - 1)
-            {
-                if (row >= m_halfSquare)
-                {
-                    return m_tileRows.at(row - 1).at(col);
-                }
-                else
-                {
-                    if (row + unitDistanceFromOrigin == m_halfSquare)
-                    {
-                        return m_tileRows.at(row).at(col - 1);
-                    }
-                    else
-                    {
-                        return m_tileRows.at(row - 1).at(col);
-                    }
-                }
-            }
-            else
-            {
-                if (row >= m_halfSquare)
-                {
-                    return m_tileRows.at(row).at(col + 1);
-                }
-                else
-                {
-                    return m_tileRows.at(row).at(col - 1);
-                }
-            }
-        }
-        else
-        {
-            if (col + unitDistanceFromOrigin == m_halfSquare)
-            {
-                if (row < m_halfSquare)
-                {
-                    return m_tileRows.at(row + 1).at(col);
-                }
-                else
-                {
-                    if (row - unitDistanceFromOrigin == m_halfSquare - 1)
-                    {
-                        return m_tileRows.at(row).at(col + 1);
-                    }
-                    else
-                    {
-                        return m_tileRows.at(row + 1).at(col);
-                    }
-                }
-            }
-            else
-            {
-                if (row < m_halfSquare)
-                {
-                    return m_tileRows.at(row).at(col - 1);
-                }
-                else
-                {
-                    return m_tileRows.at(row).at(col + 1);
-                }
-            }
-        }
-        break;
-    }
-
-    return nullptr;
-}
-
-Tile *TileSet::GetTileAbove(const Tile *_tile, const int &_payloadRow)
-{
-    int row = _tile->m_row;
-    int col = _tile->m_col;
-
-    switch (m_state)
-    {
-    case TileSetState::Cartesian2D:
-        if (row > 0)
-        {
-            return m_tileRows.at(row - 1).at(col);
-        }
-        break;
-    case TileSetState::Polar2D:
-        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(row, col, _payloadRow);
-        if (col >= m_halfSquare)
-        {
-            if (row >= m_halfSquare)
-            {
-                return m_tileRows.at(row - 1).at(col - 1);
-            }
-            else
-            {
-                return m_tileRows.at(row + 1).at(col - 1);
-            }
-        }
-        else
-        {
-            if (row >= m_halfSquare)
-            {
-                return m_tileRows.at(row - 1).at(col + 1);
-            }
-            else
-            {
-                return m_tileRows.at(row + 1).at(col + 1);
-            }
-        }
-        break;
-    }
-
-    return nullptr;
-}
-
-Tile *TileSet::GetTileBelow(const Tile *_tile, const int &_payloadRow)
-{
-    int row = _tile->m_row;
-    int col = _tile->m_col;
-
-    switch (m_state)
-    {
-    case TileSetState::Cartesian2D:
-        if (row < m_square - 1)
-        {
-            return m_tileRows.at(row + 1).at(col);
-        }
-        break;
-    case TileSetState::Polar2D:
-        int unitDistanceFromOrigin = GetUnitDistanceFromOrigin(row, col, _payloadRow);
-        if (col >= m_halfSquare)
-        {
-            if (row >= m_halfSquare)
-            {
-                if (row < m_square - 1 && col < m_square - 1)
-                {
-                    return m_tileRows.at(row + 1).at(col + 1);
-                }
-            }
-            else
-            {
-                if (row > 0 && col < m_square - 1)
-                {
-                    return m_tileRows.at(row - 1).at(col + 1);
-                }
-            }
-        }
-        else
-        {
-            if (row >= m_halfSquare)
-            {
-                if (row < m_square - 1 && col > 0)
-                {
-                    return m_tileRows.at(row + 1).at(col - 1);
-                }
-            }
-            else
-            {
-                if (row > 0 && col > 0)
-                {
-                    return m_tileRows.at(row - 1).at(col - 1);
-                }
-            }
-        }
-        break;
-    }
-
-    return nullptr;
 }

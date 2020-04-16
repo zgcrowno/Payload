@@ -30,12 +30,14 @@ namespace payload
         int m_row;
         int m_col;
         float m_priorMemSetTheta;
+        TileSetState *m_state;
         TileSetState m_priorTileSetState;
         orxVECTOR m_priorParentSpacePos;
         orxVECTOR m_targetParentSpacePos;
         orxVECTOR m_priorVisualScale;
         orxVECTOR m_targetVisualScale;
         orxVECTOR m_visualScale;
+        std::vector<std::vector<Tile*>> *m_tileSetTileRows;
 
         static const orxVECTOR GetGridRelativeCartesianPosition(
             const int &_row,
@@ -62,7 +64,8 @@ namespace payload
             const float &_normalizedBorderSize,
             const int &_payloadRow,
             const orxVECTOR &_tileSetPos,
-            const TileSetState &_tileSetState);
+            TileSetState &_tileSetState,
+            std::vector<std::vector<Tile*>> &_tileSetTileRows);
         void Shift(
             const int &_square,
             const int &_greatest1DUnitDistanceOfPayloadRowFromThreshold,
@@ -72,7 +75,6 @@ namespace payload
             const float &_lerpWeight,
             const int &_payloadRow,
             const orxVECTOR &_tileSetPos,
-            const TileSetState &_tileSetState,
             const TileSetShiftStatus &_tileSetShiftStatus);
         void Reconfigure(
             const int &_payloadRow,
@@ -80,13 +82,13 @@ namespace payload
             const float &_normalizedBorderSize,
             const float &_normalizedTileSize,
             const orxVECTOR &_memorySetPos,
-            const TileSetState &_tileSetState);
+            const bool _undoing);
+        Tile *GetTileInDirection(const int &_distance, const Direction &_direction);
         const orxVECTOR CalculateVisualScale(
             const int &_square,
             const int &_tilesInRow,
             const float &_tileSetRadius,
             const float &_normalizedTileSize,
-            const orxVECTOR &_tileSetPos,
-            const TileSetState &_tileSetState);
+            const orxVECTOR &_tileSetPos);
     };
 }

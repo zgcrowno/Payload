@@ -27,7 +27,7 @@ void Recursive::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Recursive::Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting)
+void Recursive::Cohabitate(const bool _dueToShifting)
 {
 
 }

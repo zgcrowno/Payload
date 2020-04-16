@@ -28,8 +28,11 @@ namespace payload
         int m_lowerBound;
         int m_upperBound;
         std::vector<Tile*> m_tiles;
+        std::vector<std::vector<Tile*>> *m_tileSetTileRows;
 
-        virtual void Undo() = 0;
-        virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows) = 0;
+        virtual void SetTiles() = 0;
+        virtual void Reconfigure() = 0;
+
+        void Undo();
     };
 }

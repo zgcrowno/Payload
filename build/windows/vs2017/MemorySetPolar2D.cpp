@@ -27,13 +27,24 @@ void MemorySetPolar2D::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-void MemorySetPolar2D::Undo()
+void MemorySetPolar2D::SetTiles()
 {
-
+    for (int i = m_lowerBound; i <= m_upperBound; i++)
+    {
+        for (int j = m_leftBound; j <= m_rightBound; j++)
+        {
+            if (i == m_lowerBound || i == m_upperBound || j == m_leftBound || j == m_rightBound)
+            {
+                m_tiles.push_back(m_tileSetTileRows->at(i).at(j));
+            }
+        }
+    }
 }
 
-void MemorySetPolar2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
+void MemorySetPolar2D::Reconfigure()
 {
+    MemorySet::Reconfigure();
+
     // The MemorySet's position.
     orxVECTOR pos = GetPosition();
     // Temp 2D Tile vector used to swap the tiles in _tileRows.
@@ -49,7 +60,7 @@ void MemorySetPolar2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
             if (i == m_lowerBound || i == m_upperBound || j == m_leftBound || j == m_rightBound)
             {
                 // Fetch the tile at the appropriate index.
-                tile = _tileRows.at(i).at(j);
+                tile = m_tileSetTileRows->at(i).at(j);
                 // Set the Tile's m_priorMemSetTheta value.
                 tile->m_priorMemSetTheta = CartesianToPolar(tile->GetPosition(), pos).fY;
                 // Alter tile row and column.
@@ -70,7 +81,7 @@ void MemorySetPolar2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
 
             if (tile != nullptr)
             {
-                _tileRows.at(tile->m_row).at(tile->m_col) = tile;
+                m_tileSetTileRows->at(tile->m_row).at(tile->m_col) = tile;
             }
         }
     }
@@ -79,7 +90,8 @@ void MemorySetPolar2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
 void MemorySetPolar2D::SetUp(
     const int &_row,
     const int &_tileSetHalfSquare,
-    const float &_tileSetRadius)
+    const float &_tileSetRadius,
+    std::vector<std::vector<Tile*>> &_tileRows)
 {
     // Set position relative to TileSet.
     SetParentSpacePosition({ 0.0f, 0.0f });
@@ -91,4 +103,6 @@ void MemorySetPolar2D::SetUp(
     m_rightBound = _tileSetHalfSquare + _row;
     m_lowerBound = (_tileSetHalfSquare - 1) - _row;
     m_upperBound = _tileSetHalfSquare + _row;
+    // Set MemorySet's TileSet rows reference.
+    m_tileSetTileRows = &_tileRows;
 }

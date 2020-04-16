@@ -27,29 +27,37 @@ void MemorySetCartesian1D::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-void MemorySetCartesian1D::Undo()
+void MemorySetCartesian1D::SetTiles()
 {
-
+    for (int i = m_lowerBound; i <= m_upperBound; i++)
+    {
+        for (int j = m_leftBound; j <= m_rightBound; j++)
+        {
+            m_tiles.push_back(m_tileSetTileRows->at(i).at(j));
+        }
+    }
 }
 
-void MemorySetCartesian1D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
+void MemorySetCartesian1D::Reconfigure()
 {
+    MemorySet::Reconfigure();
+
     // The MemorySet's position.
     orxVECTOR pos = GetPosition();
     // Swap the MemorySet's Tiles, as appropriate.
     for (int i = m_lowerBound; i <= m_upperBound; i++)
     {
         // Fetch the tiles at the appropriate indeces.
-        Tile *tile1 = _tileRows.at(i).at(m_leftBound);
-        Tile *tile2 = _tileRows.at(i).at(m_rightBound);
+        Tile *tile1 = m_tileSetTileRows->at(i).at(m_leftBound);
+        Tile *tile2 = m_tileSetTileRows->at(i).at(m_rightBound);
         // Set the Tiles' m_priorMemSetTheta value.
         tile1->m_priorMemSetTheta = CartesianToPolar(tile1->GetPosition(), pos).fY;
         tile2->m_priorMemSetTheta = CartesianToPolar(tile2->GetPosition(), pos).fY;
         // Swap the Tiles.
         tile1->m_col = m_rightBound;
         tile2->m_col = m_leftBound;
-        _tileRows.at(i).at(m_leftBound) = tile2;
-        _tileRows.at(i).at(m_rightBound) = tile1;
+        m_tileSetTileRows->at(i).at(m_leftBound) = tile2;
+        m_tileSetTileRows->at(i).at(m_rightBound) = tile1;
     }
 }
 
@@ -61,7 +69,8 @@ void MemorySetCartesian1D::SetUp(
     const float &_tileSetHeight,
     const float &_normalizedBorderSize,
     const float &_normalizedTileSize,
-    const orxVECTOR &_tileSetPos)
+    const orxVECTOR &_tileSetPos,
+    std::vector<std::vector<Tile*>> &_tileRows)
 {
     // Determine the world size of border and tile.
     float borderWidth = _tileSetWidth * _normalizedBorderSize;
@@ -83,4 +92,6 @@ void MemorySetCartesian1D::SetUp(
     m_upperBound = _tileSetSquare - 1;
     // Set MemorySet's row.
     m_row = _row;
+    // Set MemorySet's TileSet rows reference.
+    m_tileSetTileRows = &_tileRows;
 }

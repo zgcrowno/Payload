@@ -38,6 +38,7 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     private:
+        bool m_bInvertReconfigure;
         int m_square;
         int m_halfSquare;
         float m_normalizedTileSize;
@@ -75,17 +76,9 @@ namespace payload
         const bool IsCartesian();
         const bool InputAllowed();
         const bool NeedToShiftD1Tiles();
-        const int GetUnitDistanceFromOrigin(
-            const int &_row,
-            const int &_col,
-            const int &_payloadRow);
         const int GetUnitDistanceFromPolarAxis(const int &_col);
         const int GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
         const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow, const bool _d2);
         const orxVECTOR GetNormalizedPosition(const orxVECTOR &_vec);
-        Tile *GetTileToRight(const Tile *_tile, const int &_payloadRow);
-        Tile *GetTileToLeft(const Tile *_tile, const int &_payloadRow);
-        Tile *GetTileAbove(const Tile *_tile, const int &_payloadRow);
-        Tile *GetTileBelow(const Tile *_tile, const int &_payloadRow);
     };
 }

@@ -26,6 +26,7 @@ namespace payload
         //! Exit the program
         virtual void Exit();
     public:
+        const int GetPayloadRow();
         std::vector<ScrollObject*> GetTileInhabitants();
     };
 }

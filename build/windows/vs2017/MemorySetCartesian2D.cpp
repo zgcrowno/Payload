@@ -27,13 +27,29 @@ void MemorySetCartesian2D::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-void MemorySetCartesian2D::Undo()
+void MemorySetCartesian2D::SetTiles()
 {
-
+    int halfSquare = m_tileSetTileRows->size() / 2;
+    
+    for (int i = m_lowerBound; i <= m_upperBound; i++)
+    {
+        for (int j = m_leftBound; j <= m_rightBound; j++)
+        {
+            // Only push the tile if it's not in the center of an oddly tiled quadrant.
+            if (halfSquare % 2 == 0 ||
+                !(i - m_lowerBound == ((m_upperBound - m_lowerBound) / 2) &&
+                    j - m_leftBound == ((m_rightBound - m_leftBound) / 2)))
+            {
+                m_tiles.push_back(m_tileSetTileRows->at(i).at(j));
+            }
+        }
+    }
 }
 
-void MemorySetCartesian2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
+void MemorySetCartesian2D::Reconfigure()
 {
+    MemorySet::Reconfigure();
+
     // The MemorySet's position.
     orxVECTOR pos = GetPosition();
     // Temp 2D Tile vector used to swap the tiles in _tileRows.
@@ -46,12 +62,14 @@ void MemorySetCartesian2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRow
         for (int j = m_leftBound; j <= m_rightBound; j++)
         {
             // Fetch the tile at the appropriate index.
-            Tile *tile = _tileRows.at(i).at(j);
+            Tile *tile = m_tileSetTileRows->at(i).at(j);
             // Set the Tile's m_priorMemSetTheta value.
             tile->m_priorMemSetTheta = CartesianToPolar(tile->GetPosition(), pos).fY;
             // Alter tile row and column.
-            tile->m_row = m_lowerBound + (j - m_leftBound);
-            tile->m_col = m_rightBound - (i - m_lowerBound);
+            tile->m_row = m_upperBound - i;
+            tile->m_col = m_rightBound - j;
+            /*tile->m_row = m_lowerBound + (j - m_leftBound);
+            tile->m_col = m_rightBound - (i - m_lowerBound);*/
             // Add tile to temp vector.
             tempTileRows.at(i - m_lowerBound).push_back(tile);
         }
@@ -63,7 +81,7 @@ void MemorySetCartesian2D::Reconfigure(std::vector<std::vector<Tile*>> &_tileRow
         {
             // Fetch the tile at the appropriate index.
             Tile *tile = tempTileRows.at(i).at(j);
-            _tileRows.at(tile->m_row).at(tile->m_col) = tile;
+            m_tileSetTileRows->at(tile->m_row).at(tile->m_col) = tile;
         }
     }
 }
@@ -74,7 +92,8 @@ void MemorySetCartesian2D::SetUp(
     const int &_tileSetHalfSquare,
     const float &_tileSetWidth,
     const float &_tileSetHeight,
-    const orxVECTOR &_tileSetPos)
+    const orxVECTOR &_tileSetPos,
+    std::vector<std::vector<Tile*>> &_tileRows)
 {
     // Set scale relative to TileSet.
     float scaleX = _tileSetWidth / 2.0f;
@@ -91,4 +110,6 @@ void MemorySetCartesian2D::SetUp(
     m_rightBound = (_tileSetHalfSquare - 1) + _col * _tileSetHalfSquare;
     m_lowerBound = _row * _tileSetHalfSquare;
     m_upperBound = (_tileSetHalfSquare - 1) + _row * _tileSetHalfSquare;
+    // Set MemorySet's TileSet rows reference.
+    m_tileSetTileRows = &_tileRows;
 }

@@ -28,18 +28,18 @@ void Unreachable::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Unreachable::Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting)
+void Unreachable::Cohabitate(const bool _dueToShifting)
 {
     for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
         bool cohabitating =
-            _tileSetIs2D ?
+            m_target->m_b2D ?
             ti != this && ti->m_target->m_row == m_target->m_row && ti->m_target->m_col == m_target->m_col && ti->IsCohabitable() :
             ti != this && ti->m_target->m_col == m_target->m_col && ti->IsCohabitable();
         if (cohabitating)
         {
-            // Only execute Unreachable's Cohabitate method if the interacting TileInhabitant has a lower precedence and the cohabitation is not due to shifting.
+            // Only execute Unreachable's Cohabitate behavior if the interacting TileInhabitant has a lower precedence and the cohabitation is not due to shifting.
             if (ti->m_precedence < m_precedence && !_dueToShifting)
             {
                 ti->Undo();

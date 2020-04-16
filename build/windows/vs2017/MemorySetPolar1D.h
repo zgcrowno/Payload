@@ -26,14 +26,15 @@ namespace payload
         float m_minTheta;
         float m_maxTheta;
 
-        virtual void Undo();
-        virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
+        virtual void SetTiles();
+        virtual void Reconfigure();
 
         void SetUp(
             const int &_row,
             const int &_col,
             const int &_tileSetSquare,
             const float &_tileSetRadius,
-            const float &_polarTheta);
+            const float &_polarTheta,
+            std::vector<std::vector<Tile*>> &_tileRows);
     };
 }

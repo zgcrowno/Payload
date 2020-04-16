@@ -27,12 +27,17 @@ void MemorySet::Update(const orxCLOCK_INFO &_rstInfo)
 
 }
 
-void MemorySet::Undo()
+void MemorySet::SetTiles()
 {
 
 }
 
-void MemorySet::Reconfigure(std::vector<std::vector<Tile*>> &_tileRows)
+void MemorySet::Undo()
 {
+    Reconfigure();
+}
 
+void MemorySet::Reconfigure()
+{
+    SetTiles();
 }

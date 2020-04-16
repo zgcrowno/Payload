@@ -25,8 +25,8 @@ namespace payload
     public:
         int m_row;
 
-        virtual void Undo();
-        virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
+        virtual void SetTiles();
+        virtual void Reconfigure();
 
         void SetUp(
             const int &_row,
@@ -36,6 +36,7 @@ namespace payload
             const float &_tileSetHeight,
             const float &_normalizedBorderSize,
             const float &_normalizedTileSize,
-            const orxVECTOR &_tileSetPos);
+            const orxVECTOR &_tileSetPos,
+            std::vector<std::vector<Tile*>> &_tileRows);
     };
 }

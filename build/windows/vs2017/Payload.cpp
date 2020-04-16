@@ -95,6 +95,12 @@ void Payload::Exit()
 {
 }
 
+const int Payload::GetPayloadRow()
+{
+    PlayerPayload *payload = GetNextObject<PlayerPayload>();
+    return payload->m_target->m_row;
+}
+
 std::vector<ScrollObject*> Payload::GetTileInhabitants()
 {
     std::vector<ScrollObject*> retVal;

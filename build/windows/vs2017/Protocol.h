@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "TileInhabitant.h"
+#include "Direction.h"
 
 namespace payload
 {
@@ -22,7 +23,9 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        Direction m_direction;
+
         //! Called whenever the PlayerPayload interacts with another TileInhabitant on its Tile.
-        virtual void Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting);
+        virtual void Cohabitate(const bool _dueToShifting);
     };
 }

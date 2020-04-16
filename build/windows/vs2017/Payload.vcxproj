@@ -383,6 +383,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bypass.h" />
+    <ClInclude Include="Direction.h" />
     <ClInclude Include="Doer.h" />
     <ClInclude Include="Firewall.h" />
     <ClInclude Include="Goal.h" />

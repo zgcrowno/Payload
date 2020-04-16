@@ -125,6 +125,9 @@
     <ClInclude Include="TileSet.h">
       <Filter>src\Header\Doer</Filter>
     </ClInclude>
+    <ClInclude Include="Direction.h">
+      <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">

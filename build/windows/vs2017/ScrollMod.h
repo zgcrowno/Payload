@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Payload.h"
+#include "Direction.h"
 #include "RaycastData.h"
 #include <map>
 #include <vector>

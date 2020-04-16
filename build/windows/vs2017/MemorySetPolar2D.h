@@ -27,12 +27,13 @@ namespace payload
         float m_innerRadius;
         float m_outerRadius;
 
-        virtual void Undo();
-        virtual void Reconfigure(std::vector<std::vector<Tile*>> &_tileRows);
+        virtual void SetTiles();
+        virtual void Reconfigure();
 
         void SetUp(
             const int &_row,
             const int &_tileSetHalfSquare,
-            const float &_tileSetRadius);
+            const float &_tileSetRadius,
+            std::vector<std::vector<Tile*>> &_tileRows);
     };
 }

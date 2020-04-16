@@ -37,7 +37,7 @@ namespace payload
 
         virtual void Undo();
         //! Called whenever the TileInhabitant interacts with another TileInhabitant on its Tile.
-        virtual void Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting) = 0;
+        virtual void Cohabitate(const bool _dueToShifting) = 0;
 
         void SetTarget(Tile *_target);
         const bool IsCohabitable();

@@ -72,7 +72,7 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                 for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
                 {
                     TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-                    ti->Cohabitate(ti->m_target->m_b2D, false);
+                    ti->Cohabitate(false);
                 }
             }
         }
@@ -90,7 +90,7 @@ void TileInhabitant::Undo()
     }
 }
 
-void TileInhabitant::Cohabitate(const bool _tileSetIs2D, const bool _dueToShifting)
+void TileInhabitant::Cohabitate(const bool _dueToShifting)
 {
 
 }
