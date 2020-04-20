@@ -1,8 +1,24 @@
-﻿  TileSet.cpp
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(54): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(55): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(139): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
-c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(165): warning C4244: '=': conversion from 'int' to 'orxFLOAT', possible loss of data
+﻿  Bypass.cpp
+  Firewall.cpp
+  Goal.cpp
+  Payload.cpp
+  PlayerPayload.cpp
+  Protocol.cpp
+  Proxy.cpp
+  Recursive.cpp
+  TileInhabitant.cpp
+  TileSet.cpp
+  Unreachable.cpp
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(59): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(60): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+  Virus.cpp
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(144): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(155): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(166): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(178): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(197): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(208): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(234): warning C4244: '=': conversion from 'int' to 'orxFLOAT', possible loss of data
      Creating library ..\..\..\bin\Payloadd.lib and object ..\..\..\bin\Payloadd.exp
   Payload.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Payload\build\windows\vs2017\..\..\..\bin\Payloadd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orxd.dll

@@ -1,4 +1,5 @@
 #include "TileInhabitant.h"
+#include "EventType.h"
 
 using namespace payload;
 
@@ -69,6 +70,16 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                 m_timeSpentMoving = 0.0f;
                 SetPosition(m_target->GetPosition());
                 m_priorPos = GetPosition();
+                // If the TileInhabitant's target is infected, the former's disabled; if the TileInhabitant's infected, so then is its target.
+                if (m_target->m_bIsInfected)
+                {
+                    Die();
+                }
+                else if (m_bIsInfected)
+                {
+                    m_target->m_bIsInfected = true;
+                }
+                // Cohabitation check.
                 for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
                 {
                     TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
@@ -76,33 +87,112 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                 }
             }
         }
+        else if (m_bIsTeleporting)
+        {
+            m_bIsTeleporting = false;
+            SetPosition(m_target->GetPosition());
+            m_priorPos = GetPosition();
+        }
+        else if (m_bIsSlipping)
+        {
+            Tile *adjacentTileInMovementDirection = m_target->GetTileInDirection(1, m_movementDirection);
+            if (adjacentTileInMovementDirection != nullptr)
+            {
+                SetTarget(adjacentTileInMovementDirection, m_movementDirection);
+            }
+            else
+            {
+                m_bIsSlipping = false;
+            }
+        }
     }
 }
 
+// TODO: Account for teleportation and virus contraction as well.
 void TileInhabitant::Undo()
 {
     // Only execute Undo if there are things to be undone.
     if (!m_priorTargetStack.empty())
     {
-        m_target = m_priorTargetStack.top();
+        bool moveByTeleportation = m_priorTargetStack.top().second;
+
+        if (moveByTeleportation)
+        {
+            TeleportTo(m_priorTargetStack.top().first, true);
+        }
+        else
+        {
+            SetTarget(m_priorTargetStack.top().first, m_movementDirection, true);
+        }
+
         m_priorTargetStack.pop();
-        m_bIsMoving = true;
     }
 }
 
 void TileInhabitant::Cohabitate(const bool _dueToShifting)
 {
+    for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+    {
+        TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        if (IsCohabitating(ti))
+        {
+            // Only execute Unreachable's Cohabitate behavior if the interacting TileInhabitant has a lower precedence and the cohabitation is not due to shifting.
+            if (ti->m_precedence < m_precedence)
+            {
+                Cohabitate(ti, _dueToShifting);
+            }
+        }
+    }
+}
+
+void TileInhabitant::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
+{
 
 }
 
-void TileInhabitant::SetTarget(Tile *_target)
+void TileInhabitant::SetTarget(Tile *_target, const Direction _movementDirection, const bool _undoing)
 {
-    m_priorTargetStack.push(m_target);
+    if (!_undoing)
+    {
+        m_priorTargetStack.push({ m_target, false });
+        orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_SET_TARGET, this, Payload::GetInstance().GetTileSet(), nullptr);
+    }
     m_target = _target;
     m_bIsMoving = true;
+    m_movementDirection = _movementDirection;
+}
+
+void TileInhabitant::TeleportTo(Tile *_dest, const bool _undoing)
+{
+    if (!_undoing)
+    {
+        m_priorTargetStack.push({ m_target, true });
+        orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_TELEPORT_TO, this, Payload::GetInstance().GetTileSet(), nullptr);
+    }
+    m_target = _dest;
+    m_bIsTeleporting = true;
+}
+
+void TileInhabitant::SlipTo(Tile *_dest, const Direction _movementDirection)
+{
+    SetTarget(_dest, m_movementDirection);
+    m_bIsSlipping = true;
+}
+
+void TileInhabitant::Die()
+{
+    Enable(false);
 }
 
 const bool TileInhabitant::IsCohabitable()
 {
-    return m_bIsMoving == false && m_target->m_bIsMoving == false;
+    return m_bIsMoving == false && m_bIsTeleporting == false && m_target->m_bIsMoving == false;
+}
+
+const bool TileInhabitant::IsCohabitating(TileInhabitant *_other)
+{
+    return
+        m_target->m_b2D ?
+        _other != this && _other->m_target->m_row == m_target->m_row && _other->m_target->m_col == m_target->m_col && _other->IsCohabitable() :
+        _other != this && _other->m_target->m_col == m_target->m_col && _other->IsCohabitable();
 }

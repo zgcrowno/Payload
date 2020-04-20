@@ -26,7 +26,7 @@ namespace payload
         int m_row;
 
         virtual void SetTiles();
-        virtual void Reconfigure();
+        virtual void Reconfigure(const bool _undoing);
 
         void SetUp(
             const int &_row,

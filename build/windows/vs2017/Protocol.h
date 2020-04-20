@@ -25,7 +25,6 @@ namespace payload
     public:
         Direction m_direction;
 
-        //! Called whenever the PlayerPayload interacts with another TileInhabitant on its Tile.
-        virtual void Cohabitate(const bool _dueToShifting);
+        virtual void Cohabitate(TileInhabitant *_other, const bool _dueToShifting);
     };
 }

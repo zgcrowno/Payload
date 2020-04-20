@@ -27,7 +27,7 @@ namespace payload
         float m_maxTheta;
 
         virtual void SetTiles();
-        virtual void Reconfigure();
+        virtual void Reconfigure(const bool _undoing);
 
         void SetUp(
             const int &_row,

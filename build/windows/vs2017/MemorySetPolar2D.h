@@ -28,7 +28,7 @@ namespace payload
         float m_outerRadius;
 
         virtual void SetTiles();
-        virtual void Reconfigure();
+        virtual void Reconfigure(const bool _undoing);
 
         void SetUp(
             const int &_row,

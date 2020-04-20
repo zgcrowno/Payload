@@ -6,9 +6,9 @@ namespace payload
 {
     enum class Direction
     {
-        Left,
         Right,
-        Up,
-        Down
+        Down,
+        Left,
+        Up
     };
 }

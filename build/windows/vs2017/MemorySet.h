@@ -31,7 +31,7 @@ namespace payload
         std::vector<std::vector<Tile*>> *m_tileSetTileRows;
 
         virtual void SetTiles() = 0;
-        virtual void Reconfigure() = 0;
+        virtual void Reconfigure(const bool _undoing = false) = 0;
 
         void Undo();
     };

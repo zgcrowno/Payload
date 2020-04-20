@@ -56,7 +56,6 @@ namespace payload
         PlayerPayload *m_payload;
         Goal *m_goal;
         std::stack<TileSetState> m_priorStates;
-        std::stack<Doer*> m_priorDoers;
         std::vector<MemorySetCartesian1D*> m_memorySetsCartesian1D;
         std::vector<MemorySetCartesian2D*> m_memorySetsCartesian2D;
         std::vector<MemorySetPolar1D*> m_memorySetsPolar1D;
@@ -80,5 +79,7 @@ namespace payload
         const int GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
         const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow, const bool _d2);
         const orxVECTOR GetNormalizedPosition(const orxVECTOR &_vec);
+    public:
+        std::stack<Doer*> m_priorDoers;
     };
 }

@@ -36,9 +36,9 @@ void MemorySetPolar1D::SetTiles()
     }
 }
 
-void MemorySetPolar1D::Reconfigure()
+void MemorySetPolar1D::Reconfigure(const bool _undoing)
 {
-    MemorySet::Reconfigure();
+    MemorySet::Reconfigure(_undoing);
 
     // The MemorySet's position.
     orxVECTOR pos = GetPosition();

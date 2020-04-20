@@ -34,6 +34,9 @@
     <Filter Include="src\Header\Doer\MemorySet">
       <UniqueIdentifier>{beba1838-d841-4a4d-9a26-6f47c0cfb4c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Header\EventHandling">
+      <UniqueIdentifier>{a9bbeb04-4506-4611-b9b8-06a58db2f707}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Direction.h">
       <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
+    <ClInclude Include="EventType.h">
+      <Filter>src\Header\EventHandling</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -27,7 +27,7 @@ void PlayerPayload::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void PlayerPayload::Cohabitate(const bool _dueToShifting)
+void PlayerPayload::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
 
 }

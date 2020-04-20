@@ -25,7 +25,7 @@ namespace payload
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         virtual void SetTiles();
-        virtual void Reconfigure();
+        virtual void Reconfigure(const bool _undoing);
 
         void SetUp(
             const int &_row,

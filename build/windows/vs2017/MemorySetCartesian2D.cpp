@@ -46,9 +46,9 @@ void MemorySetCartesian2D::SetTiles()
     }
 }
 
-void MemorySetCartesian2D::Reconfigure()
+void MemorySetCartesian2D::Reconfigure(const bool _undoing)
 {
-    MemorySet::Reconfigure();
+    MemorySet::Reconfigure(_undoing);
 
     // The MemorySet's position.
     orxVECTOR pos = GetPosition();
@@ -66,10 +66,8 @@ void MemorySetCartesian2D::Reconfigure()
             // Set the Tile's m_priorMemSetTheta value.
             tile->m_priorMemSetTheta = CartesianToPolar(tile->GetPosition(), pos).fY;
             // Alter tile row and column.
-            tile->m_row = m_upperBound - i;
-            tile->m_col = m_rightBound - j;
-            /*tile->m_row = m_lowerBound + (j - m_leftBound);
-            tile->m_col = m_rightBound - (i - m_lowerBound);*/
+            tile->m_row = m_upperBound - (i - m_lowerBound);
+            tile->m_col = m_rightBound - (j - m_leftBound);
             // Add tile to temp vector.
             tempTileRows.at(i - m_lowerBound).push_back(tile);
         }

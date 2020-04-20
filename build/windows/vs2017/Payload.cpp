@@ -5,6 +5,7 @@
 #define __SCROLL_IMPL__
 #include "Payload.h"
 #include "Bypass.h"
+#include "EventType.h"
 #include "Firewall.h"
 #include "Goal.h"
 #include "MemorySetCartesian1D.h"
@@ -50,6 +51,9 @@ orxSTATUS Payload::Init()
 {
     orxSTATUS result = orxSTATUS_SUCCESS;
 
+    // Add event handlers.
+    orxEvent_AddHandler(EVENT_TYPE_TILE_INHABITANT, EventHandler);
+    orxEvent_AddHandler(EVENT_TYPE_MEMORY_SET, EventHandler);
     // Instantiate game objects
     CreateObject("O-TileSet");
     //CreateObject("O-PlayerPayload");
@@ -99,6 +103,11 @@ const int Payload::GetPayloadRow()
 {
     PlayerPayload *payload = GetNextObject<PlayerPayload>();
     return payload->m_target->m_row;
+}
+
+const ScrollObject *Payload::GetTileSet()
+{
+    return GetNextObject<TileSet>();
 }
 
 std::vector<ScrollObject*> Payload::GetTileInhabitants()
@@ -179,6 +188,17 @@ std::vector<ScrollObject*> Payload::GetTileInhabitants()
     }
 
     return retVal;
+}
+
+orxSTATUS orxFASTCALL Payload::EventHandler(const orxEVENT *_pstEvent)
+{
+    if (_pstEvent->eType == EVENT_TYPE_TILE_INHABITANT || _pstEvent->eType == EVENT_TYPE_MEMORY_SET)
+    {
+        TileSet *tileSet = static_cast<TileSet*>(_pstEvent->hRecipient);
+        tileSet->m_priorDoers.push(static_cast<Doer*>(_pstEvent->hSender));
+    }
+
+    return orxSTATUS_SUCCESS;
 }
 
 int main(int argc, char **argv)

@@ -1,4 +1,5 @@
 #include "MemorySet.h"
+#include "EventType.h"
 
 using namespace payload;
 
@@ -34,10 +35,14 @@ void MemorySet::SetTiles()
 
 void MemorySet::Undo()
 {
-    Reconfigure();
+    Reconfigure(true);
 }
 
-void MemorySet::Reconfigure()
+void MemorySet::Reconfigure(const bool _undoing)
 {
     SetTiles();
+    if (!_undoing)
+    {
+        orxEVENT_SEND(EVENT_TYPE_MEMORY_SET, EVENT_MEMORY_SET_RECONFIGURE, this, Payload::GetInstance().GetTileSet(), nullptr);
+    }
 }

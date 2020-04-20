@@ -15,6 +15,9 @@ namespace payload
     class Payload : public Scroll<Payload>
     {
     private:
+        //! Event handler for user-defined events.
+        static orxSTATUS orxFASTCALL EventHandler(const orxEVENT *_pstEvent);
+
         //! Enforce finding of config files outside of .exe folder
         virtual orxSTATUS Bootstrap() const;
         //! Initialize the program
@@ -27,6 +30,7 @@ namespace payload
         virtual void Exit();
     public:
         const int GetPayloadRow();
+        const ScrollObject *GetTileSet();
         std::vector<ScrollObject*> GetTileInhabitants();
     };
 }

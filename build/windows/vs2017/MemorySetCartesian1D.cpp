@@ -38,9 +38,9 @@ void MemorySetCartesian1D::SetTiles()
     }
 }
 
-void MemorySetCartesian1D::Reconfigure()
+void MemorySetCartesian1D::Reconfigure(const bool _undoing)
 {
-    MemorySet::Reconfigure();
+    MemorySet::Reconfigure(_undoing);
 
     // The MemorySet's position.
     orxVECTOR pos = GetPosition();

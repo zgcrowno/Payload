@@ -27,7 +27,14 @@ void Proxy::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Proxy::Cohabitate(const bool _dueToShifting)
+void Proxy::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
-
+    if (m_counterpart != nullptr)
+    {
+        _other->TeleportTo(m_counterpart->m_target);
+    }
+    else
+    {
+        // TODO: Determine what to do if m_counterpart is null.
+    }
 }

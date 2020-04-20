@@ -22,7 +22,8 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
-        //! Called whenever the PlayerPayload interacts with another TileInhabitant on its Tile.
-        virtual void Cohabitate(const bool _dueToShifting);
+        Proxy *m_counterpart;
+
+        virtual void Cohabitate(TileInhabitant *_other, const bool _dueToShifting);
     };
 }

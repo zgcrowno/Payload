@@ -29,7 +29,15 @@ void Protocol::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Protocol::Cohabitate(const bool _dueToShifting)
+void Protocol::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
-    
+    Tile *otherDest = m_target->GetTileInDirection(1, m_direction);
+    if (otherDest != nullptr)
+    {
+        _other->SetTarget(otherDest, m_direction);
+    }
+    else
+    {
+        // TODO: Determine what to do if otherDest is null.
+    }
 }

@@ -27,7 +27,15 @@ void Bypass::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Bypass::Cohabitate(const bool _dueToShifting)
+void Bypass::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
-
+    Tile *otherDest = m_target->GetTileInDirection(2, _other->m_movementDirection);
+    if (otherDest != nullptr)
+    {
+        _other->SetTarget(otherDest, _other->m_movementDirection);
+    }
+    else
+    {
+        // TODO: Determine what to do if otherDest is null.
+    }
 }

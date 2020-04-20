@@ -1,5 +1,10 @@
 #include "TileSet.h"
+#include "Bypass.h"
+#include "Protocol.h"
+#include "Proxy.h"
 #include "Unreachable.h"
+#include "Recursive.h"
+#include "Virus.h"
 #include <algorithm>
 
 using namespace payload;
@@ -129,7 +134,7 @@ void TileSet::OnCreate()
     m_goal->SetPosition(m_goal->m_target->GetPosition());
     m_goal->m_priorPos = m_goal->GetPosition();
     m_goal->m_tileSetPos = GetPosition();
-    // CREATE OBSTACLE TILEINHABITANTS.
+    // CREATE OBSTACLE/AID TILEINHABITANTS.
     // Unreachable.
     for (int i = 0; i < GetListCount("UnreachableOrigins", GetModelName()); i++)
     {
@@ -140,6 +145,70 @@ void TileSet::OnCreate()
         unreachable->SetPosition(unreachable->m_target->GetPosition());
         unreachable->m_priorPos = unreachable->GetPosition();
         unreachable->m_tileSetPos = GetPosition();
+    }
+    // Protocol.
+    for (int i = 0; i < GetListCount("ProtocolOrigins", GetModelName()); i++)
+    {
+        orxVECTOR protocolOrigin = GetListVector("ProtocolOrigins", i, GetModelName());
+        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-Protocol"));
+        protocol->SetParent(this);
+        protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
+        protocol->SetPosition(protocol->m_target->GetPosition());
+        protocol->m_priorPos = protocol->GetPosition();
+        protocol->m_tileSetPos = GetPosition();
+    }
+    // Bypass.
+    for (int i = 0; i < GetListCount("BypassOrigins", GetModelName()); i++)
+    {
+        orxVECTOR bypassOrigin = GetListVector("BypassOrigins", i, GetModelName());
+        Bypass *bypass = ScrollCast<Bypass*>(CreateObject("O-Bypass"));
+        bypass->SetParent(this);
+        bypass->m_target = m_tileRows.at(bypassOrigin.fX).at(bypassOrigin.fY);
+        bypass->SetPosition(bypass->m_target->GetPosition());
+        bypass->m_priorPos = bypass->GetPosition();
+        bypass->m_tileSetPos = GetPosition();
+    }
+    // Proxy.
+    std::vector<Proxy*> tempProxies;
+    for (int i = 0; i < GetListCount("ProxyOrigins", GetModelName()); i++)
+    {
+        orxVECTOR proxyOrigin = GetListVector("ProxyOrigins", i, GetModelName());
+        Proxy *proxy = ScrollCast<Proxy*>(CreateObject("O-Proxy"));
+        proxy->SetParent(this);
+        proxy->m_target = m_tileRows.at(proxyOrigin.fX).at(proxyOrigin.fY);
+        proxy->SetPosition(proxy->m_target->GetPosition());
+        proxy->m_priorPos = proxy->GetPosition();
+        proxy->m_tileSetPos = GetPosition();
+        tempProxies.push_back(proxy);
+    }
+    for (int i = 0; i < tempProxies.size() - 1; i++)
+    {
+        Proxy *proxy = tempProxies.at(i);
+        Proxy *nextProxy = tempProxies.at(i + 1);
+        proxy->m_counterpart = nextProxy;
+        nextProxy->m_counterpart = proxy;
+    }
+    // Recursive.
+    for (int i = 0; i < GetListCount("RecursiveOrigins", GetModelName()); i++)
+    {
+        orxVECTOR recursiveOrigin = GetListVector("RecursiveOrigins", i, GetModelName());
+        Recursive *recursive = ScrollCast<Recursive*>(CreateObject("O-Recursive"));
+        recursive->SetParent(this);
+        recursive->m_target = m_tileRows.at(recursiveOrigin.fX).at(recursiveOrigin.fY);
+        recursive->SetPosition(recursive->m_target->GetPosition());
+        recursive->m_priorPos = recursive->GetPosition();
+        recursive->m_tileSetPos = GetPosition();
+    }
+    // Virus.
+    for (int i = 0; i < GetListCount("VirusOrigins", GetModelName()); i++)
+    {
+        orxVECTOR virusOrigin = GetListVector("VirusOrigins", i, GetModelName());
+        Virus *virus = ScrollCast<Virus*>(CreateObject("O-Virus"));
+        virus->SetParent(this);
+        virus->m_target = m_tileRows.at(virusOrigin.fX).at(virusOrigin.fY);
+        virus->SetPosition(virus->m_target->GetPosition());
+        virus->m_priorPos = virus->GetPosition();
+        virus->m_tileSetPos = GetPosition();
     }
 }
 
@@ -238,8 +307,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *tileToRight = m_payload->m_target->GetTileInDirection(1, Direction::Right);
             if (tileToRight != nullptr)
             {
-                m_payload->SetTarget(tileToRight);
-                m_priorDoers.push(m_payload);
+                m_payload->SetTarget(tileToRight, Direction::Right);
             }
         }
         else if (orxInput_HasBeenActivated("MoveUp"))
@@ -247,8 +315,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *tileAbove = m_payload->m_target->GetTileInDirection(1, Direction::Up);
             if (tileAbove != nullptr)
             {
-                m_payload->SetTarget(tileAbove);
-                m_priorDoers.push(m_payload);
+                m_payload->SetTarget(tileAbove, Direction::Up);
             }
         }
         else if (orxInput_HasBeenActivated("MoveDown"))
@@ -256,8 +323,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *tileBelow = m_payload->m_target->GetTileInDirection(1, Direction::Down);
             if (tileBelow != nullptr)
             {
-                m_payload->SetTarget(tileBelow);
-                m_priorDoers.push(m_payload);
+                m_payload->SetTarget(tileBelow, Direction::Down);
             }
         }
         else if (orxInput_HasBeenActivated("MoveLeft"))
@@ -265,8 +331,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *tileToLeft = m_payload->m_target->GetTileInDirection(1, Direction::Left);
             if (tileToLeft != nullptr)
             {
-                m_payload->SetTarget(tileToLeft);
-                m_priorDoers.push(m_payload);
+                m_payload->SetTarget(tileToLeft, Direction::Left);
             }
         }
         else if (orxInput_HasBeenActivated("MemRight"))
@@ -425,7 +490,6 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
         // Push it on the stack and call its Reconfigure method only if we're not undoing a reconfiguration.
         if (!m_bInvertReconfigure)
         {
-            m_priorDoers.push(_memSet);
             _memSet->Reconfigure();
         }
     }

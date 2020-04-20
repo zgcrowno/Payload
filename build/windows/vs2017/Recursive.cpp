@@ -27,7 +27,15 @@ void Recursive::Update(const orxCLOCK_INFO &_rstInfo)
     TileInhabitant::Update(_rstInfo);
 }
 
-void Recursive::Cohabitate(const bool _dueToShifting)
+void Recursive::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
-
+    Tile *otherDest = m_target->GetTileInDirection(1, _other->m_movementDirection);
+    if (otherDest != nullptr)
+    {
+        _other->SlipTo(otherDest, _other->m_movementDirection);
+    }
+    else
+    {
+        // TODO: Determine what to do if otherDest is null (probably nothing!).
+    }
 }
