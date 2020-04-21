@@ -27,7 +27,6 @@ namespace payload
         bool m_bIsMoving;
         bool m_bCartesian;
         bool m_b2D;
-        bool m_bIsInfected;
         int m_row;
         int m_col;
         float m_priorMemSetTheta;

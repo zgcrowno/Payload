@@ -134,6 +134,9 @@
     <ClInclude Include="EventType.h">
       <Filter>src\Header\EventHandling</Filter>
     </ClInclude>
+    <ClInclude Include="Infection.h">
+      <Filter>src\Header\Doer\TileInhabitant</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -201,6 +204,9 @@
     </ClCompile>
     <ClCompile Include="TileSet.cpp">
       <Filter>src\CPP\Doer</Filter>
+    </ClCompile>
+    <ClCompile Include="Infection.cpp">
+      <Filter>src\CPP\Doer\TileInhabitant</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -399,6 +399,27 @@ const orxVECTOR __fastcall ScrollMod::GetParentSpacePosition() const
     }
 }
 
+const orxVECTOR __fastcall ScrollMod::GetParentSpaceScale() const
+{
+    orxVECTOR scaledSize = GetScaledSize();
+    orxSTRUCTURE *parent = orxObject_GetParent(GetOrxObject());
+    orxOBJECT *parentObj = orxOBJECT(parent);
+    if (parentObj != nullptr)
+    {
+        orxVECTOR parentSize = orxVECTOR_0;
+        orxObject_GetSize(parentObj, &parentSize);
+        orxVECTOR parentScale = orxVECTOR_0;
+        orxObject_GetScale(parentObj, &parentScale);
+        orxVECTOR parentScaledSize = { parentSize.fX * parentScale.fX, parentSize.fY * parentScale.fY, parentSize.fZ * parentScale.fZ };
+        orxVECTOR relativeScale = { scaledSize.fX / parentScaledSize.fX, scaledSize.fY / parentScaledSize.fY };
+        return relativeScale;
+    }
+    else
+    {
+        // TODO: Account for instances in which parent isn't an orxOBJECT (for instance, maybe it's an orxCAMERA).
+    }
+}
+
 const orxVECTOR __fastcall ScrollMod::GetPositionNextFrame(const float &_fDT, const bool &_bWorld) const
 {
     orxVECTOR curPos = GetPosition(_bWorld);

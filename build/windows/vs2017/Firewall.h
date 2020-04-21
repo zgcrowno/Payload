@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "TileInhabitant.h"
+#include "Direction.h"
 
 namespace payload
 {
@@ -22,6 +23,11 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        Direction m_direction;
+        ScrollMod *m_beam;
+
         virtual void Cohabitate(TileInhabitant *_other, const bool _dueToShifting);
+        virtual void ExertInfluence(TileInhabitant *_other);
+        virtual const bool IsInPurview(TileInhabitant *_other);
     };
 }

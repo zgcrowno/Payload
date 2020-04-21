@@ -1,5 +1,6 @@
 #include "TileInhabitant.h"
 #include "EventType.h"
+#include "Infection.h"
 
 using namespace payload;
 
@@ -70,20 +71,22 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                 m_timeSpentMoving = 0.0f;
                 SetPosition(m_target->GetPosition());
                 m_priorPos = GetPosition();
-                // If the TileInhabitant's target is infected, the former's disabled; if the TileInhabitant's infected, so then is its target.
-                if (m_target->m_bIsInfected)
-                {
-                    Die();
-                }
-                else if (m_bIsInfected)
-                {
-                    m_target->m_bIsInfected = true;
-                }
-                // Cohabitation check.
+                // Cohabitation and purview action.
                 for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
                 {
                     TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
                     ti->Cohabitate(false);
+                    ti->ExertInfluence();
+                }
+                // If the TileInhabitant's infected, it must spawn an infection after each movement.
+                if (m_bJustInfected)
+                {
+                    m_bIsInfected = true;
+                    m_bJustInfected = false;
+                }
+                else if (m_bIsInfected)
+                {
+                    SpawnInfection();
                 }
             }
         }
@@ -92,6 +95,16 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
             m_bIsTeleporting = false;
             SetPosition(m_target->GetPosition());
             m_priorPos = GetPosition();
+            // If the TileInhabitant's infected, it must spawn an infection after each teleportation.
+            if (m_bJustInfected)
+            {
+                m_bIsInfected = true;
+                m_bJustInfected = false;
+            }
+            else if (m_bIsInfected)
+            {
+                SpawnInfection();
+            }
         }
         else if (m_bIsSlipping)
         {
@@ -136,7 +149,7 @@ void TileInhabitant::Cohabitate(const bool _dueToShifting)
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
         if (IsCohabitating(ti))
         {
-            // Only execute Unreachable's Cohabitate behavior if the interacting TileInhabitant has a lower precedence and the cohabitation is not due to shifting.
+            // Only execute Cohabitate behavior if the interacting TileInhabitant has a lower precedence and the cohabitation is not due to shifting.
             if (ti->m_precedence < m_precedence)
             {
                 Cohabitate(ti, _dueToShifting);
@@ -148,6 +161,28 @@ void TileInhabitant::Cohabitate(const bool _dueToShifting)
 void TileInhabitant::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
 
+}
+
+void TileInhabitant::ExertInfluence()
+{
+    for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+    {
+        TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        if (IsInPurview(ti))
+        {
+            ExertInfluence(ti);
+        }
+    }
+}
+
+void TileInhabitant::ExertInfluence(TileInhabitant *_other)
+{
+
+}
+
+const bool TileInhabitant::IsInPurview(TileInhabitant *_other)
+{
+    return false;
 }
 
 void TileInhabitant::SetTarget(Tile *_target, const Direction _movementDirection, const bool _undoing)
@@ -182,6 +217,17 @@ void TileInhabitant::SlipTo(Tile *_dest, const Direction _movementDirection)
 void TileInhabitant::Die()
 {
     Enable(false);
+}
+
+void TileInhabitant::SpawnInfection()
+{
+    ScrollMod *tileSet = static_cast<ScrollMod*>(Payload::GetInstance().GetTileSet());
+    Infection *infection = static_cast<Infection*>(CreateObject("O-Infection"));
+    infection->SetParent(tileSet);
+    infection->m_target = m_target;
+    infection->SetPosition(m_target->GetPosition());
+    infection->m_priorPos = m_target->GetPosition();
+    infection->m_tileSetPos = tileSet->GetPosition();
 }
 
 const bool TileInhabitant::IsCohabitable()

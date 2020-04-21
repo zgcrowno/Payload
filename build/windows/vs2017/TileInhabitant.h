@@ -32,6 +32,7 @@ namespace payload
         bool m_bIsTeleporting;
         bool m_bIsSlipping;
         bool m_bIsInfected;
+        bool m_bJustInfected;
         float m_timeToMove;
         float m_timeSpentMoving;
         float m_tileRatio;
@@ -45,13 +46,18 @@ namespace payload
 
         virtual void Undo();
         virtual void Cohabitate(TileInhabitant *_other, const bool _dueToShifting) = 0;
+        virtual void ExertInfluence(TileInhabitant *_other);
+        virtual const bool IsInPurview(TileInhabitant *_other);
 
         void SetTarget(Tile *_target, const Direction _movementDirection, const bool _undoing = false);
         void TeleportTo(Tile *_dest, const bool _undoing = false);
         void SlipTo(Tile *_dest, const Direction _movementDirection);
         void Die();
+        void SpawnInfection();
         //! Called whenever the TileInhabitant interacts with another TileInhabitant on its Tile.
-        virtual void Cohabitate(const bool _dueToShifting);
+        void Cohabitate(const bool _dueToShifting);
+        //! Called whenever the TileInhabitant interacts with another TileInhabitant on a Tile different from its own.
+        void ExertInfluence();
         const bool IsCohabitable();
         const bool IsCohabitating(TileInhabitant *_other);
     };

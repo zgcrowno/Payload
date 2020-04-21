@@ -8,6 +8,7 @@
 #include "EventType.h"
 #include "Firewall.h"
 #include "Goal.h"
+#include "Infection.h"
 #include "MemorySetCartesian1D.h"
 #include "MemorySetCartesian2D.h"
 #include "MemorySetPolar1D.h"
@@ -68,6 +69,7 @@ void Payload::BindObjects()
     ScrollBindObject<Bypass>("O-Bypass");
     ScrollBindObject<Firewall>("O-Firewall");
     ScrollBindObject<Goal>("O-Goal");
+    ScrollBindObject<Infection>("O-Infection");
     ScrollBindObject<MemorySetCartesian1D>("O-MemorySetCartesian1D");
     ScrollBindObject<MemorySetCartesian2D>("O-MemorySetCartesian2D");
     ScrollBindObject<MemorySetPolar1D>("O-MemorySetPolar1D");
@@ -105,7 +107,7 @@ const int Payload::GetPayloadRow()
     return payload->m_target->m_row;
 }
 
-const ScrollObject *Payload::GetTileSet()
+ScrollObject *Payload::GetTileSet()
 {
     return GetNextObject<TileSet>();
 }
@@ -184,6 +186,29 @@ std::vector<ScrollObject*> Payload::GetTileInhabitants()
         if (!orxString_Compare(virus->GetModelName().c_str(), "O-Virus"))
         {
             retVal.push_back(virus);
+        }
+    }
+    // Infection
+    for (Infection *infection = GetNextObject<Infection>(); infection != nullptr; infection = GetNextObject<Infection>(infection))
+    {
+        if (!orxString_Compare(infection->GetModelName().c_str(), "O-Infection"))
+        {
+            retVal.push_back(infection);
+        }
+    }
+
+    return retVal;
+}
+
+std::vector<ScrollObject*> Payload::GetFirewalls()
+{
+    std::vector<ScrollObject*> retVal;
+
+    for (Firewall *firewall = GetNextObject<Firewall>(); firewall != nullptr; firewall = GetNextObject<Firewall>(firewall))
+    {
+        if (!orxString_Compare(firewall->GetModelName().c_str(), "O-Firewall"))
+        {
+            retVal.push_back(firewall);
         }
     }
 

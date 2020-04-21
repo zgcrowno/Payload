@@ -1,5 +1,6 @@
 #include "TileSet.h"
 #include "Bypass.h"
+#include "Firewall.h"
 #include "Protocol.h"
 #include "Proxy.h"
 #include "Unreachable.h"
@@ -181,12 +182,15 @@ void TileSet::OnCreate()
         proxy->m_tileSetPos = GetPosition();
         tempProxies.push_back(proxy);
     }
-    for (int i = 0; i < tempProxies.size() - 1; i++)
+    if (!tempProxies.empty())
     {
-        Proxy *proxy = tempProxies.at(i);
-        Proxy *nextProxy = tempProxies.at(i + 1);
-        proxy->m_counterpart = nextProxy;
-        nextProxy->m_counterpart = proxy;
+        for (int i = 0; i < tempProxies.size() - 1; i++)
+        {
+            Proxy *proxy = tempProxies.at(i);
+            Proxy *nextProxy = tempProxies.at(i + 1);
+            proxy->m_counterpart = nextProxy;
+            nextProxy->m_counterpart = proxy;
+        }
     }
     // Recursive.
     for (int i = 0; i < GetListCount("RecursiveOrigins", GetModelName()); i++)
@@ -209,6 +213,18 @@ void TileSet::OnCreate()
         virus->SetPosition(virus->m_target->GetPosition());
         virus->m_priorPos = virus->GetPosition();
         virus->m_tileSetPos = GetPosition();
+    }
+    // Firewall.
+    for (int i = 0; i < GetListCount("FirewallOrigins", GetModelName()); i++)
+    {
+        orxVECTOR firewallOrigin = GetListVector("FirewallOrigins", i, GetModelName());
+        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-Firewall"));
+        firewall->SetParent(this);
+        firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
+        firewall->SetPosition(firewall->m_target->GetPosition());
+        firewall->m_priorPos = firewall->GetPosition();
+        firewall->m_tileSetPos = GetPosition();
+        firewall->m_beam->SetParentSpaceScale({ sqrtf(powf(m_square, 2.0f) + powf(m_square, 2.0f)) * (1.0f / firewall->m_tileRatio), firewall->m_beam->GetParentSpaceScale().fY });
     }
 }
 
@@ -562,6 +578,7 @@ void TileSet::ShiftTiles()
             {
                 ti->SetPosition(ti->m_target->GetPosition());
             }
+            ti->ExertInfluence();
             ti->Cohabitate(true);
         }
     }

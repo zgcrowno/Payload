@@ -154,6 +154,9 @@ namespace payload
         /// <summary>Returns the ScrollMod's position in normalized parent space.</summary>
         /// <returns>The ScrollMod's position in normalized parent space.</returns>
         const orxVECTOR __fastcall GetParentSpacePosition() const;
+        /// <summary>Returns the ScrollMod's scale in normalized parent space.</summary>
+        /// <returns>The ScrollMod's scale in normalized parent space.</returns>
+        const orxVECTOR __fastcall GetParentSpaceScale() const;
         /// <summary>Gets the predicted position of the ScrollMod one frame from when the function is called.</summary>
         /// <param name="_fDT">The delta time.</param>
         /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>

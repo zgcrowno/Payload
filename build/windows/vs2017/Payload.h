@@ -30,8 +30,9 @@ namespace payload
         virtual void Exit();
     public:
         const int GetPayloadRow();
-        const ScrollObject *GetTileSet();
+        ScrollObject *GetTileSet();
         std::vector<ScrollObject*> GetTileInhabitants();
+        std::vector<ScrollObject*> GetFirewalls();
     };
 }
 
