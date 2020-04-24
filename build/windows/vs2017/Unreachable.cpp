@@ -36,6 +36,6 @@ void Unreachable::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
     }
     else
     {
-        // TODO: Account for situation in which Unreachable is shifted onto another TileInhabitant in 1D (probably broadcast an event to which TileSet must respond).
+        static_cast<Doer*>(Payload::GetInstance().GetTileSet())->Undo();
     }
 }

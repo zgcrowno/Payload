@@ -41,7 +41,7 @@ namespace payload
         orxVECTOR m_tileSetPos;
         Tile *m_target;
         // A stack of pairs of Tiles and whether or not those Tiles were reached via teleportation or
-        // standard movement (if the second pair element is true, then the Tile was reached via teleportation.
+        // standard movement (if the second pair element is true, then the Tile was reached via teleportation).
         std::stack<std::pair<Tile*, bool>> m_priorTargetStack;
 
         virtual void Undo();

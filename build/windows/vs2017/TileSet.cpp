@@ -284,7 +284,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
     {
         if (orxInput_HasBeenActivated("DimShift"))
         {
-            m_priorDoers.push(this);
+            m_priorDoers.push({ this, false });
             m_priorStates.push(m_state);
 
             if (Is2D())
@@ -300,12 +300,13 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             }
             else // One-dimensional.
             {
-                Shift(TileSetShiftStatus::D2);
+                Shift(TileSetShiftStatus::D1Tiles);
+                //Shift(TileSetShiftStatus::D2);
             }
         }
         else if (orxInput_HasBeenActivated("CoShift"))
         {
-            m_priorDoers.push(this);
+            m_priorDoers.push({ this, false });
             m_priorStates.push(m_state);
 
             if (IsCartesian())
@@ -391,13 +392,49 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         {
             TileSetShiftStatus nextShiftStatus;
 
-            if (NeedToShiftD1Tiles())
+            /*if (NeedToShiftD1Tiles())
             {
                 nextShiftStatus = TileSetShiftStatus::D1Tiles;
             }
             else
             {
                 nextShiftStatus = TileSetShiftStatus::None;
+            }*/
+            if (m_shiftStatus == TileSetShiftStatus::D1Tiles)
+            {
+                switch (m_state)
+                {
+                case TileSetState::Cartesian1D:
+                    nextShiftStatus = TileSetShiftStatus::None;
+                    break;
+                case TileSetState::Cartesian2D:
+                    nextShiftStatus = TileSetShiftStatus::None;
+                    break;
+                case TileSetState::Polar1D:
+                    nextShiftStatus = TileSetShiftStatus::None;
+                    break;
+                case TileSetState::Polar2D:
+                    nextShiftStatus = TileSetShiftStatus::D2;
+                    break;
+                }
+            }
+            else
+            {
+                switch (m_state)
+                {
+                case TileSetState::Cartesian1D:
+                    nextShiftStatus = TileSetShiftStatus::None;
+                    break;
+                case TileSetState::Cartesian2D:
+                    nextShiftStatus = TileSetShiftStatus::None;
+                    break;
+                case TileSetState::Polar1D:
+                    nextShiftStatus = m_priorState == TileSetState::Cartesian1D ? TileSetShiftStatus::None : TileSetShiftStatus::D1Tiles;
+                    break;
+                case TileSetState::Polar2D:
+                    nextShiftStatus = TileSetShiftStatus::None;
+                    break;
+                }
             }
 
             FinalizeTileAndInhabitantLerps();
@@ -426,7 +463,7 @@ void TileSet::Undo()
 {
     if (!m_priorDoers.empty())
     {
-        if (m_priorDoers.top() == this)
+        if (m_priorDoers.top().first == this)
         {
             if (!m_priorStates.empty())
             {
@@ -436,7 +473,7 @@ void TileSet::Undo()
                 case TileSetState::Cartesian1D:
                     if (Is2D())
                     {
-                        Shift(TileSetShiftStatus::D1);
+                        Shift(TileSetShiftStatus::D1Tiles);
                     }
                     else
                     {
@@ -450,7 +487,7 @@ void TileSet::Undo()
                     }
                     else
                     {
-                        Shift(TileSetShiftStatus::D2);
+                        Shift(TileSetShiftStatus::D1Tiles);
                     }
                     break;
                 case TileSetState::Polar1D:
@@ -470,7 +507,7 @@ void TileSet::Undo()
                     }
                     else
                     {
-                        Shift(TileSetShiftStatus::D2);
+                        Shift(TileSetShiftStatus::D1Tiles);
                     }
                     break;
                 }
@@ -479,16 +516,23 @@ void TileSet::Undo()
         }
         else
         {
-            MemorySet *memSet = dynamic_cast<MemorySet*>(m_priorDoers.top());
+            MemorySet *memSet = dynamic_cast<MemorySet*>(m_priorDoers.top().first);
             if (memSet != nullptr)
             {
                 m_bInvertReconfigure = true;
                 SetMemorySetToReconfigure(memSet);
             }
-            m_priorDoers.top()->Undo();
+            m_priorDoers.top().first->Undo();
         }
 
+        m_bPriorDoerActedDueToShifting = m_priorDoers.top().second;
         m_priorDoers.pop();
+
+        // Undo until the action which set in motion all subsequent ones is undone.
+        if (m_bPriorDoerActedDueToShifting)
+        {
+            Undo();
+        }
     }
 }
 
@@ -515,30 +559,55 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
 
 void TileSet::Shift(TileSetShiftStatus _shiftStatus)
 {
+    m_priorShiftStatus = m_shiftStatus;
     m_priorState = m_state;
     m_shiftStatus = _shiftStatus;
+
+    if (_shiftStatus != TileSetShiftStatus::None)
+    {
+        // Shifting again mid-shift.
+        if (m_timeSpentShifting > 0.0f && m_timeSpentShifting < m_timeToShift)
+        {
+            m_timeSpentShifting = m_timeToShift - m_timeSpentShifting;
+            FinalizeTileAndInhabitantLerps();
+        }
+        else
+        {
+            m_timeSpentShifting = 0.0f;
+        }
+    }
 
     switch (_shiftStatus)
     {
     case TileSetShiftStatus::D1:
-        m_timeSpentShifting = 0.0f;
         m_state = IsCartesian() ? TileSetState::Cartesian1D : TileSetState::Polar1D;
         break;
     case TileSetShiftStatus::D2:
-        m_timeSpentShifting = 0.0f;
         m_state = IsCartesian() ? TileSetState::Cartesian2D : TileSetState::Polar2D;
         break;
     case TileSetShiftStatus::Cartesian:
-        m_timeSpentShifting = 0.0f;
         m_state = Is2D() ? TileSetState::Cartesian2D : TileSetState::Cartesian1D;
         break;
     case TileSetShiftStatus::Polar:
-        m_timeSpentShifting = 0.0f;
         m_state = Is2D() ? TileSetState::Polar2D : TileSetState::Polar1D;
         break;
     case TileSetShiftStatus::D1Tiles:
-        m_timeSpentShifting = 0.0f;
-        m_state = Is2D() && IsCartesian() ? TileSetState::Cartesian1D : m_state;
+        //m_state = Is2D() && IsCartesian() ? TileSetState::Cartesian1D : m_state;
+        switch (m_state)
+        {
+        case TileSetState::Cartesian1D:
+            m_state = TileSetState::Cartesian2D;
+            break;
+        case TileSetState::Cartesian2D:
+            m_state = TileSetState::Cartesian1D;
+            break;
+        case TileSetState::Polar1D:
+            m_state = m_priorShiftStatus == TileSetShiftStatus::None ? TileSetState::Polar2D : TileSetState::Polar1D;
+            break;
+        case TileSetState::Polar2D:
+            m_state = TileSetState::Polar2D;
+            break;
+        }
         break;
     }
 }
@@ -563,21 +632,17 @@ void TileSet::ShiftTiles()
             tile->Shift(m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, m_payload->m_target->m_row, pos, m_shiftStatus);
         }
     }
-    // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets (if their respective targets are moving).
+    // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets, as appropriate.
     std::vector<ScrollObject*> tileInhabitants = Payload::GetInstance().GetTileInhabitants();
     for (ScrollObject *tileInhabitant : tileInhabitants)
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-        if (!ti->IsCohabitable() || Is2D())
+        if (!orxVector_AreEqual(&ti->GetPosition(), &ti->m_target->GetPosition()) && !ti->m_bIsMoving)
         {
             ti->SetPosition(ti->m_target->GetPosition());
         }
-        else
+        if (ti->IsCohabitable())
         {
-            if (!orxVector_AreEqual(&ti->GetPosition(), &ti->m_target->GetPosition()))
-            {
-                ti->SetPosition(ti->m_target->GetPosition());
-            }
             ti->ExertInfluence();
             ti->Cohabitate(true);
         }
@@ -715,7 +780,9 @@ const bool TileSet::NeedToShiftD1Tiles()
     // We only need to D1-shift Tiles if a lerp has finished (m_timeSpentShifting > m_timeToShift),
     // the TileSet is 1D (!Is2D()), the TileSet was previously 2D (PriorStateIs2D()), and the TileSet
     // isn't currently D2-shifting Tiles (m_shiftStatus != TileSetShiftStatus::D1Tiles).
-    return m_timeSpentShifting > m_timeToShift && !Is2D() && PriorStateIs2D() && m_shiftStatus != TileSetShiftStatus::D1Tiles;
+    //return m_timeSpentShifting > m_timeToShift && !Is2D() && PriorStateIs2D() && m_shiftStatus != TileSetShiftStatus::D1Tiles;
+    bool priorStateWasDifferentDimension = (Is2D() && !PriorStateIs2D()) || (!Is2D() && PriorStateIs2D());
+    return m_timeSpentShifting > m_timeToShift && priorStateWasDifferentDimension && m_shiftStatus != TileSetShiftStatus::D1Tiles;
 }
 
 const int TileSet::GetUnitDistanceFromPolarAxis(const int &_col)

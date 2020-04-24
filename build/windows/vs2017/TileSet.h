@@ -38,6 +38,7 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     private:
+        bool m_bPriorDoerActedDueToShifting;
         bool m_bInvertReconfigure;
         int m_square;
         int m_halfSquare;
@@ -51,7 +52,6 @@ namespace payload
         float m_timeSpentReconfiguring;
         TileSetState m_state;
         TileSetState m_priorState;
-        TileSetShiftStatus m_shiftStatus;
         MemorySet *m_memorySetToReconfigure;
         PlayerPayload *m_payload;
         Goal *m_goal;
@@ -80,6 +80,10 @@ namespace payload
         const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow, const bool _d2);
         const orxVECTOR GetNormalizedPosition(const orxVECTOR &_vec);
     public:
-        std::stack<Doer*> m_priorDoers;
+        TileSetShiftStatus m_shiftStatus;
+        TileSetShiftStatus m_priorShiftStatus;
+        // A stack of pairs of Doers and whether or not those Doers executed an action because of shifting
+        // (if the second pair element is true, then the action was due to shifting).
+        std::stack<std::pair<Doer*, bool>> m_priorDoers;
     };
 }

@@ -1,4 +1,5 @@
-﻿  TileSet.cpp
+﻿  Payload.cpp
+  TileSet.cpp
 c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(60): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(61): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data
 c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\tileset.cpp(145): warning C4244: 'argument': conversion from 'orxFLOAT' to 'const unsigned __int64', possible loss of data

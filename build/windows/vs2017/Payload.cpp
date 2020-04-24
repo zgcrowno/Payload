@@ -220,7 +220,7 @@ orxSTATUS orxFASTCALL Payload::EventHandler(const orxEVENT *_pstEvent)
     if (_pstEvent->eType == EVENT_TYPE_TILE_INHABITANT || _pstEvent->eType == EVENT_TYPE_MEMORY_SET)
     {
         TileSet *tileSet = static_cast<TileSet*>(_pstEvent->hRecipient);
-        tileSet->m_priorDoers.push(static_cast<Doer*>(_pstEvent->hSender));
+        tileSet->m_priorDoers.push({ static_cast<Doer*>(_pstEvent->hSender), tileSet->m_shiftStatus != TileSetShiftStatus::None });
     }
 
     return orxSTATUS_SUCCESS;

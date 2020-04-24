@@ -89,6 +89,7 @@ namespace payload
             const int &_tilesInRow,
             const float &_tileSetRadius,
             const float &_normalizedTileSize,
-            const orxVECTOR &_tileSetPos);
+            const orxVECTOR &_tileSetPos,
+            const TileSetState &_stateToScaleTo);
     };
 }

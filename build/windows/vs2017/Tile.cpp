@@ -120,7 +120,7 @@ void Tile::SetUp(
         m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
         m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
@@ -130,7 +130,7 @@ void Tile::SetUp(
         m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
         m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
@@ -140,7 +140,7 @@ void Tile::SetUp(
         m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
         m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
@@ -150,7 +150,7 @@ void Tile::SetUp(
         m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos);
+        m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
         m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
@@ -174,102 +174,132 @@ void Tile::Shift(
 
     // Is the TileSet 2D?
     bool tileSetIs2D = *m_state == TileSetState::Cartesian2D || *m_state == TileSetState::Polar2D;
+    // Was the TileSet 2D directly prior to its current state?
+    bool tileSetWas2D = m_priorTileSetState == TileSetState::Cartesian2D || m_priorTileSetState == TileSetState::Polar2D;
     // How many tiles away from the TileSet's pivot is this Tile's foreground?
     int unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(m_row, m_col, _square, _payloadRow, *m_state);
     // How many tiles are in this Tile's circular, polar-2D row?
     int tilesInPolarRow = GetNumTilesInPolarRow(_square, unitDistanceFromOrigin, tileSetIs2D);
 
-    if (_tileSetShiftStatus == TileSetShiftStatus::D1Tiles || ((m_priorTileSetState == TileSetState::Cartesian1D || m_priorTileSetState == TileSetState::Polar1D) && !tileSetIs2D))
+    if (_tileSetShiftStatus == TileSetShiftStatus::D1Tiles || (!tileSetWas2D && !tileSetIs2D))
     {
         int unitDistanceFromPayloadRow = fabsf(m_row - _payloadRow);
+        float lerpMultiplicand = ((float)_greatest1DUnitDistanceOfPayloadRowFromThreshold / unitDistanceFromPayloadRow);
+        float d1TilesLerpWeight = _lerpWeight * lerpMultiplicand;
         // Set this so as to prevent division by 0.
         float lerpWeight =
             _tileSetShiftStatus != TileSetShiftStatus::D1Tiles || unitDistanceFromPayloadRow == 0 ?
             _lerpWeight :
-            orxCLAMP(_lerpWeight * ((float)_greatest1DUnitDistanceOfPayloadRowFromThreshold / unitDistanceFromPayloadRow), 0.0f, 1.0f);
+            orxCLAMP(d1TilesLerpWeight, 0.0f, 1.0f);
         // The Tile is only moving if it hasn't reached the end of its lerp.
-        if (lerpWeight < 1)
+        m_bIsMoving = lerpWeight < 1.0f && unitDistanceFromPayloadRow != 0;
+
+        if (_tileSetShiftStatus == TileSetShiftStatus::D1Tiles && tileSetIs2D)
         {
-            m_bIsMoving = true;
+            int payloadThresholdAndThisTileDifference = _greatest1DUnitDistanceOfPayloadRowFromThreshold - unitDistanceFromPayloadRow;
+            lerpWeight = orxCLAMP(d1TilesLerpWeight - ((float)payloadThresholdAndThisTileDifference / unitDistanceFromPayloadRow), 0.0f, 1.0f);
+            m_bIsMoving = lerpWeight < 1.0f && unitDistanceFromPayloadRow != 0;
+
+            switch (*m_state)
+            {
+            case TileSetState::Cartesian2D:
+            {
+                // Position.
+                orxVECTOR parentSpacePos;
+                m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
+                orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
+                SetParentSpacePosition(parentSpacePos);
+                // Visual scale.
+                orxVECTOR visualScale;
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
+                m_visualScale = visualScale;
+                break;
+            }
+            case TileSetState::Polar2D:
+            {
+                // Position.
+                orxVECTOR parentSpacePos;
+                m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
+                orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
+                SetParentSpacePosition(parentSpacePos);
+                // Visual scale.
+                orxVECTOR visualScale;
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, TileSetState::Polar1D);
+                orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
+                m_visualScale = visualScale;
+            }
+            }
         }
         else
         {
-            m_bIsMoving = false;
-        }
+            switch (*m_state)
+            {
+            case TileSetState::Cartesian1D:
+            {
+                // Position.
+                orxVECTOR parentSpacePos;
+                m_targetParentSpacePos = GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize);
+                orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
+                SetParentSpacePosition(parentSpacePos);
+                // Visual scale.
+                orxVECTOR visualScale;
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
+                m_visualScale = visualScale;
+                break;
+            }
+            case TileSetState::Cartesian2D:
+            {
+                // Position.
+                orxVECTOR parentSpacePos;
+                m_targetParentSpacePos = GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize);
+                orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
+                SetParentSpacePosition(parentSpacePos);
+                // Visual scale.
+                orxVECTOR visualScale;
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
+                m_visualScale = visualScale;
+                break;
+            }
+            case TileSetState::Polar1D:
+            {
+                // Position.
+                orxVECTOR parentSpacePos;
+                m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
+                orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
+                SetParentSpacePosition(parentSpacePos);
+                // Visual scale.
+                orxVECTOR visualScale;
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
+                m_visualScale = visualScale;
+                break;
+            }
+            case TileSetState::Polar2D:
+            {
+                unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(_payloadRow, m_col, _square, _payloadRow, *m_state);
+                tilesInPolarRow = GetNumTilesInPolarRow(_square, unitDistanceFromOrigin, tileSetIs2D);
 
-        switch (*m_state)
-        {
-        case TileSetState::Cartesian1D:
-        {
-            // Position.
-            orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize);
-            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
-            SetParentSpacePosition(parentSpacePos);
-            // Visual scale.
-            orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
-            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
-            m_visualScale = visualScale;
-            break;
-        }
-        case TileSetState::Cartesian2D:
-        {
-            // Position.
-            orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize);
-            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
-            SetParentSpacePosition(parentSpacePos);
-            // Visual scale.
-            orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
-            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
-            m_visualScale = visualScale;
-            break;
-        }
-        case TileSetState::Polar1D:
-        {
-            // Position.
-            orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
-            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
-            SetParentSpacePosition(parentSpacePos);
-            // Visual scale.
-            orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
-            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
-            m_visualScale = visualScale;
-            break;
-        }
-        case TileSetState::Polar2D:
-        {
-            unitDistanceFromOrigin = GetUnitDistanceFromTileSetCenter(_payloadRow, m_col, _square, _payloadRow, *m_state);
-            tilesInPolarRow = GetNumTilesInPolarRow(_square, unitDistanceFromOrigin, tileSetIs2D);
-
-            // Position.
-            orxVECTOR parentSpacePos;
-            m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
-            orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
-            SetParentSpacePosition(parentSpacePos);
-            // Visual scale.
-            orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos);
-            orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
-            m_visualScale = visualScale;
-        }
+                // Position.
+                orxVECTOR parentSpacePos;
+                m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
+                orxVector_Lerp(&parentSpacePos, &m_priorParentSpacePos, &m_targetParentSpacePos, lerpWeight);
+                SetParentSpacePosition(parentSpacePos);
+                // Visual scale.
+                orxVECTOR visualScale;
+                m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
+                m_visualScale = visualScale;
+            }
+            }
         }
     }
     else
     {
         // The Tile is only moving if it hasn't reached the end of its lerp.
-        if (_lerpWeight < 1)
-        {
-            m_bIsMoving = true;
-        }
-        else
-        {
-            m_bIsMoving = false;
-        }
+        m_bIsMoving = _lerpWeight < 1.0f;
 
         switch (*m_state)
         {
@@ -282,7 +312,7 @@ void Tile::Shift(
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
             orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
             orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
             m_visualScale = visualScale;
             break;
@@ -296,7 +326,7 @@ void Tile::Shift(
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
             orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
             orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
             m_visualScale = visualScale;
             break;
@@ -310,7 +340,7 @@ void Tile::Shift(
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
             orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos);
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
             orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
             m_visualScale = visualScale;
             break;
@@ -324,7 +354,7 @@ void Tile::Shift(
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
             orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos);
+            m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
             orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
             m_visualScale = visualScale;
         }
@@ -358,14 +388,7 @@ void Tile::Reconfigure(
         break;
     }
     float theta = orxLERP(m_priorMemSetTheta, thetaDest, _lerpWeight);
-    if (_lerpWeight < 1)
-    {
-        m_bIsMoving = true;
-    }
-    else
-    {
-        m_bIsMoving = false;
-    }
+    m_bIsMoving = _lerpWeight < 1.0f;
     SetPolarPosition(_memorySetPos, polarPos.fX, theta);
 }
 
@@ -685,14 +708,15 @@ const orxVECTOR Tile::CalculateVisualScale(
     const int &_tilesInRow,
     const float &_tileSetRadius,
     const float &_normalizedTileSize,
-    const orxVECTOR &_tileSetPos)
+    const orxVECTOR &_tileSetPos,
+    const TileSetState &_stateToScaleTo)
 {
     float normalizedRadialDistance;
     float normalizedCircumference;
     float normalizedWidth;
     float normalizedHeight;
 
-    switch (*m_state)
+    switch (_stateToScaleTo)
     {
     case TileSetState::Polar1D:
         normalizedRadialDistance = orxVector_GetDistance(&GetPosition(), &_tileSetPos) / _tileSetRadius;
