@@ -284,7 +284,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
     {
         if (orxInput_HasBeenActivated("DimShift"))
         {
-            m_priorDoers.push({ this, false });
+            m_priorDoers.push({ { this, m_timeSpentShifting }, false });
             m_priorStates.push(m_state);
 
             if (Is2D())
@@ -306,7 +306,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("CoShift"))
         {
-            m_priorDoers.push({ this, false });
+            m_priorDoers.push({ { this, m_timeSpentShifting }, false });
             m_priorStates.push(m_state);
 
             if (IsCartesian())
@@ -387,56 +387,40 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         if (m_timeSpentShifting <= m_timeToShift)
         {
             ShiftTiles();
+
+            // HANDLE UNDOING
+            if (m_bIsUndoing)
+            {
+                // We want to undo and pop the top element of m_priorDoers if it was pushed due to shifting AND
+                // we're at the point in the shift at which the undo should occur.
+                if (m_priorDoers.top().second && m_priorDoers.top().first.second >= m_timeToShift - m_timeSpentShifting)
+                {
+                    m_priorDoers.top().first.first->Undo();
+                    m_priorDoers.pop();
+                }
+            }
         }
         else
         {
             TileSetShiftStatus nextShiftStatus;
 
-            /*if (NeedToShiftD1Tiles())
+            // We've already shifted to Polar2D, but we're in the process of filling out the tiles of a Polar1D visualization.
+            if (m_shiftStatus == TileSetShiftStatus::D1Tiles && m_state == TileSetState::Polar2D)
+            {
+                nextShiftStatus = TileSetShiftStatus::D2;
+            }
+            // We've already shifted to Polar1D, but we need to unfill the tiles of the Polar1D visualization.
+            else if (m_shiftStatus != TileSetShiftStatus::D1Tiles && m_state == TileSetState::Polar1D && m_priorState != TileSetState::Cartesian1D)
             {
                 nextShiftStatus = TileSetShiftStatus::D1Tiles;
             }
+            // We've fully completed all stages of whatever shift we've been performing.
             else
             {
                 nextShiftStatus = TileSetShiftStatus::None;
-            }*/
-            if (m_shiftStatus == TileSetShiftStatus::D1Tiles)
-            {
-                switch (m_state)
-                {
-                case TileSetState::Cartesian1D:
-                    nextShiftStatus = TileSetShiftStatus::None;
-                    break;
-                case TileSetState::Cartesian2D:
-                    nextShiftStatus = TileSetShiftStatus::None;
-                    break;
-                case TileSetState::Polar1D:
-                    nextShiftStatus = TileSetShiftStatus::None;
-                    break;
-                case TileSetState::Polar2D:
-                    nextShiftStatus = TileSetShiftStatus::D2;
-                    break;
-                }
-            }
-            else
-            {
-                switch (m_state)
-                {
-                case TileSetState::Cartesian1D:
-                    nextShiftStatus = TileSetShiftStatus::None;
-                    break;
-                case TileSetState::Cartesian2D:
-                    nextShiftStatus = TileSetShiftStatus::None;
-                    break;
-                case TileSetState::Polar1D:
-                    nextShiftStatus = m_priorState == TileSetState::Cartesian1D ? TileSetShiftStatus::None : TileSetShiftStatus::D1Tiles;
-                    break;
-                case TileSetState::Polar2D:
-                    nextShiftStatus = TileSetShiftStatus::None;
-                    break;
-                }
             }
 
+            // Ensure all Tiles and TileInhabitants are where they ought to be, come the end of the shift, and then shift.
             FinalizeTileAndInhabitantLerps();
             Shift(nextShiftStatus);
         }
@@ -457,14 +441,41 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             SetMemorySetToReconfigure(nullptr);
         }
     }
+    // HANDLE UNDOING OUTSIDE OF SHIFTING
+    if (m_bIsUndoing)
+    {
+        // Increment the time spent undoing.
+        m_shiftRelativeUndoTime += _rstInfo.fDT;
+        
+        if (m_shiftRelativeUndoTime < 0.0f)
+        {
+            // We want to undo and pop the top element of m_priorDoers if it was pushed due to shifting AND
+            // we're at the point in the shift at which the undo should occur.
+            if (m_priorDoers.top().second && m_priorDoers.top().first.second >= m_shiftRelativeUndoTime)
+            {
+                m_priorDoers.top().first.first->Undo();
+                m_priorDoers.pop();
+            }
+        }
+        // If m_shiftRelativeUndoTime >= 0.0f and m_shiftStatus == TileSetShiftStatus::None, we know that
+        // we need to call Undo() again to facilitate the Undo-style shifting of the TileSet.
+        else if (m_shiftStatus == TileSetShiftStatus::None)
+        {
+            Undo();
+        }
+    }
 }
 
 void TileSet::Undo()
 {
     if (!m_priorDoers.empty())
     {
-        if (m_priorDoers.top().first == this)
+        // The TileSet must undo its shift if we're explicitly undoing a shift OR if we're undoing an
+        // action which was caused by a shift, and which was completed before the instigating shift was.
+        if (m_priorDoers.top().first.first == this || (m_priorDoers.top().second && m_priorDoers.top().first.second <= m_timeToShift))
         {
+            m_bIsUndoing = true;
+
             if (!m_priorStates.empty())
             {
                 TileSetState priorState = m_priorStates.top();
@@ -511,27 +522,34 @@ void TileSet::Undo()
                     }
                     break;
                 }
+
+                // Pop m_priorStates, since we no longer need its top element at this point.
                 m_priorStates.pop();
             }
         }
         else
         {
-            MemorySet *memSet = dynamic_cast<MemorySet*>(m_priorDoers.top().first);
+            // We're undoing an action which was caused by a shift, but which was completed AFTER the instigating shift was.
+            if (m_priorDoers.top().second)
+            {
+                // Set m_bIsUndoing to true since we've started and undo process that will at some point include undoing a shift.
+                m_bIsUndoing = true;
+                // Set m_shiftRelativeUndoTime equal to m_timeToShift - [the original m_timeSpentShifting value when the original action was performed
+                // + the time taken to complete the original action].
+                m_shiftRelativeUndoTime = m_timeToShift - m_priorDoers.top().first.second;
+            }
+
+            MemorySet *memSet = dynamic_cast<MemorySet*>(m_priorDoers.top().first.first);
             if (memSet != nullptr)
             {
+                // If the topmost prior doer is a MemorySet, set m_bInvertReconfigure to true so its associated Tiles know to reverse their reconfigurations.
                 m_bInvertReconfigure = true;
                 SetMemorySetToReconfigure(memSet);
             }
-            m_priorDoers.top().first->Undo();
-        }
 
-        m_bPriorDoerActedDueToShifting = m_priorDoers.top().second;
-        m_priorDoers.pop();
-
-        // Undo until the action which set in motion all subsequent ones is undone.
-        if (m_bPriorDoerActedDueToShifting)
-        {
-            Undo();
+            // Call the topmost doer's Undo method, and pop it from the stack.
+            m_priorDoers.top().first.first->Undo();
+            m_priorDoers.pop();
         }
     }
 }
@@ -559,23 +577,52 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
 
 void TileSet::Shift(TileSetShiftStatus _shiftStatus)
 {
-    m_priorShiftStatus = m_shiftStatus;
-    m_priorState = m_state;
-    m_shiftStatus = _shiftStatus;
-
     if (_shiftStatus != TileSetShiftStatus::None)
     {
-        // Shifting again mid-shift.
+        // Shifting mid-shift.
         if (m_timeSpentShifting > 0.0f && m_timeSpentShifting < m_timeToShift)
         {
             m_timeSpentShifting = m_timeToShift - m_timeSpentShifting;
             FinalizeTileAndInhabitantLerps();
         }
+        // Shifting fresh.
         else
         {
             m_timeSpentShifting = 0.0f;
         }
     }
+    else
+    {
+        if (m_bIsUndoing)
+        {
+            // If the TileSet is undoing, a shift has been undone, so we pop the m_priorDoers stack, knowing that the
+            // top element will be the TileSet, and its no longer needed at this point, since the shift has finished.
+            m_priorDoers.pop();
+            // The TileSet is necessarily not undoing if it has been shifted to TileSetShiftStatus::None.
+            m_bIsUndoing = false;
+        }
+        else
+        {
+            // Ensure that TileInhabitants cohabitate upon the TileSet being shifted to TileSetShiftStatus::None,
+            // because the only other enforcement of this is in the Update method if m_shiftStatus != TileSetShiftStatus::None.
+            std::vector<ScrollObject*> tileInhabitants = Payload::GetInstance().GetTileInhabitants();
+            for (ScrollObject *tileInhabitant : tileInhabitants)
+            {
+                TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+                if (ti->IsCohabitable())
+                {
+                    ti->ExertInfluence();
+                    ti->Cohabitate(true);
+                }
+            }
+        }
+    }
+
+    // Set these values here (as opposed to the beginning of the method) so any potential cohabitation that may
+    // take place due to shifting will have the correct _dueToShifting value (since that depends on m_shiftStatus).
+    m_priorShiftStatus = m_shiftStatus;
+    m_priorState = m_state;
+    m_shiftStatus = _shiftStatus;
 
     switch (_shiftStatus)
     {
@@ -747,10 +794,14 @@ void TileSet::FinalizeTileAndInhabitantLerps()
     for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-        // Ensure TI completes its lerp such that its position is exactly the same as its target's.
-        ti->SetPosition(ti->m_target->GetPosition());
-        // Set the TileInhabitant's m_priorPos for future lerping TI-side.
-        ti->m_priorPos = ti->GetPosition();
+        // Only finalize TileInhabitants' lerps if they're not moving.
+        if (!ti->m_bIsMoving)
+        {
+            // Ensure TI completes its lerp such that its position is exactly the same as its target's.
+            ti->SetPosition(ti->m_target->GetPosition());
+            // Set the TileInhabitant's m_priorPos for future lerping TI-side.
+            ti->m_priorPos = ti->GetPosition();
+        }
     }
 }
 
@@ -771,18 +822,8 @@ const bool TileSet::IsCartesian()
 
 const bool TileSet::InputAllowed()
 {
-    // Only allow inputs if the player isn't moving, the TileSet isn't shifting, and m_memorySetToReconfigure is null.
-    return !m_payload->m_bIsMoving && m_shiftStatus == TileSetShiftStatus::None && m_memorySetToReconfigure == nullptr;
-}
-
-const bool TileSet::NeedToShiftD1Tiles()
-{
-    // We only need to D1-shift Tiles if a lerp has finished (m_timeSpentShifting > m_timeToShift),
-    // the TileSet is 1D (!Is2D()), the TileSet was previously 2D (PriorStateIs2D()), and the TileSet
-    // isn't currently D2-shifting Tiles (m_shiftStatus != TileSetShiftStatus::D1Tiles).
-    //return m_timeSpentShifting > m_timeToShift && !Is2D() && PriorStateIs2D() && m_shiftStatus != TileSetShiftStatus::D1Tiles;
-    bool priorStateWasDifferentDimension = (Is2D() && !PriorStateIs2D()) || (!Is2D() && PriorStateIs2D());
-    return m_timeSpentShifting > m_timeToShift && priorStateWasDifferentDimension && m_shiftStatus != TileSetShiftStatus::D1Tiles;
+    // Only allow inputs if the TileSet isn't undoing, the player isn't moving, the TileSet isn't shifting, and m_memorySetToReconfigure is null.
+    return !m_bIsUndoing && !m_payload->m_bIsMoving && m_shiftStatus == TileSetShiftStatus::None && m_memorySetToReconfigure == nullptr;
 }
 
 const int TileSet::GetUnitDistanceFromPolarAxis(const int &_col)

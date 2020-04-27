@@ -88,6 +88,8 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                 {
                     SpawnInfection();
                 }
+                // Set undoing to false at end of this block so the TileInhabitant won't cohabitate while undoing.
+                m_bIsUndoing = false;
             }
         }
         else if (m_bIsTeleporting)
@@ -105,6 +107,8 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
             {
                 SpawnInfection();
             }
+            // Set undoing to false at end of this block so the TileInhabitant won't cohabitate while undoing.
+            m_bIsUndoing = false;
         }
         else if (m_bIsSlipping)
         {
@@ -127,6 +131,7 @@ void TileInhabitant::Undo()
     // Only execute Undo if there are things to be undone.
     if (!m_priorTargetStack.empty())
     {
+        m_bIsUndoing = true;
         bool moveByTeleportation = m_priorTargetStack.top().second;
 
         if (moveByTeleportation)
@@ -190,7 +195,7 @@ void TileInhabitant::SetTarget(Tile *_target, const Direction _movementDirection
     if (!_undoing)
     {
         m_priorTargetStack.push({ m_target, false });
-        orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_SET_TARGET, this, Payload::GetInstance().GetTileSet(), nullptr);
+        orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_SET_TARGET, this, Payload::GetInstance().GetTileSet(), &m_timeToMove);
     }
     m_target = _target;
     m_bIsMoving = true;
@@ -201,8 +206,9 @@ void TileInhabitant::TeleportTo(Tile *_dest, const bool _undoing)
 {
     if (!_undoing)
     {
+        float timeToTeleport = 0.0f;
         m_priorTargetStack.push({ m_target, true });
-        orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_TELEPORT_TO, this, Payload::GetInstance().GetTileSet(), nullptr);
+        orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_TELEPORT_TO, this, Payload::GetInstance().GetTileSet(), &timeToTeleport);
     }
     m_target = _dest;
     m_bIsTeleporting = true;
@@ -232,7 +238,7 @@ void TileInhabitant::SpawnInfection()
 
 const bool TileInhabitant::IsCohabitable()
 {
-    return m_bIsMoving == false && m_bIsTeleporting == false && m_target->m_bIsMoving == false;
+    return !m_bIsUndoing && !m_bIsMoving && !m_bIsTeleporting && !m_target->m_bIsMoving;
 }
 
 const bool TileInhabitant::IsCohabitating(TileInhabitant *_other)
