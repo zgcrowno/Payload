@@ -38,6 +38,7 @@ void Protocol::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
     }
     else
     {
-        // TODO: Determine what to do if otherDest is null.
+        // TODO: I'll need to update this if I implement out-of-bounds Tiles that destroy their
+        // associated TileInhabitants.
     }
 }

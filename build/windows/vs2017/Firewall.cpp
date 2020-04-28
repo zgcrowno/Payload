@@ -32,22 +32,24 @@ void Firewall::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Firewall::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
-    _other->Die();
-
     // Ensure that in the event that two Firewalls cohabitate, both die.
     if (dynamic_cast<Firewall*>(_other) != nullptr)
     {
         Die();
     }
+
+    _other->Die();
 }
 
 void Firewall::ExertInfluence(TileInhabitant *_other)
 {
+    // Ensure that in the event that two Firewalls are in each other's purview, both die.
     Firewall *otherFirewall = dynamic_cast<Firewall*>(_other);
     if (otherFirewall != nullptr && otherFirewall->IsInPurview(this))
     {
         Die();
     }
+
     _other->Die();
 }
 

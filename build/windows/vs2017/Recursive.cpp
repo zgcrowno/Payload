@@ -34,8 +34,4 @@ void Recursive::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
     {
         _other->SlipTo(otherDest, _other->m_movementDirection);
     }
-    else
-    {
-        // TODO: Determine what to do if otherDest is null (probably nothing!).
-    }
 }

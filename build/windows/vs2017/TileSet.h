@@ -38,7 +38,6 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     private:
-        bool m_bPriorDoerActedDueToShifting;
         bool m_bInvertReconfigure;
         int m_square;
         int m_halfSquare;

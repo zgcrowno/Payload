@@ -54,6 +54,8 @@ namespace payload
         void SlipTo(Tile *_dest, const Direction _movementDirection);
         void Die();
         void SpawnInfection();
+        void HandleInfection();
+        // TODO: Maybe consolidate Cohabitate and ExertInfluence into one method?
         //! Called whenever the TileInhabitant interacts with another TileInhabitant on its Tile.
         void Cohabitate(const bool _dueToShifting);
         //! Called whenever the TileInhabitant interacts with another TileInhabitant on a Tile different from its own.

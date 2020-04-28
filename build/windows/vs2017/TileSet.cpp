@@ -7,6 +7,7 @@
 #include "Recursive.h"
 #include "Virus.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace payload;
 
@@ -518,6 +519,7 @@ void TileSet::Undo()
                     }
                     else
                     {
+                        std::cout << "something" << std::endl;
                         Shift(TileSetShiftStatus::D1Tiles);
                     }
                     break;
@@ -558,14 +560,16 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
 {
     if (_memSet == nullptr)
     {
+        // Finalize lerps since reconfiguration is complete.
         FinalizeTileAndInhabitantLerps();
+        // Clear m_memorySetToReconfigure's m_tiles since we're done with them.
         m_memorySetToReconfigure->m_tiles.clear();
     }
     else
     {
-        // Reset m_timeSpentReconfiguring.
+        // Reset m_timeSpentReconfiguring since we're starting a fresh reconfiguration.
         m_timeSpentReconfiguring = 0.0f;
-        // Push it on the stack and call its Reconfigure method only if we're not undoing a reconfiguration.
+        // Call its Reconfigure method only if we're not undoing a reconfiguration.
         if (!m_bInvertReconfigure)
         {
             _memSet->Reconfigure();
@@ -582,8 +586,23 @@ void TileSet::Shift(TileSetShiftStatus _shiftStatus)
         // Shifting mid-shift.
         if (m_timeSpentShifting > 0.0f && m_timeSpentShifting < m_timeToShift)
         {
+            // Set m_timeSpentShifting to its analogous time in a reversed shift.
             m_timeSpentShifting = m_timeToShift - m_timeSpentShifting;
-            FinalizeTileAndInhabitantLerps();
+            // Set all Tiles' prior values to their target values in order to accurately reverse the shift.
+            for (int i = 0; i < m_square; i++)
+            {
+                for (int j = 0; j < m_square; j++)
+                {
+                    // Grab the Tile at this row/column pair.
+                    Tile *tile = m_tileRows.at(i).at(j);
+                    // Set the Tile's m_priorParentSpacePos to its m_targetParentSpacePos to accurately reverse the shift.
+                    tile->m_priorParentSpacePos = tile->m_targetParentSpacePos;
+                    // Set the Tile's m_priorTileSetState to the TileSet's current state to accurately reverse the shift.
+                    tile->m_priorTileSetState = m_state;
+                    // Set the Tile's m_priorVisualScale to its m_targetVisualScale to accurately reverse the shift.
+                    tile->m_priorVisualScale = tile->m_targetVisualScale;
+                }
+            }
         }
         // Shifting fresh.
         else
@@ -619,11 +638,12 @@ void TileSet::Shift(TileSetShiftStatus _shiftStatus)
     }
 
     // Set these values here (as opposed to the beginning of the method) so any potential cohabitation that may
-    // take place due to shifting will have the correct _dueToShifting value (since that depends on m_shiftStatus).
+    // take place (above) due to shifting will have the correct _dueToShifting value (since that depends on m_shiftStatus).
     m_priorShiftStatus = m_shiftStatus;
     m_priorState = m_state;
     m_shiftStatus = _shiftStatus;
 
+    // Set m_state as appropriate.
     switch (_shiftStatus)
     {
     case TileSetShiftStatus::D1:
@@ -639,7 +659,6 @@ void TileSet::Shift(TileSetShiftStatus _shiftStatus)
         m_state = Is2D() ? TileSetState::Polar2D : TileSetState::Polar1D;
         break;
     case TileSetShiftStatus::D1Tiles:
-        //m_state = Is2D() && IsCartesian() ? TileSetState::Cartesian1D : m_state;
         switch (m_state)
         {
         case TileSetState::Cartesian1D:
@@ -649,7 +668,14 @@ void TileSet::Shift(TileSetShiftStatus _shiftStatus)
             m_state = TileSetState::Cartesian1D;
             break;
         case TileSetState::Polar1D:
-            m_state = m_priorShiftStatus == TileSetShiftStatus::None ? TileSetState::Polar2D : TileSetState::Polar1D;
+            if (m_priorShiftStatus == TileSetShiftStatus::None || m_priorShiftStatus == TileSetShiftStatus::D1Tiles)
+            {
+                m_state = TileSetState::Polar2D;
+            }
+            else
+            {
+                m_state = TileSetState::Polar1D;
+            }
             break;
         case TileSetState::Polar2D:
             m_state = TileSetState::Polar2D;
@@ -684,10 +710,12 @@ void TileSet::ShiftTiles()
     for (ScrollObject *tileInhabitant : tileInhabitants)
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        // Bind TileInhabitant to its target if their positions aren't equal and the former isn't moving.
         if (!orxVector_AreEqual(&ti->GetPosition(), &ti->m_target->GetPosition()) && !ti->m_bIsMoving)
         {
             ti->SetPosition(ti->m_target->GetPosition());
         }
+        // TileInhabitant exerts influence and cohabitates if it's cohabitatable.
         if (ti->IsCohabitable())
         {
             ti->ExertInfluence();
@@ -699,12 +727,16 @@ void TileSet::ShiftTiles()
 void TileSet::Reconfigure()
 {
     orxVECTOR mousePos = orxVECTOR_0;
+
+    // Pick MemorySet type depending on m_state.
     switch (m_state)
     {
     case TileSetState::Cartesian1D:
     {
+        // Pick the MemorySet.
         ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySetCartesian1D"));
         MemorySetCartesian1D *msc1d = dynamic_cast<MemorySetCartesian1D*>(memSet);
+        // It's the MemorySet we want if its row is the same as m_payload's.
         if (msc1d != nullptr && msc1d->m_row == m_payload->m_target->m_row)
         {
             SetMemorySetToReconfigure(msc1d);
@@ -713,6 +745,7 @@ void TileSet::Reconfigure()
     break;
     case TileSetState::Cartesian2D:
     {
+        // Pick the MemorySet.
         ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySetCartesian2D"));
         MemorySetCartesian2D *msc2d = dynamic_cast<MemorySetCartesian2D*>(memSet);
         if (msc2d != nullptr)
@@ -723,12 +756,15 @@ void TileSet::Reconfigure()
     break;
     case TileSetState::Polar1D:
     {
+        // Polarize the mouse cursor's position.
         orxVECTOR polarMousePos = CartesianToPolar(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), GetPosition());
+        // Ensure that the polarized mouse cursor position is never negative.
         float positivePolarMouseTheta = polarMousePos.fY < 0 ? orxMATH_KF_PI + (orxMATH_KF_PI - fabsf(polarMousePos.fY)) : polarMousePos.fY;
         for (MemorySetPolar1D *msp1d : m_memorySetsPolar1D)
         {
             bool inRadius = polarMousePos.fX >= msp1d->m_innerRadius && polarMousePos.fX < msp1d->m_outerRadius;
             bool inTheta = positivePolarMouseTheta >= msp1d->m_minTheta && positivePolarMouseTheta < msp1d->m_maxTheta;
+            // It's the MemorySet we want if the mouse cursor's radius and angle (polar coordinates) are within the former's radial and angular bounds.
             if (inRadius && inTheta)
             {
                 SetMemorySetToReconfigure(msp1d);
@@ -738,9 +774,11 @@ void TileSet::Reconfigure()
     break;
     case TileSetState::Polar2D:
     {
+        // Polarize the mouse cursor's position.
         orxVECTOR polarMousePos = CartesianToPolar(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), GetPosition());
         for (MemorySetPolar2D *msp2d : m_memorySetsPolar2D)
         {
+            // It's the MemorySet we want if the mouse cursor's radius (first polar coordinate) is within the former's radial bounds.
             if (polarMousePos.fX >= msp2d->m_innerRadius && polarMousePos.fX < msp2d->m_outerRadius)
             {
                 SetMemorySetToReconfigure(msp2d);

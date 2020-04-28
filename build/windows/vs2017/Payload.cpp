@@ -57,9 +57,6 @@ orxSTATUS Payload::Init()
     orxEvent_AddHandler(EVENT_TYPE_MEMORY_SET, EventHandler);
     // Instantiate game objects
     CreateObject("O-TileSet");
-    //CreateObject("O-PlayerPayload");
-    //CreateObject("O-Tile");
-    //CreateObject("O-SceneMain");
 
     return result;
 }
@@ -219,9 +216,16 @@ orxSTATUS orxFASTCALL Payload::EventHandler(const orxEVENT *_pstEvent)
 {
     if (_pstEvent->eType == EVENT_TYPE_TILE_INHABITANT || _pstEvent->eType == EVENT_TYPE_MEMORY_SET)
     {
-        float timeToExecuteAction = *static_cast<float*>(_pstEvent->pstPayload);
         TileSet *tileSet = static_cast<TileSet*>(_pstEvent->hRecipient);
-        tileSet->m_priorDoers.push({ { static_cast<Doer*>(_pstEvent->hSender), tileSet->m_timeSpentShifting + timeToExecuteAction }, tileSet->m_shiftStatus != TileSetShiftStatus::None });
+        if (_pstEvent->eType == EVENT_TYPE_TILE_INHABITANT)
+        {
+            float timeToExecuteAction = *static_cast<float*>(_pstEvent->pstPayload);
+            tileSet->m_priorDoers.push({ { static_cast<Doer*>(_pstEvent->hSender), tileSet->m_timeSpentShifting + timeToExecuteAction }, tileSet->m_shiftStatus != TileSetShiftStatus::None });
+        }
+        else
+        {
+            tileSet->m_priorDoers.push({ { static_cast<Doer*>(_pstEvent->hSender), 0.0f }, tileSet->m_shiftStatus != TileSetShiftStatus::None });
+        }
     }
 
     return orxSTATUS_SUCCESS;

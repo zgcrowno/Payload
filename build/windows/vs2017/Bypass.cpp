@@ -36,6 +36,12 @@ void Bypass::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
     }
     else
     {
-        // TODO: Determine what to do if otherDest is null.
+        // TODO: If I implement out-of-bounds Tiles that destroy their associated TileInhabitants,
+        // I'll need to change this behavior.
+        Tile *alternateOtherDest = m_target->GetTileInDirection(1, _other->m_movementDirection);
+        if (alternateOtherDest != nullptr)
+        {
+            _other->SetTarget(alternateOtherDest, _other->m_movementDirection);
+        }
     }
 }

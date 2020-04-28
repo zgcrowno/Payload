@@ -40,12 +40,15 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
         {
             // Increment the time spent moving.
             m_timeSpentMoving += _rstInfo.fDT;
+            // The amount by which the TileInhabitant is to move.
             float lerpWeight = m_timeSpentMoving / m_timeToMove;
 
-            if (m_timeSpentMoving < m_timeToMove)
+            if (m_timeSpentMoving <= m_timeToMove)
             {
                 orxVECTOR pos;
 
+                // Whether the TileInhabitant's moving linearly or rotationally is dependent upon whether the TileSet is
+                // in a Cartesian or polar coordinate system.
                 if (m_target->m_bCartesian)
                 {
                     orxVector_Lerp(&pos, &m_priorPos, &m_target->GetPosition(), lerpWeight);
@@ -71,45 +74,29 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                 m_timeSpentMoving = 0.0f;
                 SetPosition(m_target->GetPosition());
                 m_priorPos = GetPosition();
-                // Cohabitation and purview action.
+                // Cohabitation and ExertInfluence actions.
                 for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
                 {
                     TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
                     ti->Cohabitate(false);
                     ti->ExertInfluence();
                 }
-                // If the TileInhabitant's infected, it must spawn an infection after each movement.
-                if (m_bJustInfected)
-                {
-                    m_bIsInfected = true;
-                    m_bJustInfected = false;
-                }
-                else if (m_bIsInfected)
-                {
-                    SpawnInfection();
-                }
+                HandleInfection();
                 // Set undoing to false at end of this block so the TileInhabitant won't cohabitate while undoing.
                 m_bIsUndoing = false;
             }
         }
+        // TARGET TELEPORTATION
         else if (m_bIsTeleporting)
         {
             m_bIsTeleporting = false;
             SetPosition(m_target->GetPosition());
             m_priorPos = GetPosition();
-            // If the TileInhabitant's infected, it must spawn an infection after each teleportation.
-            if (m_bJustInfected)
-            {
-                m_bIsInfected = true;
-                m_bJustInfected = false;
-            }
-            else if (m_bIsInfected)
-            {
-                SpawnInfection();
-            }
+            HandleInfection();
             // Set undoing to false at end of this block so the TileInhabitant won't cohabitate while undoing.
             m_bIsUndoing = false;
         }
+        // HANDLE SLIPPING
         else if (m_bIsSlipping)
         {
             Tile *adjacentTileInMovementDirection = m_target->GetTileInDirection(1, m_movementDirection);
@@ -154,7 +141,7 @@ void TileInhabitant::Cohabitate(const bool _dueToShifting)
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
         if (IsCohabitating(ti))
         {
-            // Only execute Cohabitate behavior if the interacting TileInhabitant has a lower precedence and the cohabitation is not due to shifting.
+            // Only execute Cohabitate behavior if the interacting TileInhabitant has a lower precedence.
             if (ti->m_precedence < m_precedence)
             {
                 Cohabitate(ti, _dueToShifting);
@@ -173,6 +160,7 @@ void TileInhabitant::ExertInfluence()
     for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        // Only execute ExertInfluence behavior if the interacting TileInhabitant is in this TileInhabitant's purview.
         if (IsInPurview(ti))
         {
             ExertInfluence(ti);
@@ -192,9 +180,12 @@ const bool TileInhabitant::IsInPurview(TileInhabitant *_other)
 
 void TileInhabitant::SetTarget(Tile *_target, const Direction _movementDirection, const bool _undoing)
 {
+    // Send an event if the TileInhabitant isn't undoing. This event will be picked up by the TileSet
+    // and used to fill out its prior Doers stack.
     if (!_undoing)
     {
         m_priorTargetStack.push({ m_target, false });
+        // Movement time is the event's payload.
         orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_SET_TARGET, this, Payload::GetInstance().GetTileSet(), &m_timeToMove);
     }
     m_target = _target;
@@ -204,10 +195,13 @@ void TileInhabitant::SetTarget(Tile *_target, const Direction _movementDirection
 
 void TileInhabitant::TeleportTo(Tile *_dest, const bool _undoing)
 {
+    // Send an event if the TileInhabitant isn't undoing. This event will be picked up by the TileSet
+    // and used to fill out its prior Doers stack.
     if (!_undoing)
     {
         float timeToTeleport = 0.0f;
         m_priorTargetStack.push({ m_target, true });
+        // Teleportation time is the event's payload.
         orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_TELEPORT_TO, this, Payload::GetInstance().GetTileSet(), &timeToTeleport);
     }
     m_target = _dest;
@@ -234,6 +228,23 @@ void TileInhabitant::SpawnInfection()
     infection->SetPosition(m_target->GetPosition());
     infection->m_priorPos = m_target->GetPosition();
     infection->m_tileSetPos = tileSet->GetPosition();
+}
+
+void TileInhabitant::HandleInfection()
+{
+    // If the TileInhabitant's was infected on its last turn, we ACTUALLY infect it now so as
+    // to prevent the spawning of infections on the tile which infected the TileInhabitant
+    // in the first place.
+    if (m_bJustInfected)
+    {
+        m_bIsInfected = true;
+        m_bJustInfected = false;
+    }
+    // If the TileInhabitant's infected, it must spawn an infection after each movement.
+    else if (m_bIsInfected)
+    {
+        SpawnInfection();
+    }
 }
 
 const bool TileInhabitant::IsCohabitable()

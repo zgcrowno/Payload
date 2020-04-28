@@ -33,8 +33,4 @@ void Proxy::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
     {
         _other->TeleportTo(m_counterpart->m_target);
     }
-    else
-    {
-        // TODO: Determine what to do if m_counterpart is null.
-    }
 }

@@ -370,8 +370,7 @@ void Tile::Reconfigure(
     const orxVECTOR &_memorySetPos,
     const bool _undoing)
 {
-    orxVECTOR polarPos = CartesianToPolar(GetPosition(), _memorySetPos);
-    float thetaDest = _undoing ? m_priorMemSetTheta + orxMATH_KF_PI : m_priorMemSetTheta - orxMATH_KF_PI;
+    // Set the Tile's m_targetParentSpacePos depending on the TileSet's state.
     switch (*m_state)
     {
     case TileSetState::Cartesian1D:
@@ -387,8 +386,15 @@ void Tile::Reconfigure(
         m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
         break;
     }
+    // Set direction of thetaDest depending on _undoing.
+    float thetaDest = _undoing ? m_priorMemSetTheta + orxMATH_KF_PI : m_priorMemSetTheta - orxMATH_KF_PI;
+    // Lerp the angle.
     float theta = orxLERP(m_priorMemSetTheta, thetaDest, _lerpWeight);
+    // The Tile's polar coordinates relative to the MemorySet of which it's a part, and which is being reconfigured.
+    orxVECTOR polarPos = CartesianToPolar(GetPosition(), _memorySetPos);
+    // The Tile is moving if its lerp is unfinished.
     m_bIsMoving = _lerpWeight < 1.0f;
+    // Set polar position of Tile, since all reconfiguration movement consists of rotation.
     SetPolarPosition(_memorySetPos, polarPos.fX, theta);
 }
 
@@ -716,6 +722,7 @@ const orxVECTOR Tile::CalculateVisualScale(
     float normalizedWidth;
     float normalizedHeight;
 
+    // TODO: Make sure Polar1D and Polar2D visual scale calculations are doing what we want (they're probably not).
     switch (_stateToScaleTo)
     {
     case TileSetState::Polar1D:
