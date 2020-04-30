@@ -101,7 +101,15 @@ void Payload::Exit()
 const int Payload::GetPayloadRow()
 {
     PlayerPayload *payload = GetNextObject<PlayerPayload>();
-    return payload->m_target->m_row;
+    if (payload->m_target == nullptr)
+    {
+        // If the payload's target is null, we want to use its last associated row.
+        return payload->m_priorTargetStack.top().first->m_row;
+    }
+    else
+    {
+        return payload->m_target->m_row;
+    }
 }
 
 ScrollObject *Payload::GetTileSet()

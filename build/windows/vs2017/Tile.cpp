@@ -103,6 +103,8 @@ void Tile::SetUp(
     m_row = _row;
     m_col = _col;
     m_state = &_tileSetState;
+    m_tileSetRadius = _tileSetRadius;
+    m_tileSetPos = _tileSetPos;
     m_tileSetTileRows = &_tileSetTileRows;
 
     // Is the TileSet 2D?
@@ -396,6 +398,142 @@ void Tile::Reconfigure(
     m_bIsMoving = _lerpWeight < 1.0f;
     // Set polar position of Tile, since all reconfiguration movement consists of rotation.
     SetPolarPosition(_memorySetPos, polarPos.fX, theta);
+}
+
+const orxVECTOR Tile::GetPositionInDirection(const int &_distance, const Direction &_direction)
+{
+    int square = m_tileSetTileRows->size();
+    int halfSquare = square / 2;
+    orxVECTOR pos = GetPosition();
+    orxVECTOR polarPos = CartesianToPolar(GetPosition(), m_tileSetPos);
+    orxVECTOR retVal = orxVECTOR_0;
+
+    float xDist;
+    float yDist;
+    float radialWidth;
+    orxVECTOR positionToLeft;
+    orxVECTOR positionToRight;
+    orxVECTOR tileSize;
+
+    switch (_direction)
+    {
+    case Direction::Left:
+    {
+        switch (*m_state)
+        {
+        case TileSetState::Cartesian1D:
+        case TileSetState::Cartesian2D:
+            if (m_col >= _distance)
+            {
+                retVal = GetTileInDirection(_distance, _direction)->GetPosition();
+            }
+            else
+            {
+                positionToRight = GetTileInDirection(_distance, Direction::Right)->GetPosition();
+                xDist = fabsf(pos.fX - positionToRight.fX);
+                yDist = fabsf(pos.fY - positionToRight.fY);
+                retVal = { pos.fX - xDist, pos.fY - yDist };
+            }
+            break;
+        case TileSetState::Polar1D:
+            retVal = GetTileInDirection(_distance, _direction)->GetPosition();
+            break;
+        case TileSetState::Polar2D:
+            retVal = GetTileInDirection(_distance, _direction)->GetPosition();
+            break;
+        }
+    }
+        break;
+    case Direction::Right:
+    {
+        switch (*m_state)
+        {
+        case TileSetState::Cartesian1D:
+        case TileSetState::Cartesian2D:
+            if (m_col < square - _distance)
+            {
+                retVal = GetTileInDirection(_distance, _direction)->GetPosition();
+            }
+            else
+            {
+                positionToLeft = GetTileInDirection(_distance, Direction::Left)->GetPosition();
+                xDist = fabsf(pos.fX - positionToLeft.fX);
+                yDist = fabsf(pos.fY - positionToLeft.fY);
+                retVal = { pos.fX + xDist, pos.fY + yDist };
+            }
+            break;
+        case TileSetState::Polar1D:
+            retVal = GetTileInDirection(_distance, _direction)->GetPosition();
+            break;
+        case TileSetState::Polar2D:
+            retVal = GetTileInDirection(_distance, _direction)->GetPosition();
+            break;
+        }
+    }
+        break;
+    case Direction::Up:
+    {
+        switch (*m_state)
+        {
+        case TileSetState::Cartesian1D:
+        case TileSetState::Cartesian2D:
+            if (m_col >= _distance)
+            {
+                positionToLeft = GetTileInDirection(_distance, Direction::Left)->GetPosition();
+                tileSize = { pos.fX - positionToLeft.fX, pos.fX - positionToLeft.fX };
+            }
+            else
+            {
+                positionToRight = GetTileInDirection(_distance, Direction::Right)->GetPosition();
+                tileSize = { positionToRight.fX - pos.fX, positionToRight.fX - pos.fX };
+            }
+
+            retVal = { pos.fX, pos.fY - (_distance * tileSize.fY) };
+            break;
+        case TileSetState::Polar1D:
+            radialWidth = m_tileSetRadius / square;
+            retVal = PolarToCartesian(polarPos.fX + radialWidth, polarPos.fY, m_tileSetPos);
+            break;
+        case TileSetState::Polar2D:
+            radialWidth = m_tileSetRadius / halfSquare;
+            retVal = PolarToCartesian(polarPos.fX + radialWidth, polarPos.fY, m_tileSetPos);
+            break;
+        }
+    }
+        break;
+    case Direction::Down:
+    {
+        switch (*m_state)
+        {
+        case TileSetState::Cartesian1D:
+        case TileSetState::Cartesian2D:
+            if (m_col >= _distance)
+            {
+                positionToLeft = GetTileInDirection(_distance, Direction::Left)->GetPosition();
+                tileSize = { pos.fX - positionToLeft.fX, pos.fX - positionToLeft.fX };
+            }
+            else
+            {
+                positionToRight = GetTileInDirection(_distance, Direction::Right)->GetPosition();
+                tileSize = { positionToRight.fX - pos.fX, positionToRight.fX - pos.fX };
+            }
+
+            retVal = { pos.fX, pos.fY + (_distance * tileSize.fY) };
+            break;
+        case TileSetState::Polar1D:
+            radialWidth = m_tileSetRadius / square;
+            retVal = PolarToCartesian(polarPos.fX - radialWidth, polarPos.fY, m_tileSetPos);
+            break;
+        case TileSetState::Polar2D:
+            radialWidth = m_tileSetRadius / halfSquare;
+            retVal = PolarToCartesian(polarPos.fX - radialWidth, polarPos.fY, m_tileSetPos);
+            break;
+        }
+    }
+        break;
+    }
+
+    return retVal;
 }
 
 Tile *Tile::GetTileInDirection(const int &_distance, const Direction &_direction)

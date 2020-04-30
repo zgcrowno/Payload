@@ -32,13 +32,5 @@ void Protocol::Update(const orxCLOCK_INFO &_rstInfo)
 void Protocol::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
     Tile *otherDest = _other->m_target->GetTileInDirection(1, m_direction);
-    if (otherDest != nullptr)
-    {
-        _other->SetTarget(otherDest, m_direction);
-    }
-    else
-    {
-        // TODO: I'll need to update this if I implement out-of-bounds Tiles that destroy their
-        // associated TileInhabitants.
-    }
+    _other->SetTarget(otherDest, 1, m_direction);
 }

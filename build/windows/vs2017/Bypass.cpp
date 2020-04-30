@@ -30,18 +30,5 @@ void Bypass::Update(const orxCLOCK_INFO &_rstInfo)
 void Bypass::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
     Tile *otherDest = m_target->GetTileInDirection(2, _other->m_movementDirection);
-    if (otherDest != nullptr)
-    {
-        _other->SetTarget(otherDest, _other->m_movementDirection);
-    }
-    else
-    {
-        // TODO: If I implement out-of-bounds Tiles that destroy their associated TileInhabitants,
-        // I'll need to change this behavior.
-        Tile *alternateOtherDest = m_target->GetTileInDirection(1, _other->m_movementDirection);
-        if (alternateOtherDest != nullptr)
-        {
-            _other->SetTarget(alternateOtherDest, _other->m_movementDirection);
-        }
-    }
+    _other->SetTarget(otherDest, 2, _other->m_movementDirection);
 }

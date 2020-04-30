@@ -28,6 +28,7 @@ namespace payload
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
         int m_precedence;
+        int m_movementUnitDistance;
         bool m_bIsMoving;
         bool m_bIsTeleporting;
         bool m_bIsSlipping;
@@ -49,7 +50,7 @@ namespace payload
         virtual void ExertInfluence(TileInhabitant *_other);
         virtual const bool IsInPurview(TileInhabitant *_other);
 
-        void SetTarget(Tile *_target, const Direction _movementDirection, const bool _undoing = false);
+        void SetTarget(Tile *_target, const int _movementUnitDistance, const Direction _movementDirection, const bool _undoing = false);
         void TeleportTo(Tile *_dest, const bool _undoing = false);
         void SlipTo(Tile *_dest, const Direction _movementDirection);
         void Die();

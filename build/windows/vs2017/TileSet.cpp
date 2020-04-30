@@ -325,7 +325,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *tileToRight = m_payload->m_target->GetTileInDirection(1, Direction::Right);
             if (tileToRight != nullptr)
             {
-                m_payload->SetTarget(tileToRight, Direction::Right);
+                m_payload->SetTarget(tileToRight, 1, Direction::Right);
             }
         }
         else if (orxInput_HasBeenActivated("MoveUp"))
@@ -333,7 +333,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *tileAbove = m_payload->m_target->GetTileInDirection(1, Direction::Up);
             if (tileAbove != nullptr)
             {
-                m_payload->SetTarget(tileAbove, Direction::Up);
+                m_payload->SetTarget(tileAbove, 1, Direction::Up);
             }
         }
         else if (orxInput_HasBeenActivated("MoveDown"))
@@ -341,7 +341,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *tileBelow = m_payload->m_target->GetTileInDirection(1, Direction::Down);
             if (tileBelow != nullptr)
             {
-                m_payload->SetTarget(tileBelow, Direction::Down);
+                m_payload->SetTarget(tileBelow, 1, Direction::Down);
             }
         }
         else if (orxInput_HasBeenActivated("MoveLeft"))
@@ -349,7 +349,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *tileToLeft = m_payload->m_target->GetTileInDirection(1, Direction::Left);
             if (tileToLeft != nullptr)
             {
-                m_payload->SetTarget(tileToLeft, Direction::Left);
+                m_payload->SetTarget(tileToLeft, 1, Direction::Left);
             }
         }
         else if (orxInput_HasBeenActivated("MemRight"))

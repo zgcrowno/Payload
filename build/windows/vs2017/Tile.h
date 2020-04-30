@@ -30,6 +30,7 @@ namespace payload
         int m_row;
         int m_col;
         float m_priorMemSetTheta;
+        float m_tileSetRadius;
         TileSetState *m_state;
         TileSetState m_priorTileSetState;
         orxVECTOR m_priorParentSpacePos;
@@ -37,6 +38,7 @@ namespace payload
         orxVECTOR m_priorVisualScale;
         orxVECTOR m_targetVisualScale;
         orxVECTOR m_visualScale;
+        orxVECTOR m_tileSetPos;
         std::vector<std::vector<Tile*>> *m_tileSetTileRows;
 
         static const orxVECTOR GetGridRelativeCartesianPosition(
@@ -83,6 +85,7 @@ namespace payload
             const float &_normalizedTileSize,
             const orxVECTOR &_memorySetPos,
             const bool _undoing);
+        const orxVECTOR GetPositionInDirection(const int &_distance, const Direction &_direction);
         Tile *GetTileInDirection(const int &_distance, const Direction &_direction);
         const orxVECTOR CalculateVisualScale(
             const int &_square,

@@ -70,6 +70,7 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
             }
             else
             {
+                // Destination has been reached.
                 m_bIsMoving = false;
                 m_timeSpentMoving = 0.0f;
                 SetPosition(m_target->GetPosition());
@@ -102,11 +103,45 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
             Tile *adjacentTileInMovementDirection = m_target->GetTileInDirection(1, m_movementDirection);
             if (adjacentTileInMovementDirection != nullptr)
             {
-                SetTarget(adjacentTileInMovementDirection, m_movementDirection);
+                SetTarget(adjacentTileInMovementDirection, 1, m_movementDirection);
             }
             else
             {
                 m_bIsSlipping = false;
+            }
+        }
+    }
+    else
+    {
+        // The TileInhabitant has been assigned a null target, which means that it will move
+        // out of the TileSet to its death.
+        if (m_bIsMoving)
+        {
+            // Increment the time spent moving.
+            m_timeSpentMoving += _rstInfo.fDT;
+            // The amount by which the TileInhabitant is to move.
+            float lerpWeight = m_timeSpentMoving / m_timeToMove;
+            // The target from which the TileInhabitant is moving.
+            Tile *priorTarget = m_priorTargetStack.top().first;
+            // The position to which the TileInhabitant is moving.
+            orxVECTOR targetPos = priorTarget->GetPositionInDirection(m_movementUnitDistance, m_movementDirection);
+
+            if (m_timeSpentMoving <= m_timeToMove)
+            {
+                orxVECTOR pos;
+
+                orxVector_Lerp(&pos, &m_priorPos, &targetPos, lerpWeight);
+                SetPosition(pos);
+            }
+            else
+            {
+                // Destination has been reached.
+                m_bIsMoving = false;
+                m_timeSpentMoving = 0.0f;
+                SetPosition(targetPos);
+                m_priorPos = GetPosition();
+                // The TileInhabitant necessarily dies if it lands on a non-Tile.
+                Die();
             }
         }
     }
@@ -127,7 +162,7 @@ void TileInhabitant::Undo()
         }
         else
         {
-            SetTarget(m_priorTargetStack.top().first, m_movementDirection, true);
+            SetTarget(m_priorTargetStack.top().first, m_movementUnitDistance, m_movementDirection, true);
         }
 
         m_priorTargetStack.pop();
@@ -178,7 +213,7 @@ const bool TileInhabitant::IsInPurview(TileInhabitant *_other)
     return false;
 }
 
-void TileInhabitant::SetTarget(Tile *_target, const Direction _movementDirection, const bool _undoing)
+void TileInhabitant::SetTarget(Tile *_target, const int _movementUnitDistance, const Direction _movementDirection, const bool _undoing)
 {
     // Send an event if the TileInhabitant isn't undoing. This event will be picked up by the TileSet
     // and used to fill out its prior Doers stack.
@@ -190,6 +225,7 @@ void TileInhabitant::SetTarget(Tile *_target, const Direction _movementDirection
     }
     m_target = _target;
     m_bIsMoving = true;
+    m_movementUnitDistance = _movementUnitDistance;
     m_movementDirection = _movementDirection;
 }
 
@@ -210,7 +246,7 @@ void TileInhabitant::TeleportTo(Tile *_dest, const bool _undoing)
 
 void TileInhabitant::SlipTo(Tile *_dest, const Direction _movementDirection)
 {
-    SetTarget(_dest, m_movementDirection);
+    SetTarget(_dest, 1, m_movementDirection);
     m_bIsSlipping = true;
 }
 
@@ -254,8 +290,16 @@ const bool TileInhabitant::IsCohabitable()
 
 const bool TileInhabitant::IsCohabitating(TileInhabitant *_other)
 {
-    return
-        m_target->m_b2D ?
-        _other != this && _other->m_target->m_row == m_target->m_row && _other->m_target->m_col == m_target->m_col && _other->IsCohabitable() :
-        _other != this && _other->m_target->m_col == m_target->m_col && _other->IsCohabitable();
+    if (m_target == nullptr || _other->m_target == nullptr)
+    {
+        // If the TileInhabitant's or _other's target is null, one of them is either dead or on its way to death, so it's not cohabitating with anything.
+        return false;
+    }
+    else
+    {
+        return
+            m_target->m_b2D ?
+            _other != this && _other->m_target->m_row == m_target->m_row && _other->m_target->m_col == m_target->m_col && _other->IsCohabitable() :
+            _other != this && _other->m_target->m_col == m_target->m_col && _other->IsCohabitable();
+    }
 }
