@@ -29,11 +29,13 @@ namespace payload
     public:
         int m_precedence;
         int m_movementUnitDistance;
+        bool m_bIsAMover;
         bool m_bIsMoving;
         bool m_bIsTeleporting;
         bool m_bIsSlipping;
         bool m_bIsInfected;
         bool m_bJustInfected;
+        bool m_bIsCaughtInLoop;
         float m_timeToMove;
         float m_timeSpentMoving;
         float m_tileRatio;
@@ -44,6 +46,9 @@ namespace payload
         // A stack of pairs of Tiles and whether or not those Tiles were reached via teleportation or
         // standard movement (if the second pair element is true, then the Tile was reached via teleportation).
         std::stack<std::pair<Tile*, bool>> m_priorTargetStack;
+        // A vector containing either no Tiles if the TileInhabitant isn't moving, or all of the unique Tiles it's
+        // traversed since it began moving.
+        std::vector<Tile*> m_tilesTraversedThisMovement;
 
         virtual void Undo();
         virtual void Cohabitate(TileInhabitant *_other, const bool _dueToShifting) = 0;
@@ -63,5 +68,7 @@ namespace payload
         void ExertInfluence();
         const bool IsCohabitable();
         const bool IsCohabitating(TileInhabitant *_other);
+        const int GetRow() const;
+        const int GetCol() const;
     };
 }

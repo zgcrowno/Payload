@@ -122,7 +122,7 @@ void Tile::SetUp(
         m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, _tileSetState);
         m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
@@ -132,7 +132,7 @@ void Tile::SetUp(
         m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, _tileSetState);
         m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
@@ -142,7 +142,7 @@ void Tile::SetUp(
         m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, _tileSetState);
         m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
@@ -152,7 +152,7 @@ void Tile::SetUp(
         m_targetParentSpacePos = SquareToCircle(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
-        m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, _tileSetState);
+        m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _normalizedTileSize, _tileSetState);
         m_visualScale = m_targetVisualScale;
         m_priorVisualScale = m_visualScale;
         break;
@@ -163,12 +163,10 @@ void Tile::SetUp(
 void Tile::Shift(
     const int &_square,
     const int &_greatest1DUnitDistanceOfPayloadRowFromThreshold,
-    const float &_tileSetRadius,
     const float &_normalizedTileSize,
     const float &_normalizedBorderSize,
     const float &_lerpWeight,
     const int &_payloadRow,
-    const orxVECTOR &_tileSetPos,
     const TileSetShiftStatus &_tileSetShiftStatus)
 {
     m_bCartesian = *m_state == TileSetState::Cartesian1D || *m_state == TileSetState::Cartesian2D;
@@ -213,7 +211,7 @@ void Tile::Shift(
                 SetParentSpacePosition(parentSpacePos);
                 // Visual scale.
                 orxVECTOR visualScale;
-                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, *m_state);
                 orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
                 m_visualScale = visualScale;
                 break;
@@ -227,7 +225,7 @@ void Tile::Shift(
                 SetParentSpacePosition(parentSpacePos);
                 // Visual scale.
                 orxVECTOR visualScale;
-                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, TileSetState::Polar1D);
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, TileSetState::Polar1D);
                 orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
                 m_visualScale = visualScale;
             }
@@ -246,7 +244,7 @@ void Tile::Shift(
                 SetParentSpacePosition(parentSpacePos);
                 // Visual scale.
                 orxVECTOR visualScale;
-                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, *m_state);
                 orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
                 m_visualScale = visualScale;
                 break;
@@ -260,7 +258,7 @@ void Tile::Shift(
                 SetParentSpacePosition(parentSpacePos);
                 // Visual scale.
                 orxVECTOR visualScale;
-                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, *m_state);
                 orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
                 m_visualScale = visualScale;
                 break;
@@ -274,7 +272,7 @@ void Tile::Shift(
                 SetParentSpacePosition(parentSpacePos);
                 // Visual scale.
                 orxVECTOR visualScale;
-                m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, *m_state);
                 orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
                 m_visualScale = visualScale;
                 break;
@@ -291,7 +289,7 @@ void Tile::Shift(
                 SetParentSpacePosition(parentSpacePos);
                 // Visual scale.
                 orxVECTOR visualScale;
-                m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+                m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _normalizedTileSize, *m_state);
                 orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, lerpWeight);
                 m_visualScale = visualScale;
             }
@@ -314,7 +312,7 @@ void Tile::Shift(
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
             orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, *m_state);
             orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
             m_visualScale = visualScale;
             break;
@@ -328,7 +326,7 @@ void Tile::Shift(
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
             orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, *m_state);
             orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
             m_visualScale = visualScale;
             break;
@@ -342,7 +340,7 @@ void Tile::Shift(
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
             orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, _square, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+            m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, *m_state);
             orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
             m_visualScale = visualScale;
             break;
@@ -356,7 +354,7 @@ void Tile::Shift(
             SetParentSpacePosition(parentSpacePos);
             // Visual scale.
             orxVECTOR visualScale;
-            m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _tileSetRadius, _normalizedTileSize, _tileSetPos, *m_state);
+            m_targetVisualScale = CalculateVisualScale(_square, tilesInPolarRow, _normalizedTileSize, *m_state);
             orxVector_Lerp(&visualScale, &m_priorVisualScale, &m_targetVisualScale, _lerpWeight);
             m_visualScale = visualScale;
         }
@@ -757,51 +755,6 @@ Tile *Tile::GetTileInDirection(const int &_distance, const Direction &_direction
                 {
                     if (m_row >= halfSquare)
                     {
-                        return m_tileSetTileRows->at(m_row - 1).at(m_col - 1);
-                    }
-                    else
-                    {
-                        return m_tileSetTileRows->at(m_row + 1).at(m_col - 1);
-                    }
-                }
-                else
-                {
-                    if (m_row >= halfSquare)
-                    {
-                        return m_tileSetTileRows->at(m_row - 1).at(m_col + 1);
-                    }
-                    else
-                    {
-                        return m_tileSetTileRows->at(m_row + 1).at(m_col + 1);
-                    }
-                }
-            }
-            else
-            {
-                Tile *adjacentTile = GetTileInDirection(1, _direction);
-                return adjacentTile != nullptr ? GetTileInDirection(1, _direction)->GetTileInDirection(_distance - 1, _direction) : nullptr;
-            }
-            break;
-        }
-    }
-        break;
-    case Direction::Down:
-    {
-        switch (*m_state)
-        {
-        case TileSetState::Cartesian2D:
-            if (m_row < square - _distance)
-            {
-                return m_tileSetTileRows->at(m_row + _distance).at(m_col);
-            }
-            break;
-        case TileSetState::Polar2D:
-            if (_distance == 1)
-            {
-                if (m_col >= halfSquare)
-                {
-                    if (m_row >= halfSquare)
-                    {
                         if (m_row < square - 1 && m_col < square - 1)
                         {
                             return m_tileSetTileRows->at(m_row + 1).at(m_col + 1);
@@ -842,6 +795,51 @@ Tile *Tile::GetTileInDirection(const int &_distance, const Direction &_direction
         }
     }
         break;
+    case Direction::Down:
+    {
+        switch (*m_state)
+        {
+        case TileSetState::Cartesian2D:
+            if (m_row < square - _distance)
+            {
+                return m_tileSetTileRows->at(m_row + _distance).at(m_col);
+            }
+            break;
+        case TileSetState::Polar2D:
+            if (_distance == 1)
+            {
+                if (m_col >= halfSquare)
+                {
+                    if (m_row >= halfSquare)
+                    {
+                        return m_tileSetTileRows->at(m_row - 1).at(m_col - 1);
+                    }
+                    else
+                    {
+                        return m_tileSetTileRows->at(m_row + 1).at(m_col - 1);
+                    }
+                }
+                else
+                {
+                    if (m_row >= halfSquare)
+                    {
+                        return m_tileSetTileRows->at(m_row - 1).at(m_col + 1);
+                    }
+                    else
+                    {
+                        return m_tileSetTileRows->at(m_row + 1).at(m_col + 1);
+                    }
+                }
+            }
+            else
+            {
+                Tile *adjacentTile = GetTileInDirection(1, _direction);
+                return adjacentTile != nullptr ? GetTileInDirection(1, _direction)->GetTileInDirection(_distance - 1, _direction) : nullptr;
+            }
+            break;
+        }
+    }
+        break;
     }
 
     return nullptr;
@@ -850,9 +848,7 @@ Tile *Tile::GetTileInDirection(const int &_distance, const Direction &_direction
 const orxVECTOR Tile::CalculateVisualScale(
     const int &_square,
     const int &_tilesInRow,
-    const float &_tileSetRadius,
     const float &_normalizedTileSize,
-    const orxVECTOR &_tileSetPos,
     const TileSetState &_stateToScaleTo)
 {
     float normalizedRadialDistance;
@@ -864,16 +860,16 @@ const orxVECTOR Tile::CalculateVisualScale(
     switch (_stateToScaleTo)
     {
     case TileSetState::Polar1D:
-        normalizedRadialDistance = orxVector_GetDistance(&GetPosition(), &_tileSetPos) / _tileSetRadius;
+        normalizedRadialDistance = orxVector_GetDistance(&GetPosition(), &m_tileSetPos) / m_tileSetRadius;
         normalizedCircumference = 2.0f * orxMATH_KF_PI * normalizedRadialDistance;
         normalizedWidth = normalizedCircumference / _tilesInRow;
-        normalizedHeight = (_tileSetRadius / _tilesInRow) / _tileSetRadius;
+        normalizedHeight = (m_tileSetRadius / _tilesInRow) / m_tileSetRadius;
         break;
     case TileSetState::Polar2D:
-        normalizedRadialDistance = orxVector_GetDistance(&GetPosition(), &_tileSetPos) / _tileSetRadius;
+        normalizedRadialDistance = orxVector_GetDistance(&GetPosition(), &m_tileSetPos) / m_tileSetRadius;
         normalizedCircumference = 2.0f * orxMATH_KF_PI * normalizedRadialDistance;
         normalizedWidth = normalizedCircumference / _tilesInRow;
-        normalizedHeight = _tileSetRadius / (_square / 2.0f) / _tileSetRadius;
+        normalizedHeight = m_tileSetRadius / (_square / 2.0f) / m_tileSetRadius;
         break;
     default:
         normalizedWidth = _normalizedTileSize * 2.0f;

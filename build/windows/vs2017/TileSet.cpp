@@ -7,7 +7,6 @@
 #include "Recursive.h"
 #include "Virus.h"
 #include <algorithm>
-#include <iostream>
 
 using namespace payload;
 
@@ -68,7 +67,7 @@ void TileSet::OnCreate()
             // The Tile at this row/column pair.
             Tile *tile = m_tileRows.at(i).at(j);
             // Perform initial setup of Tile.
-            tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, m_payload->m_target->m_row, pos, m_state, m_tileRows);
+            tile->SetUp(i, j, m_square, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, m_payload->GetRow(), pos, m_state, m_tileRows);
         }
     }
     // CREATE MEMORYSETS.
@@ -149,10 +148,40 @@ void TileSet::OnCreate()
         unreachable->m_tileSetPos = GetPosition();
     }
     // Protocol.
-    for (int i = 0; i < GetListCount("ProtocolOrigins", GetModelName()); i++)
+    for (int i = 0; i < GetListCount("ProtocolLeftOrigins", GetModelName()); i++)
     {
-        orxVECTOR protocolOrigin = GetListVector("ProtocolOrigins", i, GetModelName());
-        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-Protocol"));
+        orxVECTOR protocolOrigin = GetListVector("ProtocolLeftOrigins", i, GetModelName());
+        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-ProtocolLeft"));
+        protocol->SetParent(this);
+        protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
+        protocol->SetPosition(protocol->m_target->GetPosition());
+        protocol->m_priorPos = protocol->GetPosition();
+        protocol->m_tileSetPos = GetPosition();
+    }
+    for (int i = 0; i < GetListCount("ProtocolRightOrigins", GetModelName()); i++)
+    {
+        orxVECTOR protocolOrigin = GetListVector("ProtocolRightOrigins", i, GetModelName());
+        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-ProtocolRight"));
+        protocol->SetParent(this);
+        protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
+        protocol->SetPosition(protocol->m_target->GetPosition());
+        protocol->m_priorPos = protocol->GetPosition();
+        protocol->m_tileSetPos = GetPosition();
+    }
+    for (int i = 0; i < GetListCount("ProtocolUpOrigins", GetModelName()); i++)
+    {
+        orxVECTOR protocolOrigin = GetListVector("ProtocolUpOrigins", i, GetModelName());
+        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-ProtocolUp"));
+        protocol->SetParent(this);
+        protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
+        protocol->SetPosition(protocol->m_target->GetPosition());
+        protocol->m_priorPos = protocol->GetPosition();
+        protocol->m_tileSetPos = GetPosition();
+    }
+    for (int i = 0; i < GetListCount("ProtocolDownOrigins", GetModelName()); i++)
+    {
+        orxVECTOR protocolOrigin = GetListVector("ProtocolDownOrigins", i, GetModelName());
+        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-ProtocolDown"));
         protocol->SetParent(this);
         protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
         protocol->SetPosition(protocol->m_target->GetPosition());
@@ -216,10 +245,43 @@ void TileSet::OnCreate()
         virus->m_tileSetPos = GetPosition();
     }
     // Firewall.
-    for (int i = 0; i < GetListCount("FirewallOrigins", GetModelName()); i++)
+    for (int i = 0; i < GetListCount("FirewallLeftOrigins", GetModelName()); i++)
     {
-        orxVECTOR firewallOrigin = GetListVector("FirewallOrigins", i, GetModelName());
-        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-Firewall"));
+        orxVECTOR firewallOrigin = GetListVector("FirewallLeftOrigins", i, GetModelName());
+        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-FirewallLeft"));
+        firewall->SetParent(this);
+        firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
+        firewall->SetPosition(firewall->m_target->GetPosition());
+        firewall->m_priorPos = firewall->GetPosition();
+        firewall->m_tileSetPos = GetPosition();
+        firewall->m_beam->SetParentSpaceScale({ sqrtf(powf(m_square, 2.0f) + powf(m_square, 2.0f)) * (1.0f / firewall->m_tileRatio), firewall->m_beam->GetParentSpaceScale().fY });
+    }
+    for (int i = 0; i < GetListCount("FirewallRightOrigins", GetModelName()); i++)
+    {
+        orxVECTOR firewallOrigin = GetListVector("FirewallRightOrigins", i, GetModelName());
+        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-FirewallRight"));
+        firewall->SetParent(this);
+        firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
+        firewall->SetPosition(firewall->m_target->GetPosition());
+        firewall->m_priorPos = firewall->GetPosition();
+        firewall->m_tileSetPos = GetPosition();
+        firewall->m_beam->SetParentSpaceScale({ sqrtf(powf(m_square, 2.0f) + powf(m_square, 2.0f)) * (1.0f / firewall->m_tileRatio), firewall->m_beam->GetParentSpaceScale().fY });
+    }
+    for (int i = 0; i < GetListCount("FirewallUpOrigins", GetModelName()); i++)
+    {
+        orxVECTOR firewallOrigin = GetListVector("FirewallUpOrigins", i, GetModelName());
+        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-FirewallUp"));
+        firewall->SetParent(this);
+        firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
+        firewall->SetPosition(firewall->m_target->GetPosition());
+        firewall->m_priorPos = firewall->GetPosition();
+        firewall->m_tileSetPos = GetPosition();
+        firewall->m_beam->SetParentSpaceScale({ sqrtf(powf(m_square, 2.0f) + powf(m_square, 2.0f)) * (1.0f / firewall->m_tileRatio), firewall->m_beam->GetParentSpaceScale().fY });
+    }
+    for (int i = 0; i < GetListCount("FirewallDownOrigins", GetModelName()); i++)
+    {
+        orxVECTOR firewallOrigin = GetListVector("FirewallDownOrigins", i, GetModelName());
+        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-FirewallDown"));
         firewall->SetParent(this);
         firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
         firewall->SetPosition(firewall->m_target->GetPosition());
@@ -274,6 +336,10 @@ orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
     {
         _rstPayload.vValue = GetNormalizedPosition(m_payload->m_priorPos);
     }
+    else if (!orxString_Compare(_rstPayload.zParamName, "PayloadTargetIsNull"))
+    {
+        _rstPayload.fValue = m_payload->m_target == nullptr;
+    }
 
     return orxTRUE;
 }
@@ -281,7 +347,14 @@ orxBOOL TileSet::OnShader(orxSHADER_EVENT_PAYLOAD &_rstPayload)
 void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
 {
     // HANDLE INPUTS
-    if (InputAllowed())
+    if (UndoInputIsAllowed())
+    {
+        if (orxInput_HasBeenActivated("Undo"))
+        {
+            Undo();
+        }
+    }
+    if (NonUndoInputIsAllowed())
     {
         if (orxInput_HasBeenActivated("DimShift"))
         {
@@ -302,7 +375,6 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             else // One-dimensional.
             {
                 Shift(TileSetShiftStatus::D1Tiles);
-                //Shift(TileSetShiftStatus::D2);
             }
         }
         else if (orxInput_HasBeenActivated("CoShift"))
@@ -321,7 +393,6 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("MoveRight"))
         {
-            //Tile *tileToRight = GetTileToRight(m_payload->m_target, m_payload->m_target->m_row);
             Tile *tileToRight = m_payload->m_target->GetTileInDirection(1, Direction::Right);
             if (tileToRight != nullptr)
             {
@@ -330,7 +401,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("MoveUp"))
         {
-            Tile *tileAbove = m_payload->m_target->GetTileInDirection(1, Direction::Up);
+            Tile *tileAbove = IsCartesian() ? m_payload->m_target->GetTileInDirection(1, Direction::Up) : m_payload->m_target->GetTileInDirection(1, Direction::Down);
             if (tileAbove != nullptr)
             {
                 m_payload->SetTarget(tileAbove, 1, Direction::Up);
@@ -338,7 +409,7 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         }
         else if (orxInput_HasBeenActivated("MoveDown"))
         {
-            Tile *tileBelow = m_payload->m_target->GetTileInDirection(1, Direction::Down);
+            Tile *tileBelow = IsCartesian() ? m_payload->m_target->GetTileInDirection(1, Direction::Down) : m_payload->m_target->GetTileInDirection(1, Direction::Up);
             if (tileBelow != nullptr)
             {
                 m_payload->SetTarget(tileBelow, 1, Direction::Down);
@@ -372,10 +443,6 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         {
             m_bInvertReconfigure = false;
             Reconfigure();
-        }
-        else if (orxInput_HasBeenActivated("Undo"))
-        {
-            Undo();
         }
     }
     // HANDLE SHIFTING
@@ -519,7 +586,6 @@ void TileSet::Undo()
                     }
                     else
                     {
-                        std::cout << "something" << std::endl;
                         Shift(TileSetShiftStatus::D1Tiles);
                     }
                     break;
@@ -702,7 +768,7 @@ void TileSet::ShiftTiles()
             // Grab the Tile at this row/column pair.
             Tile *tile = m_tileRows.at(i).at(j);
             // Shift the Tile.
-            tile->Shift(m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_radius, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, m_payload->m_target->m_row, pos, m_shiftStatus);
+            tile->Shift(m_square, greatest1DUnitDistanceOfPayloadRowFromThreshold, m_normalizedTileSize, NORMALIZED_BORDER_SIZE, lerpWeight, m_payload->GetRow(), m_shiftStatus);
         }
     }
     // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets, as appropriate.
@@ -710,16 +776,19 @@ void TileSet::ShiftTiles()
     for (ScrollObject *tileInhabitant : tileInhabitants)
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-        // Bind TileInhabitant to its target if their positions aren't equal and the former isn't moving.
-        if (!orxVector_AreEqual(&ti->GetPosition(), &ti->m_target->GetPosition()) && !ti->m_bIsMoving)
+        if (ti->m_target != nullptr)
         {
-            ti->SetPosition(ti->m_target->GetPosition());
-        }
-        // TileInhabitant exerts influence and cohabitates if it's cohabitatable.
-        if (ti->IsCohabitable())
-        {
-            ti->ExertInfluence();
-            ti->Cohabitate(true);
+            // Bind TileInhabitant to its target if their positions aren't equal and the former isn't moving.
+            if (!orxVector_AreEqual(&ti->GetPosition(), &ti->m_target->GetPosition()) && !ti->m_bIsMoving)
+            {
+                ti->SetPosition(ti->m_target->GetPosition());
+            }
+            // TileInhabitant exerts influence and cohabitates if it's cohabitatable.
+            if (ti->IsCohabitable())
+            {
+                ti->ExertInfluence();
+                ti->Cohabitate(true);
+            }
         }
     }
 }
@@ -737,7 +806,7 @@ void TileSet::Reconfigure()
         ScrollObject *memSet = Payload::GetInstance().PickObject(ScreenToWorldSpace(*orxMouse_GetPosition(&mousePos)), orxString_GetID("memorySetCartesian1D"));
         MemorySetCartesian1D *msc1d = dynamic_cast<MemorySetCartesian1D*>(memSet);
         // It's the MemorySet we want if its row is the same as m_payload's.
-        if (msc1d != nullptr && msc1d->m_row == m_payload->m_target->m_row)
+        if (msc1d != nullptr && msc1d->m_row == m_payload->GetRow())
         {
             SetMemorySetToReconfigure(msc1d);
         }
@@ -796,13 +865,16 @@ void TileSet::ReconfigureTiles()
     // Reconfigure each tile individually.
     for (Tile *tile : m_memorySetToReconfigure->m_tiles)
     {
-        tile->Reconfigure(m_payload->m_target->m_row, lerpWeight, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, m_memorySetToReconfigure->GetPosition(), m_bInvertReconfigure);
+        tile->Reconfigure(m_payload->GetRow(), lerpWeight, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, m_memorySetToReconfigure->GetPosition(), m_bInvertReconfigure);
     }
     // Ensure that while shifting is occurring, all TileInhabitants are bound to their respective targets.
     for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-        ti->SetPosition(ti->m_target->GetPosition());
+        if (ti->m_target != nullptr)
+        {
+            ti->SetPosition(ti->m_target->GetPosition());
+        }
     }
 }
 
@@ -832,8 +904,8 @@ void TileSet::FinalizeTileAndInhabitantLerps()
     for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
-        // Only finalize TileInhabitants' lerps if they're not moving.
-        if (!ti->m_bIsMoving)
+        // Only finalize TileInhabitants' lerps if theyir target isn't null, and they're and not moving.
+        if (ti->m_target != nullptr && !ti->m_bIsMoving)
         {
             // Ensure TI completes its lerp such that its position is exactly the same as its target's.
             ti->SetPosition(ti->m_target->GetPosition());
@@ -858,10 +930,45 @@ const bool TileSet::IsCartesian()
     return m_state == TileSetState::Cartesian1D || m_state == TileSetState::Cartesian2D;
 }
 
-const bool TileSet::InputAllowed()
+const bool TileSet::UndoInputIsAllowed()
 {
-    // Only allow inputs if the TileSet isn't undoing, the player isn't moving, the TileSet isn't shifting, and m_memorySetToReconfigure is null.
-    return !m_bIsUndoing && !m_payload->m_bIsMoving && m_shiftStatus == TileSetShiftStatus::None && m_memorySetToReconfigure == nullptr;
+    // Only allow undo inputs if the TileSet isn't already undoing, the TileSet isn't shifting, the TileSet isn't reconfiguring,
+    // and either nothing is moving OR something is caught in a loop.
+    return !m_bIsUndoing && m_shiftStatus == TileSetShiftStatus::None && m_memorySetToReconfigure == nullptr && (!SomethingIsMoving() || SomethingIsCaughtInALoop());
+}
+
+const bool TileSet::NonUndoInputIsAllowed()
+{
+    // Only allow non-undo inputs if the TileSet isn't undoing, shifting or reconfiguring, and nothing is moving.
+    return !m_bIsUndoing && m_shiftStatus == TileSetShiftStatus::None && m_memorySetToReconfigure == nullptr && !SomethingIsMoving();
+}
+
+const bool TileSet::SomethingIsMoving()
+{
+    for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+    {
+        TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        if (ti->m_bIsMoving)
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+const bool TileSet::SomethingIsCaughtInALoop()
+{
+    for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
+    {
+        TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
+        if (ti->m_bIsCaughtInLoop)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 const int TileSet::GetUnitDistanceFromPolarAxis(const int &_col)
@@ -913,7 +1020,7 @@ const float TileSet::GetPolarTheta(const int &_unitDistanceFromPolarAxis, const 
 
 const int TileSet::GetGreatest1DUnitDistanceOfPayloadRowFromThreshold()
 {
-    int payloadRow = m_payload->m_target->m_row;
+    int payloadRow = m_payload->GetRow();
 
     return orxMAX(payloadRow, (m_square - 1) - payloadRow);
 }

@@ -71,12 +71,10 @@ namespace payload
         void Shift(
             const int &_square,
             const int &_greatest1DUnitDistanceOfPayloadRowFromThreshold,
-            const float &_tileSetRadius,
             const float &_normalizedTileSize,
             const float &_normalizedBorderSize,
             const float &_lerpWeight,
             const int &_payloadRow,
-            const orxVECTOR &_tileSetPos,
             const TileSetShiftStatus &_tileSetShiftStatus);
         void Reconfigure(
             const int &_payloadRow,
@@ -90,9 +88,7 @@ namespace payload
         const orxVECTOR CalculateVisualScale(
             const int &_square,
             const int &_tilesInRow,
-            const float &_tileSetRadius,
             const float &_normalizedTileSize,
-            const orxVECTOR &_tileSetPos,
             const TileSetState &_stateToScaleTo);
     };
 }

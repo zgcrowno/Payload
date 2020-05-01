@@ -1,6 +1,7 @@
 #include "TileInhabitant.h"
 #include "EventType.h"
 #include "Infection.h"
+#include <iostream>
 
 using namespace payload;
 
@@ -9,6 +10,7 @@ void TileInhabitant::OnCreate()
     m_precedence = GetU32("Precedence", GetModelName());
     m_timeToMove = GetFloat("TimeToMove", GetModelName());
     m_tileRatio = GetFloat("TileRatio", GetModelName());
+    m_bIsAMover = GetBool("IsAMover", GetModelName());
 }
 
 void TileInhabitant::OnDelete()
@@ -139,7 +141,6 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
                 m_bIsMoving = false;
                 m_timeSpentMoving = 0.0f;
                 SetPosition(targetPos);
-                m_priorPos = GetPosition();
                 // The TileInhabitant necessarily dies if it lands on a non-Tile.
                 Die();
             }
@@ -150,9 +151,20 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
 // TODO: Account for teleportation and virus contraction as well.
 void TileInhabitant::Undo()
 {
+    std::cout << GetModelName().c_str() << std::endl;
+    m_bIsCaughtInLoop = false;
+
     // Only execute Undo if there are things to be undone.
     if (!m_priorTargetStack.empty())
     {
+        if (m_target == nullptr)
+        {
+            // Set m_priorPos here in the event m_target is null, because we're refraining from setting m_priorPos
+            // on update of TileInhabitants with null targets so as to prevent undesired TileSet shader behavior
+            // when PlayerPayload is lerping to its death (to a null target).
+            m_priorPos = GetPosition();
+        }
+
         m_bIsUndoing = true;
         bool moveByTeleportation = m_priorTargetStack.top().second;
 
@@ -171,6 +183,8 @@ void TileInhabitant::Undo()
 
 void TileInhabitant::Cohabitate(const bool _dueToShifting)
 {
+    bool isPendingMovement = false;
+
     for (ScrollObject *tileInhabitant : Payload::GetInstance().GetTileInhabitants())
     {
         TileInhabitant *ti = static_cast<TileInhabitant*>(tileInhabitant);
@@ -181,7 +195,19 @@ void TileInhabitant::Cohabitate(const bool _dueToShifting)
             {
                 Cohabitate(ti, _dueToShifting);
             }
+            else if (ti->m_precedence > m_precedence)
+            {
+                // Here, we know that this TileInhabitant will be cohabitated by ti.
+                isPendingMovement = m_bIsSlipping || (ti->m_bIsAMover && !m_bIsUndoing);
+            }
         }
+    }
+
+    // If the TileInhabitant doesn't have a movement pending at this point, we clear m_tileTraversedThisMovement
+    // since the TileInhabitant has come to rest.
+    if (!isPendingMovement)
+    {
+        m_tilesTraversedThisMovement.clear();
     }
 }
 
@@ -215,14 +241,29 @@ const bool TileInhabitant::IsInPurview(TileInhabitant *_other)
 
 void TileInhabitant::SetTarget(Tile *_target, const int _movementUnitDistance, const Direction _movementDirection, const bool _undoing)
 {
-    // Send an event if the TileInhabitant isn't undoing. This event will be picked up by the TileSet
+    bool targetHasAlreadyBeenTraversedThisMovement = std::find(m_tilesTraversedThisMovement.begin(), m_tilesTraversedThisMovement.end(), m_target) != m_tilesTraversedThisMovement.end();
+    // Send an event if the TileInhabitant isn't undoing and it's not caught in a loop. This event will be picked up by the TileSet
     // and used to fill out its prior Doers stack.
-    if (!_undoing)
+    if (!_undoing && !targetHasAlreadyBeenTraversedThisMovement)
     {
         m_priorTargetStack.push({ m_target, false });
         // Movement time is the event's payload.
         orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_SET_TARGET, this, Payload::GetInstance().GetTileSet(), &m_timeToMove);
     }
+    else if (targetHasAlreadyBeenTraversedThisMovement)
+    {
+        // If the target has already been traversed by the TileInhabitant in the same inescapable sequence of movements, we know
+        // the latter is caught in a loop.
+        m_bIsCaughtInLoop = true;
+    }
+
+    // Only push _target to m_tilesTraversedThisMovement if the TileInhabitant isn't caught in a loop;
+    // that way, we're not cluttering up the vector unnecessarily.
+    if (!m_bIsCaughtInLoop)
+    {
+        m_tilesTraversedThisMovement.push_back(m_target);
+    }
+
     m_target = _target;
     m_bIsMoving = true;
     m_movementUnitDistance = _movementUnitDistance;
@@ -253,6 +294,7 @@ void TileInhabitant::SlipTo(Tile *_dest, const Direction _movementDirection)
 void TileInhabitant::Die()
 {
     Enable(false);
+    m_tilesTraversedThisMovement.clear();
 }
 
 void TileInhabitant::SpawnInfection()
@@ -285,7 +327,7 @@ void TileInhabitant::HandleInfection()
 
 const bool TileInhabitant::IsCohabitable()
 {
-    return !m_bIsUndoing && !m_bIsMoving && !m_bIsTeleporting && !m_target->m_bIsMoving;
+    return m_target != nullptr && !m_bIsUndoing && !m_bIsMoving && !m_bIsTeleporting && !m_target->m_bIsMoving;
 }
 
 const bool TileInhabitant::IsCohabitating(TileInhabitant *_other)
@@ -302,4 +344,14 @@ const bool TileInhabitant::IsCohabitating(TileInhabitant *_other)
             _other != this && _other->m_target->m_row == m_target->m_row && _other->m_target->m_col == m_target->m_col && _other->IsCohabitable() :
             _other != this && _other->m_target->m_col == m_target->m_col && _other->IsCohabitable();
     }
+}
+
+const int TileInhabitant::GetRow() const
+{
+    return m_target != nullptr ? m_target->m_row : m_priorTargetStack.top().first->m_row;
+}
+
+const int TileInhabitant::GetCol() const
+{
+    return m_target != nullptr ? m_target->m_col : m_priorTargetStack.top().first->m_col;
 }

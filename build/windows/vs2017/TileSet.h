@@ -71,7 +71,10 @@ namespace payload
         const bool Is2D();
         const bool PriorStateIs2D();
         const bool IsCartesian();
-        const bool InputAllowed();
+        const bool UndoInputIsAllowed();
+        const bool NonUndoInputIsAllowed();
+        const bool SomethingIsMoving();
+        const bool SomethingIsCaughtInALoop();
         const int GetUnitDistanceFromPolarAxis(const int &_col);
         const int GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();
         const float GetPolarTheta(const int &_unitDistanceFromPolarAxis, const int &_tilesInPolarRow, const bool _d2);

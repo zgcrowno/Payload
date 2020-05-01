@@ -132,7 +132,7 @@ std::vector<ScrollObject*> Payload::GetTileInhabitants()
     // Firewall
     for (Firewall *firewall = GetNextObject<Firewall>(); firewall != nullptr; firewall = GetNextObject<Firewall>(firewall))
     {
-        if (!orxString_Compare(firewall->GetModelName().c_str(), "O-Firewall"))
+        if (orxString_SearchString(firewall->GetModelName().c_str(), "O-Firewall") != nullptr)
         {
             retVal.push_back(firewall);
         }
@@ -156,7 +156,7 @@ std::vector<ScrollObject*> Payload::GetTileInhabitants()
     // Protocol
     for (Protocol *protocol = GetNextObject<Protocol>(); protocol != nullptr; protocol = GetNextObject<Protocol>(protocol))
     {
-        if (!orxString_Compare(protocol->GetModelName().c_str(), "O-Protocol"))
+        if (orxString_SearchString(protocol->GetModelName().c_str(), "O-Protocol") != nullptr)
         {
             retVal.push_back(protocol);
         }
