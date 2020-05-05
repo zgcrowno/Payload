@@ -74,6 +74,7 @@ namespace payload
         const bool UndoInputIsAllowed();
         const bool NonUndoInputIsAllowed();
         const bool SomethingIsMoving();
+        const bool SomethingIsPendingMovement();
         const bool SomethingIsCaughtInALoop();
         const int GetUnitDistanceFromPolarAxis(const int &_col);
         const int GetGreatest1DUnitDistanceOfPayloadRowFromThreshold();

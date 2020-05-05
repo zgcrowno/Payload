@@ -30,8 +30,16 @@ void Infection::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Infection::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
+    // Only cohabitate if _other isn't a Virus or Infection.
     if (dynamic_cast<Virus*>(_other) == nullptr && dynamic_cast<Infection*>(_other) == nullptr)
     {
-        _other->Die();
+        if (_other->m_bIsUndoing)
+        {
+            _other->Undo();
+        }
+        else
+        {
+            _other->Die();
+        }
     }
 }

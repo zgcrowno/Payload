@@ -4,6 +4,7 @@
 #include "Direction.h"
 #include "Doer.h"
 #include "Tile.h"
+#include "TileInhabitantAction.h"
 #include <functional>
 #include <stack>
 #include <utility>
@@ -34,8 +35,11 @@ namespace payload
         bool m_bIsTeleporting;
         bool m_bIsSlipping;
         bool m_bIsInfected;
-        bool m_bJustInfected;
+        bool m_bIsPendingInfection;
         bool m_bIsCaughtInLoop;
+        bool m_bDiedByOwnMovement;
+        bool m_bInfectedByOwnMovement;
+        bool *m_bTileSetIsUndoing;
         float m_timeToMove;
         float m_timeSpentMoving;
         float m_tileRatio;
@@ -43,9 +47,13 @@ namespace payload
         orxVECTOR m_priorPos;
         orxVECTOR m_tileSetPos;
         Tile *m_target;
+        // A stack of all prior actions the TileInhabitant has committed.
+        std::stack<TileInhabitantAction> m_priorActions;
         // A stack of pairs of Tiles and whether or not those Tiles were reached via teleportation or
         // standard movement (if the second pair element is true, then the Tile was reached via teleportation).
         std::stack<std::pair<Tile*, bool>> m_priorTargetStack;
+        // A stack of all the Infections the TileInhabitant has previously spawned.
+        std::stack<TileInhabitant*> m_priorSpawnedInfections;
         // A vector containing either no Tiles if the TileInhabitant isn't moving, or all of the unique Tiles it's
         // traversed since it began moving.
         std::vector<Tile*> m_tilesTraversedThisMovement;
@@ -59,13 +67,21 @@ namespace payload
         void TeleportTo(Tile *_dest, const bool _undoing = false);
         void SlipTo(Tile *_dest, const Direction _movementDirection);
         void Die();
+        void Revive();
+        void Infect();
+        void Disinfect();
         void SpawnInfection();
         void HandleInfection();
+        void UndoMove();
+        void UndoDie();
+        void UndoContractInfection();
+        void UndoSpawnInfection();
         // TODO: Maybe consolidate Cohabitate and ExertInfluence into one method?
         //! Called whenever the TileInhabitant interacts with another TileInhabitant on its Tile.
         void Cohabitate(const bool _dueToShifting);
         //! Called whenever the TileInhabitant interacts with another TileInhabitant on a Tile different from its own.
         void ExertInfluence();
+        const bool IsDead();
         const bool IsCohabitable();
         const bool IsCohabitating(TileInhabitant *_other);
         const int GetRow() const;

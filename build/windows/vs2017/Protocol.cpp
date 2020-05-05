@@ -31,6 +31,13 @@ void Protocol::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Protocol::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
-    Tile *otherDest = _other->m_target->GetTileInDirection(1, m_direction);
-    _other->SetTarget(otherDest, 1, m_direction);
+    if (_other->m_bIsUndoing)
+    {
+        _other->Undo();
+    }
+    else
+    {
+        Tile *otherDest = _other->m_target->GetTileInDirection(1, m_direction);
+        _other->SetTarget(otherDest, 1, m_direction);
+    }
 }

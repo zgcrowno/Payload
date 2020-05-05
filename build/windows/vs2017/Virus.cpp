@@ -29,8 +29,9 @@ void Virus::Update(const orxCLOCK_INFO &_rstInfo)
 
 void Virus::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
+    // Only cohabitate if _other isn't already infected.
     if (!_other->m_bIsInfected)
     {
-        _other->m_bJustInfected = true;
+        _other->m_bIsPendingInfection = true;
     }
 }

@@ -132,10 +132,12 @@ void TileSet::OnCreate()
     m_payload->SetPosition(m_payload->m_target->GetPosition());
     m_payload->m_priorPos = m_payload->GetPosition();
     m_payload->m_tileSetPos = GetPosition();
+    m_payload->m_bTileSetIsUndoing = &m_bIsUndoing;
     m_goal->SetPosition(m_goal->m_target->GetPosition());
     m_goal->m_priorPos = m_goal->GetPosition();
     m_goal->m_tileSetPos = GetPosition();
-    // CREATE OBSTACLE/AID TILEINHABITANTS.
+    m_goal->m_bTileSetIsUndoing = &m_bIsUndoing;
+    // CREATE TILEINHABITANTS.
     // Unreachable.
     for (int i = 0; i < GetListCount("UnreachableOrigins", GetModelName()); i++)
     {
@@ -146,6 +148,7 @@ void TileSet::OnCreate()
         unreachable->SetPosition(unreachable->m_target->GetPosition());
         unreachable->m_priorPos = unreachable->GetPosition();
         unreachable->m_tileSetPos = GetPosition();
+        unreachable->m_bTileSetIsUndoing = &m_bIsUndoing;
     }
     // Protocol.
     for (int i = 0; i < GetListCount("ProtocolLeftOrigins", GetModelName()); i++)
@@ -157,6 +160,7 @@ void TileSet::OnCreate()
         protocol->SetPosition(protocol->m_target->GetPosition());
         protocol->m_priorPos = protocol->GetPosition();
         protocol->m_tileSetPos = GetPosition();
+        protocol->m_bTileSetIsUndoing = &m_bIsUndoing;
     }
     for (int i = 0; i < GetListCount("ProtocolRightOrigins", GetModelName()); i++)
     {
@@ -167,6 +171,7 @@ void TileSet::OnCreate()
         protocol->SetPosition(protocol->m_target->GetPosition());
         protocol->m_priorPos = protocol->GetPosition();
         protocol->m_tileSetPos = GetPosition();
+        protocol->m_bTileSetIsUndoing = &m_bIsUndoing;
     }
     for (int i = 0; i < GetListCount("ProtocolUpOrigins", GetModelName()); i++)
     {
@@ -177,6 +182,7 @@ void TileSet::OnCreate()
         protocol->SetPosition(protocol->m_target->GetPosition());
         protocol->m_priorPos = protocol->GetPosition();
         protocol->m_tileSetPos = GetPosition();
+        protocol->m_bTileSetIsUndoing = &m_bIsUndoing;
     }
     for (int i = 0; i < GetListCount("ProtocolDownOrigins", GetModelName()); i++)
     {
@@ -187,6 +193,7 @@ void TileSet::OnCreate()
         protocol->SetPosition(protocol->m_target->GetPosition());
         protocol->m_priorPos = protocol->GetPosition();
         protocol->m_tileSetPos = GetPosition();
+        protocol->m_bTileSetIsUndoing = &m_bIsUndoing;
     }
     // Bypass.
     for (int i = 0; i < GetListCount("BypassOrigins", GetModelName()); i++)
@@ -198,6 +205,7 @@ void TileSet::OnCreate()
         bypass->SetPosition(bypass->m_target->GetPosition());
         bypass->m_priorPos = bypass->GetPosition();
         bypass->m_tileSetPos = GetPosition();
+        bypass->m_bTileSetIsUndoing = &m_bIsUndoing;
     }
     // Proxy.
     std::vector<Proxy*> tempProxies;
@@ -210,6 +218,7 @@ void TileSet::OnCreate()
         proxy->SetPosition(proxy->m_target->GetPosition());
         proxy->m_priorPos = proxy->GetPosition();
         proxy->m_tileSetPos = GetPosition();
+        proxy->m_bTileSetIsUndoing = &m_bIsUndoing;
         tempProxies.push_back(proxy);
     }
     if (!tempProxies.empty())
@@ -232,6 +241,7 @@ void TileSet::OnCreate()
         recursive->SetPosition(recursive->m_target->GetPosition());
         recursive->m_priorPos = recursive->GetPosition();
         recursive->m_tileSetPos = GetPosition();
+        recursive->m_bTileSetIsUndoing = &m_bIsUndoing;
     }
     // Virus.
     for (int i = 0; i < GetListCount("VirusOrigins", GetModelName()); i++)
@@ -243,6 +253,7 @@ void TileSet::OnCreate()
         virus->SetPosition(virus->m_target->GetPosition());
         virus->m_priorPos = virus->GetPosition();
         virus->m_tileSetPos = GetPosition();
+        virus->m_bTileSetIsUndoing = &m_bIsUndoing;
     }
     // Firewall.
     for (int i = 0; i < GetListCount("FirewallLeftOrigins", GetModelName()); i++)
@@ -254,6 +265,7 @@ void TileSet::OnCreate()
         firewall->SetPosition(firewall->m_target->GetPosition());
         firewall->m_priorPos = firewall->GetPosition();
         firewall->m_tileSetPos = GetPosition();
+        firewall->m_bTileSetIsUndoing = &m_bIsUndoing;
         firewall->m_beam->SetParentSpaceScale({ sqrtf(powf(m_square, 2.0f) + powf(m_square, 2.0f)) * (1.0f / firewall->m_tileRatio), firewall->m_beam->GetParentSpaceScale().fY });
     }
     for (int i = 0; i < GetListCount("FirewallRightOrigins", GetModelName()); i++)
@@ -265,6 +277,7 @@ void TileSet::OnCreate()
         firewall->SetPosition(firewall->m_target->GetPosition());
         firewall->m_priorPos = firewall->GetPosition();
         firewall->m_tileSetPos = GetPosition();
+        firewall->m_bTileSetIsUndoing = &m_bIsUndoing;
         firewall->m_beam->SetParentSpaceScale({ sqrtf(powf(m_square, 2.0f) + powf(m_square, 2.0f)) * (1.0f / firewall->m_tileRatio), firewall->m_beam->GetParentSpaceScale().fY });
     }
     for (int i = 0; i < GetListCount("FirewallUpOrigins", GetModelName()); i++)
@@ -276,6 +289,7 @@ void TileSet::OnCreate()
         firewall->SetPosition(firewall->m_target->GetPosition());
         firewall->m_priorPos = firewall->GetPosition();
         firewall->m_tileSetPos = GetPosition();
+        firewall->m_bTileSetIsUndoing = &m_bIsUndoing;
         firewall->m_beam->SetParentSpaceScale({ sqrtf(powf(m_square, 2.0f) + powf(m_square, 2.0f)) * (1.0f / firewall->m_tileRatio), firewall->m_beam->GetParentSpaceScale().fY });
     }
     for (int i = 0; i < GetListCount("FirewallDownOrigins", GetModelName()); i++)
@@ -287,6 +301,7 @@ void TileSet::OnCreate()
         firewall->SetPosition(firewall->m_target->GetPosition());
         firewall->m_priorPos = firewall->GetPosition();
         firewall->m_tileSetPos = GetPosition();
+        firewall->m_bTileSetIsUndoing = &m_bIsUndoing;
         firewall->m_beam->SetParentSpaceScale({ sqrtf(powf(m_square, 2.0f) + powf(m_square, 2.0f)) * (1.0f / firewall->m_tileRatio), firewall->m_beam->GetParentSpaceScale().fY });
     }
 }
@@ -451,8 +466,9 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         // Increment the time spent shifting.
         m_timeSpentShifting += _rstInfo.fDT;
 
-        // Has the lerp finished?
-        if (m_timeSpentShifting <= m_timeToShift)
+        // If m_timeSpentShifting <= m_timeToShift OR something is either moving or pending movement, the
+        // shift hasn't truly finished.
+        if (m_timeSpentShifting <= m_timeToShift || SomethingIsMoving() || SomethingIsPendingMovement())
         {
             ShiftTiles();
 
@@ -517,10 +533,14 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
         
         if (m_shiftRelativeUndoTime < 0.0f)
         {
-            // We want to undo and pop the top element of m_priorDoers if it was pushed due to shifting AND
-            // we're at the point in the shift at which the undo should occur.
-            if (m_priorDoers.top().second && m_priorDoers.top().first.second >= m_shiftRelativeUndoTime)
+            // If m_bIsUndoing, we know that m_priorDoers.top() is a TileInhabitant.
+            TileInhabitant *topTileInhabitant = dynamic_cast<TileInhabitant*>(m_priorDoers.top().first.first);
+            // Note that we make sure topTileInhabitant isn't moving because it's possible we could execute this code before
+            // it reaches its destination (assuming it's moving).
+            if (m_priorDoers.top().second && !topTileInhabitant->m_bIsMoving && m_shiftRelativeUndoTime >= (m_timeToShift - m_priorDoers.top().first.second))
             {
+                // We want to undo and pop the top element of m_priorDoers if it was pushed due to shifting AND
+                // we're at the point in the shift at which the undo should occur.
                 m_priorDoers.top().first.first->Undo();
                 m_priorDoers.pop();
             }
@@ -597,10 +617,10 @@ void TileSet::Undo()
         }
         else
         {
-            // We're undoing an action which was caused by a shift, but which was completed AFTER the instigating shift was.
+            // if we're undoing an action which was caused by a shift, but which was completed AFTER the instigating shift was.
             if (m_priorDoers.top().second)
             {
-                // Set m_bIsUndoing to true since we've started and undo process that will at some point include undoing a shift.
+                // Set m_bIsUndoing to true since we've started an undo process that will at some point include undoing a shift.
                 m_bIsUndoing = true;
                 // Set m_shiftRelativeUndoTime equal to m_timeToShift - [the original m_timeSpentShifting value when the original action was performed
                 // + the time taken to complete the original action].
@@ -782,6 +802,7 @@ void TileSet::ShiftTiles()
             if (!orxVector_AreEqual(&ti->GetPosition(), &ti->m_target->GetPosition()) && !ti->m_bIsMoving)
             {
                 ti->SetPosition(ti->m_target->GetPosition());
+                ti->m_priorPos = ti->GetPosition();
             }
             // TileInhabitant exerts influence and cohabitates if it's cohabitatable.
             if (ti->IsCohabitable())
@@ -932,6 +953,8 @@ const bool TileSet::IsCartesian()
 
 const bool TileSet::UndoInputIsAllowed()
 {
+    // TODO: Keep an eye on this, since we may need to ensure that the ONLY things that are moving are those TileInhabitants
+    // that are caught in loops.
     // Only allow undo inputs if the TileSet isn't already undoing, the TileSet isn't shifting, the TileSet isn't reconfiguring,
     // and either nothing is moving OR something is caught in a loop.
     return !m_bIsUndoing && m_shiftStatus == TileSetShiftStatus::None && m_memorySetToReconfigure == nullptr && (!SomethingIsMoving() || SomethingIsCaughtInALoop());
@@ -951,6 +974,28 @@ const bool TileSet::SomethingIsMoving()
         if (ti->m_bIsMoving)
         {
             return true;
+        }
+    }
+
+    return false;
+}
+
+const bool TileSet::SomethingIsPendingMovement()
+{
+    std::vector<ScrollObject*> tileInhabitants = Payload::GetInstance().GetTileInhabitants();
+
+    for (ScrollObject *tileInhabitant1 : tileInhabitants)
+    {
+        TileInhabitant *ti1 = static_cast<TileInhabitant*>(tileInhabitant1);
+
+        for (ScrollObject *tileInhabitant2 : tileInhabitants)
+        {
+            TileInhabitant *ti2 = static_cast<TileInhabitant*>(tileInhabitant2);
+
+            if (ti1->IsCohabitating(ti2) && ti2->m_bIsAMover)
+            {
+                return true;
+            }
         }
     }
 

@@ -137,6 +137,9 @@
     <ClInclude Include="Infection.h">
       <Filter>src\Header\Doer\TileInhabitant</Filter>
     </ClInclude>
+    <ClInclude Include="TileInhabitantAction.h">
+      <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">

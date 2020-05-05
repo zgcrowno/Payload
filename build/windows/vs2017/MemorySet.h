@@ -32,7 +32,6 @@ namespace payload
 
         virtual void SetTiles() = 0;
         virtual void Reconfigure(const bool _undoing = false) = 0;
-
-        void Undo();
+        virtual void Undo();
     };
 }

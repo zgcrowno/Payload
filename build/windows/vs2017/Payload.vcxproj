@@ -404,6 +404,7 @@
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Tile.h" />
     <ClInclude Include="TileInhabitant.h" />
+    <ClInclude Include="TileInhabitantAction.h" />
     <ClInclude Include="TileSet.h" />
     <ClInclude Include="TileSetShiftStatus.h" />
     <ClInclude Include="TileSetState.h" />

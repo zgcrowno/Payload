@@ -31,6 +31,13 @@ void Proxy::Cohabitate(TileInhabitant *_other, const bool _dueToShifting)
 {
     if (m_counterpart != nullptr)
     {
-        _other->TeleportTo(m_counterpart->m_target);
+        if (_other->m_bIsUndoing)
+        {
+            _other->Undo();
+        }
+        else
+        {
+            _other->TeleportTo(m_counterpart->m_target);
+        }
     }
 }
