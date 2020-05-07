@@ -52,10 +52,10 @@ orxSTATUS Payload::Init()
 {
     orxSTATUS result = orxSTATUS_SUCCESS;
 
-    // Add event handlers.
+    // EVENT HANDLERS.
     orxEvent_AddHandler(EVENT_TYPE_TILE_INHABITANT, EventHandler);
     orxEvent_AddHandler(EVENT_TYPE_MEMORY_SET, EventHandler);
-    // Instantiate game objects
+    // GAME OBJECT INSTANTIATION.
     CreateObject("O-TileSet");
 
     return result;

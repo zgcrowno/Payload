@@ -1,7 +1,6 @@
 #include "TileInhabitant.h"
 #include "EventType.h"
 #include "Infection.h"
-#include <iostream>
 
 using namespace payload;
 
@@ -72,7 +71,6 @@ void TileInhabitant::Update(const orxCLOCK_INFO &_rstInfo)
             }
             else
             {
-                std::cout << m_target->GetGUID() << std::endl;
                 // Destination has been reached.
                 m_bIsMoving = false;
                 m_timeSpentMoving = 0.0f;
@@ -268,7 +266,6 @@ const bool TileInhabitant::IsInPurview(TileInhabitant *_other)
 
 void TileInhabitant::SetTarget(Tile *_target, const int _movementUnitDistance, const Direction _movementDirection, const bool _undoing)
 {
-    std::cout << m_target->GetGUID() << ", ";
     bool targetHasAlreadyBeenTraversedThisMovement = std::find(m_tilesTraversedThisMovement.begin(), m_tilesTraversedThisMovement.end(), m_target) != m_tilesTraversedThisMovement.end();
     // Send an event if the TileInhabitant isn't undoing and it's not caught in a loop. This event will be picked up by the TileSet
     // and used to fill out its prior Doers stack.
