@@ -3,3 +3,16 @@
 * You can play with the config parameters in ../data/config/Payload.ini
 * After changing them, relaunch the executable to see the changes.
 [19:32:57] [LOG] Nuklear button pressed.
+[09:51:01] [LOG] Nuklear button pressed.
+[12:14:42] [LOG] Nuklear button pressed.
+[12:17:53] [LOG] Nuklear button pressed.
+[12:31:31] [LOG] [payload.cpp:payload::Payload::EventHandler(299)] Viewport Size : 1920.000000, 1080.000000
+[12:31:31] [LOG] [payload.cpp:payload::Payload::EventHandler(299)] Viewport Size : 1920.000000, 1080.000000
+[12:31:31] [LOG] [payload.cpp:payload::Payload::EventHandler(299)] Viewport Size : 1920.000000, 1080.000000
+[12:31:31] [LOG] [payload.cpp:payload::Payload::EventHandler(299)] Viewport Size : 1920.000000, 1080.000000
+[12:31:31] [LOG] [payload.cpp:payload::Payload::EventHandler(299)] Viewport Size : 1920.000000, 1080.000000
+[12:31:56] [LOG] [payload.cpp:payload::Payload::EventHandler(298)] Viewport Size : 1920.000000, 1080.000000
+[12:31:56] [LOG] [payload.cpp:payload::Payload::EventHandler(298)] Viewport Size : 1920.000000, 1080.000000
+[12:31:56] [LOG] [payload.cpp:payload::Payload::EventHandler(298)] Viewport Size : 1920.000000, 1080.000000
+[12:31:56] [LOG] [payload.cpp:payload::Payload::EventHandler(298)] Viewport Size : 1920.000000, 1080.000000
+[12:31:56] [LOG] [payload.cpp:payload::Payload::EventHandler(298)] Viewport Size : 1920.000000, 1080.000000

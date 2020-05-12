@@ -28,11 +28,15 @@ namespace payload
         virtual orxSTATUS Run();
         //! Exit the program
         virtual void Exit();
+
+        //! Draws all NuklearWindows, if there are any.
+        void DrawNuklearWindows();
     public:
         const int GetPayloadRow();
         ScrollObject *GetTileSet();
         std::vector<ScrollObject*> GetTileInhabitants();
         std::vector<ScrollObject*> GetFirewalls();
+        std::vector<ScrollObject*> GetNuklearWindows();
     };
 }
 

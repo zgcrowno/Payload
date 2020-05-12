@@ -20,6 +20,7 @@
 #include "MemorySetCartesian2D.h"
 #include "MemorySetPolar1D.h"
 #include "MemorySetPolar2D.h"
+#include "NuklearWindow.h"
 #include "PlayerPayload.h"
 #include "Protocol.h"
 #include "Proxy.h"
@@ -64,7 +65,7 @@ orxSTATUS Payload::Init()
     orxEvent_AddHandler(EVENT_TYPE_TILE_INHABITANT, EventHandler);
     orxEvent_AddHandler(EVENT_TYPE_MEMORY_SET, EventHandler);
     // GAME OBJECT INSTANTIATION.
-    CreateObject("O-TileSet");
+    CreateObject("O-SceneLevel");
 
     return result;
 }
@@ -79,6 +80,7 @@ void Payload::BindObjects()
     ScrollBindObject<MemorySetCartesian2D>("O-MemorySetCartesian2D");
     ScrollBindObject<MemorySetPolar1D>("O-MemorySetPolar1D");
     ScrollBindObject<MemorySetPolar2D>("O-MemorySetPolar2D");
+    ScrollBindObject<NuklearWindow>("O-NuklearWindow");
     ScrollBindObject<PlayerPayload>("O-PlayerPayload");
     ScrollBindObject<Protocol>("O-Protocol");
     ScrollBindObject<Proxy>("O-Proxy");
@@ -94,32 +96,8 @@ orxSTATUS Payload::Run()
 {
     orxSTATUS retVal = orxSTATUS_SUCCESS;
 
-    // Show a small Nuklear demo
-    if (nk_begin(&sstNuklear.stContext, "Demo", nk_rect(50, 50, 200, 200), NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE | NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE))
-    {
-        enum { EASY, HARD };
-        static orxS32 Op = EASY;
-        static int Property = 20;
-
-        nk_layout_row_static(&sstNuklear.stContext, 30, 80, 1);
-        if (nk_button_label(&sstNuklear.stContext, "button"))
-        {
-            orxLOG("Nuklear button pressed.");
-        }
-        nk_layout_row_dynamic(&sstNuklear.stContext, 30, 2);
-        if (nk_option_label(&sstNuklear.stContext, "easy", Op == EASY))
-        {
-            Op = EASY;
-        }
-        if (nk_option_label(&sstNuklear.stContext, "hard", Op == HARD))
-        {
-            Op = HARD;
-        }
-        nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
-        nk_property_int(&sstNuklear.stContext, "Compression:", 0, &Property, 100, 10, 1);
-    }
-    nk_end(&sstNuklear.stContext);
-
+    // Draw NuklearWindows as appropriate.
+    DrawNuklearWindows();
     // Allow debug-based quitting out.
     if (orxInput_IsActive("Quit"))
     {
@@ -132,6 +110,91 @@ orxSTATUS Payload::Run()
 void Payload::Exit()
 {
     orxNuklear_Exit();
+}
+
+void Payload::DrawNuklearWindows()
+{
+    std::vector<ScrollObject*> nuklearWindows = GetNuklearWindows();
+    for (ScrollObject *nuklearWindow : nuklearWindows)
+    {
+        // The fully cast NuklearWindow.
+        NuklearWindow nWin = *static_cast<NuklearWindow*>(nuklearWindow);
+        // The NuklearWindow's starting position.
+        orxVECTOR nWinStartingPos = nWin.GetPosition();
+        // The NuklearWindow's starting size.
+        orxVECTOR nWinStartingSize = nWin.GetScaledSize();
+        // Set the nk_panel_flags as appropriate.
+        nk_flags flags = 0;
+        if (nWin.m_bIsBordered)
+        {
+            flags |= NK_WINDOW_BORDER;
+        }
+        if (nWin.m_bIsMovable)
+        {
+            flags |= NK_WINDOW_MOVABLE;
+        }
+        if (nWin.m_bIsScalable)
+        {
+            flags |= NK_WINDOW_SCALABLE;
+        }
+        if (nWin.m_bIsClosable)
+        {
+            flags |= NK_WINDOW_CLOSABLE;
+        }
+        if (nWin.m_bIsMinimizable)
+        {
+            flags |= NK_WINDOW_MINIMIZABLE;
+        }
+        if (nWin.m_bHasNoScrollbar)
+        {
+            flags |= NK_WINDOW_NO_SCROLLBAR;
+        }
+        if (nWin.m_bHasTitle)
+        {
+            flags |= NK_WINDOW_TITLE;
+        }
+        if (nWin.m_bAutoHidesScrollbar)
+        {
+            flags |= NK_WINDOW_SCROLL_AUTO_HIDE;
+        }
+        if (nWin.m_bIsKeptInBackground)
+        {
+            flags |= NK_WINDOW_BACKGROUND;
+        }
+        if (nWin.m_bIsScaledLeft)
+        {
+            flags |= NK_WINDOW_SCALE_LEFT;
+        }
+        if (nWin.m_bDisallowsInput)
+        {
+            flags |= NK_WINDOW_NO_INPUT;
+        }
+        // Draw the NuklearWindow.
+        if (nk_begin(&sstNuklear.stContext, nWin.m_title.c_str(), nk_rect(nWinStartingPos.fX, nWinStartingPos.fY, nWinStartingSize.fX, nWinStartingSize.fY), flags))
+        {
+            enum { EASY, HARD };
+            static orxS32 Op = EASY;
+            static int Property = 20;
+
+            nk_layout_row_static(&sstNuklear.stContext, 30, 80, 1);
+            if (nk_button_label(&sstNuklear.stContext, "button"))
+            {
+                orxLOG("Nuklear button pressed.");
+            }
+            nk_layout_row_dynamic(&sstNuklear.stContext, 30, 2);
+            if (nk_option_label(&sstNuklear.stContext, "easy", Op == EASY))
+            {
+                Op = EASY;
+            }
+            if (nk_option_label(&sstNuklear.stContext, "hard", Op == HARD))
+            {
+                Op = HARD;
+            }
+            nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+            nk_property_int(&sstNuklear.stContext, "Compression:", 0, &Property, 100, 10, 1);
+        }
+        nk_end(&sstNuklear.stContext);
+    }
 }
 
 const int Payload::GetPayloadRow()
@@ -251,6 +314,18 @@ std::vector<ScrollObject*> Payload::GetFirewalls()
         {
             retVal.push_back(firewall);
         }
+    }
+
+    return retVal;
+}
+
+std::vector<ScrollObject*> Payload::GetNuklearWindows()
+{
+    std::vector<ScrollObject*> retVal;
+
+    for (NuklearWindow *nuklearWindow = GetNextObject<NuklearWindow>(); nuklearWindow != nullptr; nuklearWindow = GetNextObject<NuklearWindow>(nuklearWindow))
+    {
+        retVal.push_back(nuklearWindow);
     }
 
     return retVal;

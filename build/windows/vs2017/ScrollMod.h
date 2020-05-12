@@ -147,6 +147,9 @@ namespace payload
         /// <summary>Just like ScrollObject's GetModelName() method, but returns a std::string instead of a char *.</summary>
         /// <returns>The std::string representation of the ScrollMod's model name.</returns>
         const std::string GetModelName() const;
+        /// <summary>A more object-oriented version of ORX's orxObject_GetPivot function.</summary>
+        /// <returns>The ScrollMod's pivot.</returns>
+        const orxVECTOR __fastcall GetPivot() const;
         /// <summary>A more object-oriented version of ORX's GetPosition function.</summary>
         /// <param name="_bWorld">Bool representing whether or not the returned vector is in world space (as opposed to local space).</param>
         /// <returns>The ScrollMod's position.</returns>

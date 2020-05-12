@@ -368,6 +368,15 @@ const std::string ScrollMod::GetModelName() const
     return retVal;
 }
 
+const orxVECTOR __fastcall ScrollMod::GetPivot() const
+{
+    orxVECTOR retVal = orxVECTOR_0;
+
+    orxObject_GetPivot(GetOrxObject(), &retVal);
+
+    return retVal;
+}
+
 const orxVECTOR __fastcall ScrollMod::GetPosition(const bool &_bWorld) const
 {
     orxVECTOR vecRef;
@@ -395,7 +404,14 @@ const orxVECTOR __fastcall ScrollMod::GetParentSpacePosition() const
     }
     else
     {
-        // TODO: Account for instances in which parent isn't an orxOBJECT (for instance, maybe it's an orxCAMERA).
+        orxCAMERA *parentCamera = orxCAMERA(parent);
+        if (parentCamera != nullptr)
+        {
+            orxVECTOR parentPos = orxVECTOR_0;
+            orxCamera_GetPosition(parentCamera, &parentPos);
+            orxVECTOR relativePos = { pos.fX - parentPos.fX, pos.fY - parentPos.fY, pos.fZ - parentPos.fZ };
+            return relativePos;
+        }
     }
 }
 
@@ -416,7 +432,16 @@ const orxVECTOR __fastcall ScrollMod::GetParentSpaceScale() const
     }
     else
     {
-        // TODO: Account for instances in which parent isn't an orxOBJECT (for instance, maybe it's an orxCAMERA).
+        orxCAMERA *parentCamera = orxCAMERA(parent);
+        if (parentCamera != nullptr)
+        {
+            orxAABOX *parentFrustum;
+            orxCamera_GetFrustum(parentCamera, parentFrustum);
+            float parentWidth = parentFrustum->vBR.fX - parentFrustum->vTL.fX;
+            float parentHeight = parentFrustum->vBR.fY - parentFrustum->vTL.fY;
+            orxVECTOR relativeScale = { scaledSize.fX / parentWidth, scaledSize.fY / parentHeight };
+            return relativeScale;
+        }
     }
 }
 
