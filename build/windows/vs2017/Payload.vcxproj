@@ -143,7 +143,7 @@
     <ClCompile>
       <AdditionalOptions>/MP /EHsc %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ORX)\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ORX)\include;..\..\..\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;C:\Users\zgcrowno\Documents\orx\code\build\template\include\[+nuklear nuklear]%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__orxDEBUG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -179,7 +179,7 @@
     <ClCompile>
       <AdditionalOptions>/MP /EHsc %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(ORX)\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ORX)\include;..\..\..\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;C:\Users\zgcrowno\Documents\orx\code\build\template\include\[+nuklear nuklear]%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__orxDEBUG__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -216,7 +216,7 @@
     <ClCompile>
       <AdditionalOptions>/MP /EHsc %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>$(ORX)\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ORX)\include;..\..\..\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;C:\Users\zgcrowno\Documents\orx\code\build\template\include\[+nuklear nuklear]%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__orxPROFILER__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
@@ -255,7 +255,7 @@
     <ClCompile>
       <AdditionalOptions>/MP /EHsc %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>$(ORX)\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ORX)\include;..\..\..\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;C:\Users\zgcrowno\Documents\orx\code\build\template\include\[+nuklear nuklear]%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>__orxPROFILER__;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <StringPooling>true</StringPooling>
@@ -295,7 +295,7 @@
     <ClCompile>
       <AdditionalOptions>/MP /EHsc %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>$(ORX)\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ORX)\include;..\..\..\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;C:\Users\zgcrowno\Documents\orx\code\build\template\include\[+nuklear nuklear]%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
@@ -336,7 +336,7 @@
     <ClCompile>
       <AdditionalOptions>/MP /EHsc %(AdditionalOptions)</AdditionalOptions>
       <Optimization>Full</Optimization>
-      <AdditionalIncludeDirectories>$(ORX)\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ORX)\include;..\..\..\include;C:\Users\zgcrowno\Documents\OrxProjects\Payload\include\Scroll;C:\Users\zgcrowno\Documents\orx\code\build\template\include\[+nuklear nuklear]%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>
       </PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>

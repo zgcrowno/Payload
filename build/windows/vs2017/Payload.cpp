@@ -1,9 +1,16 @@
-//! Includes
 // The following define/undef is done only once in the project. It should be
 // done before including the interface of the class deriving from
 // Scroll (as follows).
 #define __SCROLL_IMPL__
 #include "Payload.h"
+#undef __SCROLL_IMPL__
+
+// The following define/undef is done only once in the project. It should be
+// done before including ORX's Nuklear implementation.
+#define orxNUKLEAR_IMPL
+#include "orxNuklear.h"
+#undef orxNUKLEAR_IMPL
+
 #include "Bypass.h"
 #include "EventType.h"
 #include "Firewall.h"
@@ -22,7 +29,6 @@
 #include "TileSet.h"
 #include "Unreachable.h"
 #include "Virus.h"
-#undef __SCROLL_IMPL__
 
 // Use non-dedicated graphics card, if appropriate.
 #ifdef __orxWINDOWS__
@@ -52,6 +58,8 @@ orxSTATUS Payload::Init()
 {
     orxSTATUS result = orxSTATUS_SUCCESS;
 
+    // NUKLEAR INITIALIZATION.
+    orxNuklear_Init();
     // EVENT HANDLERS.
     orxEvent_AddHandler(EVENT_TYPE_TILE_INHABITANT, EventHandler);
     orxEvent_AddHandler(EVENT_TYPE_MEMORY_SET, EventHandler);
@@ -86,6 +94,33 @@ orxSTATUS Payload::Run()
 {
     orxSTATUS retVal = orxSTATUS_SUCCESS;
 
+    // Show a small Nuklear demo
+    if (nk_begin(&sstNuklear.stContext, "Demo", nk_rect(50, 50, 200, 200), NK_WINDOW_BORDER | NK_WINDOW_MOVABLE | NK_WINDOW_SCALABLE | NK_WINDOW_MINIMIZABLE | NK_WINDOW_TITLE))
+    {
+        enum { EASY, HARD };
+        static orxS32 Op = EASY;
+        static int Property = 20;
+
+        nk_layout_row_static(&sstNuklear.stContext, 30, 80, 1);
+        if (nk_button_label(&sstNuklear.stContext, "button"))
+        {
+            orxLOG("Nuklear button pressed.");
+        }
+        nk_layout_row_dynamic(&sstNuklear.stContext, 30, 2);
+        if (nk_option_label(&sstNuklear.stContext, "easy", Op == EASY))
+        {
+            Op = EASY;
+        }
+        if (nk_option_label(&sstNuklear.stContext, "hard", Op == HARD))
+        {
+            Op = HARD;
+        }
+        nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+        nk_property_int(&sstNuklear.stContext, "Compression:", 0, &Property, 100, 10, 1);
+    }
+    nk_end(&sstNuklear.stContext);
+
+    // Allow debug-based quitting out.
     if (orxInput_IsActive("Quit"))
     {
         retVal = orxSTATUS_FAILURE;
@@ -96,6 +131,7 @@ orxSTATUS Payload::Run()
 
 void Payload::Exit()
 {
+    orxNuklear_Exit();
 }
 
 const int Payload::GetPayloadRow()
