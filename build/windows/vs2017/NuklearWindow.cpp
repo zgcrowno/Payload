@@ -16,6 +16,14 @@ void NuklearWindow::OnCreate()
     m_bIsKeptInBackground = GetBool("IsKeptInBackground", GetModelName());
     m_bIsScaledLeft = GetBool("IsScaledLeft", GetModelName());
     m_bDisallowsInput = GetBool("DisallowsInput", GetModelName());
+    for (ScrollObject *child = GetOwnedChild(); child != nullptr; child = child->GetOwnedSibling())
+    {
+        NuklearLayoutRow *layoutRow = dynamic_cast<NuklearLayoutRow*>(child);
+        if (layoutRow != nullptr)
+        {
+            m_layoutRows.push_back(layoutRow);
+        }
+    }
 }
 
 void NuklearWindow::OnDelete()

@@ -43,6 +43,12 @@
     <Filter Include="src\CPP\UI">
       <UniqueIdentifier>{a4e3308d-eb63-41fe-8a9f-2d9ba40ee1be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Header\UI\NuklearWindowElement">
+      <UniqueIdentifier>{64a71ec9-f802-4f27-8760-ea1a21097b38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\UI\NuklearWindowElement">
+      <UniqueIdentifier>{1d2f86d9-d195-45f7-adaf-369dc2ef1518}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -149,6 +155,27 @@
     <ClInclude Include="NuklearWindow.h">
       <Filter>src\Header\UI</Filter>
     </ClInclude>
+    <ClInclude Include="NuklearLayoutRow.h">
+      <Filter>src\Header\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearWindowElement.h">
+      <Filter>src\Header\UI\NuklearWindowElement</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearText.h">
+      <Filter>src\Header\UI\NuklearWindowElement</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearButton.h">
+      <Filter>src\Header\UI\NuklearWindowElement</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearCombo.h">
+      <Filter>src\Header\UI\NuklearWindowElement</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearCheckBox.h">
+      <Filter>src\Header\UI\NuklearWindowElement</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearWindowElementType.h">
+      <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -222,6 +249,24 @@
     </ClCompile>
     <ClCompile Include="NuklearWindow.cpp">
       <Filter>src\CPP\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearLayoutRow.cpp">
+      <Filter>src\CPP\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearWindowElement.cpp">
+      <Filter>src\CPP\UI\NuklearWindowElement</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearText.cpp">
+      <Filter>src\CPP\UI\NuklearWindowElement</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearButton.cpp">
+      <Filter>src\CPP\UI\NuklearWindowElement</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearCombo.cpp">
+      <Filter>src\CPP\UI\NuklearWindowElement</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearCheckBox.cpp">
+      <Filter>src\CPP\UI\NuklearWindowElement</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -2,9 +2,11 @@
 
 #include "Payload.h"
 #include "ScrollMod.h"
+#include "NuklearLayoutRow.h"
 
 namespace payload
 {
+    // A UI window within which rows of UI elements are displayed.
     class NuklearWindow : public ScrollMod
     {
     protected:
@@ -36,5 +38,7 @@ namespace payload
         bool m_bIsKeptInBackground;
         bool m_bIsScaledLeft;
         bool m_bDisallowsInput;
+        //! The NuklearWindow's layout rows.
+        std::vector<NuklearLayoutRow*> m_layoutRows;
     };
 }
