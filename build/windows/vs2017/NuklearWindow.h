@@ -1,13 +1,13 @@
 #pragma once
 
 #include "Payload.h"
-#include "ScrollMod.h"
+#include "NuklearWindowElement.h"
 #include "NuklearLayoutRow.h"
 
 namespace payload
 {
     // A UI window within which rows of UI elements are displayed.
-    class NuklearWindow : public ScrollMod
+    class NuklearWindow : public NuklearWindowElement
     {
     protected:
         //! Called on object creation

@@ -397,8 +397,10 @@
     <ClInclude Include="NuklearButton.h" />
     <ClInclude Include="NuklearCheckBox.h" />
     <ClInclude Include="NuklearCombo.h" />
+    <ClInclude Include="NuklearInteractable.h" />
     <ClInclude Include="NuklearLayoutRow.h" />
     <ClInclude Include="NuklearText.h" />
+    <ClInclude Include="NuklearTextAlignment.h" />
     <ClInclude Include="NuklearWindow.h" />
     <ClInclude Include="NuklearWindowElement.h" />
     <ClInclude Include="NuklearWindowElementType.h" />
@@ -433,6 +435,7 @@
     <ClCompile Include="NuklearButton.cpp" />
     <ClCompile Include="NuklearCheckBox.cpp" />
     <ClCompile Include="NuklearCombo.cpp" />
+    <ClCompile Include="NuklearInteractable.cpp" />
     <ClCompile Include="NuklearLayoutRow.cpp" />
     <ClCompile Include="NuklearText.cpp" />
     <ClCompile Include="NuklearWindow.cpp" />

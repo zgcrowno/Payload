@@ -4,6 +4,8 @@ using namespace payload;
 
 void NuklearWindow::OnCreate()
 {
+    NuklearWindowElement::OnCreate();
+
     m_title = GetString("Title", GetModelName());
     m_bIsBordered = GetBool("IsBordered", GetModelName());
     m_bIsMovable = GetBool("IsMovable", GetModelName());

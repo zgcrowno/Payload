@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Payload.h"
-#include "NuklearWindowElement.h"
+#include "NuklearInteractable.h"
 
 namespace payload
 {
     // A UI window within which rows of UI elements are displayed.
-    class NuklearButton : public NuklearWindowElement
+    class NuklearButton : public NuklearInteractable
     {
     protected:
         //! Called on object creation
@@ -22,5 +22,7 @@ namespace payload
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
+    public:
+        virtual void Interact();
     };
 }

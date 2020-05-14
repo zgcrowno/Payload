@@ -9,6 +9,7 @@ namespace payload
         Button,
         CheckBox,
         Combo,
-        Text
+        Text,
+        Window
     };
 }

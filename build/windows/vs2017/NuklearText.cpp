@@ -10,6 +10,7 @@ void NuklearText::OnCreate()
     m_wrap = GetBool("Wrap", GetModelName());
     m_textColor = GetVector("TextColor", GetModelName());
     m_textAlpha = GetFloat("TextAlpha", GetModelName());
+    m_alignment = static_cast<NuklearTextAlignment>(GetU32("Alignment", GetModelName()));
 }
 
 void NuklearText::OnDelete()

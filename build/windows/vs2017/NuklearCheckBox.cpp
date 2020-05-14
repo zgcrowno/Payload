@@ -4,7 +4,10 @@ using namespace payload;
 
 void NuklearCheckBox::OnCreate()
 {
-    NuklearWindowElement::OnCreate();
+    NuklearInteractable::OnCreate();
+
+    m_active = GetBool("Active", GetModelName());
+    m_label = GetString("Label", GetModelName());
 }
 
 void NuklearCheckBox::OnDelete()
@@ -23,6 +26,11 @@ orxBOOL NuklearCheckBox::OnCollide(
 }
 
 void NuklearCheckBox::Update(const orxCLOCK_INFO &_rstInfo)
+{
+
+}
+
+void NuklearCheckBox::Interact()
 {
 
 }

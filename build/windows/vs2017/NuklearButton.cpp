@@ -4,7 +4,7 @@ using namespace payload;
 
 void NuklearButton::OnCreate()
 {
-    NuklearWindowElement::OnCreate();
+    NuklearInteractable::OnCreate();
 }
 
 void NuklearButton::OnDelete()
@@ -23,6 +23,11 @@ orxBOOL NuklearButton::OnCollide(
 }
 
 void NuklearButton::Update(const orxCLOCK_INFO &_rstInfo)
+{
+
+}
+
+void NuklearButton::Interact()
 {
 
 }
