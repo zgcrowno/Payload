@@ -398,7 +398,9 @@
     <ClInclude Include="NuklearCheckBox.h" />
     <ClInclude Include="NuklearCombo.h" />
     <ClInclude Include="NuklearInteractable.h" />
+    <ClInclude Include="NuklearLayoutFormat.h" />
     <ClInclude Include="NuklearLayoutRow.h" />
+    <ClInclude Include="NuklearLayoutType.h" />
     <ClInclude Include="NuklearText.h" />
     <ClInclude Include="NuklearTextAlignment.h" />
     <ClInclude Include="NuklearWindow.h" />

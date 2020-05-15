@@ -23,6 +23,9 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        //! The bitmap of the orxTEXTURE which makes up the NuklearButton's image.
+        orxBITMAP *m_textureBitmap;
+
         virtual void Interact();
     };
 }

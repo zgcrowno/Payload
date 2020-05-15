@@ -188,6 +188,12 @@
     <ClInclude Include="NuklearWindow.h">
       <Filter>src\Header\UI\NuklearWindowElement</Filter>
     </ClInclude>
+    <ClInclude Include="NuklearLayoutType.h">
+      <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearLayoutFormat.h">
+      <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">

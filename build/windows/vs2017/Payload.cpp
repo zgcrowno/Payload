@@ -24,6 +24,7 @@
 #include "NuklearCheckBox.h"
 #include "NuklearCombo.h"
 #include "NuklearLayoutRow.h"
+#include "NuklearLayoutType.h"
 #include "NuklearText.h"
 #include "NuklearTextAlignment.h"
 #include "NuklearWindow.h"
@@ -256,23 +257,82 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
     // Draw the NuklearWindow's NuklearLayoutRows.
     for (NuklearLayoutRow *row : nWin->m_layoutRows)
     {
-        if (row->m_bIsDynamic)
+        // Determine the row's format.
+        nk_layout_format format;
+        switch (row->m_format)
         {
-            nk_layout_row_dynamic(&sstNuklear.stContext, row->m_height, row->m_numCols);
+        case NuklearLayoutFormat::Static:
+            format = NK_STATIC;
+            break;
+        case NuklearLayoutFormat::Dynamic:
+            format = NK_DYNAMIC;
+            break;
+        default:
+            break;
         }
-        else
+        // Set up the row.
+        switch (row->m_type)
         {
-            nk_layout_row_static(&sstNuklear.stContext, row->m_height, row->m_elementWidth, row->m_numCols);
+        case NuklearLayoutType::Row:
+            nk_layout_row(&sstNuklear.stContext, format, row->m_height, row->m_elements.size(), row->m_sizeOrRatio.data());
+            break;
+        case NuklearLayoutType::RowBegin:
+            nk_layout_row_begin(&sstNuklear.stContext, format, row->m_height, row->m_elements.size());
+            break;
+        case NuklearLayoutType::RowStatic:
+            nk_layout_row_static(&sstNuklear.stContext, row->m_height, row->m_elementWidth, row->m_elements.size());
+            break;
+        case NuklearLayoutType::RowDynamic:
+            nk_layout_row_dynamic(&sstNuklear.stContext, row->m_height, row->m_elements.size());
+            break;
+        case NuklearLayoutType::RowTemplateBegin:
+            nk_layout_row_template_begin(&sstNuklear.stContext, row->m_height);
+            break;
+        case NuklearLayoutType::SpaceBegin:
+            nk_layout_space_begin(&sstNuklear.stContext, format, row->m_height, row->m_elements.size());
+            break;
         }
         // Draw the NuklearLayoutRow's individual elements, and handle their behaviors.
-        for (NuklearWindowElement *ele : row->m_elements)
+        for (int i = 0; i < row->m_elements.size(); i++)
         {
+            NuklearWindowElement *ele = row->m_elements.at(i);
+            // Push any necessary values for the row.
+            switch (row->m_type)
+            {
+            case NuklearLayoutType::RowBegin:
+                nk_layout_row_push(&sstNuklear.stContext, row->m_widthsOrRatios.at(i));
+                break;
+            case NuklearLayoutType::RowTemplateBegin:
+                switch (row->m_format)
+                {
+                case NuklearLayoutFormat::Static:
+                    nk_layout_row_template_push_static(&sstNuklear.stContext, row->m_elementWidths.at(i));
+                    break;
+                case NuklearLayoutFormat::Dynamic:
+                    nk_layout_row_template_push_dynamic(&sstNuklear.stContext);
+                    break;
+                case NuklearLayoutFormat::Variable:
+                    nk_layout_row_template_push_variable(&sstNuklear.stContext, row->m_elementMinWidths.at(i));
+                    break;
+                }
+                break;
+            case NuklearLayoutType::SpaceBegin:
+                orxVECTOR elementStartingPosition = row->m_elementStartingPositions.at(i);
+                orxVECTOR elementStartingSize = row->m_elementStartingSizes.at(i);
+                nk_layout_space_push(
+                    &sstNuklear.stContext,
+                    nk_rect(elementStartingPosition.fX, elementStartingPosition.fY, elementStartingSize.fX, elementStartingSize.fY));
+                break;
+            default:
+                break;
+            }
+            // Handle the widgets.
             switch (ele->m_type)
             {
             case NuklearWindowElementType::Button:
             {
                 NuklearButton *button = static_cast<NuklearButton*>(ele);
-                if (nk_button_image(&sstNuklear.stContext, nk_image_id(0)))
+                if (nk_button_image(&sstNuklear.stContext, nk_image_ptr(button->m_textureBitmap)))
                 {
                     button->Interact();
                 }
@@ -352,6 +412,21 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
                 DrawNuklearWindow(window, true);
             }
             break;
+            }
+            // End the rows as necessary.
+            switch (row->m_type)
+            {
+            case NuklearLayoutType::RowBegin:
+                nk_layout_row_end(&sstNuklear.stContext);
+                break;
+            case NuklearLayoutType::RowTemplateBegin:
+                nk_layout_row_template_end(&sstNuklear.stContext);
+                break;
+            case NuklearLayoutType::SpaceBegin:
+                nk_layout_space_end(&sstNuklear.stContext);
+                break;
+            default:
+                break;
             }
         }
     }

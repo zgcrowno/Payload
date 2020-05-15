@@ -5,6 +5,8 @@ using namespace payload;
 void NuklearButton::OnCreate()
 {
     NuklearInteractable::OnCreate();
+
+    m_textureBitmap = orxTexture_GetBitmap(orxTexture_CreateFromFile(GetString("TexturePath", GetModelName()).c_str(), true));
 }
 
 void NuklearButton::OnDelete()
