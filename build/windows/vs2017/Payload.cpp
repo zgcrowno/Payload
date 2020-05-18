@@ -365,6 +365,7 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
             case NuklearWindowElementType::Text:
             {
                 NuklearText *text = static_cast<NuklearText*>(ele);
+                nk_style_set_font(&sstNuklear.stContext, &sstNuklear.apstFonts[text->m_fontIndex]->handle);
                 if (text->m_wrap)
                 {
                     nk_text_wrap_colored(

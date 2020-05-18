@@ -24,6 +24,7 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        int m_fontIndex;
         std::string m_staticContent;
         bool m_wrap;
         orxVECTOR m_textColor;

@@ -1,4 +1,5 @@
 #include "NuklearText.h"
+#include <iostream>
 
 using namespace payload;
 
@@ -6,6 +7,15 @@ void NuklearText::OnCreate()
 {
     NuklearWindowElement::OnCreate();
 
+    for (int i = 0; i < GetListCount("FontList", "Nuklear"); i++)
+    {
+        std::string str = GetListString("FontList", i, "Nuklear");
+        if (!str.compare(GetString("Font", GetModelName())))
+        {
+            m_fontIndex = i;
+            break;
+        }
+    }
     m_staticContent = GetString("StaticContent", GetModelName());
     m_wrap = GetBool("Wrap", GetModelName());
     m_textColor = GetVector("TextColor", GetModelName());
