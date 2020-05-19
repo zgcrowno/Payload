@@ -75,7 +75,9 @@ orxSTATUS Payload::Init()
     orxEvent_AddHandler(EVENT_TYPE_TILE_INHABITANT, EventHandler);
     orxEvent_AddHandler(EVENT_TYPE_MEMORY_SET, EventHandler);
     // GAME OBJECT INSTANTIATION.
-    CreateObject("O-SceneLevel");
+    CreateObject("O-SceneDashboard");
+    //CreateObject("O-SceneBoot");
+    //CreateObject("O-SceneLevel");
 
     return result;
 }

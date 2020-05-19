@@ -1,4 +1,13 @@
-﻿  NuklearText.cpp
+﻿  Payload.cpp
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(279): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(282): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(285): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(285): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(288): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(294): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(361): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(377): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(408): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
      Creating library ..\..\..\bin\Payloadd.lib and object ..\..\..\bin\Payloadd.exp
   Payload.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Payload\build\windows\vs2017\..\..\..\bin\Payloadd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orx.dll
