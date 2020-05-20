@@ -194,6 +194,9 @@
     <ClInclude Include="NuklearLayoutFormat.h">
       <Filter>src\Header\EnumClass</Filter>
     </ClInclude>
+    <ClInclude Include="Dashboard.h">
+      <Filter>src\Header</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -288,6 +291,9 @@
     </ClCompile>
     <ClCompile Include="NuklearWindow.cpp">
       <Filter>src\CPP\UI\NuklearWindowElement</Filter>
+    </ClCompile>
+    <ClCompile Include="Dashboard.cpp">
+      <Filter>src\CPP</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

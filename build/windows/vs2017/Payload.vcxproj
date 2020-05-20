@@ -383,6 +383,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bypass.h" />
+    <ClInclude Include="Dashboard.h" />
     <ClInclude Include="Direction.h" />
     <ClInclude Include="Doer.h" />
     <ClInclude Include="EventType.h" />
@@ -425,6 +426,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bypass.cpp" />
+    <ClCompile Include="Dashboard.cpp" />
     <ClCompile Include="Doer.cpp" />
     <ClCompile Include="Firewall.cpp" />
     <ClCompile Include="Goal.cpp" />

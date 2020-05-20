@@ -12,6 +12,7 @@
 #undef orxNUKLEAR_IMPL
 
 #include "Bypass.h"
+#include "Dashboard.h"
 #include "EventType.h"
 #include "Firewall.h"
 #include "Goal.h"
@@ -85,6 +86,7 @@ orxSTATUS Payload::Init()
 void Payload::BindObjects()
 {
     ScrollBindObject<Bypass>("O-Bypass");
+    ScrollBindObject<Dashboard>("O-Dashboard");
     ScrollBindObject<Firewall>("O-Firewall");
     ScrollBindObject<Goal>("O-Goal");
     ScrollBindObject<Infection>("O-Infection");
