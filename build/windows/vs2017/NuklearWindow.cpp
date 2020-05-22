@@ -7,6 +7,10 @@ void NuklearWindow::OnCreate()
     NuklearWindowElement::OnCreate();
 
     m_title = GetString("Title", GetModelName());
+    m_backgroundColor = GetVector("BackgroundColor", GetModelName());
+    m_backgroundAlpha = GetU32("BackgroundAlpha", GetModelName());
+    m_borderColor = GetVector("BorderColor", GetModelName());
+    m_borderAlpha = GetU32("BorderAlpha", GetModelName());
     m_bIsBordered = GetBool("IsBordered", GetModelName());
     m_bIsMovable = GetBool("IsMovable", GetModelName());
     m_bIsScalable = GetBool("IsScalable", GetModelName());

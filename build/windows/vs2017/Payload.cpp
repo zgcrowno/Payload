@@ -21,6 +21,7 @@
 #include "MemorySetCartesian2D.h"
 #include "MemorySetPolar1D.h"
 #include "MemorySetPolar2D.h"
+#include "Moon.h"
 #include "NuklearButton.h"
 #include "NuklearCheckBox.h"
 #include "NuklearCombo.h"
@@ -94,6 +95,7 @@ void Payload::BindObjects()
     ScrollBindObject<MemorySetCartesian2D>("O-MemorySetCartesian2D");
     ScrollBindObject<MemorySetPolar1D>("O-MemorySetPolar1D");
     ScrollBindObject<MemorySetPolar2D>("O-MemorySetPolar2D");
+    ScrollBindObject<Moon>("O-Moon");
     ScrollBindObject<NuklearButton>("O-NuklearButton");
     ScrollBindObject<NuklearCheckBox>("O-NuklearCheckBox");
     ScrollBindObject<NuklearCombo>("O-NuklearCombo");
@@ -187,6 +189,8 @@ void Payload::DrawNuklearWindow(ScrollObject *_nWin, bool _bIsSubWindow)
         flags |= NK_WINDOW_NO_INPUT;
     }
     // Draw the NuklearWindow.
+    sstNuklear.stContext.style.window.fixed_background.data.color = { nk_byte(nWin->m_backgroundColor.fX), nk_byte(nWin->m_backgroundColor.fY), nk_byte(nWin->m_backgroundColor.fZ), nk_byte(nWin->m_backgroundAlpha) };
+    sstNuklear.stContext.style.window.border_color = { nk_byte(nWin->m_borderColor.fX), nk_byte(nWin->m_borderColor.fY), nk_byte(nWin->m_borderColor.fZ), nk_byte(nWin->m_borderAlpha) };
     if (_bIsSubWindow)
     {
         if (nk_group_begin(&sstNuklear.stContext, nWin->m_title.c_str(), flags))

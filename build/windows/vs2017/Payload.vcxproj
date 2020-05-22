@@ -395,6 +395,7 @@
     <ClInclude Include="MemorySetCartesian2D.h" />
     <ClInclude Include="MemorySetPolar1D.h" />
     <ClInclude Include="MemorySetPolar2D.h" />
+    <ClInclude Include="Moon.h" />
     <ClInclude Include="NuklearButton.h" />
     <ClInclude Include="NuklearCheckBox.h" />
     <ClInclude Include="NuklearCombo.h" />
@@ -436,6 +437,7 @@
     <ClCompile Include="MemorySetCartesian2D.cpp" />
     <ClCompile Include="MemorySetPolar1D.cpp" />
     <ClCompile Include="MemorySetPolar2D.cpp" />
+    <ClCompile Include="Moon.cpp" />
     <ClCompile Include="NuklearButton.cpp" />
     <ClCompile Include="NuklearCheckBox.cpp" />
     <ClCompile Include="NuklearCombo.cpp" />

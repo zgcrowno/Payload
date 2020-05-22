@@ -1,5 +1,4 @@
 #include "NuklearText.h"
-#include <iostream>
 
 using namespace payload;
 
