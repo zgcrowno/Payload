@@ -404,7 +404,6 @@
     <ClInclude Include="NuklearLayoutRow.h" />
     <ClInclude Include="NuklearLayoutType.h" />
     <ClInclude Include="NuklearText.h" />
-    <ClInclude Include="NuklearTextAlignment.h" />
     <ClInclude Include="NuklearWindow.h" />
     <ClInclude Include="NuklearWindowElement.h" />
     <ClInclude Include="NuklearWindowElementType.h" />
@@ -414,6 +413,9 @@
     <ClInclude Include="Proxy.h" />
     <ClInclude Include="RaycastData.h" />
     <ClInclude Include="Recursive.h" />
+    <ClInclude Include="Scene.h" />
+    <ClInclude Include="SceneBoot.h" />
+    <ClInclude Include="SceneDashboard.h" />
     <ClInclude Include="ScrollMod.h" />
     <ClInclude Include="Spawner.h" />
     <ClInclude Include="Tile.h" />
@@ -452,6 +454,9 @@
     <ClCompile Include="Proxy.cpp" />
     <ClCompile Include="RaycastData.cpp" />
     <ClCompile Include="Recursive.cpp" />
+    <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SceneBoot.cpp" />
+    <ClCompile Include="SceneDashboard.cpp" />
     <ClCompile Include="ScrollMod.cpp" />
     <ClCompile Include="Spawner.cpp" />
     <ClCompile Include="Tile.cpp" />

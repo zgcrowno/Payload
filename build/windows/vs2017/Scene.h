@@ -5,6 +5,7 @@
 
 namespace payload
 {
+    // Using virtual inheritance for ScrollMod to prevent member ambiguity errors when also inheriting from InputHandler.
     class Scene : public ScrollMod
     {
     protected:
@@ -22,6 +23,6 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
-        void Transition(const std::string &_toScene);
+        virtual void Skip();
     };
 }

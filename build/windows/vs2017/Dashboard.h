@@ -32,7 +32,14 @@ namespace payload
         float m_animStartTimeMoon;
         //! At what passage of time (in seconds) does the Dashboard's moon bunch animation end?
         float m_animEndTimeMoon;
-
+        //! At what passage of time (in seconds) does the Dashboard start scrolling?
+        float m_animStartTimeScroll;
+        //! At what passage of time (in seconds) does the Dashboard stop scrolling?
+        float m_animEndTimeScroll;
+        //! The Dashboard's starting position.
+        orxVECTOR m_startingPosition;
+        //! The Dashboard's ending position.
+        orxVECTOR m_endingPosition;
 
         float m_minLeafBunchScale;
         float m_maxLeafBunchScale;

@@ -61,6 +61,12 @@
     <Filter Include="src\Header\Dashboard">
       <UniqueIdentifier>{84cd6d6b-c844-4256-9087-2124c809a301}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\CPP\Scene">
+      <UniqueIdentifier>{baf0b825-2ae7-4bba-b703-d041b00c4699}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Header\Scene">
+      <UniqueIdentifier>{c39547d5-838c-4878-9bf2-63d0bdf43b25}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -176,9 +182,6 @@
     <ClInclude Include="NuklearWindowElementType.h">
       <Filter>src\Header\EnumClass</Filter>
     </ClInclude>
-    <ClInclude Include="NuklearTextAlignment.h">
-      <Filter>src\Header\EnumClass</Filter>
-    </ClInclude>
     <ClInclude Include="NuklearInteractable.h">
       <Filter>src\Header\UI\NuklearWindowElement\NuklearInteractable</Filter>
     </ClInclude>
@@ -205,6 +208,15 @@
     </ClInclude>
     <ClInclude Include="Moon.h">
       <Filter>src\Header\Dashboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene.h">
+      <Filter>src\Header\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneBoot.h">
+      <Filter>src\Header\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneDashboard.h">
+      <Filter>src\Header\Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -306,6 +318,15 @@
     </ClCompile>
     <ClCompile Include="Moon.cpp">
       <Filter>src\CPP\Dashboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene.cpp">
+      <Filter>src\CPP\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneBoot.cpp">
+      <Filter>src\CPP\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneDashboard.cpp">
+      <Filter>src\CPP\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

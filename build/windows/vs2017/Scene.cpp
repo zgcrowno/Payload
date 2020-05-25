@@ -9,7 +9,7 @@ void Scene::OnCreate()
 
 void Scene::OnDelete()
 {
-
+    
 }
 
 orxBOOL Scene::OnCollide(
@@ -19,16 +19,18 @@ orxBOOL Scene::OnCollide(
     const orxVECTOR &_rvPosition,
     const orxVECTOR &_rvNormal)
 {
-    return true;
+    return orxTRUE;
 }
 
 void Scene::Update(const orxCLOCK_INFO &_rstInfo)
 {
-
+    if (orxInput_HasBeenActivated("Recon"))
+    {
+        Skip();
+    }
 }
 
-void Scene::Transition(const std::string &_toScene)
+void Scene::Skip()
 {
-    // Transition to scene.
-    CreateObject(_toScene);
+
 }

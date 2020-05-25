@@ -19,7 +19,33 @@ void NuklearText::OnCreate()
     m_wrap = GetBool("Wrap", GetModelName());
     m_textColor = GetVector("TextColor", GetModelName());
     m_textAlpha = GetFloat("TextAlpha", GetModelName());
-    m_alignment = static_cast<NuklearTextAlignment>(GetU32("Alignment", GetModelName()));
+    for (int i = 0; i < GetListCount("AlignmentFlags", GetModelName()); i++)
+    {
+        if (!orxString_Compare("Left", GetListString("AlignmentFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsAlignedLeft = true;
+        }
+        else if (!orxString_Compare("Right", GetListString("AlignmentFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsAlignedRight = true;
+        }
+        else if (!orxString_Compare("Top", GetListString("AlignmentFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsAlignedTop = true;
+        }
+        else if (!orxString_Compare("Bottom", GetListString("AlignmentFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsAlignedBottom = true;
+        }
+        else if (!orxString_Compare("CenteredHorizontal", GetListString("AlignmentFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsAlignedCenteredHorizontal = true;
+        }
+        else if (!orxString_Compare("CenteredVertical", GetListString("AlignmentFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsAlignedCenteredVertical = true;
+        }
+    }
 }
 
 void NuklearText::OnDelete()

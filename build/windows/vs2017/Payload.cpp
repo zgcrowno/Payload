@@ -28,7 +28,6 @@
 #include "NuklearLayoutRow.h"
 #include "NuklearLayoutType.h"
 #include "NuklearText.h"
-#include "NuklearTextAlignment.h"
 #include "NuklearWindow.h"
 #include "NuklearWindowElement.h"
 #include "NuklearWindowElementType.h"
@@ -36,6 +35,7 @@
 #include "Protocol.h"
 #include "Proxy.h"
 #include "Recursive.h"
+#include "SceneBoot.h"
 #include "ScrollMod.h"
 #include "Tile.h"
 #include "TileSet.h"
@@ -77,8 +77,8 @@ orxSTATUS Payload::Init()
     orxEvent_AddHandler(EVENT_TYPE_TILE_INHABITANT, EventHandler);
     orxEvent_AddHandler(EVENT_TYPE_MEMORY_SET, EventHandler);
     // GAME OBJECT INSTANTIATION.
-    CreateObject("O-SceneDashboard");
-    //CreateObject("O-SceneBoot");
+    //CreateObject("O-SceneDashboard");
+    CreateObject("O-SceneBoot");
     //CreateObject("O-SceneLevel");
 
     return result;
@@ -107,6 +107,7 @@ void Payload::BindObjects()
     ScrollBindObject<Protocol>("O-Protocol");
     ScrollBindObject<Proxy>("O-Proxy");
     ScrollBindObject<Recursive>("O-Recursive");
+    ScrollBindObject<SceneBoot>("O-SceneBoot");
     ScrollBindObject<ScrollMod>("O-ScrollMod");
     ScrollBindObject<Tile>("O-Tile");
     ScrollBindObject<TileSet>("O-TileSet");
@@ -384,33 +385,37 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
                 }
                 else
                 {
-                    nk_text_align nkAlignment;
-                    switch (text->m_alignment)
+                    // Set the nk_text_align flags as appropriate.
+                    nk_flags alignmentFlags = 0;
+                    if (text->m_bIsAlignedBottom)
                     {
-                    case NuklearTextAlignment::Bottom:
-                        nkAlignment = NK_TEXT_ALIGN_BOTTOM;
-                        break;
-                    case NuklearTextAlignment::Centered:
-                        nkAlignment = NK_TEXT_ALIGN_CENTERED;
-                        break;
-                    case NuklearTextAlignment::Left:
-                        nkAlignment = NK_TEXT_ALIGN_LEFT;
-                        break;
-                    case NuklearTextAlignment::Middle:
-                        nkAlignment = NK_TEXT_ALIGN_MIDDLE;
-                        break;
-                    case NuklearTextAlignment::Right:
-                        nkAlignment = NK_TEXT_ALIGN_RIGHT;
-                        break;
-                    case NuklearTextAlignment::Top:
-                        nkAlignment = NK_TEXT_ALIGN_TOP;
-                        break;
+                        alignmentFlags |= NK_TEXT_ALIGN_BOTTOM;
+                    }
+                    if (text->m_bIsAlignedCenteredHorizontal)
+                    {
+                        alignmentFlags |= NK_TEXT_ALIGN_CENTERED;
+                    }
+                    if (text->m_bIsAlignedLeft)
+                    {
+                        alignmentFlags |= NK_TEXT_ALIGN_LEFT;
+                    }
+                    if (text->m_bIsAlignedCenteredVertical)
+                    {
+                        alignmentFlags |= NK_TEXT_ALIGN_MIDDLE;
+                    }
+                    if (text->m_bIsAlignedRight)
+                    {
+                        alignmentFlags |= NK_TEXT_ALIGN_RIGHT;
+                    }
+                    if (text->m_bIsAlignedTop)
+                    {
+                        alignmentFlags |= NK_TEXT_ALIGN_TOP;
                     }
                     nk_text_colored(
                         &sstNuklear.stContext,
                         text->m_staticContent.c_str(),
                         text->m_staticContent.length(),
-                        nkAlignment,
+                        alignmentFlags,
                         { static_cast<nk_byte>(text->m_textColor.fR), static_cast<nk_byte>(text->m_textColor.fG), static_cast<nk_byte>(text->m_textColor.fB), static_cast<nk_byte>(text->m_textAlpha) });
                 }
             }

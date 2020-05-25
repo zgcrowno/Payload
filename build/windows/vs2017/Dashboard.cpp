@@ -8,6 +8,10 @@ void Dashboard::OnCreate()
     m_animEndTimeLeafBunch = GetFloat("AnimEndTimeLeafBunch", GetModelName());
     m_animStartTimeMoon = GetFloat("AnimStartTimeMoon", GetModelName());
     m_animEndTimeMoon = GetFloat("AnimEndTimeMoon", GetModelName());
+    m_animStartTimeScroll = GetFloat("AnimStartTimeScroll", GetModelName());
+    m_animEndTimeScroll = GetFloat("AnimEndTimeScroll", GetModelName());
+    m_startingPosition = GetVector("StartingPosition", GetModelName());
+    m_endingPosition = GetVector("EndingPosition", GetModelName());
 
     m_minLeafBunchScale = GetFloat("MinLeafBunchScale", GetModelName());
     m_maxLeafBunchScale = GetFloat("MaxLeafBunchScale", GetModelName());
@@ -79,5 +83,17 @@ void Dashboard::Update(const orxCLOCK_INFO &_rstInfo)
                 0.0f,
                 1.0f);
         }
+    }
+    // Scroll the Dashboard.
+    if (activeTime >= m_animStartTimeScroll && activeTime <= m_animEndTimeScroll)
+    {
+        orxVECTOR curPos = GetPosition();
+        float newY = orxCLAMP(
+            orxLERP(m_startingPosition.fY,
+                m_endingPosition.fY,
+                (activeTime - m_animStartTimeScroll) / (m_animEndTimeScroll - m_animStartTimeScroll)),
+            m_endingPosition.fY,
+            m_startingPosition.fY);
+        SetPosition({ curPos.fX, newY, curPos.fZ });
     }
 }

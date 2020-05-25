@@ -2,7 +2,6 @@
 
 #include "Payload.h"
 #include "NuklearWindowElement.h"
-#include "NuklearTextAlignment.h"
 
 namespace payload
 {
@@ -29,6 +28,12 @@ namespace payload
         bool m_wrap;
         orxVECTOR m_textColor;
         float m_textAlpha;
-        NuklearTextAlignment m_alignment;
+        //! Text alignment flags.
+        bool m_bIsAlignedBottom;
+        bool m_bIsAlignedCenteredHorizontal;
+        bool m_bIsAlignedLeft;
+        bool m_bIsAlignedCenteredVertical;
+        bool m_bIsAlignedRight;
+        bool m_bIsAlignedTop;
     };
 }
