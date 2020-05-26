@@ -96,4 +96,38 @@ void Dashboard::Update(const orxCLOCK_INFO &_rstInfo)
             m_startingPosition.fY);
         SetPosition({ curPos.fX, newY, curPos.fZ });
     }
+    // Finalize leaf bunches as appropriate.
+    if (activeTime >= m_animEndTimeLeafBunch && activeTime - _rstInfo.fDT <= m_animEndTimeLeafBunch)
+    {
+        FinalizeLeafBunches();
+    }
+    // Finalize moon as appropriate.
+    if (activeTime >= m_animEndTimeMoon && activeTime - _rstInfo.fDT <= m_animEndTimeMoon)
+    {
+        FinalizeMoon();
+    }
+    // Finalize scroll as appropriate.
+    if (activeTime >= m_animEndTimeScroll && activeTime - _rstInfo.fDT <= m_animEndTimeScroll)
+    {
+        FinalizeScroll();
+    }
+}
+
+void Dashboard::FinalizeLeafBunches()
+{
+    for (ScrollMod *leafBunch : m_leafBunches)
+    {
+        leafBunch->SetScale({ m_maxLeafBunchScale, m_maxLeafBunchScale, leafBunch->GetScale().fZ });
+    }
+}
+
+void Dashboard::FinalizeMoon()
+{
+    m_moon->m_mutableCircleX = 1.0f - m_moon->m_mutableCircleXStart;
+}
+
+void Dashboard::FinalizeScroll()
+{
+    orxVECTOR curPos = GetPosition();
+    SetPosition({ curPos.fX, m_endingPosition.fY, curPos.fZ });
 }

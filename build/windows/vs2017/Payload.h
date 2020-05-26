@@ -38,6 +38,7 @@ namespace payload
     public:
         const int GetPayloadRow();
         ScrollObject *GetTileSet();
+        ScrollObject *GetSceneDashboard();
         std::vector<ScrollObject*> GetTileInhabitants();
         std::vector<ScrollObject*> GetFirewalls();
         std::vector<ScrollObject*> GetNuklearWindows();

@@ -4,24 +4,56 @@ using namespace payload;
 
 void NuklearWindow::OnCreate()
 {
-    NuklearWindowElement::OnCreate();
+    NuklearWindowElementNonText::OnCreate();
 
     m_title = GetString("Title", GetModelName());
-    m_backgroundColor = GetVector("BackgroundColor", GetModelName());
-    m_backgroundAlpha = GetU32("BackgroundAlpha", GetModelName());
-    m_borderColor = GetVector("BorderColor", GetModelName());
-    m_borderAlpha = GetU32("BorderAlpha", GetModelName());
-    m_bIsBordered = GetBool("IsBordered", GetModelName());
-    m_bIsMovable = GetBool("IsMovable", GetModelName());
-    m_bIsScalable = GetBool("IsScalable", GetModelName());
-    m_bIsClosable = GetBool("IsClosable", GetModelName());
-    m_bIsMinimizable = GetBool("IsMinimizable", GetModelName());
-    m_bHasNoScrollbar = GetBool("HasNoScrollbar", GetModelName());
-    m_bHasTitle = GetBool("HasTitle", GetModelName());
-    m_bAutoHidesScrollbar = GetBool("AutoHidesScrollbar", GetModelName());
-    m_bIsKeptInBackground = GetBool("IsKeptInBackground", GetModelName());
-    m_bIsScaledLeft = GetBool("IsScaledLeft", GetModelName());
-    m_bDisallowsInput = GetBool("DisallowsInput", GetModelName());
+    for (int i = 0; i < GetListCount("WindowFlags", GetModelName()); i++)
+    {
+        if (!orxString_Compare("IsBordered", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsBordered = true;
+        }
+        else if (!orxString_Compare("IsMovable", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsMovable = true;
+        }
+        else if (!orxString_Compare("IsScalable", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsScalable = true;
+        }
+        else if (!orxString_Compare("IsClosable", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsClosable = true;
+        }
+        else if (!orxString_Compare("IsMinimizable", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsMinimizable = true;
+        }
+        else if (!orxString_Compare("HasNoScrollbar", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bHasNoScrollbar = true;
+        }
+        else if (!orxString_Compare("HasTitle", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bHasTitle = true;
+        }
+        else if (!orxString_Compare("AutoHidesScrollbar", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bAutoHidesScrollbar = true;
+        }
+        else if (!orxString_Compare("IsKeptInBackground", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsKeptInBackground = true;
+        }
+        else if (!orxString_Compare("IsScaledLeft", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bIsScaledLeft = true;
+        }
+        else if (!orxString_Compare("DisallowsInput", GetListString("WindowFlags", i, GetModelName()).c_str()))
+        {
+            m_bDisallowsInput = true;
+        }
+    }
     for (ScrollObject *child = GetOwnedChild(); child != nullptr; child = child->GetOwnedSibling())
     {
         NuklearLayoutRow *layoutRow = dynamic_cast<NuklearLayoutRow*>(child);

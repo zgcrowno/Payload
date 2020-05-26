@@ -4,7 +4,7 @@ using namespace payload;
 
 void NuklearInteractable::OnCreate()
 {
-    NuklearWindowElement::OnCreate();
+    NuklearWindowElementNonText::OnCreate();
 }
 
 void NuklearInteractable::OnDelete()

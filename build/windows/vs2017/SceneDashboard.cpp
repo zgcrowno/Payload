@@ -27,9 +27,24 @@ orxBOOL SceneDashboard::OnCollide(
 void SceneDashboard::Update(const orxCLOCK_INFO &_rstInfo)
 {
     Scene::Update(_rstInfo);
+
+    float dashboardActiveTime = m_dashboard->GetActiveTime();
+    if (dashboardActiveTime >= m_dashboard->m_animStartTimeScroll && dashboardActiveTime - _rstInfo.fDT <= m_dashboard->m_animStartTimeScroll)
+    {
+        DisableHeaderAndFooter();
+    }
 }
 
 void SceneDashboard::Skip()
 {
-    
+    DisableHeaderAndFooter();
+    m_dashboard->FinalizeLeafBunches();
+    m_dashboard->FinalizeMoon();
+    m_dashboard->FinalizeScroll();
+}
+
+void SceneDashboard::DisableHeaderAndFooter()
+{
+    m_dashboardHeader->Enable(false);
+    m_dashboardFooter->Enable(false);
 }

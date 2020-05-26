@@ -1,12 +1,12 @@
 #pragma once
 
 #include "Payload.h"
-#include "NuklearWindowElement.h"
+#include "NuklearWindowElementNonText.h"
 
 namespace payload
 {
     // A UI window within which rows of UI elements are displayed.
-    class NuklearInteractable : public NuklearWindowElement
+    class NuklearInteractable : public NuklearWindowElementNonText
     {
     protected:
         //! Called on object creation

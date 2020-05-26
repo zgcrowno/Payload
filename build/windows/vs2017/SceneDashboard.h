@@ -30,5 +30,7 @@ namespace payload
         NuklearWindow *m_dashboardFooter;
 
         virtual void Skip();
+
+        void DisableHeaderAndFooter();
     };
 }

@@ -406,6 +406,7 @@
     <ClInclude Include="NuklearText.h" />
     <ClInclude Include="NuklearWindow.h" />
     <ClInclude Include="NuklearWindowElement.h" />
+    <ClInclude Include="NuklearWindowElementNonText.h" />
     <ClInclude Include="NuklearWindowElementType.h" />
     <ClInclude Include="Payload.h" />
     <ClInclude Include="PlayerPayload.h" />
@@ -448,6 +449,7 @@
     <ClCompile Include="NuklearText.cpp" />
     <ClCompile Include="NuklearWindow.cpp" />
     <ClCompile Include="NuklearWindowElement.cpp" />
+    <ClCompile Include="NuklearWindowElementNonText.cpp" />
     <ClCompile Include="Payload.cpp" />
     <ClCompile Include="PlayerPayload.cpp" />
     <ClCompile Include="Protocol.cpp" />

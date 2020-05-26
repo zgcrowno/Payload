@@ -36,6 +36,7 @@
 #include "Proxy.h"
 #include "Recursive.h"
 #include "SceneBoot.h"
+#include "SceneDashboard.h"
 #include "ScrollMod.h"
 #include "Tile.h"
 #include "TileSet.h"
@@ -108,6 +109,7 @@ void Payload::BindObjects()
     ScrollBindObject<Proxy>("O-Proxy");
     ScrollBindObject<Recursive>("O-Recursive");
     ScrollBindObject<SceneBoot>("O-SceneBoot");
+    ScrollBindObject<SceneDashboard>("O-SceneDashboard");
     ScrollBindObject<ScrollMod>("O-ScrollMod");
     ScrollBindObject<Tile>("O-Tile");
     ScrollBindObject<TileSet>("O-TileSet");
@@ -137,116 +139,138 @@ void Payload::Exit()
 
 void Payload::DrawNuklearWindow(ScrollObject *_nWin, bool _bIsSubWindow)
 {
-    // The fully cast NuklearWindow.
-    NuklearWindow *nWin = static_cast<NuklearWindow*>(_nWin);
-    // The NuklearWindow's starting position.
-    orxVECTOR nWinStartingPos = nWin->GetPosition();
-    // The NuklearWindow's starting size.
-    orxVECTOR nWinStartingSize = nWin->GetScaledSize();
-    // Set the nk_panel_flags as appropriate.
-    nk_flags flags = 0;
-    if (nWin->m_bIsBordered)
+    // TODO: For every NuklearWindowElement we render, we'll probably want to add a precursor like the following:
+    /*if (nuklearWindowElement->m_bUsesCustomSkin)
     {
-        flags |= NK_WINDOW_BORDER;
-    }
-    if (nWin->m_bIsMovable)
-    {
-        flags |= NK_WINDOW_MOVABLE;
-    }
-    if (nWin->m_bIsScalable)
-    {
-        flags |= NK_WINDOW_SCALABLE;
-    }
-    if (nWin->m_bIsClosable)
-    {
-        flags |= NK_WINDOW_CLOSABLE;
-    }
-    if (nWin->m_bIsMinimizable)
-    {
-        flags |= NK_WINDOW_MINIMIZABLE;
-    }
-    if (nWin->m_bHasNoScrollbar)
-    {
-        flags |= NK_WINDOW_NO_SCROLLBAR;
-    }
-    if (nWin->m_bHasTitle)
-    {
-        flags |= NK_WINDOW_TITLE;
-    }
-    if (nWin->m_bAutoHidesScrollbar)
-    {
-        flags |= NK_WINDOW_SCROLL_AUTO_HIDE;
-    }
-    if (nWin->m_bIsKeptInBackground)
-    {
-        flags |= NK_WINDOW_BACKGROUND;
-    }
-    if (nWin->m_bIsScaledLeft)
-    {
-        flags |= NK_WINDOW_SCALE_LEFT;
-    }
-    if (nWin->m_bDisallowsInput)
-    {
-        flags |= NK_WINDOW_NO_INPUT;
-    }
-    // Draw the NuklearWindow.
-    sstNuklear.stContext.style.window.fixed_background.data.color = { nk_byte(nWin->m_backgroundColor.fX), nk_byte(nWin->m_backgroundColor.fY), nk_byte(nWin->m_backgroundColor.fZ), nk_byte(nWin->m_backgroundAlpha) };
-    sstNuklear.stContext.style.window.border_color = { nk_byte(nWin->m_borderColor.fX), nk_byte(nWin->m_borderColor.fY), nk_byte(nWin->m_borderColor.fZ), nk_byte(nWin->m_borderAlpha) };
-    if (_bIsSubWindow)
-    {
-        if (nk_group_begin(&sstNuklear.stContext, nWin->m_title.c_str(), flags))
-        {
-            DrawNuklearLayoutRows(nWin);
-
-            nk_group_end(&sstNuklear.stContext);
-        }
+        sstNuklear.stContext.style.window.fixed_background = nk_style_item_image(sstNuklear.astSkins[nuklearWindowElement->m_skinIndex].stImage);
     }
     else
     {
-        if (nk_begin(&sstNuklear.stContext, nWin->m_title.c_str(), nk_rect(nWinStartingPos.fX, nWinStartingPos.fY, nWinStartingSize.fX, nWinStartingSize.fY), flags))
+        if (nuklearWindowElement->m_bUsesCustomBackgroundColor)
         {
-            DrawNuklearLayoutRows(nWin);
-            /*enum { EASY, HARD };
-            static orxS32 Op = EASY;
-            static int Property = 20;
-
-            nk_layout_row_static(&sstNuklear.stContext, 30, 80, 1);
-            if (nk_button_label(&sstNuklear.stContext, "button"))
-            {
-                orxLOG("Nuklear button pressed.");
-            }
-            nk_layout_row_dynamic(&sstNuklear.stContext, 30, 2);
-            if (nk_option_label(&sstNuklear.stContext, "easy", Op == EASY))
-            {
-                Op = EASY;
-            }
-            if (nk_option_label(&sstNuklear.stContext, "hard", Op == HARD))
-            {
-                Op = HARD;
-            }
-            nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
-            nk_property_int(&sstNuklear.stContext, "Compression:", 0, &Property, 100, 10, 1);
-            nk_layout_row_dynamic(&sstNuklear.stContext, 50, 1);
-            nk_text_wrap_colored(&sstNuklear.stContext, "Some text for ya!", strlen("Some text for ya!"), {255, 255, 255, 255});
-            nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
-            nk_button_image(&sstNuklear.stContext, nk_image_id(0));
-            nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
-            int selected = 0;
-            const char *items[] = { "item1", "item2", "item3" };
-            nk_combobox(&sstNuklear.stContext, items, 3, &selected, 25, { 100, 100 });
-            nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
-            nk_combo(&sstNuklear.stContext, items, 3, selected, 25, { 100, 100 });
-            nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
-            int sliderVal = 5;
-            nk_slider_int(&sstNuklear.stContext, 0, &sliderVal, 10, 1);
-            nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
-            int checkBoxInactive = 0;
-            int checkBoxActive = 1;
-            nk_checkbox_label(&sstNuklear.stContext, "Checkbox Label 1", &checkBoxActive);
-            nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
-            nk_checkbox_label(&sstNuklear.stContext, "Checkbox Label 2", &checkBoxInactive);*/
+            sstNuklear.stContext.style.window.fixed_background.data.color = { nk_byte(nuklearWindowElement->m_backgroundColor.fX), nk_byte(nuklearWindowElement->m_backgroundColor.fY), nk_byte(nuklearWindowElement->m_backgroundColor.fZ), nk_byte(nuklearWindowElement->m_backgroundAlpha) };
         }
-        nk_end(&sstNuklear.stContext);
+        if (nuklearWindowElement->m_bUsesCustomBorderColor)
+        {
+            sstNuklear.stContext.style.window.border_color = { nk_byte(nuklearWindowElement->m_borderColor.fX), nk_byte(nuklearWindowElement->m_borderColor.fY), nk_byte(nuklearWindowElement->m_borderColor.fZ), nk_byte(nuklearWindowElement->m_borderAlpha) };
+        }
+    }*/
+
+    // The fully cast NuklearWindow.
+    NuklearWindow *nWin = static_cast<NuklearWindow*>(_nWin);
+    // Only draw the NuklearWindow if it's enabled.
+    if (nWin->IsEnabled())
+    {
+        // The NuklearWindow's starting position.
+        orxVECTOR nWinStartingPos = nWin->GetPosition();
+        // The NuklearWindow's starting size.
+        orxVECTOR nWinStartingSize = nWin->GetScaledSize();
+        // Set the nk_panel_flags as appropriate.
+        nk_flags flags = 0;
+        if (nWin->m_bIsBordered)
+        {
+            flags |= NK_WINDOW_BORDER;
+        }
+        if (nWin->m_bIsMovable)
+        {
+            flags |= NK_WINDOW_MOVABLE;
+        }
+        if (nWin->m_bIsScalable)
+        {
+            flags |= NK_WINDOW_SCALABLE;
+        }
+        if (nWin->m_bIsClosable)
+        {
+            flags |= NK_WINDOW_CLOSABLE;
+        }
+        if (nWin->m_bIsMinimizable)
+        {
+            flags |= NK_WINDOW_MINIMIZABLE;
+        }
+        if (nWin->m_bHasNoScrollbar)
+        {
+            flags |= NK_WINDOW_NO_SCROLLBAR;
+        }
+        if (nWin->m_bHasTitle)
+        {
+            flags |= NK_WINDOW_TITLE;
+        }
+        if (nWin->m_bAutoHidesScrollbar)
+        {
+            flags |= NK_WINDOW_SCROLL_AUTO_HIDE;
+        }
+        if (nWin->m_bIsKeptInBackground)
+        {
+            flags |= NK_WINDOW_BACKGROUND;
+        }
+        if (nWin->m_bIsScaledLeft)
+        {
+            flags |= NK_WINDOW_SCALE_LEFT;
+        }
+        if (nWin->m_bDisallowsInput)
+        {
+            flags |= NK_WINDOW_NO_INPUT;
+        }
+        // Draw the NuklearWindow.
+        // TODO: Include custom skinning possibility here when/if that gets fully implemented.
+        sstNuklear.stContext.style.window.fixed_background.data.color = { nk_byte(nWin->m_backgroundColor.fX), nk_byte(nWin->m_backgroundColor.fY), nk_byte(nWin->m_backgroundColor.fZ), nk_byte(nWin->m_backgroundAlpha) };
+        sstNuklear.stContext.style.window.border_color = { nk_byte(nWin->m_borderColor.fX), nk_byte(nWin->m_borderColor.fY), nk_byte(nWin->m_borderColor.fZ), nk_byte(nWin->m_borderAlpha) };
+        if (_bIsSubWindow)
+        {
+            if (nk_group_begin(&sstNuklear.stContext, nWin->m_title.c_str(), flags))
+            {
+                DrawNuklearLayoutRows(nWin);
+
+                nk_group_end(&sstNuklear.stContext);
+            }
+        }
+        else
+        {
+            if (nk_begin(&sstNuklear.stContext, nWin->m_title.c_str(), nk_rect(nWinStartingPos.fX, nWinStartingPos.fY, nWinStartingSize.fX, nWinStartingSize.fY), flags))
+            {
+                DrawNuklearLayoutRows(nWin);
+                /*enum { EASY, HARD };
+                static orxS32 Op = EASY;
+                static int Property = 20;
+
+                nk_layout_row_static(&sstNuklear.stContext, 30, 80, 1);
+                if (nk_button_label(&sstNuklear.stContext, "button"))
+                {
+                    orxLOG("Nuklear button pressed.");
+                }
+                nk_layout_row_dynamic(&sstNuklear.stContext, 30, 2);
+                if (nk_option_label(&sstNuklear.stContext, "easy", Op == EASY))
+                {
+                    Op = EASY;
+                }
+                if (nk_option_label(&sstNuklear.stContext, "hard", Op == HARD))
+                {
+                    Op = HARD;
+                }
+                nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+                nk_property_int(&sstNuklear.stContext, "Compression:", 0, &Property, 100, 10, 1);
+                nk_layout_row_dynamic(&sstNuklear.stContext, 50, 1);
+                nk_text_wrap_colored(&sstNuklear.stContext, "Some text for ya!", strlen("Some text for ya!"), {255, 255, 255, 255});
+                nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+                nk_button_image(&sstNuklear.stContext, nk_image_id(0));
+                nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+                int selected = 0;
+                const char *items[] = { "item1", "item2", "item3" };
+                nk_combobox(&sstNuklear.stContext, items, 3, &selected, 25, { 100, 100 });
+                nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+                nk_combo(&sstNuklear.stContext, items, 3, selected, 25, { 100, 100 });
+                nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+                int sliderVal = 5;
+                nk_slider_int(&sstNuklear.stContext, 0, &sliderVal, 10, 1);
+                nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+                int checkBoxInactive = 0;
+                int checkBoxActive = 1;
+                nk_checkbox_label(&sstNuklear.stContext, "Checkbox Label 1", &checkBoxActive);
+                nk_layout_row_dynamic(&sstNuklear.stContext, 25, 1);
+                nk_checkbox_label(&sstNuklear.stContext, "Checkbox Label 2", &checkBoxInactive);*/
+            }
+            nk_end(&sstNuklear.stContext);
+        }
     }
 }
 
@@ -305,142 +329,146 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
         for (int i = 0; i < row->m_elements.size(); i++)
         {
             NuklearWindowElement *ele = row->m_elements.at(i);
-            // Push any necessary values for the row.
-            switch (row->m_type)
+            // Only draw the NuklearWindowElement if it's enabled.
+            if (ele->IsEnabled())
             {
-            case NuklearLayoutType::RowBegin:
-                nk_layout_row_push(&sstNuklear.stContext, row->m_widthsOrRatios.at(i));
-                break;
-            case NuklearLayoutType::RowTemplateBegin:
-                switch (row->m_format)
+                // Push any necessary values for the row.
+                switch (row->m_type)
                 {
-                case NuklearLayoutFormat::Static:
-                    nk_layout_row_template_push_static(&sstNuklear.stContext, row->m_elementWidths.at(i));
+                case NuklearLayoutType::RowBegin:
+                    nk_layout_row_push(&sstNuklear.stContext, row->m_widthsOrRatios.at(i));
                     break;
-                case NuklearLayoutFormat::Dynamic:
-                    nk_layout_row_template_push_dynamic(&sstNuklear.stContext);
+                case NuklearLayoutType::RowTemplateBegin:
+                    switch (row->m_format)
+                    {
+                    case NuklearLayoutFormat::Static:
+                        nk_layout_row_template_push_static(&sstNuklear.stContext, row->m_elementWidths.at(i));
+                        break;
+                    case NuklearLayoutFormat::Dynamic:
+                        nk_layout_row_template_push_dynamic(&sstNuklear.stContext);
+                        break;
+                    case NuklearLayoutFormat::Variable:
+                        nk_layout_row_template_push_variable(&sstNuklear.stContext, row->m_elementMinWidths.at(i));
+                        break;
+                    }
                     break;
-                case NuklearLayoutFormat::Variable:
-                    nk_layout_row_template_push_variable(&sstNuklear.stContext, row->m_elementMinWidths.at(i));
-                    break;
-                }
-                break;
-            case NuklearLayoutType::SpaceBegin:
-                orxVECTOR elementStartingPosition = row->m_elementStartingPositions.at(i);
-                orxVECTOR elementStartingSize = row->m_elementStartingSizes.at(i);
-                nk_layout_space_push(
-                    &sstNuklear.stContext,
-                    nk_rect(elementStartingPosition.fX, elementStartingPosition.fY, elementStartingSize.fX, elementStartingSize.fY));
-                break;
-            default:
-                break;
-            }
-            // Handle the widgets.
-            switch (ele->m_type)
-            {
-            case NuklearWindowElementType::Button:
-            {
-                NuklearButton *button = static_cast<NuklearButton*>(ele);
-                if (nk_button_image(&sstNuklear.stContext, nk_image_ptr(button->m_textureBitmap)))
-                {
-                    button->Interact();
-                }
-            }
-            break;
-            case NuklearWindowElementType::CheckBox:
-            {
-                NuklearCheckBox *checkBox = static_cast<NuklearCheckBox*>(ele);
-                if (nk_checkbox_label(&sstNuklear.stContext, checkBox->m_label.c_str(), &checkBox->m_active))
-                {
-                    checkBox->Interact();
-                }
-            }
-            break;
-            case NuklearWindowElementType::Combo:
-            {
-                NuklearCombo *combo = static_cast<NuklearCombo*>(ele);
-                if (nk_combo(
-                    &sstNuklear.stContext,
-                    combo->m_elements.data(),
-                    combo->m_elements.size(),
-                    combo->m_selectedIndex,
-                    combo->m_elementHeight,
-                    { combo->m_comboSize.fX, combo->m_comboSize.fY }))
-                {
-                    combo->Interact();
-                }
-            }
-            break;
-            case NuklearWindowElementType::Text:
-            {
-                NuklearText *text = static_cast<NuklearText*>(ele);
-                nk_style_set_font(&sstNuklear.stContext, &sstNuklear.apstFonts[text->m_fontIndex]->handle);
-                if (text->m_wrap)
-                {
-                    nk_text_wrap_colored(
+                case NuklearLayoutType::SpaceBegin:
+                    orxVECTOR elementStartingPosition = row->m_elementStartingPositions.at(i);
+                    orxVECTOR elementStartingSize = row->m_elementStartingSizes.at(i);
+                    nk_layout_space_push(
                         &sstNuklear.stContext,
-                        text->m_staticContent.c_str(),
-                        text->m_staticContent.length(),
-                        { static_cast<nk_byte>(text->m_textColor.fR), static_cast<nk_byte>(text->m_textColor.fG), static_cast<nk_byte>(text->m_textColor.fB), static_cast<nk_byte>(text->m_textAlpha) });
+                        nk_rect(elementStartingPosition.fX, elementStartingPosition.fY, elementStartingSize.fX, elementStartingSize.fY));
+                    break;
+                default:
+                    break;
                 }
-                else
+                // Handle the widgets.
+                switch (ele->m_type)
                 {
-                    // Set the nk_text_align flags as appropriate.
-                    nk_flags alignmentFlags = 0;
-                    if (text->m_bIsAlignedBottom)
+                case NuklearWindowElementType::Button:
+                {
+                    NuklearButton *button = static_cast<NuklearButton*>(ele);
+                    if (nk_button_image(&sstNuklear.stContext, nk_image_ptr(button->m_textureBitmap)))
                     {
-                        alignmentFlags |= NK_TEXT_ALIGN_BOTTOM;
+                        button->Interact();
                     }
-                    if (text->m_bIsAlignedCenteredHorizontal)
-                    {
-                        alignmentFlags |= NK_TEXT_ALIGN_CENTERED;
-                    }
-                    if (text->m_bIsAlignedLeft)
-                    {
-                        alignmentFlags |= NK_TEXT_ALIGN_LEFT;
-                    }
-                    if (text->m_bIsAlignedCenteredVertical)
-                    {
-                        alignmentFlags |= NK_TEXT_ALIGN_MIDDLE;
-                    }
-                    if (text->m_bIsAlignedRight)
-                    {
-                        alignmentFlags |= NK_TEXT_ALIGN_RIGHT;
-                    }
-                    if (text->m_bIsAlignedTop)
-                    {
-                        alignmentFlags |= NK_TEXT_ALIGN_TOP;
-                    }
-                    nk_text_colored(
-                        &sstNuklear.stContext,
-                        text->m_staticContent.c_str(),
-                        text->m_staticContent.length(),
-                        alignmentFlags,
-                        { static_cast<nk_byte>(text->m_textColor.fR), static_cast<nk_byte>(text->m_textColor.fG), static_cast<nk_byte>(text->m_textColor.fB), static_cast<nk_byte>(text->m_textAlpha) });
                 }
-            }
-            break;
-            case NuklearWindowElementType::Window:
-            {
-                NuklearWindow *window = static_cast<NuklearWindow*>(ele);
-                DrawNuklearWindow(window, true);
-            }
-            break;
-            }
-            // End the rows as necessary.
-            switch (row->m_type)
-            {
-            case NuklearLayoutType::RowBegin:
-                nk_layout_row_end(&sstNuklear.stContext);
                 break;
-            case NuklearLayoutType::RowTemplateBegin:
-                nk_layout_row_template_end(&sstNuklear.stContext);
+                case NuklearWindowElementType::CheckBox:
+                {
+                    NuklearCheckBox *checkBox = static_cast<NuklearCheckBox*>(ele);
+                    if (nk_checkbox_label(&sstNuklear.stContext, checkBox->m_label.c_str(), &checkBox->m_active))
+                    {
+                        checkBox->Interact();
+                    }
+                }
                 break;
-            case NuklearLayoutType::SpaceBegin:
-                nk_layout_space_end(&sstNuklear.stContext);
+                case NuklearWindowElementType::Combo:
+                {
+                    NuklearCombo *combo = static_cast<NuklearCombo*>(ele);
+                    if (nk_combo(
+                        &sstNuklear.stContext,
+                        combo->m_elements.data(),
+                        combo->m_elements.size(),
+                        combo->m_selectedIndex,
+                        combo->m_elementHeight,
+                        { combo->m_comboSize.fX, combo->m_comboSize.fY }))
+                    {
+                        combo->Interact();
+                    }
+                }
                 break;
-            default:
+                case NuklearWindowElementType::Text:
+                {
+                    NuklearText *text = static_cast<NuklearText*>(ele);
+                    nk_style_set_font(&sstNuklear.stContext, &sstNuklear.apstFonts[text->m_fontIndex]->handle);
+                    if (text->m_wrap)
+                    {
+                        nk_text_wrap_colored(
+                            &sstNuklear.stContext,
+                            text->m_staticContent.c_str(),
+                            text->m_staticContent.length(),
+                            { static_cast<nk_byte>(text->m_textColor.fR), static_cast<nk_byte>(text->m_textColor.fG), static_cast<nk_byte>(text->m_textColor.fB), static_cast<nk_byte>(text->m_textAlpha) });
+                    }
+                    else
+                    {
+                        // Set the nk_text_align flags as appropriate.
+                        nk_flags alignmentFlags = 0;
+                        if (text->m_bIsAlignedBottom)
+                        {
+                            alignmentFlags |= NK_TEXT_ALIGN_BOTTOM;
+                        }
+                        if (text->m_bIsAlignedCenteredHorizontal)
+                        {
+                            alignmentFlags |= NK_TEXT_ALIGN_CENTERED;
+                        }
+                        if (text->m_bIsAlignedLeft)
+                        {
+                            alignmentFlags |= NK_TEXT_ALIGN_LEFT;
+                        }
+                        if (text->m_bIsAlignedCenteredVertical)
+                        {
+                            alignmentFlags |= NK_TEXT_ALIGN_MIDDLE;
+                        }
+                        if (text->m_bIsAlignedRight)
+                        {
+                            alignmentFlags |= NK_TEXT_ALIGN_RIGHT;
+                        }
+                        if (text->m_bIsAlignedTop)
+                        {
+                            alignmentFlags |= NK_TEXT_ALIGN_TOP;
+                        }
+                        nk_text_colored(
+                            &sstNuklear.stContext,
+                            text->m_staticContent.c_str(),
+                            text->m_staticContent.length(),
+                            alignmentFlags,
+                            { static_cast<nk_byte>(text->m_textColor.fR), static_cast<nk_byte>(text->m_textColor.fG), static_cast<nk_byte>(text->m_textColor.fB), static_cast<nk_byte>(text->m_textAlpha) });
+                    }
+                }
                 break;
+                case NuklearWindowElementType::Window:
+                {
+                    NuklearWindow *window = static_cast<NuklearWindow*>(ele);
+                    DrawNuklearWindow(window, true);
+                }
+                break;
+                }
+                // End the rows as necessary.
+                switch (row->m_type)
+                {
+                case NuklearLayoutType::RowBegin:
+                    nk_layout_row_end(&sstNuklear.stContext);
+                    break;
+                case NuklearLayoutType::RowTemplateBegin:
+                    nk_layout_row_template_end(&sstNuklear.stContext);
+                    break;
+                case NuklearLayoutType::SpaceBegin:
+                    nk_layout_space_end(&sstNuklear.stContext);
+                    break;
+                default:
+                    break;
+                }
             }
         }
     }
@@ -463,6 +491,11 @@ const int Payload::GetPayloadRow()
 ScrollObject *Payload::GetTileSet()
 {
     return GetNextObject<TileSet>();
+}
+
+ScrollObject *Payload::GetSceneDashboard()
+{
+    return GetNextObject<SceneDashboard>();
 }
 
 std::vector<ScrollObject*> Payload::GetTileInhabitants()

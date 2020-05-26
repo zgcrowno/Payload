@@ -40,10 +40,16 @@ namespace payload
         orxVECTOR m_startingPosition;
         //! The Dashboard's ending position.
         orxVECTOR m_endingPosition;
-
+        //! The minimum and maximum scales of the Dashboard's leaf bunches.
         float m_minLeafBunchScale;
         float m_maxLeafBunchScale;
+        //! The Dashboard's Moon.
         Moon *m_moon;
+        //! The Dashboard's leaf bunches.
         std::vector<ScrollMod*> m_leafBunches;
+
+        void FinalizeLeafBunches();
+        void FinalizeMoon();
+        void FinalizeScroll();
     };
 }
