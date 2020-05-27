@@ -28,6 +28,7 @@ namespace payload
         Dashboard *m_dashboard;
         NuklearWindow *m_dashboardHeader;
         NuklearWindow *m_dashboardFooter;
+        NuklearWindow *m_toolbar;
 
         virtual void Skip();
 

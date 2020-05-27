@@ -48,6 +48,9 @@ namespace payload
         //! The Dashboard's leaf bunches.
         std::vector<ScrollMod*> m_leafBunches;
 
+        void GrowLeafBunches();
+        void PhaseMoon();
+        void Scroll();
         void FinalizeLeafBunches();
         void FinalizeMoon();
         void FinalizeScroll();

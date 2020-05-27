@@ -2,7 +2,6 @@
 
 #include "Payload.h"
 #include "ScrollMod.h"
-#include "NuklearWindowElementType.h"
 
 namespace payload
 {
@@ -23,7 +22,5 @@ namespace payload
             const orxVECTOR &_rvNormal);
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
-    public:
-        NuklearWindowElementType m_type;
     };
 }

@@ -16,7 +16,6 @@ void NuklearWindowElementNonText::OnCreate()
             break;
         }
     }
-    m_type = static_cast<NuklearWindowElementType>(GetU32("Type", GetModelName()));
     m_backgroundColor = GetVector("BackgroundColor", GetModelName());
     m_backgroundAlpha = GetU32("BackgroundAlpha", GetModelName());
     m_borderColor = GetVector("BorderColor", GetModelName());

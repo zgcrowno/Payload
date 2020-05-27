@@ -6,7 +6,8 @@ void NuklearButton::OnCreate()
 {
     NuklearInteractable::OnCreate();
 
-    m_textureBitmap = orxTexture_GetBitmap(orxTexture_CreateFromFile(GetString("TexturePath", GetModelName()).c_str(), true));
+    m_buttonText = GetString("ButtonText", GetModelName());
+    m_bHasText = m_buttonText.length() > 0;
 }
 
 void NuklearButton::OnDelete()

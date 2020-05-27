@@ -4,7 +4,7 @@ using namespace payload;
 
 void NuklearWindowElement::OnCreate()
 {
-    m_type = static_cast<NuklearWindowElementType>(GetU32("Type", GetModelName()));
+    
 }
 
 void NuklearWindowElement::OnDelete()

@@ -23,6 +23,8 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        bool m_bUnskippable;
+
         virtual void Skip();
     };
 }

@@ -24,7 +24,7 @@ orxBOOL Scene::OnCollide(
 
 void Scene::Update(const orxCLOCK_INFO &_rstInfo)
 {
-    if (orxInput_HasBeenActivated("Recon"))
+    if (!m_bUnskippable && orxInput_HasBeenActivated("Recon"))
     {
         Skip();
     }
