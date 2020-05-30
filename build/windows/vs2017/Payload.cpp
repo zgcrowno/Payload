@@ -145,25 +145,17 @@ void Payload::Exit()
     orxNuklear_Exit();
 }
 
+void Payload::DrawNuklearWindows()
+{
+    std::vector<ScrollObject*> nuklearWindows = GetNuklearWindows();
+    for (ScrollObject *nuklearWindow : nuklearWindows)
+    {
+        DrawNuklearWindow(nuklearWindow);
+    }
+}
+
 void Payload::DrawNuklearWindow(ScrollObject *_nWin, bool _bIsSubWindow)
 {
-    // TODO: For every NuklearWindowElement we render, we'll probably want to add a precursor like the following:
-    /*if (nuklearWindowElement->m_bUsesCustomSkin)
-    {
-        sstNuklear.stContext.style.window.fixed_background = nk_style_item_image(sstNuklear.astSkins[nuklearWindowElement->m_skinIndex].stImage);
-    }
-    else
-    {
-        if (nuklearWindowElement->m_bUsesCustomBackgroundColor)
-        {
-            sstNuklear.stContext.style.window.fixed_background.data.color = { nk_byte(nuklearWindowElement->m_backgroundColor.fX), nk_byte(nuklearWindowElement->m_backgroundColor.fY), nk_byte(nuklearWindowElement->m_backgroundColor.fZ), nk_byte(nuklearWindowElement->m_backgroundAlpha) };
-        }
-        if (nuklearWindowElement->m_bUsesCustomBorderColor)
-        {
-            sstNuklear.stContext.style.window.border_color = { nk_byte(nuklearWindowElement->m_borderColor.fX), nk_byte(nuklearWindowElement->m_borderColor.fY), nk_byte(nuklearWindowElement->m_borderColor.fZ), nk_byte(nuklearWindowElement->m_borderAlpha) };
-        }
-    }*/
-
     // The fully cast NuklearWindow.
     NuklearWindow *nWin = static_cast<NuklearWindow*>(_nWin);
     // Only draw the NuklearWindow if it's enabled.
@@ -233,7 +225,7 @@ void Payload::DrawNuklearWindow(ScrollObject *_nWin, bool _bIsSubWindow)
         {
             if (nk_group_begin(&sstNuklear.stContext, nWin->m_title.c_str(), flags))
             {
-                DrawNuklearLayoutRows(nWin);
+                DrawNuklearWindowElements(nWin);
 
                 nk_group_end(&sstNuklear.stContext);
             }
@@ -242,28 +234,28 @@ void Payload::DrawNuklearWindow(ScrollObject *_nWin, bool _bIsSubWindow)
         {
             if (nk_begin(&sstNuklear.stContext, nWin->m_title.c_str(), nk_rect(nWinStartingPos.fX, nWinStartingPos.fY, nWinStartingSize.fX, nWinStartingSize.fY), flags))
             {
-                DrawNuklearLayoutRows(nWin);
+                DrawNuklearWindowElements(nWin);
             }
             nk_end(&sstNuklear.stContext);
         }
     }
 }
 
-void Payload::DrawNuklearWindows()
-{
-    std::vector<ScrollObject*> nuklearWindows = GetNuklearWindows();
-    for (ScrollObject *nuklearWindow : nuklearWindows)
-    {
-        DrawNuklearWindow(nuklearWindow);
-    }
-}
-
-void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
+void Payload::DrawNuklearWindowElements(ScrollObject *_nWin)
 {
     // The fully cast NuklearWindow.
     NuklearWindow *nWin = static_cast<NuklearWindow*>(_nWin);
-    // Draw the NuklearWindow's NuklearLayoutRows.
-    for (NuklearLayoutRow *layoutRow : nWin->m_layoutRows)
+    // Draw the NuklearWindow's elements.
+    for (NuklearLayoutRow *layoutRow : nWin->m_elements)
+    {
+        DrawNuklearLayoutRow(layoutRow);
+    }
+}
+
+void Payload::DrawNuklearLayoutRow(ScrollObject *_nuklearLayoutRow)
+{
+    NuklearLayoutRow *layoutRow = dynamic_cast<NuklearLayoutRow*>(_nuklearLayoutRow);
+    if (layoutRow != nullptr)
     {
         // Determine the row's format.
         nk_layout_format format;
@@ -350,10 +342,47 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
                 {
                     if (button->m_bUsesCustomSkin && button->m_bHasText)
                     {
-                        if (nk_button_image_text(&sstNuklear.stContext, sstNuklear.astSkins[button->m_skinIndex].stImage, button->m_buttonText.c_str(), button->m_buttonText.length(), NK_TEXT_ALIGN_BOTTOM))
+                        // Push the font.
+                        nk_style_push_font(&sstNuklear.stContext, &sstNuklear.apstFonts[button->m_fontIndex]->handle);
+                        // Set the nk_text_align flags as appropriate.
+                        nk_flags buttonTextAlignmentFlags = 0;
+                        if (button->m_bTextIsAlignedBottom)
+                        {
+                            buttonTextAlignmentFlags |= NK_TEXT_ALIGN_BOTTOM;
+                        }
+                        if (button->m_bTextIsAlignedCenteredHorizontal)
+                        {
+                            buttonTextAlignmentFlags |= NK_TEXT_ALIGN_CENTERED;
+                        }
+                        if (button->m_bTextIsAlignedLeft)
+                        {
+                            buttonTextAlignmentFlags |= NK_TEXT_ALIGN_LEFT;
+                        }
+                        if (button->m_bTextIsAlignedCenteredVertical)
+                        {
+                            buttonTextAlignmentFlags |= NK_TEXT_ALIGN_MIDDLE;
+                        }
+                        if (button->m_bTextIsAlignedRight)
+                        {
+                            buttonTextAlignmentFlags |= NK_TEXT_ALIGN_RIGHT;
+                        }
+                        if (button->m_bTextIsAlignedTop)
+                        {
+                            buttonTextAlignmentFlags |= NK_TEXT_ALIGN_TOP;
+                        }
+
+                        if (nk_button_image_text(
+                            &sstNuklear.stContext,
+                            sstNuklear.astSkins[button->m_skinIndex].stImage,
+                            button->m_buttonText.c_str(),
+                            button->m_buttonText.length(),
+                            buttonTextAlignmentFlags))
                         {
                             button->Interact();
                         }
+
+                        // Pop the font.
+                        nk_style_pop_font(&sstNuklear.stContext);
                     }
                     else if (button->m_bUsesCustomSkin)
                     {
@@ -364,14 +393,25 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
                     }
                     else if (button->m_bHasText)
                     {
+                        // Push the font.
+                        nk_style_push_font(&sstNuklear.stContext, &sstNuklear.apstFonts[button->m_fontIndex]->handle);
+
                         if (nk_button_text(&sstNuklear.stContext, button->m_buttonText.c_str(), button->m_buttonText.length()))
                         {
                             button->Interact();
                         }
+
+                        // Pop the font.
+                        nk_style_pop_font(&sstNuklear.stContext);
                     }
                     else
                     {
-                        if (nk_button_color(&sstNuklear.stContext, nk_rgba(button->m_backgroundColor.fX, button->m_backgroundColor.fY, button->m_backgroundColor.fZ, button->m_backgroundAlpha)))
+                        if (nk_button_color(
+                            &sstNuklear.stContext,
+                            nk_rgba(button->m_backgroundColor.fX,
+                                button->m_backgroundColor.fY,
+                                button->m_backgroundColor.fZ,
+                                button->m_backgroundAlpha)))
                         {
                             button->Interact();
                         }
@@ -382,6 +422,8 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
                     NuklearCheckBox *checkBox = dynamic_cast<NuklearCheckBox*>(ele);
                     if (checkBox != nullptr)
                     {
+                        nk_style_set_font(&sstNuklear.stContext, &sstNuklear.apstFonts[checkBox->m_fontIndex]->handle);
+
                         if (nk_checkbox_label(&sstNuklear.stContext, checkBox->m_label.c_str(), &checkBox->m_active))
                         {
                             checkBox->Interact();
@@ -392,6 +434,76 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
                         NuklearCombo *combo = dynamic_cast<NuklearCombo*>(ele);
                         if (combo != nullptr)
                         {
+                            // Set symbol to use.
+                            sstNuklear.stContext.style.combo.sym_normal = nk_symbol_type(combo->m_symbolNormal);
+                            sstNuklear.stContext.style.combo.sym_hover = nk_symbol_type(combo->m_symbolHover);
+                            sstNuklear.stContext.style.combo.sym_active = nk_symbol_type(combo->m_symbolActive);
+                            // Set symbol background color.
+                            sstNuklear.stContext.style.combo.button.normal =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_symbolBackgroundColorNormal.fX,
+                                        combo->m_symbolBackgroundColorNormal.fY,
+                                        combo->m_symbolBackgroundColorNormal.fZ,
+                                        combo->m_symbolBackgroundAlphaNormal));
+                            sstNuklear.stContext.style.combo.button.hover =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_symbolBackgroundColorHover.fX,
+                                        combo->m_symbolBackgroundColorHover.fY,
+                                        combo->m_symbolBackgroundColorHover.fZ,
+                                        combo->m_symbolBackgroundAlphaHover));
+                            sstNuklear.stContext.style.combo.button.active =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_symbolBackgroundColorActive.fX,
+                                        combo->m_symbolBackgroundColorActive.fY,
+                                        combo->m_symbolBackgroundColorActive.fZ,
+                                        combo->m_symbolBackgroundAlphaActive));
+                            // Set combo background color.
+                            sstNuklear.stContext.style.combo.normal =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_backgroundColorNormal.fX,
+                                        combo->m_backgroundColorNormal.fY,
+                                        combo->m_backgroundColorNormal.fZ,
+                                        combo->m_backgroundAlphaNormal));
+                            sstNuklear.stContext.style.combo.hover =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_backgroundColorHover.fX,
+                                        combo->m_backgroundColorHover.fY,
+                                        combo->m_backgroundColorHover.fZ,
+                                        combo->m_backgroundAlphaHover));
+                            sstNuklear.stContext.style.combo.active =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_backgroundColorActive.fX,
+                                        combo->m_backgroundColorActive.fY,
+                                        combo->m_backgroundColorActive.fZ,
+                                        combo->m_backgroundAlphaActive));
+                            // Set combo text color.
+                            sstNuklear.stContext.style.combo.label_normal =
+                                nk_rgba(
+                                    combo->m_textColorNormal.fX,
+                                    combo->m_textColorNormal.fY,
+                                    combo->m_textColorNormal.fZ,
+                                    combo->m_textAlphaNormal);
+                            sstNuklear.stContext.style.combo.label_hover =
+                                nk_rgba(
+                                    combo->m_textColorHover.fX,
+                                    combo->m_textColorHover.fY,
+                                    combo->m_textColorHover.fZ,
+                                    combo->m_textAlphaHover);
+                            sstNuklear.stContext.style.combo.label_active =
+                                nk_rgba(
+                                    combo->m_textColorActive.fX,
+                                    combo->m_textColorActive.fY,
+                                    combo->m_textColorActive.fZ,
+                                    combo->m_textAlphaActive);
+                            // Set the font.
+                            nk_style_set_font(&sstNuklear.stContext, &sstNuklear.apstFonts[combo->m_fontIndex]->handle);
+                            
                             if (nk_combo(
                                 &sstNuklear.stContext,
                                 combo->m_elements.data(),
@@ -415,7 +527,7 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
                                         &sstNuklear.stContext,
                                         text->m_staticContent.c_str(),
                                         text->m_staticContent.length(),
-                                        { static_cast<nk_byte>(text->m_textColor.fR), static_cast<nk_byte>(text->m_textColor.fG), static_cast<nk_byte>(text->m_textColor.fB), static_cast<nk_byte>(text->m_textAlpha) });
+                                        nk_rgba(text->m_textColor.fR, text->m_textColor.fG, text->m_textColor.fB, text->m_textAlpha));
                                 }
                                 else
                                 {
@@ -450,7 +562,7 @@ void Payload::DrawNuklearLayoutRows(ScrollObject *_nWin)
                                         text->m_staticContent.c_str(),
                                         text->m_staticContent.length(),
                                         alignmentFlags,
-                                        { static_cast<nk_byte>(text->m_textColor.fR), static_cast<nk_byte>(text->m_textColor.fG), static_cast<nk_byte>(text->m_textColor.fB), static_cast<nk_byte>(text->m_textAlpha) });
+                                        nk_rgba(text->m_textColor.fR, text->m_textColor.fG, text->m_textColor.fB, text->m_textAlpha));
                                 }
                             }
                             else

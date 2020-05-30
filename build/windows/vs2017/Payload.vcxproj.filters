@@ -73,10 +73,10 @@
     <Filter Include="src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable">
       <UniqueIdentifier>{790f2346-d01f-4a23-9e54-e51c485f8af4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Header\UI\NuklearLayoutRow">
+    <Filter Include="src\Header\UI\NuklearWindowElement\NuklearLayoutRow">
       <UniqueIdentifier>{a379ecb8-842c-4dc3-960f-62ade70b1a9a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\CPP\UI\NuklearLayoutRow">
+    <Filter Include="src\CPP\UI\NuklearWindowElement\NuklearLayoutRow">
       <UniqueIdentifier>{62829939-e9e6-48f1-993e-3ee065ac0226}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -225,25 +225,28 @@
       <Filter>src\Header\UI\NuklearWindowElement</Filter>
     </ClInclude>
     <ClInclude Include="NuklearLayoutRow.h">
-      <Filter>src\Header\UI\NuklearLayoutRow</Filter>
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClInclude>
     <ClInclude Include="NuklearRow.h">
-      <Filter>src\Header\UI\NuklearLayoutRow</Filter>
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClInclude>
     <ClInclude Include="NuklearRowBegin.h">
-      <Filter>src\Header\UI\NuklearLayoutRow</Filter>
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClInclude>
     <ClInclude Include="NuklearRowStatic.h">
-      <Filter>src\Header\UI\NuklearLayoutRow</Filter>
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClInclude>
     <ClInclude Include="NuklearRowDynamic.h">
-      <Filter>src\Header\UI\NuklearLayoutRow</Filter>
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClInclude>
     <ClInclude Include="NuklearRowTemplateBegin.h">
-      <Filter>src\Header\UI\NuklearLayoutRow</Filter>
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClInclude>
     <ClInclude Include="NuklearRowSpaceBegin.h">
-      <Filter>src\Header\UI\NuklearLayoutRow</Filter>
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearSymbolType.h">
+      <Filter>src\Header\EnumClass</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -356,25 +359,25 @@
       <Filter>src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText</Filter>
     </ClCompile>
     <ClCompile Include="NuklearLayoutRow.cpp">
-      <Filter>src\CPP\UI\NuklearLayoutRow</Filter>
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClCompile>
     <ClCompile Include="NuklearRow.cpp">
-      <Filter>src\CPP\UI\NuklearLayoutRow</Filter>
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClCompile>
     <ClCompile Include="NuklearRowBegin.cpp">
-      <Filter>src\CPP\UI\NuklearLayoutRow</Filter>
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClCompile>
     <ClCompile Include="NuklearRowStatic.cpp">
-      <Filter>src\CPP\UI\NuklearLayoutRow</Filter>
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClCompile>
     <ClCompile Include="NuklearRowDynamic.cpp">
-      <Filter>src\CPP\UI\NuklearLayoutRow</Filter>
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClCompile>
     <ClCompile Include="NuklearRowTemplateBegin.cpp">
-      <Filter>src\CPP\UI\NuklearLayoutRow</Filter>
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClCompile>
     <ClCompile Include="NuklearRowSpaceBegin.cpp">
-      <Filter>src\CPP\UI\NuklearLayoutRow</Filter>
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

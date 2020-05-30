@@ -29,12 +29,14 @@ namespace payload
         //! Exit the program
         virtual void Exit();
 
-        //! Draws the passed NuklearWindow
-        void DrawNuklearWindow(ScrollObject *_nWin, bool _bIsSubWindow = false);
         //! Draws all NuklearWindows, if there are any.
         void DrawNuklearWindows();
+        //! Draws the passed NuklearWindow
+        void DrawNuklearWindow(ScrollObject *_nWin, bool _bIsSubWindow = false);
         //! Draws all NuklearLayoutRows for the passed NuklearWindow.
-        void DrawNuklearLayoutRows(ScrollObject *_nWin);
+        void DrawNuklearWindowElements(ScrollObject *_nWin);
+        //! Draws the passed NuklearLayoutRow's elements.
+        void DrawNuklearLayoutRow(ScrollObject *_nuklearLayoutRow);
     public:
         const int GetPayloadRow();
         ScrollObject *GetTileSet();

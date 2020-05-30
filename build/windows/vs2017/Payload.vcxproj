@@ -408,6 +408,7 @@
     <ClInclude Include="NuklearRowSpaceBegin.h" />
     <ClInclude Include="NuklearRowStatic.h" />
     <ClInclude Include="NuklearRowTemplateBegin.h" />
+    <ClInclude Include="NuklearSymbolType.h" />
     <ClInclude Include="NuklearText.h" />
     <ClInclude Include="NuklearWindow.h" />
     <ClInclude Include="NuklearWindowElement.h" />

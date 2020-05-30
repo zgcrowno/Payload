@@ -39,6 +39,6 @@ namespace payload
         bool m_bIsScaledLeft;
         bool m_bDisallowsInput;
         //! The NuklearWindow's layout rows.
-        std::vector<NuklearLayoutRow*> m_layoutRows;
+        std::vector<NuklearLayoutRow*> m_elements;
     };
 }

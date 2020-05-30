@@ -23,6 +23,7 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        int m_fontIndex;
         int m_active;
         std::string m_label;
 

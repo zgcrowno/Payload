@@ -59,7 +59,7 @@ void NuklearWindow::OnCreate()
         NuklearLayoutRow *layoutRow = dynamic_cast<NuklearLayoutRow*>(child);
         if (layoutRow != nullptr)
         {
-            m_layoutRows.push_back(layoutRow);
+            m_elements.push_back(layoutRow);
         }
     }
 }

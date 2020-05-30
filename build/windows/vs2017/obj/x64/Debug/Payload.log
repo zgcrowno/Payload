@@ -1,4 +1,49 @@
-﻿  NuklearButton.cpp
+﻿  Payload.cpp
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(282): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(286): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(290): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(294): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(298): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(298): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(379): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(399): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(413): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(412): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(411): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(447): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(446): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(445): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(454): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(453): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(452): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(461): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(460): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(459): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(469): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(468): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(467): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(476): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(475): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(474): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(483): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(482): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(481): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(490): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(489): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(488): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(496): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(495): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(494): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(502): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(501): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(500): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(516): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(533): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(533): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(533): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(568): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(568): warning C4244: 'argument': conversion from 'orxFLOAT' to 'int', possible loss of data
+c:\users\zgcrowno\documents\orxprojects\payload\build\windows\vs2017\payload.cpp(568): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
      Creating library ..\..\..\bin\Payloadd.lib and object ..\..\..\bin\Payloadd.exp
   Payload.vcxproj -> C:\Users\zgcrowno\Documents\OrxProjects\Payload\build\windows\vs2017\..\..\..\bin\Payloadd.exe
   C:\Users\zgcrowno\Documents\orx\code\lib\dynamic\orx.dll

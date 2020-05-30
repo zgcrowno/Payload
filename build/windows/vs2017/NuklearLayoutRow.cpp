@@ -4,6 +4,8 @@ using namespace payload;
 
 void NuklearLayoutRow::OnCreate()
 {
+    NuklearWindowElement::OnCreate();
+
     m_format = static_cast<NuklearLayoutFormat>(GetU32("Format", GetModelName()));
     m_height = GetFloat("Height", GetModelName());
     for (ScrollObject *child = GetOwnedChild(); child != nullptr; child = child->GetOwnedSibling())

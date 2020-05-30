@@ -23,9 +23,17 @@ namespace payload
         //! Called on clock update
         virtual void Update(const orxCLOCK_INFO &_rstInfo);
     public:
+        int m_fontIndex;
         bool m_bHasText;
         //! The NuklearButton's text.
         std::string m_buttonText;
+        //! The NuklearButton's text alignment flags.
+        bool m_bTextIsAlignedLeft;
+        bool m_bTextIsAlignedRight;
+        bool m_bTextIsAlignedTop;
+        bool m_bTextIsAlignedBottom;
+        bool m_bTextIsAlignedCenteredHorizontal;
+        bool m_bTextIsAlignedCenteredVertical;
 
         virtual void Interact();
     };
