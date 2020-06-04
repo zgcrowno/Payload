@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "ScrollMod.h"
+#include "Knot.h"
 #include "Moon.h"
 #include <vector>
 
@@ -47,6 +48,8 @@ namespace payload
         Moon *m_moon;
         //! The Dashboard's leaf bunches.
         std::vector<ScrollMod*> m_leafBunches;
+        //! The Dashboard's Knots.
+        std::vector<Knot*> m_knots;
 
         void GrowLeafBunches();
         void PhaseMoon();

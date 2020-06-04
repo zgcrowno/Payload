@@ -7,6 +7,10 @@ void NuklearWindow::OnCreate()
     NuklearWindowElementNonText::OnCreate();
 
     m_title = GetString("Title", GetModelName());
+    m_backgroundColor = GetVector("BackgroundColor", GetModelName());
+    m_backgroundAlpha = GetFloat("BackgroundAlpha", GetModelName());
+    m_borderColor = GetVector("BorderColor", GetModelName());
+    m_borderAlpha = GetFloat("BorderAlpha", GetModelName());
     for (int i = 0; i < GetListCount("WindowFlags", GetModelName()); i++)
     {
         if (!orxString_Compare("IsBordered", GetListString("WindowFlags", i, GetModelName()).c_str()))

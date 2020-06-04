@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "NuklearWindowElement.h"
+#include "NuklearStyleText.h"
 
 namespace payload
 {
@@ -26,8 +27,6 @@ namespace payload
         int m_fontIndex;
         std::string m_staticContent;
         bool m_wrap;
-        orxVECTOR m_textColor;
-        float m_textAlpha;
         //! Text alignment flags.
         bool m_bIsAlignedBottom;
         bool m_bIsAlignedCenteredHorizontal;
@@ -35,5 +34,7 @@ namespace payload
         bool m_bIsAlignedCenteredVertical;
         bool m_bIsAlignedRight;
         bool m_bIsAlignedTop;
+        //! The NuklearText's style attribute.
+        NuklearStyleText *m_style;
     };
 }

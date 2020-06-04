@@ -390,6 +390,8 @@
     <ClInclude Include="Firewall.h" />
     <ClInclude Include="Goal.h" />
     <ClInclude Include="Infection.h" />
+    <ClInclude Include="Knot.h" />
+    <ClInclude Include="LevelInterfaceHomeButton.h" />
     <ClInclude Include="MemorySet.h" />
     <ClInclude Include="MemorySetCartesian1D.h" />
     <ClInclude Include="MemorySetCartesian2D.h" />
@@ -408,6 +410,9 @@
     <ClInclude Include="NuklearRowSpaceBegin.h" />
     <ClInclude Include="NuklearRowStatic.h" />
     <ClInclude Include="NuklearRowTemplateBegin.h" />
+    <ClInclude Include="NuklearStyleButton.h" />
+    <ClInclude Include="NuklearStyleCombo.h" />
+    <ClInclude Include="NuklearStyleText.h" />
     <ClInclude Include="NuklearSymbolType.h" />
     <ClInclude Include="NuklearText.h" />
     <ClInclude Include="NuklearWindow.h" />
@@ -440,6 +445,8 @@
     <ClCompile Include="Firewall.cpp" />
     <ClCompile Include="Goal.cpp" />
     <ClCompile Include="Infection.cpp" />
+    <ClCompile Include="Knot.cpp" />
+    <ClCompile Include="LevelInterfaceHomeButton.cpp" />
     <ClCompile Include="MemorySet.cpp" />
     <ClCompile Include="MemorySetCartesian1D.cpp" />
     <ClCompile Include="MemorySetCartesian2D.cpp" />
@@ -457,6 +464,9 @@
     <ClCompile Include="NuklearRowSpaceBegin.cpp" />
     <ClCompile Include="NuklearRowStatic.cpp" />
     <ClCompile Include="NuklearRowTemplateBegin.cpp" />
+    <ClCompile Include="NuklearStyleButton.cpp" />
+    <ClCompile Include="NuklearStyleCombo.cpp" />
+    <ClCompile Include="NuklearStyleText.cpp" />
     <ClCompile Include="NuklearText.cpp" />
     <ClCompile Include="NuklearWindow.cpp" />
     <ClCompile Include="NuklearWindowElement.cpp" />

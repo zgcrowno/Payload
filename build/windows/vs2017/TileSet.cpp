@@ -41,11 +41,9 @@ void TileSet::OnCreate()
         for (int j = 0; j < m_square; j++)
         {
             // Create the Tile at this row/column pair.
-            Tile *tile = ScrollCast<Tile*>(CreateObject("O-Tile"));
+            Tile *tile = ScrollCast<Tile*>(CreateChild("O-Tile"));
             // Get the config size of the Tile (in pixels).
             orxVECTOR tileSize = tile->GetSize();
-            // Ensure that the Tile is owned by the TileSet.
-            tile->SetParent(this);
             // Ensure that the Tile has the same world position as the TileSet.
             tile->SetPolarPosition(pos, 0, 0);
             // Ensure that the Tile's scale results in it taking up the exact same screen space as the TileSet.
@@ -77,9 +75,7 @@ void TileSet::OnCreate()
         for (int j = 0; j < m_square - 1; j++)
         {
             // Create the MemorySetCartesian1D at this row/column pair.
-            MemorySetCartesian1D *msc1d = ScrollCast<MemorySetCartesian1D*>(CreateObject("O-MemorySetCartesian1D"));
-            // Ensure that the MemorySetCartesian1D is owned by the TileSet.
-            msc1d->SetParent(this);
+            MemorySetCartesian1D *msc1d = ScrollCast<MemorySetCartesian1D*>(CreateChild("O-MemorySetCartesian1D"));
             // Set it up.
             msc1d->SetUp(i, j, m_square, m_width, m_height, NORMALIZED_BORDER_SIZE, m_normalizedTileSize, pos, m_tileRows);
             // Add it to the member vector.
@@ -92,9 +88,7 @@ void TileSet::OnCreate()
         for (int j = 0; j < 2; j++)
         {
             // Create the MemorySetCartesian2D at the appropriate quadrant.
-            MemorySetCartesian2D *msc2d = ScrollCast<MemorySetCartesian2D*>(CreateObject("O-MemorySetCartesian2D"));
-            // Ensure that the MemorySetCartesian2D is owned by the TileSet.
-            msc2d->SetParent(this);
+            MemorySetCartesian2D *msc2d = ScrollCast<MemorySetCartesian2D*>(CreateChild("O-MemorySetCartesian2D"));
             // Set it up.
             msc2d->SetUp(i, j, m_halfSquare, m_width, m_height, pos, m_tileRows);
             // Add it to the member vector.
@@ -107,9 +101,7 @@ void TileSet::OnCreate()
         for (int j = 0; j < m_square; j++)
         {
             // Create the MemorySetPolar1D.
-            MemorySetPolar1D *msp1d = ScrollCast<MemorySetPolar1D*>(CreateObject("O-MemorySetPolar1D"));
-            // Ensure that the MemorySetPolar1D is owned by the TileSet.
-            msp1d->SetParent(this);
+            MemorySetPolar1D *msp1d = ScrollCast<MemorySetPolar1D*>(CreateChild("O-MemorySetPolar1D"));
             // Set it up.
             msp1d->SetUp(i, j, m_square, m_radius, GetPolarTheta(GetUnitDistanceFromPolarAxis(j), m_square, false), m_tileRows);
             // Add it to the member vector.
@@ -120,9 +112,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < m_halfSquare; i++)
     {
         // Create the MemorySetPolar2D.
-        MemorySetPolar2D *msp2d = ScrollCast<MemorySetPolar2D*>(CreateObject("O-MemorySetPolar2D"));
-        // Ensure that the MemorySetPolar2D is owned by the TileSet.
-        msp2d->SetParent(this);
+        MemorySetPolar2D *msp2d = ScrollCast<MemorySetPolar2D*>(CreateChild("O-MemorySetPolar2D"));
         // Set it up.
         msp2d->SetUp(i, m_halfSquare, m_radius, m_tileRows);
         // Add it to the member vector.
@@ -142,8 +132,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("UnreachableOrigins", GetModelName()); i++)
     {
         orxVECTOR unreachableOrigin = GetListVector("UnreachableOrigins", i, GetModelName());
-        Unreachable *unreachable = ScrollCast<Unreachable*>(CreateObject("O-Unreachable"));
-        unreachable->SetParent(this);
+        Unreachable *unreachable = ScrollCast<Unreachable*>(CreateChild("O-Unreachable"));
         unreachable->m_target = m_tileRows.at(unreachableOrigin.fX).at(unreachableOrigin.fY);
         unreachable->SetPosition(unreachable->m_target->GetPosition());
         unreachable->m_priorPos = unreachable->GetPosition();
@@ -154,8 +143,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("ProtocolLeftOrigins", GetModelName()); i++)
     {
         orxVECTOR protocolOrigin = GetListVector("ProtocolLeftOrigins", i, GetModelName());
-        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-ProtocolLeft"));
-        protocol->SetParent(this);
+        Protocol *protocol = ScrollCast<Protocol*>(CreateChild("O-ProtocolLeft"));
         protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
         protocol->SetPosition(protocol->m_target->GetPosition());
         protocol->m_priorPos = protocol->GetPosition();
@@ -165,8 +153,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("ProtocolRightOrigins", GetModelName()); i++)
     {
         orxVECTOR protocolOrigin = GetListVector("ProtocolRightOrigins", i, GetModelName());
-        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-ProtocolRight"));
-        protocol->SetParent(this);
+        Protocol *protocol = ScrollCast<Protocol*>(CreateChild("O-ProtocolRight"));
         protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
         protocol->SetPosition(protocol->m_target->GetPosition());
         protocol->m_priorPos = protocol->GetPosition();
@@ -176,8 +163,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("ProtocolUpOrigins", GetModelName()); i++)
     {
         orxVECTOR protocolOrigin = GetListVector("ProtocolUpOrigins", i, GetModelName());
-        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-ProtocolUp"));
-        protocol->SetParent(this);
+        Protocol *protocol = ScrollCast<Protocol*>(CreateChild("O-ProtocolUp"));
         protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
         protocol->SetPosition(protocol->m_target->GetPosition());
         protocol->m_priorPos = protocol->GetPosition();
@@ -187,8 +173,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("ProtocolDownOrigins", GetModelName()); i++)
     {
         orxVECTOR protocolOrigin = GetListVector("ProtocolDownOrigins", i, GetModelName());
-        Protocol *protocol = ScrollCast<Protocol*>(CreateObject("O-ProtocolDown"));
-        protocol->SetParent(this);
+        Protocol *protocol = ScrollCast<Protocol*>(CreateChild("O-ProtocolDown"));
         protocol->m_target = m_tileRows.at(protocolOrigin.fX).at(protocolOrigin.fY);
         protocol->SetPosition(protocol->m_target->GetPosition());
         protocol->m_priorPos = protocol->GetPosition();
@@ -199,8 +184,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("BypassOrigins", GetModelName()); i++)
     {
         orxVECTOR bypassOrigin = GetListVector("BypassOrigins", i, GetModelName());
-        Bypass *bypass = ScrollCast<Bypass*>(CreateObject("O-Bypass"));
-        bypass->SetParent(this);
+        Bypass *bypass = ScrollCast<Bypass*>(CreateChild("O-Bypass"));
         bypass->m_target = m_tileRows.at(bypassOrigin.fX).at(bypassOrigin.fY);
         bypass->SetPosition(bypass->m_target->GetPosition());
         bypass->m_priorPos = bypass->GetPosition();
@@ -212,8 +196,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("ProxyOrigins", GetModelName()); i++)
     {
         orxVECTOR proxyOrigin = GetListVector("ProxyOrigins", i, GetModelName());
-        Proxy *proxy = ScrollCast<Proxy*>(CreateObject("O-Proxy"));
-        proxy->SetParent(this);
+        Proxy *proxy = ScrollCast<Proxy*>(CreateChild("O-Proxy"));
         proxy->m_target = m_tileRows.at(proxyOrigin.fX).at(proxyOrigin.fY);
         proxy->SetPosition(proxy->m_target->GetPosition());
         proxy->m_priorPos = proxy->GetPosition();
@@ -235,8 +218,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("RecursiveOrigins", GetModelName()); i++)
     {
         orxVECTOR recursiveOrigin = GetListVector("RecursiveOrigins", i, GetModelName());
-        Recursive *recursive = ScrollCast<Recursive*>(CreateObject("O-Recursive"));
-        recursive->SetParent(this);
+        Recursive *recursive = ScrollCast<Recursive*>(CreateChild("O-Recursive"));
         recursive->m_target = m_tileRows.at(recursiveOrigin.fX).at(recursiveOrigin.fY);
         recursive->SetPosition(recursive->m_target->GetPosition());
         recursive->m_priorPos = recursive->GetPosition();
@@ -247,8 +229,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("VirusOrigins", GetModelName()); i++)
     {
         orxVECTOR virusOrigin = GetListVector("VirusOrigins", i, GetModelName());
-        Virus *virus = ScrollCast<Virus*>(CreateObject("O-Virus"));
-        virus->SetParent(this);
+        Virus *virus = ScrollCast<Virus*>(CreateChild("O-Virus"));
         virus->m_target = m_tileRows.at(virusOrigin.fX).at(virusOrigin.fY);
         virus->SetPosition(virus->m_target->GetPosition());
         virus->m_priorPos = virus->GetPosition();
@@ -259,8 +240,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("FirewallLeftOrigins", GetModelName()); i++)
     {
         orxVECTOR firewallOrigin = GetListVector("FirewallLeftOrigins", i, GetModelName());
-        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-FirewallLeft"));
-        firewall->SetParent(this);
+        Firewall *firewall = ScrollCast<Firewall*>(CreateChild("O-FirewallLeft"));
         firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
         firewall->SetPosition(firewall->m_target->GetPosition());
         firewall->m_priorPos = firewall->GetPosition();
@@ -271,8 +251,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("FirewallRightOrigins", GetModelName()); i++)
     {
         orxVECTOR firewallOrigin = GetListVector("FirewallRightOrigins", i, GetModelName());
-        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-FirewallRight"));
-        firewall->SetParent(this);
+        Firewall *firewall = ScrollCast<Firewall*>(CreateChild("O-FirewallRight"));
         firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
         firewall->SetPosition(firewall->m_target->GetPosition());
         firewall->m_priorPos = firewall->GetPosition();
@@ -283,8 +262,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("FirewallUpOrigins", GetModelName()); i++)
     {
         orxVECTOR firewallOrigin = GetListVector("FirewallUpOrigins", i, GetModelName());
-        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-FirewallUp"));
-        firewall->SetParent(this);
+        Firewall *firewall = ScrollCast<Firewall*>(CreateChild("O-FirewallUp"));
         firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
         firewall->SetPosition(firewall->m_target->GetPosition());
         firewall->m_priorPos = firewall->GetPosition();
@@ -295,8 +273,7 @@ void TileSet::OnCreate()
     for (int i = 0; i < GetListCount("FirewallDownOrigins", GetModelName()); i++)
     {
         orxVECTOR firewallOrigin = GetListVector("FirewallDownOrigins", i, GetModelName());
-        Firewall *firewall = ScrollCast<Firewall*>(CreateObject("O-FirewallDown"));
-        firewall->SetParent(this);
+        Firewall *firewall = ScrollCast<Firewall*>(CreateChild("O-FirewallDown"));
         firewall->m_target = m_tileRows.at(firewallOrigin.fX).at(firewallOrigin.fY);
         firewall->SetPosition(firewall->m_target->GetPosition());
         firewall->m_priorPos = firewall->GetPosition();

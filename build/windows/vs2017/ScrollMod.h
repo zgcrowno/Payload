@@ -144,6 +144,19 @@ namespace payload
             std::map<std::string, const orxFLOAT> _floatParamMap = {},
             std::map<std::string, const orxVECTOR*> _vectorParamMap = {},
             std::map<std::string, std::string> _stringParamMap = {});
+        /// <summary>Essentially the same function as CreateObject, but the calling ScrollMod sets itself to the created object's parent.</summary>
+        /// <param name="_modelName">The name of the model we wish to instantiate.</param>
+        /// <param name="_boolParamMap">The bool parameters we wish to pass.</param>
+        /// <param name="_floatParamMap">The float parameters we wish to pass.</param>
+        /// <param name="_vectorParamMap">The vector parameters we wish to pass.</param>
+        /// <param name="_stringParamMap">The string parameters we wish to pass.</param>
+        /// <returns>The freshly constructed ScrollMod instance.</returns>
+        ScrollMod *CreateChild(
+            const std::string _modelName,
+            std::map<std::string, const orxBOOL> _boolParamMap = {},
+            std::map<std::string, const orxFLOAT> _floatParamMap = {},
+            std::map<std::string, const orxVECTOR*> _vectorParamMap = {},
+            std::map<std::string, std::string> _stringParamMap = {});
         /// <summary>Just like ScrollObject's GetModelName() method, but returns a std::string instead of a char *.</summary>
         /// <returns>The std::string representation of the ScrollMod's model name.</returns>
         const std::string GetModelName() const;

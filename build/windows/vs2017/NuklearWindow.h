@@ -26,6 +26,11 @@ namespace payload
     public:
         //! The NuklearWindow's title (to be displayed in its header, if it has a header).
         std::string m_title;
+        //! The NuklearWindow's background and border colors/alphas.
+        orxVECTOR m_backgroundColor;
+        int m_backgroundAlpha;
+        orxVECTOR m_borderColor;
+        int m_borderAlpha;
         //! nk_panel_flags bools.
         bool m_bIsBordered;
         bool m_bIsMovable;

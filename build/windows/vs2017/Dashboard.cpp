@@ -18,10 +18,16 @@ void Dashboard::OnCreate()
     for (int i = 0; i < GetListCount("LeafBunchCoordinates", GetModelName()); i++)
     {
         orxVECTOR coord = GetListVector("LeafBunchCoordinates", i, GetModelName());
-        ScrollMod *leafBunch = CreateObject("O-LeafBunch");
+        ScrollMod *leafBunch = CreateChild("O-LeafBunch");
         leafBunch->SetPosition({ coord.fX, coord.fY, leafBunch->GetPosition().fZ });
-        leafBunch->SetParent(this);
         m_leafBunches.push_back(leafBunch);
+    }
+    for (ScrollObject *child = GetOwnedChild(); child != nullptr; child = child->GetOwnedSibling())
+    {
+        if (orxString_SearchString(child->GetModelName(), "O-Knot") != nullptr)
+        {
+            m_knots.push_back(static_cast<Knot*>(child));
+        }
     }
 }
 

@@ -25,10 +25,5 @@ namespace payload
     public:
         bool m_bUsesCustomSkin;
         int m_skinIndex;
-        //! The NuklearWindowElementNonText's background and border colors/alphas.
-        orxVECTOR m_backgroundColor;
-        int m_backgroundAlpha;
-        orxVECTOR m_borderColor;
-        int m_borderAlpha;
     };
 }

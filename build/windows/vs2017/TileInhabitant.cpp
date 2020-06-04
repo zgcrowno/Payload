@@ -358,8 +358,7 @@ void TileInhabitant::SpawnInfection()
     orxEVENT_SEND(EVENT_TYPE_TILE_INHABITANT, EVENT_TILE_INHABITANT_SPAWN_INFECTION, this, Payload::GetInstance().GetTileSet(), &timeToSpawnInfection);
 
     ScrollMod *tileSet = static_cast<ScrollMod*>(Payload::GetInstance().GetTileSet());
-    Infection *infection = static_cast<Infection*>(CreateObject("O-Infection"));
-    infection->SetParent(tileSet);
+    Infection *infection = static_cast<Infection*>(tileSet->CreateChild("O-Infection"));
     infection->m_target = m_target;
     infection->SetPosition(m_target->GetPosition());
     infection->m_priorPos = m_target->GetPosition();

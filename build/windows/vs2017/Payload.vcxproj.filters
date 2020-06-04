@@ -79,6 +79,18 @@
     <Filter Include="src\CPP\UI\NuklearWindowElement\NuklearLayoutRow">
       <UniqueIdentifier>{62829939-e9e6-48f1-993e-3ee065ac0226}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Header\UI\NuklearStyle">
+      <UniqueIdentifier>{2cce4ff3-1e25-4a38-958b-5e3ba3ae8aba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\UI\NuklearStyle">
+      <UniqueIdentifier>{4bc030b0-80d1-4701-8f9a-f0c5832a3f2c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Header\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable\NuklearButton">
+      <UniqueIdentifier>{3b1f2f84-8c96-4eff-b520-519bb9f83191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable\NuklearButton">
+      <UniqueIdentifier>{226ddce3-ec49-4e93-be46-8a504e552895}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\data\config\CreationTemplate.ini">
@@ -191,9 +203,6 @@
     <ClInclude Include="NuklearCombo.h">
       <Filter>src\Header\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable</Filter>
     </ClInclude>
-    <ClInclude Include="NuklearButton.h">
-      <Filter>src\Header\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable</Filter>
-    </ClInclude>
     <ClInclude Include="NuklearCheckBox.h">
       <Filter>src\Header\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable</Filter>
     </ClInclude>
@@ -247,6 +256,24 @@
     </ClInclude>
     <ClInclude Include="NuklearSymbolType.h">
       <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearStyleButton.h">
+      <Filter>src\Header\UI\NuklearStyle</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearStyleCombo.h">
+      <Filter>src\Header\UI\NuklearStyle</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearStyleText.h">
+      <Filter>src\Header\UI\NuklearStyle</Filter>
+    </ClInclude>
+    <ClInclude Include="Knot.h">
+      <Filter>src\Header\Dashboard</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearButton.h">
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable\NuklearButton</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelInterfaceHomeButton.h">
+      <Filter>src\Header\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable\NuklearButton</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -331,9 +358,6 @@
     <ClCompile Include="NuklearCombo.cpp">
       <Filter>src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable</Filter>
     </ClCompile>
-    <ClCompile Include="NuklearButton.cpp">
-      <Filter>src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable</Filter>
-    </ClCompile>
     <ClCompile Include="NuklearCheckBox.cpp">
       <Filter>src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable</Filter>
     </ClCompile>
@@ -378,6 +402,24 @@
     </ClCompile>
     <ClCompile Include="NuklearRowSpaceBegin.cpp">
       <Filter>src\CPP\UI\NuklearWindowElement\NuklearLayoutRow</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearStyleButton.cpp">
+      <Filter>src\CPP\UI\NuklearStyle</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearStyleCombo.cpp">
+      <Filter>src\CPP\UI\NuklearStyle</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearStyleText.cpp">
+      <Filter>src\CPP\UI\NuklearStyle</Filter>
+    </ClCompile>
+    <ClCompile Include="Knot.cpp">
+      <Filter>src\CPP\Dashboard</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearButton.cpp">
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable\NuklearButton</Filter>
+    </ClCompile>
+    <ClCompile Include="LevelInterfaceHomeButton.cpp">
+      <Filter>src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable\NuklearButton</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

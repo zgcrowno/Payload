@@ -17,6 +17,8 @@
 #include "Firewall.h"
 #include "Goal.h"
 #include "Infection.h"
+#include "Knot.h"
+#include "LevelInterfaceHomeButton.h"
 #include "MemorySetCartesian1D.h"
 #include "MemorySetCartesian2D.h"
 #include "MemorySetPolar1D.h"
@@ -31,6 +33,9 @@
 #include "NuklearRowSpaceBegin.h"
 #include "NuklearRowStatic.h"
 #include "NuklearRowTemplateBegin.h"
+#include "NuklearStyleButton.h"
+#include "NuklearStyleCombo.h"
+#include "NuklearStyleText.h"
 #include "NuklearText.h"
 #include "NuklearWindow.h"
 #include "NuklearWindowElement.h"
@@ -95,6 +100,8 @@ void Payload::BindObjects()
     ScrollBindObject<Firewall>("O-Firewall");
     ScrollBindObject<Goal>("O-Goal");
     ScrollBindObject<Infection>("O-Infection");
+    ScrollBindObject<Knot>("O-Knot");
+    ScrollBindObject<LevelInterfaceHomeButton>("O-LevelInterfaceHomeButton");
     ScrollBindObject<MemorySetCartesian1D>("O-MemorySetCartesian1D");
     ScrollBindObject<MemorySetCartesian2D>("O-MemorySetCartesian2D");
     ScrollBindObject<MemorySetPolar1D>("O-MemorySetPolar1D");
@@ -109,6 +116,9 @@ void Payload::BindObjects()
     ScrollBindObject<NuklearRowSpaceBegin>("O-NuklearRowSpaceBegin");
     ScrollBindObject<NuklearRowStatic>("O-NuklearRowStatic");
     ScrollBindObject<NuklearRowTemplateBegin>("O-NuklearRowTemplateBegin");
+    ScrollBindObject<NuklearStyleButton>("O-NuklearStyleButton");
+    ScrollBindObject<NuklearStyleCombo>("O-NuklearStyleCombo");
+    ScrollBindObject<NuklearStyleText>("O-NuklearStyleText");
     ScrollBindObject<NuklearText>("O-NuklearText");
     ScrollBindObject<NuklearWindow>("O-NuklearWindow");
     ScrollBindObject<NuklearWindowElement>("O-NuklearWindowElement");
@@ -218,8 +228,8 @@ void Payload::DrawNuklearWindow(ScrollObject *_nWin, bool _bIsSubWindow)
         }
         else
         {
-            sstNuklear.stContext.style.window.fixed_background.data.color = { nk_byte(nWin->m_backgroundColor.fX), nk_byte(nWin->m_backgroundColor.fY), nk_byte(nWin->m_backgroundColor.fZ), nk_byte(nWin->m_backgroundAlpha) };
-            sstNuklear.stContext.style.window.border_color = { nk_byte(nWin->m_borderColor.fX), nk_byte(nWin->m_borderColor.fY), nk_byte(nWin->m_borderColor.fZ), nk_byte(nWin->m_borderAlpha) };
+            sstNuklear.stContext.style.window.fixed_background.data.color = nk_rgba(nWin->m_backgroundColor.fR, nWin->m_backgroundColor.fG, nWin->m_backgroundColor.fB, nWin->m_backgroundAlpha);
+            sstNuklear.stContext.style.window.border_color = nk_rgba(nWin->m_borderColor.fR, nWin->m_borderColor.fG, nWin->m_borderColor.fB, nWin->m_borderAlpha);
         }
         if (_bIsSubWindow)
         {
@@ -340,6 +350,68 @@ void Payload::DrawNuklearLayoutRow(ScrollObject *_nuklearLayoutRow)
                 NuklearButton *button = dynamic_cast<NuklearButton*>(ele);
                 if (button != nullptr)
                 {
+                    // STYLE THE BUTTON.
+                    // Background.
+                    sstNuklear.stContext.style.button.normal =
+                        nk_style_item_color(
+                            nk_rgba(
+                                button->m_style->m_normalColor.fR,
+                                button->m_style->m_normalColor.fG,
+                                button->m_style->m_normalColor.fB,
+                                button->m_style->m_normalAlpha));
+                    sstNuklear.stContext.style.button.hover =
+                        nk_style_item_color(
+                            nk_rgba(
+                                button->m_style->m_hoverColor.fR,
+                                button->m_style->m_hoverColor.fG,
+                                button->m_style->m_hoverColor.fB,
+                                button->m_style->m_hoverAlpha));
+                    sstNuklear.stContext.style.button.active =
+                        nk_style_item_color(
+                            nk_rgba(
+                                button->m_style->m_activeColor.fR,
+                                button->m_style->m_activeColor.fG,
+                                button->m_style->m_activeColor.fB,
+                                button->m_style->m_activeAlpha));
+                    sstNuklear.stContext.style.button.border_color =
+                        nk_rgba(
+                            button->m_style->m_borderColor.fR,
+                            button->m_style->m_borderColor.fG,
+                            button->m_style->m_borderColor.fB,
+                            button->m_style->m_borderAlpha);
+                    // Text.
+                    sstNuklear.stContext.style.button.text_background =
+                        nk_rgba(
+                            button->m_style->m_textBackgroundColor.fR,
+                            button->m_style->m_textBackgroundColor.fG,
+                            button->m_style->m_textBackgroundColor.fB,
+                            button->m_style->m_textBackgroundAlpha);
+                    sstNuklear.stContext.style.button.text_normal =
+                        nk_rgba(
+                            button->m_style->m_textNormalColor.fR,
+                            button->m_style->m_textNormalColor.fG,
+                            button->m_style->m_textNormalColor.fB,
+                            button->m_style->m_textNormalAlpha);
+                    sstNuklear.stContext.style.button.text_hover =
+                        nk_rgba(
+                            button->m_style->m_textHoverColor.fR,
+                            button->m_style->m_textHoverColor.fG,
+                            button->m_style->m_textHoverColor.fB,
+                            button->m_style->m_textHoverAlpha);
+                    sstNuklear.stContext.style.button.text_active =
+                        nk_rgba(
+                            button->m_style->m_textActiveColor.fR,
+                            button->m_style->m_textActiveColor.fG,
+                            button->m_style->m_textActiveColor.fB,
+                            button->m_style->m_textActiveAlpha);
+                    // Properties
+                    sstNuklear.stContext.style.button.border = button->m_style->m_borderThickness;
+                    sstNuklear.stContext.style.button.rounding = button->m_style->m_borderRounding;
+                    sstNuklear.stContext.style.button.padding = nk_vec2(button->m_style->m_padding.fX, button->m_style->m_padding.fY);
+                    sstNuklear.stContext.style.button.image_padding = nk_vec2(button->m_style->m_imagePadding.fX, button->m_style->m_imagePadding.fY);
+                    sstNuklear.stContext.style.button.touch_padding = nk_vec2(button->m_style->m_touchPadding.fX, button->m_style->m_touchPadding.fY);
+
+                    // DRAW THE BUTTON
                     if (button->m_bUsesCustomSkin && button->m_bHasText)
                     {
                         // Push the font.
@@ -408,10 +480,10 @@ void Payload::DrawNuklearLayoutRow(ScrollObject *_nuklearLayoutRow)
                     {
                         if (nk_button_color(
                             &sstNuklear.stContext,
-                            nk_rgba(button->m_backgroundColor.fX,
-                                button->m_backgroundColor.fY,
-                                button->m_backgroundColor.fZ,
-                                button->m_backgroundAlpha)))
+                            nk_rgba(button->m_style->m_normalColor.fR,
+                                button->m_style->m_normalColor.fG,
+                                button->m_style->m_normalColor.fB,
+                                button->m_style->m_normalAlpha)))
                         {
                             button->Interact();
                         }
@@ -434,85 +506,288 @@ void Payload::DrawNuklearLayoutRow(ScrollObject *_nuklearLayoutRow)
                         NuklearCombo *combo = dynamic_cast<NuklearCombo*>(ele);
                         if (combo != nullptr)
                         {
-                            // Set symbol to use.
-                            sstNuklear.stContext.style.combo.sym_normal = nk_symbol_type(combo->m_symbolNormal);
-                            sstNuklear.stContext.style.combo.sym_hover = nk_symbol_type(combo->m_symbolHover);
-                            sstNuklear.stContext.style.combo.sym_active = nk_symbol_type(combo->m_symbolActive);
-                            // Set symbol background color.
-                            sstNuklear.stContext.style.combo.button.normal =
-                                nk_style_item_color(
-                                    nk_rgba(
-                                        combo->m_symbolBackgroundColorNormal.fX,
-                                        combo->m_symbolBackgroundColorNormal.fY,
-                                        combo->m_symbolBackgroundColorNormal.fZ,
-                                        combo->m_symbolBackgroundAlphaNormal));
-                            sstNuklear.stContext.style.combo.button.hover =
-                                nk_style_item_color(
-                                    nk_rgba(
-                                        combo->m_symbolBackgroundColorHover.fX,
-                                        combo->m_symbolBackgroundColorHover.fY,
-                                        combo->m_symbolBackgroundColorHover.fZ,
-                                        combo->m_symbolBackgroundAlphaHover));
-                            sstNuklear.stContext.style.combo.button.active =
-                                nk_style_item_color(
-                                    nk_rgba(
-                                        combo->m_symbolBackgroundColorActive.fX,
-                                        combo->m_symbolBackgroundColorActive.fY,
-                                        combo->m_symbolBackgroundColorActive.fZ,
-                                        combo->m_symbolBackgroundAlphaActive));
-                            // Set combo background color.
+                            // STYLE THE COMBO.
+                            // Background.
                             sstNuklear.stContext.style.combo.normal =
                                 nk_style_item_color(
                                     nk_rgba(
-                                        combo->m_backgroundColorNormal.fX,
-                                        combo->m_backgroundColorNormal.fY,
-                                        combo->m_backgroundColorNormal.fZ,
-                                        combo->m_backgroundAlphaNormal));
+                                        combo->m_style->m_normalColor.fR,
+                                        combo->m_style->m_normalColor.fG,
+                                        combo->m_style->m_normalColor.fB,
+                                        combo->m_style->m_normalAlpha));
                             sstNuklear.stContext.style.combo.hover =
                                 nk_style_item_color(
                                     nk_rgba(
-                                        combo->m_backgroundColorHover.fX,
-                                        combo->m_backgroundColorHover.fY,
-                                        combo->m_backgroundColorHover.fZ,
-                                        combo->m_backgroundAlphaHover));
+                                        combo->m_style->m_hoverColor.fR,
+                                        combo->m_style->m_hoverColor.fG,
+                                        combo->m_style->m_hoverColor.fB,
+                                        combo->m_style->m_hoverAlpha));
                             sstNuklear.stContext.style.combo.active =
                                 nk_style_item_color(
                                     nk_rgba(
-                                        combo->m_backgroundColorActive.fX,
-                                        combo->m_backgroundColorActive.fY,
-                                        combo->m_backgroundColorActive.fZ,
-                                        combo->m_backgroundAlphaActive));
-                            // Set combo text color.
+                                        combo->m_style->m_activeColor.fR,
+                                        combo->m_style->m_activeColor.fG,
+                                        combo->m_style->m_activeColor.fB,
+                                        combo->m_style->m_activeAlpha));
+                            sstNuklear.stContext.style.combo.border_color =
+                                nk_rgba(
+                                    combo->m_style->m_borderColor.fR,
+                                    combo->m_style->m_borderColor.fG,
+                                    combo->m_style->m_borderColor.fB,
+                                    combo->m_style->m_borderAlpha);
+                            // Label.
                             sstNuklear.stContext.style.combo.label_normal =
                                 nk_rgba(
-                                    combo->m_textColorNormal.fX,
-                                    combo->m_textColorNormal.fY,
-                                    combo->m_textColorNormal.fZ,
-                                    combo->m_textAlphaNormal);
+                                    combo->m_style->m_labelNormalColor.fR,
+                                    combo->m_style->m_labelNormalColor.fG,
+                                    combo->m_style->m_labelNormalColor.fB,
+                                    combo->m_style->m_labelNormalAlpha);
                             sstNuklear.stContext.style.combo.label_hover =
                                 nk_rgba(
-                                    combo->m_textColorHover.fX,
-                                    combo->m_textColorHover.fY,
-                                    combo->m_textColorHover.fZ,
-                                    combo->m_textAlphaHover);
+                                    combo->m_style->m_labelHoverColor.fR,
+                                    combo->m_style->m_labelHoverColor.fG,
+                                    combo->m_style->m_labelHoverColor.fB,
+                                    combo->m_style->m_labelHoverAlpha);
                             sstNuklear.stContext.style.combo.label_active =
                                 nk_rgba(
-                                    combo->m_textColorActive.fX,
-                                    combo->m_textColorActive.fY,
-                                    combo->m_textColorActive.fZ,
-                                    combo->m_textAlphaActive);
+                                    combo->m_style->m_labelActiveColor.fR,
+                                    combo->m_style->m_labelActiveColor.fG,
+                                    combo->m_style->m_labelActiveColor.fB,
+                                    combo->m_style->m_labelActiveAlpha);
+                            // Symbol.
+                            sstNuklear.stContext.style.combo.symbol_normal =
+                                nk_rgba(
+                                    combo->m_style->m_symbolNormalColor.fR,
+                                    combo->m_style->m_symbolNormalColor.fG,
+                                    combo->m_style->m_symbolNormalColor.fB,
+                                    combo->m_style->m_symbolNormalAlpha);
+                            sstNuklear.stContext.style.combo.symbol_hover =
+                                nk_rgba(
+                                    combo->m_style->m_symbolHoverColor.fR,
+                                    combo->m_style->m_symbolHoverColor.fG,
+                                    combo->m_style->m_symbolHoverColor.fB,
+                                    combo->m_style->m_symbolHoverAlpha);
+                            sstNuklear.stContext.style.combo.symbol_active =
+                                nk_rgba(
+                                    combo->m_style->m_symbolActiveColor.fR,
+                                    combo->m_style->m_symbolActiveColor.fG,
+                                    combo->m_style->m_symbolActiveColor.fB,
+                                    combo->m_style->m_symbolActiveAlpha);
+                            // Button.
+                            struct nk_style_button comboButtonStyle;
+                            comboButtonStyle.normal =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_style->m_buttonStyle->m_normalColor.fR,
+                                        combo->m_style->m_buttonStyle->m_normalColor.fG,
+                                        combo->m_style->m_buttonStyle->m_normalColor.fB,
+                                        combo->m_style->m_buttonStyle->m_normalAlpha));
+                            comboButtonStyle.hover =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_style->m_buttonStyle->m_hoverColor.fR,
+                                        combo->m_style->m_buttonStyle->m_hoverColor.fG,
+                                        combo->m_style->m_buttonStyle->m_hoverColor.fB,
+                                        combo->m_style->m_buttonStyle->m_hoverAlpha));
+                            comboButtonStyle.active =
+                                nk_style_item_color(
+                                    nk_rgba(
+                                        combo->m_style->m_buttonStyle->m_activeColor.fR,
+                                        combo->m_style->m_buttonStyle->m_activeColor.fG,
+                                        combo->m_style->m_buttonStyle->m_activeColor.fB,
+                                        combo->m_style->m_buttonStyle->m_activeAlpha));
+                            comboButtonStyle.border_color =
+                                nk_rgba(
+                                    combo->m_style->m_buttonStyle->m_borderColor.fR,
+                                    combo->m_style->m_buttonStyle->m_borderColor.fG,
+                                    combo->m_style->m_buttonStyle->m_borderColor.fB,
+                                    combo->m_style->m_buttonStyle->m_borderAlpha);
+                            comboButtonStyle.text_background =
+                                nk_rgba(
+                                    combo->m_style->m_buttonStyle->m_textBackgroundColor.fR,
+                                    combo->m_style->m_buttonStyle->m_textBackgroundColor.fG,
+                                    combo->m_style->m_buttonStyle->m_textBackgroundColor.fB,
+                                    combo->m_style->m_buttonStyle->m_textBackgroundAlpha);
+                            comboButtonStyle.text_normal =
+                                nk_rgba(
+                                    combo->m_style->m_buttonStyle->m_textNormalColor.fR,
+                                    combo->m_style->m_buttonStyle->m_textNormalColor.fG,
+                                    combo->m_style->m_buttonStyle->m_textNormalColor.fB,
+                                    combo->m_style->m_buttonStyle->m_textNormalAlpha);
+                            comboButtonStyle.text_hover =
+                                nk_rgba(
+                                    combo->m_style->m_buttonStyle->m_textHoverColor.fR,
+                                    combo->m_style->m_buttonStyle->m_textHoverColor.fG,
+                                    combo->m_style->m_buttonStyle->m_textHoverColor.fB,
+                                    combo->m_style->m_buttonStyle->m_textHoverAlpha);
+                            comboButtonStyle.text_active =
+                                nk_rgba(
+                                    combo->m_style->m_buttonStyle->m_textActiveColor.fR,
+                                    combo->m_style->m_buttonStyle->m_textActiveColor.fG,
+                                    combo->m_style->m_buttonStyle->m_textActiveColor.fB,
+                                    combo->m_style->m_buttonStyle->m_textActiveAlpha);
+                            comboButtonStyle.border = combo->m_style->m_buttonStyle->m_borderThickness;
+                            comboButtonStyle.rounding = combo->m_style->m_buttonStyle->m_borderRounding;
+                            comboButtonStyle.padding = nk_vec2(combo->m_style->m_buttonStyle->m_padding.fX, combo->m_style->m_buttonStyle->m_padding.fY);
+                            comboButtonStyle.image_padding = nk_vec2(combo->m_style->m_buttonStyle->m_imagePadding.fX, combo->m_style->m_buttonStyle->m_imagePadding.fY);
+                            comboButtonStyle.touch_padding = nk_vec2(combo->m_style->m_buttonStyle->m_touchPadding.fX, combo->m_style->m_buttonStyle->m_touchPadding.fY);
+                            sstNuklear.stContext.style.combo.button = comboButtonStyle;
+                            sstNuklear.stContext.style.combo.sym_normal = nk_symbol_type(combo->m_style->m_symbolNormal);
+                            sstNuklear.stContext.style.combo.sym_hover = nk_symbol_type(combo->m_style->m_symbolHover);
+                            sstNuklear.stContext.style.combo.sym_active = nk_symbol_type(combo->m_style->m_symbolActive);
+                            // Properties.
+                            sstNuklear.stContext.style.combo.border = combo->m_style->m_borderThickness;
+                            sstNuklear.stContext.style.combo.rounding = combo->m_style->m_borderRounding;
+                            sstNuklear.stContext.style.combo.content_padding = { combo->m_style->m_contentPadding.fX, combo->m_style->m_contentPadding.fY };
+                            sstNuklear.stContext.style.combo.button_padding = { combo->m_style->m_buttonPadding.fX, combo->m_style->m_buttonPadding.fY };
+                            sstNuklear.stContext.style.combo.spacing = { combo->m_style->m_spacing.fX, combo->m_style->m_spacing.fY };
                             // Set the font.
                             nk_style_set_font(&sstNuklear.stContext, &sstNuklear.apstFonts[combo->m_fontIndex]->handle);
-                            
-                            if (nk_combo(
-                                &sstNuklear.stContext,
-                                combo->m_elements.data(),
-                                combo->m_elements.size(),
-                                combo->m_selectedIndex,
-                                combo->m_elementHeight,
-                                { combo->m_comboSize.fX, combo->m_comboSize.fY }))
+
+                            // DRAW THE COMBO.
+                            if (combo->m_bUsesCustomSkin)
                             {
-                                combo->Interact();
+                                if (nk_combo_begin_image(
+                                    &sstNuklear.stContext,
+                                    sstNuklear.astSkins[combo->m_skinIndex].stImage,
+                                    { combo->m_comboSize.fX, combo->m_comboSize.fY }))
+                                {
+                                    combo->Interact();
+
+                                    nk_combo_end(&sstNuklear.stContext);
+                                }
+                            }
+                            else
+                            {
+                                /*if (nk_combo(
+                                    &sstNuklear.stContext,
+                                    combo->m_elements.data(),
+                                    combo->m_elements.size(),
+                                    combo->m_selectedIndex,
+                                    combo->m_elementHeight,
+                                    { combo->m_comboSize.fX, combo->m_comboSize.fY }))
+                                {
+                                    combo->Interact();
+                                }*/
+                                ///////////////////////////////////////////////////////////////////////////
+                                struct nk_context *ctx = &sstNuklear.stContext;
+                                const char **items = combo->m_elements.data();
+                                int count = combo->m_elements.size();
+                                int selected = combo->m_selectedIndex;
+                                int item_height = combo->m_elementHeight;
+                                struct nk_vec2 size = { combo->m_comboSize.fX, combo->m_comboSize.fY };
+
+                                int i = 0;
+                                int max_height;
+                                struct nk_vec2 item_spacing;
+                                struct nk_vec2 window_padding;
+
+                                item_spacing = ctx->style.window.spacing;
+                                window_padding = nk_panel_get_padding(&ctx->style, ctx->current->layout->type);
+                                max_height = count * item_height + count * (int)item_spacing.y;
+                                max_height += (int)item_spacing.y * 2 + (int)window_padding.y * 2;
+                                size.y = NK_MIN(size.y, (float)max_height);
+
+                                const struct nk_input *in;
+                                struct nk_window *win;
+                                struct nk_style *style;
+
+                                enum nk_widget_layout_states s;
+                                int is_clicked = nk_false;
+                                struct nk_rect header;
+                                const struct nk_style_item *background;
+                                struct nk_text text;
+
+                                win = ctx->current;
+                                style = &ctx->style;
+                                s = nk_widget(&header, ctx);
+
+                                in = (win->layout->flags & NK_WINDOW_ROM || s == NK_WIDGET_ROM) ? 0 : &ctx->input;
+                                if (nk_button_behavior(&ctx->last_widget_state, header, in, NK_BUTTON_DEFAULT))
+                                    is_clicked = nk_true;
+
+                                /* draw combo box header background and border */
+                                if (ctx->last_widget_state & NK_WIDGET_STATE_ACTIVED) {
+                                    background = &style->combo.active;
+                                    text.text = style->combo.label_active;
+                                }
+                                else if (ctx->last_widget_state & NK_WIDGET_STATE_HOVER) {
+                                    background = &style->combo.hover;
+                                    text.text = style->combo.label_hover;
+                                }
+                                else {
+                                    background = &style->combo.normal;
+                                    text.text = style->combo.label_normal;
+                                }
+                                if (background->type == NK_STYLE_ITEM_IMAGE) {
+                                    text.background = nk_rgba(0, 0, 0, 0);
+                                    nk_draw_image(&win->buffer, header, &background->data.image, nk_white);
+                                }
+                                else {
+                                    text.background = background->data.color;
+                                    nk_fill_rect(&win->buffer, header, style->combo.rounding, background->data.color);
+                                    nk_stroke_rect(&win->buffer, header, style->combo.rounding, style->combo.border, style->combo.border_color);
+                                }
+                                {
+                                    /* print currently selected text item */
+                                    struct nk_rect label;
+                                    struct nk_rect button;
+                                    struct nk_rect content;
+
+                                    enum nk_symbol_type sym;
+                                    if (ctx->last_widget_state & NK_WIDGET_STATE_HOVER)
+                                        sym = style->combo.sym_hover;
+                                    else if (is_clicked)
+                                        sym = style->combo.sym_active;
+                                    else
+                                        sym = style->combo.sym_normal;
+
+                                    /* represents whether or not the combo's button symbol should be drawn */
+                                    int draw_button_symbol = sym != NK_SYMBOL_NONE;
+
+                                    /* calculate button */
+                                    button.w = header.h - 2 * style->combo.button_padding.y;
+                                    button.x = (header.x + header.w - header.h) - style->combo.button_padding.x;
+                                    button.y = header.y + style->combo.button_padding.y;
+                                    button.h = button.w;
+
+                                    content.x = button.x + style->combo.button.padding.x;
+                                    content.y = button.y + style->combo.button.padding.y;
+                                    content.w = button.w - 2 * style->combo.button.padding.x;
+                                    content.h = button.h - 2 * style->combo.button.padding.y;
+
+                                    /* draw selected label */
+                                    text.padding = nk_vec2(0, 0);
+                                    label.x = header.x + style->combo.content_padding.x;
+                                    label.y = header.y + style->combo.content_padding.y;
+                                    if (draw_button_symbol)
+                                        label.w = button.x - (style->combo.content_padding.x + style->combo.spacing.x) - label.x;
+                                    else
+                                        label.w = header.w - 2 * style->combo.content_padding.x;
+                                    label.h = header.h - 2 * style->combo.content_padding.y;
+                                    nk_widget_text(&win->buffer, label, items[selected], nk_strlen(items[selected]), &text,
+                                        NK_TEXT_LEFT, ctx->style.font);
+
+                                    /* draw open/close button */
+                                    if (draw_button_symbol)
+                                        nk_draw_button_symbol(&win->buffer, &button, &content, ctx->last_widget_state,
+                                            &ctx->style.combo.button, sym, style->font);
+                                }
+                                int nkComboBegin = nk_combo_begin(ctx, win, size, is_clicked, header);
+                                if (nkComboBegin)
+                                {
+                                    nk_layout_row_dynamic(ctx, (float)item_height, 1);
+                                    for (i = 0; i < count; ++i) {
+                                        if (nk_combo_item_label(ctx, items[i], NK_TEXT_LEFT))
+                                            selected = i;
+                                    }
+                                    nk_combo_end(ctx);
+                                }
+                                if (selected)
+                                {
+                                    combo->Interact();
+                                }
+                                ///////////////////////////////////////////////////////////////
                             }
                         }
                         else
@@ -520,14 +795,24 @@ void Payload::DrawNuklearLayoutRow(ScrollObject *_nuklearLayoutRow)
                             NuklearText *text = dynamic_cast<NuklearText*>(ele);
                             if (text != nullptr)
                             {
+                                // STYLE THE TEXT.
+                                sstNuklear.stContext.style.text.color =
+                                    nk_rgba(
+                                        text->m_style->m_textColor.fR,
+                                        text->m_style->m_textColor.fG,
+                                        text->m_style->m_textColor.fB,
+                                        text->m_style->m_textAlpha);
+                                sstNuklear.stContext.style.text.padding = { text->m_style->m_padding.fX, text->m_style->m_padding.fY };
                                 nk_style_set_font(&sstNuklear.stContext, &sstNuklear.apstFonts[text->m_fontIndex]->handle);
+
+                                // DRAW THE TEXT.
                                 if (text->m_wrap)
                                 {
                                     nk_text_wrap_colored(
                                         &sstNuklear.stContext,
                                         text->m_staticContent.c_str(),
                                         text->m_staticContent.length(),
-                                        nk_rgba(text->m_textColor.fR, text->m_textColor.fG, text->m_textColor.fB, text->m_textAlpha));
+                                        nk_rgba(text->m_style->m_textColor.fR, text->m_style->m_textColor.fG, text->m_style->m_textColor.fB, text->m_style->m_textAlpha));
                                 }
                                 else
                                 {
@@ -562,7 +847,7 @@ void Payload::DrawNuklearLayoutRow(ScrollObject *_nuklearLayoutRow)
                                         text->m_staticContent.c_str(),
                                         text->m_staticContent.length(),
                                         alignmentFlags,
-                                        nk_rgba(text->m_textColor.fR, text->m_textColor.fG, text->m_textColor.fB, text->m_textAlpha));
+                                        nk_rgba(text->m_style->m_textColor.fR, text->m_style->m_textColor.fG, text->m_style->m_textColor.fB, text->m_style->m_textAlpha));
                                 }
                             }
                             else

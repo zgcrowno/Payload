@@ -9,6 +9,10 @@ void SceneDashboard::OnCreate()
     m_dashboardFooter = static_cast<NuklearWindow*>(GetChildByName("O-DashboardFooter"));
     m_toolbar = static_cast<NuklearWindow*>(GetChildByName("O-DashboardToolbar"));
     m_toolbar->Enable(false);
+    if (GetBool("SkipIntro", GetModelName()))
+    {
+        Skip();
+    }
 }
 
 void SceneDashboard::OnDelete()

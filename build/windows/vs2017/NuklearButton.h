@@ -2,6 +2,7 @@
 
 #include "Payload.h"
 #include "NuklearInteractable.h"
+#include "NuklearStyleButton.h"
 
 namespace payload
 {
@@ -34,6 +35,8 @@ namespace payload
         bool m_bTextIsAlignedBottom;
         bool m_bTextIsAlignedCenteredHorizontal;
         bool m_bTextIsAlignedCenteredVertical;
+        //! The NuklearButton's style attribute.
+        NuklearStyleButton *m_style;
 
         virtual void Interact();
     };

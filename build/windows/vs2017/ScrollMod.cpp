@@ -361,6 +361,19 @@ ScrollMod *ScrollMod::CreateObject(
     return retVal;
 }
 
+ScrollMod *ScrollMod::CreateChild(
+    const std::string _modelName,
+    std::map<std::string, const orxBOOL> _boolParamMap,
+    std::map<std::string, const orxFLOAT> _floatParamMap,
+    std::map<std::string, const orxVECTOR*> _vectorParamMap,
+    std::map<std::string, std::string> _stringParamMap)
+{
+    ScrollMod *child = CreateObject(_modelName, _boolParamMap, _floatParamMap, _vectorParamMap, _stringParamMap);
+    child->SetOwner(this);
+    child->SetParent(this);
+    return child;
+}
+
 const std::string ScrollMod::GetModelName() const
 {
     std::string retVal(ScrollObject::GetModelName());

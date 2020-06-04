@@ -16,10 +16,6 @@ void NuklearWindowElementNonText::OnCreate()
             break;
         }
     }
-    m_backgroundColor = GetVector("BackgroundColor", GetModelName());
-    m_backgroundAlpha = GetU32("BackgroundAlpha", GetModelName());
-    m_borderColor = GetVector("BorderColor", GetModelName());
-    m_borderAlpha = GetU32("BorderAlpha", GetModelName());
 }
 
 void NuklearWindowElementNonText::OnDelete()

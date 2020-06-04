@@ -17,8 +17,6 @@ void NuklearText::OnCreate()
     }
     m_staticContent = GetString("StaticContent", GetModelName());
     m_wrap = GetBool("Wrap", GetModelName());
-    m_textColor = GetVector("TextColor", GetModelName());
-    m_textAlpha = GetFloat("TextAlpha", GetModelName());
     for (int i = 0; i < GetListCount("AlignmentFlags", GetModelName()); i++)
     {
         if (!orxString_Compare("Left", GetListString("AlignmentFlags", i, GetModelName()).c_str()))
@@ -46,6 +44,7 @@ void NuklearText::OnCreate()
             m_bIsAlignedCenteredVertical = true;
         }
     }
+    m_style = static_cast<NuklearStyleText*>(CreateChild(GetString("Style", GetModelName())));
 }
 
 void NuklearText::OnDelete()

@@ -44,6 +44,7 @@ void NuklearButton::OnCreate()
             m_bTextIsAlignedCenteredVertical = true;
         }
     }
+    m_style = static_cast<NuklearStyleButton*>(CreateChild(GetString("Style", GetModelName())));
 }
 
 void NuklearButton::OnDelete()
