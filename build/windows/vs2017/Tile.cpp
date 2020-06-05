@@ -119,7 +119,7 @@ void Tile::SetUp(
     case TileSetState::Cartesian1D:
         // Position.
         m_priorTileSetState = TileSetState::Cartesian1D;
-        m_targetParentSpacePos = GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize);
+        m_targetParentSpacePos = GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize);
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
         m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, _tileSetState);
@@ -139,7 +139,7 @@ void Tile::SetUp(
     case TileSetState::Polar1D:
         // Position.
         m_priorTileSetState = TileSetState::Polar1D;
-        m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(m_row, m_col, _normalizedBorderSize, _normalizedTileSize));
+        m_targetParentSpacePos = CartesianToPolar2(GetGridRelativeCartesianPosition(_payloadRow, m_col, _normalizedBorderSize, _normalizedTileSize));
         SetParentSpacePosition(m_targetParentSpacePos);
         // Visual scale.
         m_targetVisualScale = CalculateVisualScale(_square, _square, _normalizedTileSize, _tileSetState);

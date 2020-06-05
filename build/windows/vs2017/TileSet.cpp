@@ -56,6 +56,7 @@ void TileSet::OnCreate()
     orxVECTOR payloadOrigin = GetVector("PayloadOrigin", GetModelName());
     orxVECTOR goalOrigin = GetVector("GoalOrigin", GetModelName());
     m_payload->m_target = m_tileRows.at(payloadOrigin.fX).at(payloadOrigin.fY);
+    m_payload->m_target->m_row = payloadOrigin.fX;
     m_goal->m_target = m_tileRows.at(goalOrigin.fX).at(goalOrigin.fY);
     // PERFORM INITIAL SETUP OF TILES.
     for (int i = 0; i < m_square; i++)
@@ -486,30 +487,30 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
             Shift(nextShiftStatus);
         }
     }
-    // HANDLE RECONFIGURATION
-    else if (m_memorySetToReconfigure != nullptr)
+    else
     {
-        // Increment the time spent shifting.
-        m_timeSpentReconfiguring += _rstInfo.fDT;
+        // HANDLE RECONFIGURATION
+        if (m_memorySetToReconfigure != nullptr)
+        {
+            // Increment the time spent shifting.
+            m_timeSpentReconfiguring += _rstInfo.fDT;
 
-        // Has the lerp finished?
-        if (m_timeSpentReconfiguring <= m_timeToReconfigure)
-        {
-            ReconfigureTiles();
+            // Has the lerp finished?
+            if (m_timeSpentReconfiguring <= m_timeToReconfigure)
+            {
+                ReconfigureTiles();
+            }
+            else
+            {
+                SetMemorySetToReconfigure(nullptr);
+            }
         }
-        else
+        // HANDLE UNDOING OUTSIDE OF SHIFTING
+        if (m_bIsUndoing && m_shiftRelativeUndoTime < 0.0f)
         {
-            SetMemorySetToReconfigure(nullptr);
-        }
-    }
-    // HANDLE UNDOING OUTSIDE OF SHIFTING
-    if (m_bIsUndoing)
-    {
-        // Increment the time spent undoing.
-        m_shiftRelativeUndoTime += _rstInfo.fDT;
-        
-        if (m_shiftRelativeUndoTime < 0.0f)
-        {
+            // Increment the time spent undoing.
+            m_shiftRelativeUndoTime += _rstInfo.fDT;
+
             // If m_bIsUndoing, we know that m_priorDoers.top() is a TileInhabitant.
             TileInhabitant *topTileInhabitant = dynamic_cast<TileInhabitant*>(m_priorDoers.top().first.first);
             // Note that we make sure topTileInhabitant isn't moving because it's possible we could execute this code before
@@ -521,12 +522,12 @@ void TileSet::Update(const orxCLOCK_INFO &_rstInfo)
                 m_priorDoers.top().first.first->Undo();
                 m_priorDoers.pop();
             }
-        }
-        // If m_shiftRelativeUndoTime >= 0.0f and m_shiftStatus == TileSetShiftStatus::None, we know that
-        // we need to call Undo() again to facilitate the Undo-style shifting of the TileSet.
-        else if (m_shiftStatus == TileSetShiftStatus::None)
-        {
-            Undo();
+            // If m_shiftRelativeUndoTime >= 0.0f, we know that we need to call
+            // Undo() again to facilitate the Undo-style shifting of the TileSet.
+            if (m_shiftRelativeUndoTime >= 0.0f)
+            {
+                Undo();
+            }
         }
     }
 }
@@ -644,6 +645,10 @@ void TileSet::SetMemorySetToReconfigure(MemorySet *_memSet)
 
 void TileSet::Shift(TileSetShiftStatus _shiftStatus)
 {
+    m_priorShiftStatus = m_shiftStatus;
+    m_priorState = m_state;
+    m_shiftStatus = _shiftStatus;
+
     if (_shiftStatus != TileSetShiftStatus::None)
     {
         // Shifting mid-shift.
@@ -699,12 +704,6 @@ void TileSet::Shift(TileSetShiftStatus _shiftStatus)
             }
         }
     }
-
-    // Set these values here (as opposed to the beginning of the method) so any potential cohabitation that may
-    // take place (above) due to shifting will have the correct _dueToShifting value (since that depends on m_shiftStatus).
-    m_priorShiftStatus = m_shiftStatus;
-    m_priorState = m_state;
-    m_shiftStatus = _shiftStatus;
 
     // Set m_state as appropriate.
     switch (_shiftStatus)
