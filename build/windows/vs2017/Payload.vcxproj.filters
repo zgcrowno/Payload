@@ -275,6 +275,15 @@
     <ClInclude Include="LevelInterfaceHomeButton.h">
       <Filter>src\Header\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable\NuklearButton</Filter>
     </ClInclude>
+    <ClInclude Include="NuklearTextField.h">
+      <Filter>src\Header\UI\NuklearWindowElement</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearTextFieldFilter.h">
+      <Filter>src\Header\EnumClass</Filter>
+    </ClInclude>
+    <ClInclude Include="NuklearStyleTextField.h">
+      <Filter>src\Header\UI\NuklearStyle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Payload.cpp">
@@ -420,6 +429,12 @@
     </ClCompile>
     <ClCompile Include="LevelInterfaceHomeButton.cpp">
       <Filter>src\CPP\UI\NuklearWindowElement\NuklearWindowElementNonText\NuklearInteractable\NuklearButton</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearTextField.cpp">
+      <Filter>src\CPP\UI\NuklearWindowElement</Filter>
+    </ClCompile>
+    <ClCompile Include="NuklearStyleTextField.cpp">
+      <Filter>src\CPP\UI\NuklearStyle</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

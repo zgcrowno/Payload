@@ -36,7 +36,10 @@
 #include "NuklearStyleButton.h"
 #include "NuklearStyleCombo.h"
 #include "NuklearStyleText.h"
+#include "NuklearStyleTextField.h"
 #include "NuklearText.h"
+#include "NuklearTextField.h"
+#include "NuklearTextFieldFilter.h"
 #include "NuklearWindow.h"
 #include "NuklearWindowElement.h"
 #include "PlayerPayload.h"
@@ -119,7 +122,9 @@ void Payload::BindObjects()
     ScrollBindObject<NuklearStyleButton>("O-NuklearStyleButton");
     ScrollBindObject<NuklearStyleCombo>("O-NuklearStyleCombo");
     ScrollBindObject<NuklearStyleText>("O-NuklearStyleText");
+    ScrollBindObject<NuklearStyleTextField>("O-NuklearStyleTextField");
     ScrollBindObject<NuklearText>("O-NuklearText");
+    ScrollBindObject<NuklearTextField>("O-NuklearTextField");
     ScrollBindObject<NuklearWindow>("O-NuklearWindow");
     ScrollBindObject<NuklearWindowElement>("O-NuklearWindowElement");
     ScrollBindObject<PlayerPayload>("O-PlayerPayload");
@@ -852,10 +857,225 @@ void Payload::DrawNuklearLayoutRow(ScrollObject *_nuklearLayoutRow)
                             }
                             else
                             {
-                                NuklearWindow *window = dynamic_cast<NuklearWindow*>(ele);
-                                if (window != nullptr)
+                                NuklearTextField *textField = dynamic_cast<NuklearTextField*>(ele);
+                                if (textField != nullptr)
                                 {
-                                    DrawNuklearWindow(window, true);
+                                    // STYLE THE TEXT FIELD.
+                                    // Background.
+                                    sstNuklear.stContext.style.edit.normal =
+                                        nk_style_item_color(
+                                            nk_rgba(
+                                                textField->m_style->m_normalColor.fR,
+                                                textField->m_style->m_normalColor.fG,
+                                                textField->m_style->m_normalColor.fB,
+                                                textField->m_style->m_normalAlpha));
+                                    sstNuklear.stContext.style.edit.hover =
+                                        nk_style_item_color(
+                                            nk_rgba(
+                                                textField->m_style->m_hoverColor.fR,
+                                                textField->m_style->m_hoverColor.fG,
+                                                textField->m_style->m_hoverColor.fB,
+                                                textField->m_style->m_hoverAlpha));
+                                    sstNuklear.stContext.style.edit.active =
+                                        nk_style_item_color(
+                                            nk_rgba(
+                                                textField->m_style->m_activeColor.fR,
+                                                textField->m_style->m_activeColor.fG,
+                                                textField->m_style->m_activeColor.fB,
+                                                textField->m_style->m_activeAlpha));
+                                    sstNuklear.stContext.style.edit.border_color =
+                                        nk_rgba(
+                                            textField->m_style->m_borderColor.fR,
+                                            textField->m_style->m_borderColor.fG,
+                                            textField->m_style->m_borderColor.fB,
+                                            textField->m_style->m_borderAlpha);
+                                    // Cursor.
+                                    sstNuklear.stContext.style.edit.cursor_normal =
+                                        nk_rgba(
+                                            textField->m_style->m_cursorNormalColor.fR,
+                                            textField->m_style->m_cursorNormalColor.fG,
+                                            textField->m_style->m_cursorNormalColor.fB,
+                                            textField->m_style->m_cursorNormalAlpha);
+                                    sstNuklear.stContext.style.edit.cursor_hover =
+                                        nk_rgba(
+                                            textField->m_style->m_cursorHoverColor.fR,
+                                            textField->m_style->m_cursorHoverColor.fG,
+                                            textField->m_style->m_cursorHoverColor.fB,
+                                            textField->m_style->m_cursorHoverAlpha);
+                                    sstNuklear.stContext.style.edit.cursor_text_normal =
+                                        nk_rgba(
+                                            textField->m_style->m_cursorTextNormalColor.fR,
+                                            textField->m_style->m_cursorTextNormalColor.fG,
+                                            textField->m_style->m_cursorTextNormalColor.fB,
+                                            textField->m_style->m_cursorTextNormalAlpha);
+                                    sstNuklear.stContext.style.edit.cursor_text_hover =
+                                        nk_rgba(
+                                            textField->m_style->m_cursorTextHoverColor.fR,
+                                            textField->m_style->m_cursorTextHoverColor.fG,
+                                            textField->m_style->m_cursorTextHoverColor.fB,
+                                            textField->m_style->m_cursorTextHoverAlpha);
+                                    // Text (unselected).
+                                    sstNuklear.stContext.style.edit.text_normal =
+                                        nk_rgba(
+                                            textField->m_style->m_textNormalColor.fR,
+                                            textField->m_style->m_textNormalColor.fG,
+                                            textField->m_style->m_textNormalColor.fB,
+                                            textField->m_style->m_textNormalAlpha);
+                                    sstNuklear.stContext.style.edit.text_hover =
+                                        nk_rgba(
+                                            textField->m_style->m_textHoverColor.fR,
+                                            textField->m_style->m_textHoverColor.fG,
+                                            textField->m_style->m_textHoverColor.fB,
+                                            textField->m_style->m_textHoverAlpha);
+                                    sstNuklear.stContext.style.edit.text_active =
+                                        nk_rgba(
+                                            textField->m_style->m_textActiveColor.fR,
+                                            textField->m_style->m_textActiveColor.fG,
+                                            textField->m_style->m_textActiveColor.fB,
+                                            textField->m_style->m_textActiveAlpha);
+                                    // Text (selected).
+                                    sstNuklear.stContext.style.edit.selected_normal =
+                                        nk_rgba(
+                                            textField->m_style->m_selectedNormalColor.fR,
+                                            textField->m_style->m_selectedNormalColor.fG,
+                                            textField->m_style->m_selectedNormalColor.fB,
+                                            textField->m_style->m_selectedNormalAlpha);
+                                    sstNuklear.stContext.style.edit.selected_hover =
+                                        nk_rgba(
+                                            textField->m_style->m_selectedHoverColor.fR,
+                                            textField->m_style->m_selectedHoverColor.fG,
+                                            textField->m_style->m_selectedHoverColor.fB,
+                                            textField->m_style->m_selectedHoverAlpha);
+                                    sstNuklear.stContext.style.edit.selected_text_normal =
+                                        nk_rgba(
+                                            textField->m_style->m_selectedTextNormalColor.fR,
+                                            textField->m_style->m_selectedTextNormalColor.fG,
+                                            textField->m_style->m_selectedTextNormalColor.fB,
+                                            textField->m_style->m_selectedTextNormalAlpha);
+                                    sstNuklear.stContext.style.edit.selected_text_hover =
+                                        nk_rgba(
+                                            textField->m_style->m_selectedTextHoverColor.fR,
+                                            textField->m_style->m_selectedTextHoverColor.fG,
+                                            textField->m_style->m_selectedTextHoverColor.fB,
+                                            textField->m_style->m_selectedTextHoverAlpha);
+                                    // Properties.
+                                    sstNuklear.stContext.style.edit.border = textField->m_style->m_borderThickness;
+                                    sstNuklear.stContext.style.edit.rounding = textField->m_style->m_borderRounding;
+                                    sstNuklear.stContext.style.edit.cursor_size = textField->m_style->m_cursorSize;
+                                    sstNuklear.stContext.style.edit.scrollbar_size = nk_vec2(textField->m_style->m_scrollbarSize.fX, textField->m_style->m_scrollbarSize.fY);
+                                    sstNuklear.stContext.style.edit.padding = nk_vec2(textField->m_style->m_padding.fX, textField->m_style->m_padding.fY);
+                                    sstNuklear.stContext.style.edit.row_padding = textField->m_style->m_rowPadding;
+                                    // Font.
+                                    nk_style_set_font(&sstNuklear.stContext, &sstNuklear.apstFonts[textField->m_fontIndex]->handle);
+
+                                    // DRAW THE TEXT FIELD.
+                                    // Set the text field flags as appropriate.
+                                    nk_flags fieldFlags = 0;
+                                    if (textField->m_bReadOnly)
+                                    {
+                                        fieldFlags |= NK_EDIT_READ_ONLY;
+                                    }
+                                    if (textField->m_bAutoSelect)
+                                    {
+                                        fieldFlags |= NK_EDIT_AUTO_SELECT;
+                                    }
+                                    if (textField->m_bSigEnter)
+                                    {
+                                        fieldFlags |= NK_EDIT_SIG_ENTER;
+                                    }
+                                    if (textField->m_bAllowTab)
+                                    {
+                                        fieldFlags |= NK_EDIT_ALLOW_TAB;
+                                    }
+                                    if (textField->m_bNoCursor)
+                                    {
+                                        fieldFlags |= NK_EDIT_NO_CURSOR;
+                                    }
+                                    if (textField->m_bSelectable)
+                                    {
+                                        fieldFlags |= NK_EDIT_SELECTABLE;
+                                    }
+                                    if (textField->m_bClipboard)
+                                    {
+                                        fieldFlags |= NK_EDIT_CLIPBOARD;
+                                    }
+                                    if (textField->m_bControlEnterNewline)
+                                    {
+                                        fieldFlags |= NK_EDIT_CTRL_ENTER_NEWLINE;
+                                    }
+                                    if (textField->m_bNoHorizontalScroll)
+                                    {
+                                        fieldFlags |= NK_EDIT_NO_HORIZONTAL_SCROLL;
+                                    }
+                                    if (textField->m_bAlwaysInsertMode)
+                                    {
+                                        fieldFlags |= NK_EDIT_ALWAYS_INSERT_MODE;
+                                    }
+                                    if (textField->m_bMultiline)
+                                    {
+                                        fieldFlags |= NK_EDIT_MULTILINE;
+                                    }
+                                    if (textField->m_bGoToEndOnActivate)
+                                    {
+                                        fieldFlags |= NK_EDIT_GOTO_END_ON_ACTIVATE;
+                                    }
+                                    // Set the filter as appropriate.
+                                    nk_plugin_filter textFieldFilter;
+                                    switch (textField->m_filter)
+                                    {
+                                    case NuklearTextFieldFilter::Default:
+                                        textFieldFilter = nk_filter_default;
+                                        break;
+                                    case NuklearTextFieldFilter::ASCII:
+                                        textFieldFilter = nk_filter_ascii;
+                                        break;
+                                    case NuklearTextFieldFilter::Binary:
+                                        textFieldFilter = nk_filter_binary;
+                                        break;
+                                    case NuklearTextFieldFilter::Decimal:
+                                        textFieldFilter = nk_filter_decimal;
+                                        break;
+                                    case NuklearTextFieldFilter::Float:
+                                        textFieldFilter = nk_filter_float;
+                                        break;
+                                    case NuklearTextFieldFilter::Hex:
+                                        textFieldFilter = nk_filter_hex;
+                                        break;
+                                    case NuklearTextFieldFilter::Oct:
+                                        textFieldFilter = nk_filter_oct;
+                                        break;
+                                    }
+                                    // Draw.
+                                    const int textFieldStatus =
+                                        nk_edit_string_zero_terminated(
+                                            &sstNuklear.stContext,
+                                            fieldFlags,
+                                            const_cast<char*>(textField->m_content.c_str()),
+                                            textField->m_maxLength + 1,
+                                            textFieldFilter);
+                                    // Handle status.
+                                    // TODO: Associate each status with appropriate behavior.
+                                    switch (textFieldStatus)
+                                    {
+                                    case NK_EDIT_ACTIVE:
+                                        break;
+                                    case NK_EDIT_INACTIVE:
+                                        break;
+                                    case NK_EDIT_ACTIVATED:
+                                        break;
+                                    case NK_EDIT_DEACTIVATED:
+                                        break;
+                                    case NK_EDIT_COMMITED:
+                                        break;
+                                    }
+                                }
+                                else
+                                {
+                                    NuklearWindow *window = dynamic_cast<NuklearWindow*>(ele);
+                                    if (window != nullptr)
+                                    {
+                                        DrawNuklearWindow(window, true);
+                                    }
                                 }
                             }
                         }

@@ -413,8 +413,11 @@
     <ClInclude Include="NuklearStyleButton.h" />
     <ClInclude Include="NuklearStyleCombo.h" />
     <ClInclude Include="NuklearStyleText.h" />
+    <ClInclude Include="NuklearStyleTextField.h" />
     <ClInclude Include="NuklearSymbolType.h" />
     <ClInclude Include="NuklearText.h" />
+    <ClInclude Include="NuklearTextField.h" />
+    <ClInclude Include="NuklearTextFieldFilter.h" />
     <ClInclude Include="NuklearWindow.h" />
     <ClInclude Include="NuklearWindowElement.h" />
     <ClInclude Include="NuklearWindowElementNonText.h" />
@@ -467,7 +470,9 @@
     <ClCompile Include="NuklearStyleButton.cpp" />
     <ClCompile Include="NuklearStyleCombo.cpp" />
     <ClCompile Include="NuklearStyleText.cpp" />
+    <ClCompile Include="NuklearStyleTextField.cpp" />
     <ClCompile Include="NuklearText.cpp" />
+    <ClCompile Include="NuklearTextField.cpp" />
     <ClCompile Include="NuklearWindow.cpp" />
     <ClCompile Include="NuklearWindowElement.cpp" />
     <ClCompile Include="NuklearWindowElementNonText.cpp" />
